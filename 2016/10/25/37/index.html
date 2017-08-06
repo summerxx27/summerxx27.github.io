@@ -1,0 +1,148 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  <title>数组重复数据分组算法 Objective-C实现 | 夏天然后</title>
+
+  
+  <meta name="author" content="夏天然后">
+  
+
+  
+  <meta name="description" content="将进行分组: 3 ,3 ,5 ,4 ,4 ,9 ,9 ,9 ,8 ,99 ,88 ,99分组成: (3 3) (5) (4 4) (9 9 9) (8) (99 99) (88)">
+  
+
+  
+  
+  <meta name="keywords" content="算法">
+  
+
+  <meta id="viewport" name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, minimum-scale=1, user-scalable=no, minimal-ui">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black">
+
+  <meta property="og:title" content="数组重复数据分组算法 Objective-C实现"/>
+
+  <meta property="og:site_name" content="夏天然后"/>
+
+  
+  <meta property="og:image" content="/favicon.ico"/>
+  
+
+  <link href="/favicon.ico" rel="icon">
+  <link rel="alternate" href="/atom.xml" title="夏天然后" type="application/atom+xml">
+  <link rel="stylesheet" href="/css/style.css" media="screen" type="text/css">
+</head>
+
+
+<body>
+<div class="blog">
+  <div class="content">
+
+    <header>
+  <div class="site-branding">
+    <h1 class="site-title">
+      <a href="/">夏天然后</a>
+    </h1>
+    <p class="site-description"></p>
+  </div>
+  <nav class="site-navigation">
+    <ul>
+      
+        <li><a href="/">Home</a></li>
+      
+        <li><a href="/archives">Archives</a></li>
+      
+        <li><a href="/tags">about</a></li>
+      
+    </ul>
+  </nav>
+</header>
+
+    <main class="site-main posts-loop">
+    <article>
+
+  
+    
+    <h3 class="article-title"><span>数组重复数据分组算法 Objective-C实现</span></h3>
+    
+  
+
+  <div class="article-top-meta">
+    <span class="posted-on">
+      <a href="/2016/10/25/37/" rel="bookmark">
+        <time class="entry-date published" datetime="2016-10-25T13:10:02.000Z">
+          2016-10-25
+        </time>
+      </a>
+    </span>
+  </div>
+
+
+  
+
+  <div class="article-content">
+    <div class="entry">
+      
+        <blockquote>
+<p>将进行分组: 3 ,3 ,5 ,4 ,4 ,9 ,9 ,9 ,8 ,99 ,88 ,99<br>分组成: (3 3) (5) (4 4) (9 9 9) (8) (99 99) (88)</p>
+</blockquote>
+<a id="more"></a>
+<figure class="highlight objectivec"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">@property</span> (<span class="keyword">nonatomic</span>, <span class="keyword">strong</span>) <span class="built_in">NSMutableArray</span> *resArray;</div></pre></td></tr></table></figure>
+<figure class="highlight objectivec"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div></pre></td><td class="code"><pre><div class="line">- (<span class="built_in">NSMutableArray</span> *)getSameArrayList:(<span class="built_in">NSArray</span> *)arrayList</div><div class="line">&#123;</div><div class="line"><span class="built_in">NSMutableArray</span> *diffArray = [<span class="built_in">NSMutableArray</span> array];</div><div class="line"><span class="built_in">NSMutableArray</span> *sameArray = [<span class="built_in">NSMutableArray</span> array];</div><div class="line">[sameArray addObject:arrayList[<span class="number">0</span>]];</div><div class="line"><span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">1</span>; i &lt; arrayList.count; i ++) &#123;</div><div class="line"><span class="keyword">if</span> ([arrayList[i] isEqualToString:sameArray[<span class="number">0</span>]]) &#123;</div><div class="line">[sameArray addObject:arrayList[i]];</div><div class="line">&#125;<span class="keyword">else</span>&#123;</div><div class="line">[diffArray addObject:arrayList[i]];</div><div class="line">&#125;</div><div class="line">&#125;</div><div class="line">[_resArray addObject:sameArray];</div><div class="line"><span class="keyword">if</span> (diffArray.count != <span class="number">0</span>) &#123;</div><div class="line">[<span class="keyword">self</span> getSameArrayList:diffArray];</div><div class="line">&#125;</div><div class="line"><span class="keyword">return</span> _resArray;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<figure class="highlight objectivec"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line"><span class="comment">// 测试一下</span></div><div class="line"><span class="built_in">NSArray</span> *arrayList = @[<span class="string">@"3"</span>, <span class="string">@"3"</span>,<span class="string">@"5"</span>, <span class="string">@"4"</span>, <span class="string">@"4"</span>, <span class="string">@"9"</span>, <span class="string">@"9"</span>, <span class="string">@"9"</span>, <span class="string">@"8"</span>, <span class="string">@"99"</span>, <span class="string">@"88"</span>, <span class="string">@"99"</span>];</div><div class="line"><span class="keyword">self</span>.resArray = [<span class="built_in">NSMutableArray</span> array];</div><div class="line">[<span class="keyword">self</span> getSameArrayList:arrayList];</div><div class="line"><span class="built_in">NSMutableArray</span> *r = [<span class="built_in">NSMutableArray</span> array];</div><div class="line"><span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; _resArray.count; i ++) &#123;</div><div class="line">[r addObject:_resArray[i]];</div><div class="line">&#125;</div><div class="line"><span class="built_in">NSLog</span>(<span class="string">@"%@"</span>, r);</div></pre></td></tr></table></figure>
+<div align="center"><br><img src="http://ww3.sinaimg.cn/large/0060lm7Tgw1f93o5oxtipj30n40kw0t7.jpg" alt=""><br></div>
+
+<p>我是在什么场景下使用的?</p>
+<div align="center"><br><img src="http://ww3.sinaimg.cn/large/0060lm7Tgw1f93o65yfmyj307y07mdg8.jpg" alt=""><br></div><br>&gt; 比如我需要在地图上每隔一段时间插入一个大头针作为我的地理位置标记,  比如 15:15开始, 15:21结束 位置是同一个, 并没有发生变化, 那么我就显示一个时间段 15:15 - 15:21 如上图 那么就需要前面提到的小算法或者都不叫算法, 就叫它简单数据处理方法, 使用了递归.<br><br>我封装成一个工具类<br><figure class="highlight objectivec"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line"><span class="comment">/**</span></div><div class="line"><span class="comment">*  对数据重复元素进行分组</span></div><div class="line"><span class="comment">*  arrayList 数据源</span></div><div class="line"><span class="comment">*  返回值     装载的返回值</span></div><div class="line"><span class="comment">*/</span></div><div class="line">+ (<span class="built_in">NSMutableArray</span> *)getSameArrayList:(<span class="built_in">NSArray</span> *)arrayList res:(<span class="built_in">NSMutableArray</span> *)res;</div></pre></td></tr></table></figure><br><br><figure class="highlight objectivec"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div></pre></td><td class="code"><pre><div class="line">+ (<span class="built_in">NSMutableArray</span> *)getSameArrayList:(<span class="built_in">NSArray</span> *)arrayList res:(<span class="built_in">NSMutableArray</span> *)res</div><div class="line">&#123;</div><div class="line"><span class="built_in">NSMutableArray</span> *diffArray = [<span class="built_in">NSMutableArray</span> array];</div><div class="line"><span class="built_in">NSMutableArray</span> *sameArray = [<span class="built_in">NSMutableArray</span> array];</div><div class="line">[sameArray addObject:arrayList[<span class="number">0</span>]];</div><div class="line"><span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">1</span>; i &lt; arrayList.count; i ++) &#123;</div><div class="line">UserModel *model = arrayList[i];</div><div class="line">UserModel *sameModel = sameArray[<span class="number">0</span>];</div><div class="line"><span class="comment">// 这里我根据经纬度进行判断</span></div><div class="line"><span class="keyword">if</span> ([model.latitude isEqualToString:sameModel.latitude] &amp;&amp; [model.longitude isEqualToString:sameModel.longitude]) &#123;</div><div class="line">[sameArray addObject:arrayList[i]];</div><div class="line">&#125;<span class="keyword">else</span>&#123;</div><div class="line">[diffArray addObject:arrayList[i]];</div><div class="line">&#125;</div><div class="line">&#125;</div><div class="line">[res addObject:sameArray];</div><div class="line"><span class="keyword">if</span> (diffArray.count != <span class="number">0</span>) &#123;</div><div class="line">[DataBaseTool getSameArrayList:diffArray res:res];</div><div class="line">&#125;</div><div class="line"><span class="keyword">return</span> res;</div><div class="line">&#125;</div></pre></td></tr></table></figure><br><br><figure class="highlight objectivec"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line"><span class="comment">// 这样调用就可以了</span></div><div class="line"><span class="built_in">NSMutableArray</span> *temp = [<span class="built_in">NSMutableArray</span> array];</div><div class="line">temp = [DataBaseTool getSameArrayList:arrayData res:temp];</div></pre></td></tr></table></figure><br><br>&gt; 如果有需要你进行一下简单修改就可以使用了, 希望对有需要的同学有帮助, 这就是我分享的目的啦<br><br>最后感谢您的阅读, 如果感觉有帮助可以关注我 和我一起学习!<br><br><div align="center"><br>微信公众号 得到最快最新的推送<br></div>
+
+<div align="center"><br><img src="http://ww1.sinaimg.cn/large/0060lm7Tgw1f9656jhucpj307607674r.jpg" alt=""><br></div>
+
+<blockquote>
+<p>我是夏天, 暖暖的夏天<br>End</p>
+</blockquote>
+
+      
+    </div>
+
+  </div>
+
+  <div class="article-footer">
+    <div class="article-meta pull-left">
+
+    
+
+    
+    
+
+    <span class="post-tags">
+      <i class="icon-tags"></i>
+        <a href="/tags/算法/">算法</a>
+    </span>
+    
+
+    </div>
+
+    
+  </div>
+</article>
+
+
+    </main>
+
+    <footer class="site-footer">
+  <p class="site-info">
+    Proudly powered by <a href="https://hexo.io/" target="_blank">Hexo</a> and
+    Theme by <a href="https://github.com/CodeDaraW/Hacker" target="_blank">Hacker</a>
+    </br>
+    
+    &copy; 2017 夏天然后
+    
+  </p>
+</footer>
+    
+  </div>
+</div>
+</body>
+</html>

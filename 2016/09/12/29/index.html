@@ -1,0 +1,151 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  <title>干货最新将自己库添加CocoaPods支持 | 夏天然后</title>
+
+  
+  <meta name="author" content="夏天然后">
+  
+
+  
+  <meta name="description" content="给库添加Cocoapods支持, 使这个工具使用起来更加方便, 更好的使用Cocoapods, 助力iOS程序开发, 下面进入正题, 想要实现这个过程, 绝对不虚此读.
+首先写好一个要添加Cocoapods支持的库  这是我第一个添加Cocoapods支持的工具iOS7兼容自定义带动画的AlertViewController 你可以看看">
+  
+
+  
+  
+  <meta name="keywords" content="CocoaPods">
+  
+
+  <meta id="viewport" name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, minimum-scale=1, user-scalable=no, minimal-ui">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black">
+
+  <meta property="og:title" content="干货最新将自己库添加CocoaPods支持"/>
+
+  <meta property="og:site_name" content="夏天然后"/>
+
+  
+  <meta property="og:image" content="/favicon.ico"/>
+  
+
+  <link href="/favicon.ico" rel="icon">
+  <link rel="alternate" href="/atom.xml" title="夏天然后" type="application/atom+xml">
+  <link rel="stylesheet" href="/css/style.css" media="screen" type="text/css">
+</head>
+
+
+<body>
+<div class="blog">
+  <div class="content">
+
+    <header>
+  <div class="site-branding">
+    <h1 class="site-title">
+      <a href="/">夏天然后</a>
+    </h1>
+    <p class="site-description"></p>
+  </div>
+  <nav class="site-navigation">
+    <ul>
+      
+        <li><a href="/">Home</a></li>
+      
+        <li><a href="/archives">Archives</a></li>
+      
+        <li><a href="/tags">about</a></li>
+      
+    </ul>
+  </nav>
+</header>
+
+    <main class="site-main posts-loop">
+    <article>
+
+  
+    
+    <h3 class="article-title"><span>干货最新将自己库添加CocoaPods支持</span></h3>
+    
+  
+
+  <div class="article-top-meta">
+    <span class="posted-on">
+      <a href="/2016/09/12/29/" rel="bookmark">
+        <time class="entry-date published" datetime="2016-09-12T09:04:32.000Z">
+          2016-09-12
+        </time>
+      </a>
+    </span>
+  </div>
+
+
+  
+
+  <div class="article-content">
+    <div class="entry">
+      
+        <p>给库添加Cocoapods支持, 使这个工具使用起来更加方便, 更好的使用Cocoapods, 助力iOS程序开发, 下面进入正题, 想要实现这个过程, 绝对不虚此读.</p>
+<p>首先写好一个要添加Cocoapods支持的库  这是我第一个添加Cocoapods支持的工具<a href="https://github.com/summerxx27/XTAlertViewController" target="_blank" rel="external">iOS7兼容自定义带动画的AlertViewController</a> 你可以看看</p>
+<a id="more"></a>
+<p>1 注册trunk</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">// 升级至最新版本</div><div class="line">$sudo gem install cocoa pods</div><div class="line">// 完成注册 邮箱和GitHub用户名字</div><div class="line">pod trunk register 1005430006@qq.com &apos;summerxx27&apos; --verbose // 之后点击邮箱链接进行验证</div></pre></td></tr></table></figure>
+<p>2 查看注册信息如图<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">pod trunk me</div></pre></td></tr></table></figure></p>
+<div align="center"><br><img src="http://ww3.sinaimg.cn/large/e6a4355cgw1f7qwjuyhisj20ap02st93.jpg" alt=""><br></div><br>3 创建 .spec文件<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">// XTAlertViewController : 库名字</div><div class="line">pod spec create XTAlertViewController</div></pre></td></tr></table></figure><br><br>4 编辑文件 vim<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">vim XTAlertViewController.podspec</div></pre></td></tr></table></figure><br><br>5 填写信息: 看名字就知道意思了. 具体还可以看官方文档 我的XTAlertViewController.podspec这个文件是这样写的, 或者找一个优秀的第三方, 模仿着写也是可以的<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div></pre></td><td class="code"><pre><div class="line">Pod::Spec.new do |s|</div><div class="line">s.name = &apos;XTAlertViewController&apos;</div><div class="line">s.version = &apos;1.0.1&apos;</div><div class="line">s.license = &apos;MIT&apos;</div><div class="line">s.summary = &apos;A view like UIAlertViewController on iOS.&apos;</div><div class="line">s.homepage = &apos;https://github.com/summerxx27/XTAlertViewController&apos;</div><div class="line">s.authors = &#123; &apos;summerxx27&apos; =&gt; &apos;1005430006@qq.com&apos; &#125;</div><div class="line">s.source = &#123; :git =&gt; &apos;https://github.com/summerxx27/XTAlertViewController.git&apos;, :tag =&gt; s.version.to_s &#125;</div><div class="line">s.requires_arc = true</div><div class="line">s.ios.deployment_target = &apos;7.0&apos;</div><div class="line">s.source_files = &apos;XTAlertViewController/*.&#123;h,m&#125;&apos;</div><div class="line">end</div></pre></td></tr></table></figure><br><br>6 验证一下本地文件编写是否正确<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">pod lib lint XTAlertViewController.podspec</div></pre></td></tr></table></figure><br><br><div align="center"><br><img src="http://ww1.sinaimg.cn/large/e6a4355cgw1f7qwlxwavgj20d801mjrg.jpg" alt=""><br></div><br>7 把编辑好的文件推送到GitHub (库文件 和 .spec文件)(使用GitHub Desktop就可以) 并且打上标记<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">git tag &apos;1.0.1&apos;</div><div class="line">git push --tags</div></pre></td></tr></table></figure><br><br>8 把编写的文件告诉Cocoapods<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">pod trunk push XTAlertViewController.podspec</div></pre></td></tr></table></figure><br><br>9 之后使用查找命令就可以看到了<br><br><div align="center"><br><img src="http://ww1.sinaimg.cn/large/e6a4355cgw1f7qwmb9w6mj20ft036dgp.jpg" alt=""><br></div>
+
+<p>注意事项</p>
+<blockquote>
+<p>库文件应该在仓库的第一层目录(具体如不清楚 你可以下载我文章开头提到的XTAlertViewController 看一下文件层级)</p>
+</blockquote>
+<p>总结 : 大致的过程就是这个样子, 博主在尝试的时候 走了不少弯路, 昨天一直到凌晨也没有成功, 好在最后成功了, 按照这个步骤, 基本没有错误, .podspec这个文件如果填写正确的话.</p>
+<p><a href="http://www.jianshu.com/p/80be099e9154" target="_blank" rel="external">我的第一个支持Cocoapods的工具 就制作完成了, 你可以点击这里看见这个工具的介绍</a><br>参考 : <a href="http://www.cnblogs.com/dsxniubility/p/4813864.html" target="_blank" rel="external">整个步骤是学习的 - <a href="http://www.cnblogs.com/dsxniubility/" target="_blank" rel="external">董铂然的博客</a></a></p>
+<p>感谢您的阅读, 同时祝您过程顺利 ! </p>
+<p>走心文章, 值得点赞 —文/夏天然后<br><a href="http://weibo.com/345100543" target="_blank" rel="external">微博-点我@夏天是个大人了</a> || QQ群: 498143780<br>End 文/ 夏天然后</p>
+<div align="center"><br>微信公众号 得到最快最新的推送<br></div>
+
+<div align="center"><br><img src="http://ww1.sinaimg.cn/large/0060lm7Tgw1f9656jhucpj307607674r.jpg" alt=""><br></div>
+
+      
+    </div>
+
+  </div>
+
+  <div class="article-footer">
+    <div class="article-meta pull-left">
+
+    
+
+    
+    
+
+    <span class="post-tags">
+      <i class="icon-tags"></i>
+        <a href="/tags/CocoaPods/">CocoaPods</a>
+    </span>
+    
+
+    </div>
+
+    
+  </div>
+</article>
+
+
+    </main>
+
+    <footer class="site-footer">
+  <p class="site-info">
+    Proudly powered by <a href="https://hexo.io/" target="_blank">Hexo</a> and
+    Theme by <a href="https://github.com/CodeDaraW/Hacker" target="_blank">Hacker</a>
+    </br>
+    
+    &copy; 2017 夏天然后
+    
+  </p>
+</footer>
+    
+  </div>
+</div>
+</body>
+</html>

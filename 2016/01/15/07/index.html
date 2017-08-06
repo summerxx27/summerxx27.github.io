@@ -1,0 +1,136 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  <title>iOS 直播类型App点赞动画 | 夏天然后</title>
+
+  
+  <meta name="author" content="夏天然后">
+  
+
+  
+  <meta name="description" content="这篇介绍两种动画效果展示, 确切地说是一种, 因为代码我只帖出了类似于烟花爆炸的示例代码, 感兴趣请继续阅读.
+#### 会持续更新动画相关的小效果点我下载工程-感觉不错点个Star">
+  
+
+  
+  
+  <meta name="keywords" content="Animations">
+  
+
+  <meta id="viewport" name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, minimum-scale=1, user-scalable=no, minimal-ui">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black">
+
+  <meta property="og:title" content="iOS 直播类型App点赞动画"/>
+
+  <meta property="og:site_name" content="夏天然后"/>
+
+  
+  <meta property="og:image" content="/favicon.ico"/>
+  
+
+  <link href="/favicon.ico" rel="icon">
+  <link rel="alternate" href="/atom.xml" title="夏天然后" type="application/atom+xml">
+  <link rel="stylesheet" href="/css/style.css" media="screen" type="text/css">
+</head>
+
+
+<body>
+<div class="blog">
+  <div class="content">
+
+    <header>
+  <div class="site-branding">
+    <h1 class="site-title">
+      <a href="/">夏天然后</a>
+    </h1>
+    <p class="site-description"></p>
+  </div>
+  <nav class="site-navigation">
+    <ul>
+      
+        <li><a href="/">Home</a></li>
+      
+        <li><a href="/archives">Archives</a></li>
+      
+        <li><a href="/tags">about</a></li>
+      
+    </ul>
+  </nav>
+</header>
+
+    <main class="site-main posts-loop">
+    <article>
+
+  
+    
+    <h3 class="article-title"><span>iOS 直播类型App点赞动画</span></h3>
+    
+  
+
+  <div class="article-top-meta">
+    <span class="posted-on">
+      <a href="/2016/01/15/07/" rel="bookmark">
+        <time class="entry-date published" datetime="2016-01-15T06:58:19.000Z">
+          2016-01-15
+        </time>
+      </a>
+    </span>
+  </div>
+
+
+  
+
+  <div class="article-content">
+    <div class="entry">
+      
+        <p>这篇介绍两种动画效果展示, 确切地说是一种, 因为代码我只帖出了类似于烟花爆炸的示例代码, 感兴趣请继续阅读.</p>
+<div align="center"><br><img src="http://ww3.sinaimg.cn/large/e6a4355cgw1f5tlk6uyb4g208w0gunph.gif" alt=""><br></div><br>#### <a href="https://github.com/summerxx27/XTAnimations.git" target="_blank" rel="external">会持续更新动画相关的小效果点我下载工程-感觉不错点个Star</a><br><a id="more"></a><br><div align="center"><br><img src="http://ww3.sinaimg.cn/large/e6a4355cgw1f5tll5lp8qg208w0gk7wk.gif" alt=""><br></div><br>#### 烟花代码演示<br><figure class="highlight objectivec"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div><div class="line">50</div><div class="line">51</div><div class="line">52</div><div class="line">53</div><div class="line">54</div><div class="line">55</div><div class="line">56</div><div class="line">57</div><div class="line">58</div><div class="line">59</div><div class="line">60</div><div class="line">61</div><div class="line">62</div><div class="line">63</div><div class="line">64</div><div class="line">65</div><div class="line">66</div><div class="line">67</div><div class="line">68</div><div class="line">69</div><div class="line">70</div><div class="line">71</div><div class="line">72</div><div class="line">73</div><div class="line">74</div><div class="line">75</div><div class="line">76</div><div class="line">77</div><div class="line">78</div><div class="line">79</div><div class="line">80</div><div class="line">81</div><div class="line">82</div><div class="line">83</div><div class="line">84</div><div class="line">85</div><div class="line">86</div><div class="line">87</div><div class="line">88</div><div class="line">89</div><div class="line">90</div><div class="line">91</div><div class="line">92</div><div class="line">93</div><div class="line">94</div><div class="line">95</div><div class="line">96</div><div class="line">97</div><div class="line">98</div><div class="line">99</div><div class="line">100</div><div class="line">101</div><div class="line">102</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">self</span>.view.backgroundColor       = [<span class="built_in">UIColor</span> blackColor];</div><div class="line"><span class="keyword">self</span>.caELayer                   = [<span class="built_in">CAEmitterLayer</span> layer];</div><div class="line"><span class="comment">// 发射源</span></div><div class="line"><span class="keyword">self</span>.caELayer.emitterPosition   = <span class="built_in">CGPointMake</span>(<span class="keyword">self</span>.view.frame.size.width / <span class="number">2</span>, <span class="keyword">self</span>.view.frame.size.height - <span class="number">50</span>);</div><div class="line"><span class="comment">// 发射源尺寸大小</span></div><div class="line"><span class="keyword">self</span>.caELayer.emitterSize       = <span class="built_in">CGSizeMake</span>(<span class="number">50</span>, <span class="number">0</span>);</div><div class="line"><span class="comment">// 发射源模式</span></div><div class="line"><span class="keyword">self</span>.caELayer.emitterMode       = kCAEmitterLayerOutline;</div><div class="line"><span class="comment">// 发射源的形状</span></div><div class="line"><span class="keyword">self</span>.caELayer.emitterShape      = kCAEmitterLayerLine;</div><div class="line"><span class="comment">// 渲染模式</span></div><div class="line"><span class="keyword">self</span>.caELayer.renderMode        = kCAEmitterLayerAdditive;</div><div class="line"><span class="comment">// 发射方向</span></div><div class="line"><span class="keyword">self</span>.caELayer.velocity          = <span class="number">1</span>;</div><div class="line"><span class="comment">// 随机产生粒子</span></div><div class="line"><span class="keyword">self</span>.caELayer.seed              = (arc4random() % <span class="number">100</span>) + <span class="number">1</span>;</div><div class="line"></div><div class="line"><span class="comment">// cell</span></div><div class="line"><span class="built_in">CAEmitterCell</span> *cell             = [<span class="built_in">CAEmitterCell</span> emitterCell];</div><div class="line"><span class="comment">// 速率</span></div><div class="line">cell.birthRate                  = <span class="number">1.0</span>;</div><div class="line"><span class="comment">// 发射的角度</span></div><div class="line">cell.emissionRange              = <span class="number">0.11</span> * M_PI;</div><div class="line"><span class="comment">// 速度</span></div><div class="line">cell.velocity                   = <span class="number">300</span>;</div><div class="line"><span class="comment">// 范围</span></div><div class="line">cell.velocityRange              = <span class="number">150</span>;</div><div class="line"><span class="comment">// Y轴 加速度分量</span></div><div class="line">cell.yAcceleration              = <span class="number">75</span>;</div><div class="line"><span class="comment">// 声明周期</span></div><div class="line">cell.lifetime                   = <span class="number">2.04</span>;</div><div class="line"><span class="comment">// 是个CGImageRef的对象,既粒子要展现的图片</span></div><div class="line">cell.contents                   = (<span class="keyword">id</span>)</div><div class="line">[[<span class="built_in">UIImage</span> imageNamed:<span class="string">@"FFRing"</span>] <span class="built_in">CGImage</span>];</div><div class="line"><span class="comment">// 缩放比例</span></div><div class="line">cell.scale                      = <span class="number">0.2</span>;</div><div class="line"><span class="comment">// 粒子的颜色</span></div><div class="line">cell.color                      = [[<span class="built_in">UIColor</span> colorWithRed:<span class="number">0.6</span></div><div class="line">green:<span class="number">0.6</span></div><div class="line">blue:<span class="number">0.6</span></div><div class="line">alpha:<span class="number">1.0</span>] <span class="built_in">CGColor</span>];</div><div class="line"><span class="comment">// 一个粒子的颜色green 能改变的范围</span></div><div class="line">cell.greenRange                 = <span class="number">1.0</span>;</div><div class="line"><span class="comment">// 一个粒子的颜色red 能改变的范围</span></div><div class="line">cell.redRange                   = <span class="number">1.0</span>;</div><div class="line"><span class="comment">// 一个粒子的颜色blue 能改变的范围</span></div><div class="line">cell.blueRange                  = <span class="number">1.0</span>;</div><div class="line"><span class="comment">// 子旋转角度范围</span></div><div class="line">cell.spinRange                  = M_PI;</div><div class="line"></div><div class="line"><span class="comment">// 爆炸</span></div><div class="line"><span class="built_in">CAEmitterCell</span> *burst            = [<span class="built_in">CAEmitterCell</span> emitterCell];</div><div class="line"><span class="comment">// 粒子产生系数</span></div><div class="line">burst.birthRate                 = <span class="number">1.0</span>;</div><div class="line"><span class="comment">// 速度</span></div><div class="line">burst.velocity                  = <span class="number">0</span>;</div><div class="line"><span class="comment">// 缩放比例</span></div><div class="line">burst.scale                     = <span class="number">2.5</span>;</div><div class="line"><span class="comment">// shifting粒子red在生命周期内的改变速度</span></div><div class="line">burst.redSpeed                  = <span class="number">-1.5</span>;</div><div class="line"><span class="comment">// shifting粒子blue在生命周期内的改变速度</span></div><div class="line">burst.blueSpeed                 = +<span class="number">1.5</span>;</div><div class="line"><span class="comment">// shifting粒子green在生命周期内的改变速度</span></div><div class="line">burst.greenSpeed                = +<span class="number">1.0</span>;</div><div class="line"><span class="comment">// 生命周期</span></div><div class="line">burst.lifetime                  = <span class="number">0.35</span>;</div><div class="line"></div><div class="line"></div><div class="line"><span class="comment">// 火花 and finally, the sparks</span></div><div class="line"><span class="built_in">CAEmitterCell</span> *spark            = [<span class="built_in">CAEmitterCell</span> emitterCell];</div><div class="line"><span class="comment">// 粒子产生系数，默认为1.0</span></div><div class="line">spark.birthRate                 = <span class="number">400</span>;</div><div class="line"><span class="comment">// 速度</span></div><div class="line">spark.velocity                  = <span class="number">125</span>;</div><div class="line"><span class="comment">// 周围发射角度</span></div><div class="line">spark.emissionRange             = <span class="number">2</span> * M_PI;</div><div class="line"><span class="comment">// gravity//y方向上的加速度分量</span></div><div class="line">spark.yAcceleration             = <span class="number">75</span>;</div><div class="line"><span class="comment">// 粒子生命周期</span></div><div class="line">spark.lifetime                  = <span class="number">3</span>;</div><div class="line"><span class="comment">// 是个CGImageRef的对象,既粒子要展现的图片</span></div><div class="line">spark.contents                  = (<span class="keyword">id</span>)</div><div class="line">[[<span class="built_in">UIImage</span> imageNamed:<span class="string">@"FFTspark"</span>] <span class="built_in">CGImage</span>];</div><div class="line"><span class="comment">// 缩放比例速度</span></div><div class="line">spark.scaleSpeed                = <span class="number">-0.2</span>;</div><div class="line"><span class="comment">// 粒子green在生命周期内的改变速度</span></div><div class="line">spark.greenSpeed                = <span class="number">-0.1</span>;</div><div class="line"><span class="comment">// 粒子red在生命周期内的改变速度</span></div><div class="line">spark.redSpeed                  = <span class="number">0.4</span>;</div><div class="line"><span class="comment">// 粒子blue在生命周期内的改变速度</span></div><div class="line">spark.blueSpeed                 = <span class="number">-0.1</span>;</div><div class="line"><span class="comment">// 粒子透明度在生命周期内的改变速度</span></div><div class="line">spark.alphaSpeed                = <span class="number">-0.25</span>;</div><div class="line"><span class="comment">// 子旋转角度</span></div><div class="line">spark.spin                      = <span class="number">2</span> * M_PI;</div><div class="line"><span class="comment">// 子旋转角度范围</span></div><div class="line">spark.spinRange                 = <span class="number">2</span> * M_PI;</div><div class="line"></div><div class="line"><span class="keyword">self</span>.caELayer.emitterCells = [<span class="built_in">NSArray</span> arrayWithObject:cell];</div><div class="line">cell.emitterCells = [<span class="built_in">NSArray</span> arrayWithObjects:burst, <span class="literal">nil</span>];</div><div class="line">burst.emitterCells = [<span class="built_in">NSArray</span> arrayWithObject:spark];</div><div class="line">[<span class="keyword">self</span>.view.layer addSublayer:<span class="keyword">self</span>.caELayer];</div></pre></td></tr></table></figure><br><br>这两个小效果是在某平台上看到的, 经过整理学习放到了我的github上.供自己学习, 并分享给需要的朋友.<br><br><div align="center"><br>微信公众号 得到最快最新的推送<br></div>
+
+<div align="center"><br><img src="http://ww1.sinaimg.cn/large/0060lm7Tgw1f9656jhucpj307607674r.jpg" alt=""><br></div>
+
+      
+    </div>
+
+  </div>
+
+  <div class="article-footer">
+    <div class="article-meta pull-left">
+
+    
+
+    
+    
+
+    <span class="post-tags">
+      <i class="icon-tags"></i>
+        <a href="/tags/Animations/">Animations</a>
+    </span>
+    
+
+    </div>
+
+    
+  </div>
+</article>
+
+
+    </main>
+
+    <footer class="site-footer">
+  <p class="site-info">
+    Proudly powered by <a href="https://hexo.io/" target="_blank">Hexo</a> and
+    Theme by <a href="https://github.com/CodeDaraW/Hacker" target="_blank">Hacker</a>
+    </br>
+    
+    &copy; 2017 夏天然后
+    
+  </p>
+</footer>
+    
+  </div>
+</div>
+</body>
+</html>

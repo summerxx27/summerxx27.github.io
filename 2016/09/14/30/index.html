@@ -1,0 +1,222 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  <title>最新版 Xcode8 macOS Sierra 10.12 安装CocoaPods | 夏天然后</title>
+
+  
+  <meta name="author" content="夏天然后">
+  
+
+  
+  <meta name="description" content="前言: 最近买了一款配置不错MacBookPro, 之后再电脑上安装跟中需要的东西, 一般的东西还算顺利, 博客重新换了主题在新电脑上重新搭了一个, 但是在安装CocoaPods的时候 要求 ruby version &amp;gt;= 2.2.2 之后就走上了ruby的升级之路, 在这个过程中我一度怀疑了">
+  
+
+  
+  
+  <meta name="keywords" content="CocoaPods">
+  
+
+  <meta id="viewport" name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, minimum-scale=1, user-scalable=no, minimal-ui">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black">
+
+  <meta property="og:title" content="最新版 Xcode8 macOS Sierra 10.12 安装CocoaPods"/>
+
+  <meta property="og:site_name" content="夏天然后"/>
+
+  
+  <meta property="og:image" content="/favicon.ico"/>
+  
+
+  <link href="/favicon.ico" rel="icon">
+  <link rel="alternate" href="/atom.xml" title="夏天然后" type="application/atom+xml">
+  <link rel="stylesheet" href="/css/style.css" media="screen" type="text/css">
+</head>
+
+
+<body>
+<div class="blog">
+  <div class="content">
+
+    <header>
+  <div class="site-branding">
+    <h1 class="site-title">
+      <a href="/">夏天然后</a>
+    </h1>
+    <p class="site-description"></p>
+  </div>
+  <nav class="site-navigation">
+    <ul>
+      
+        <li><a href="/">Home</a></li>
+      
+        <li><a href="/archives">Archives</a></li>
+      
+        <li><a href="/tags">about</a></li>
+      
+    </ul>
+  </nav>
+</header>
+
+    <main class="site-main posts-loop">
+    <article>
+
+  
+    
+    <h3 class="article-title"><span>最新版 Xcode8 macOS Sierra 10.12 安装CocoaPods</span></h3>
+    
+  
+
+  <div class="article-top-meta">
+    <span class="posted-on">
+      <a href="/2016/09/14/30/" rel="bookmark">
+        <time class="entry-date published" datetime="2016-09-13T17:04:32.000Z">
+          2016-09-14
+        </time>
+      </a>
+    </span>
+  </div>
+
+
+  
+
+  <div class="article-content">
+    <div class="entry">
+      
+        <p>前言: 最近买了一款配置不错MacBookPro, 之后再电脑上安装跟中需要的东西, 一般的东西还算顺利, 博客重新换了主题在新电脑上重新搭了一个, 但是在安装CocoaPods的时候 要求 ruby version &gt;= 2.2.2 之后就走上了ruby的升级之路, 在这个过程中我一度怀疑了人生, 怀疑电脑是盗版.</p>
+<p>原文链接 :<br><a href="http://blog.csdn.net/sinat_30162391/article/details/53048041" target="_blank" rel="external">http://blog.csdn.net/sinat_30162391/article/details/53048041</a> </p>
+<p>前言: 最近安装<code>CocoaPods</code>出现了很多以前没有出现的问题这令我很头疼</p>
+<blockquote>
+<ul>
+<li>一个记忆很深的问题</li>
+<li>我的安装环境介绍</li>
+<li>介绍一些CocoaPods相关的</li>
+</ul>
+</blockquote>
+<h2 id="一-一个我记得很清楚的问题"><a href="#一-一个我记得很清楚的问题" class="headerlink" title="一: 一个我记得很清楚的问题"></a>一: 一个我记得很清楚的问题</h2><p>使用淘宝源执行<code>pod setup</code>之后 安装了大约<code>862M</code>左右的资源.</p>
+<p>但是<code>CocoaPods</code>可能由于我的操作问题, 被卸载了. (疑惑脸)</p>
+<p>再次安装出现的问题<br><img src="http://img.blog.csdn.net/20161105211428361" alt="这里写图片描述"></p>
+<p>删除淘宝源<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">gem source -r https://ruby.taobao.org/ to remove</div></pre></td></tr></table></figure></p>
+<p>修改成rubygems 也就是说我使用这个源进行安装<code>CocoaPods</code>的<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">gem source -a http://rubygems.org/</div></pre></td></tr></table></figure></p>
+<p>再次安装<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">sudo gem install cocoapods</div></pre></td></tr></table></figure></p>
+<p>之后就完成了, 但是很少有小伙伴遇到跟我一样的问题, 所以我接下来贴出我的环境, 跟我环境一致之后应该就能安装成功了</p>
+<h2 id="二-我的安装环境介绍"><a href="#二-我的安装环境介绍" class="headerlink" title="二: 我的安装环境介绍"></a>二: 我的安装环境介绍</h2><p>ruby的管理器版本<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">rvm 1.27.0 (latest) by Wayne E. Seguin &lt;wayneeseguin@gmail.com&gt;, Michal Papis &lt;mpapis@gmail.com&gt; [https://rvm.io/]</div></pre></td></tr></table></figure></p>
+<p>ruby的版本 &gt;=2.2.2<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">ruby 2.2.3p173 (2015-08-18 revision 51636) [x86_64-darwin16]</div></pre></td></tr></table></figure></p>
+<p>gem 的版本<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">2.4.5.1</div></pre></td></tr></table></figure></p>
+<p>校验是否安装成功, 切换到目录查看文件的大小<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">cd ~/.cocoapods/</div><div class="line">du -sh * //</div></pre></td></tr></table></figure></p>
+<p><img src="http://img.blog.csdn.net/20161105212458500" alt="这里写图片描述"><br>我这次安装的版本</p>
+<p><img src="http://img.blog.csdn.net/20161105213004646" alt="这里写图片描述"></p>
+<p>总之这次的安装, 是我安装的最费时的一次, 中间遇到的问题, 并没有做记录, 不过基本都是在Stack Overflow找到的解决办法. 贴出我的环境希望助你查找问题.</p>
+<h2 id="三-在介绍一些CocoaPods相关的"><a href="#三-在介绍一些CocoaPods相关的" class="headerlink" title="三: 在介绍一些CocoaPods相关的"></a>三: 在介绍一些CocoaPods相关的</h2><p>一、什么是CocoaPods</p>
+<blockquote>
+<p><code>CocoaPods</code>是iOS项目的依赖管理工具，该项目源码在<code>Github</code>上管理。开发iOS项目不可避免地要使用第三方开源库，<code>CocoaPods</code>的出现使得我们可以节省配置开源库的时间。<br>在使用<code>CocoaPods</code>后，我们只需要把用到的开源库放到一个名为<code>Podfile</code>的文件中，然后执行<code>pod install</code>或者<code>pod update --no-repo-update.Cocoapods</code>就会自动将这些第三方开源库的源码下载下来，并且为我们的工程设置好响应的系统依赖和编译参数。</p>
+</blockquote>
+<p>二、<code>CocoaPods</code>的原理<br><code>CocoaPods</code>的原理是将所有的依赖库都放到另一个名为Pods的项目中，然后让主项目依赖<code>Pods</code>项目，这样，源码管理工作都从主项目移到了<code>Pods</code>项目中。Pods项目最终会编译成一个名为<code>libPods.a</code>的文件，主项目只需要依赖这个.a文件即可。</p>
+<p>三、CocoaPods的安装<br><code>CocoaPods</code>可以方便地通过Mac自带的<code>RubyGems</code>安装。<br>打开终端，然后键入以下命令：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ sudo gem install cocoapods</div></pre></td></tr></table></figure></p>
+<p>执行完这句如果报告以下错误：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">ERROR: Could not find a valid gem &apos;cocoapods&apos; (&gt;= 0), here is why:</div><div class="line">Unable to download data from https://rubygems.org/ - Errno::ETIMEDOUT: Operation timed out - connect(2) (https://rubygems.org/latest_specs.4.8.gz)</div><div class="line">ERROR: Possible alternatives: cocoa pods</div></pre></td></tr></table></figure></p>
+<p>这是因为ruby的软件源rubygems.org因为使用亚马逊的云服务, 不可用，需要更新一下ruby的源，过程如下：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">$ gem sources --remove https://rubygems.org/</div><div class="line">$ gem sources -a https://ruby.taobao.org/</div><div class="line">// 查看是否成功</div><div class="line">$ gem sources -l</div></pre></td></tr></table></figure></p>
+<p>如果gem太老，可以尝试用如下命令升级gem<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ sudo gem update --system</div></pre></td></tr></table></figure></p>
+<p>升级成功后会提示: <code>RubyGems system software updated</code></p>
+<p>然后重新执行安装下载命令<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ sudo gem install cocoapods</div></pre></td></tr></table></figure></p>
+<p>接下来进行安装，执行：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">// 关键 , 需要下载一些资源, 很慢, 文件很大 大约862M</div><div class="line">$ pod setup</div></pre></td></tr></table></figure></p>
+<p>四、Cocoapods的使用</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">// 切换到工程目录</div><div class="line">cd 目录</div><div class="line">// 编辑Podfile</div><div class="line">vim Podfile</div></pre></td></tr></table></figure>
+<p>填写Podfile文件<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">// 可以这样写, 这是Swift的</div><div class="line">platform :ios, &apos;8.0&apos;</div><div class="line">use_frameworks!</div><div class="line">target &apos;工程名&apos; do</div><div class="line">pod &apos;SwiftyJSON&apos;, &apos;~&gt; 2.3.1&apos;</div><div class="line">end</div></pre></td></tr></table></figure></p>
+<p>保存退出, 执行<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">pod install</div><div class="line">// or</div><div class="line">pod update --no-repo-update</div></pre></td></tr></table></figure></p>
+<p>使用注意:<br>1.从此以后需要使用<code>Cocoapods</code>生成的 <code>.xcworkspace</code>文件来打开工程，而不是使用以前的<code>.xcodeproj</code>文件<br>2.每次更改了<code>Podfile</code>文件，都需要重新执行一次<code>pod update</code>命令</p>
+<p>补充 :<br>当执行<code>pod install</code>之后，除了<code>Podfile</code>，还会生成一个名为<code>Podfile.lock</code>的文件，它会锁定当前各依赖库的版本，之后即使多次执行pod install也不会更改版本，只有执行<code>pod update</code>才会改变<code>Podfile.lock</code>.在多人协作的时候，这样可以防止第三方库升级时候造成大家各自的第三方库版本不一致。所以在提交版本的时候不能把它落下，也不要添加到<code>.gitignore</code>中.</p>
+<p>可能遇到的问题</p>
+<p>如果在执行sudo gem install cocoapods的时候报以下错误:<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">ERROR: While executing gem ... (Errno::EPERM)</div><div class="line">Operation not permitted - /usr/bin/pod</div></pre></td></tr></table></figure></p>
+<p>并且你的操作系统是EI Caption,可是尝试使用以下方法来代替上面的安装命令:<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ sudo gem install -n /usr/local/bin cocoapods&apos;</div></pre></td></tr></table></figure></p>
+<p>在执行sudo gem install cocoa pods指令安装的时候提示错误:<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">ERROR: Error installing cocoapods:</div><div class="line">activesupport requires Ruby version &gt;= 2.2.2.</div></pre></td></tr></table></figure></p>
+<p>解决方法: 升级ruby版本<br><a href="http://blog.csdn.net/lissdy/article/details/9191351" target="_blank" rel="external">http://blog.csdn.net/lissdy/article/details/9191351</a></p>
+<p>就说就这么多吧, 最后感谢您的阅读</p>
+<table>
+<thead>
+<tr>
+<th>夏天然后</th>
+<th style="text-align:center">联系</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>QQ群</td>
+<td style="text-align:center">498143780</td>
+<td></td>
+</tr>
+<tr>
+<td>微博</td>
+<td style="text-align:center"><a href="http://www.weibo.com/3869521244/profile?topnav=1&amp;wvr=6&amp;is_all=1" target="_blank" rel="external">来和我玩微博</a></td>
+</tr>
+<tr>
+<td>简书</td>
+<td style="text-align:center"><a href="http://www.jianshu.com/users/561e4eb07f0c/latest_articles" target="_blank" rel="external">来简书找我玩</a></td>
+</tr>
+<tr>
+<td>GitHub</td>
+<td style="text-align:center"><a href="https://github.com/summerxx27" target="_blank" rel="external">来GitHub找我玩</a></td>
+</tr>
+<tr>
+<td>伯乐在线</td>
+<td style="text-align:center"><a href="http://www.jobbole.com/members/Zjwang01" target="_blank" rel="external">来伯乐在线找我玩</a></td>
+</tr>
+<tr>
+<td>我的博客你想看看?</td>
+<td style="text-align:center"><a href="http://summerxx.com" target="_blank" rel="external">http://summerxx.com</a></td>
+</tr>
+<tr>
+<td>说了这么多</td>
+<td style="text-align:center">就是想多交朋友多学习</td>
+</tr>
+</tbody>
+</table>
+<p>增加谷歌访问host 主力访问国外网站<br><a href="https://github.com/racaljk/hosts" target="_blank" rel="external">https://github.com/racaljk/hosts</a></p>
+<div align="center"><br>微信公众号 得到最快最新的推送<br></div>
+
+<div align="center"><br><img src="http://ww1.sinaimg.cn/large/0060lm7Tgw1f9656jhucpj307607674r.jpg" alt=""><br></div>
+
+      
+    </div>
+
+  </div>
+
+  <div class="article-footer">
+    <div class="article-meta pull-left">
+
+    
+
+    
+    
+
+    <span class="post-tags">
+      <i class="icon-tags"></i>
+        <a href="/tags/CocoaPods/">CocoaPods</a>
+    </span>
+    
+
+    </div>
+
+    
+  </div>
+</article>
+
+
+    </main>
+
+    <footer class="site-footer">
+  <p class="site-info">
+    Proudly powered by <a href="https://hexo.io/" target="_blank">Hexo</a> and
+    Theme by <a href="https://github.com/CodeDaraW/Hacker" target="_blank">Hacker</a>
+    </br>
+    
+    &copy; 2017 夏天然后
+    
+  </p>
+</footer>
+    
+  </div>
+</div>
+</body>
+</html>

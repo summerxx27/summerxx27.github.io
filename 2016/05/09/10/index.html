@@ -1,0 +1,143 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  <title>iOS swift版本仿简书app弹出view效果 | 夏天然后</title>
+
+  
+  <meta name="author" content="夏天然后">
+  
+
+  
+  <meta name="description" content="这篇博文主要介绍了, 一种很友好的弹出View的方式, Swift版本, 当时正在学Siwft看到这个, 蛮有意思的就照着原作者的OC版本, 试着写了一下, 效果还不错, OC原文交接在文章的最后.">
+  
+
+  
+  
+  <meta name="keywords" content="Swift">
+  
+
+  <meta id="viewport" name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, minimum-scale=1, user-scalable=no, minimal-ui">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black">
+
+  <meta property="og:title" content="iOS swift版本仿简书app弹出view效果"/>
+
+  <meta property="og:site_name" content="夏天然后"/>
+
+  
+  <meta property="og:image" content="/favicon.ico"/>
+  
+
+  <link href="/favicon.ico" rel="icon">
+  <link rel="alternate" href="/atom.xml" title="夏天然后" type="application/atom+xml">
+  <link rel="stylesheet" href="/css/style.css" media="screen" type="text/css">
+</head>
+
+
+<body>
+<div class="blog">
+  <div class="content">
+
+    <header>
+  <div class="site-branding">
+    <h1 class="site-title">
+      <a href="/">夏天然后</a>
+    </h1>
+    <p class="site-description"></p>
+  </div>
+  <nav class="site-navigation">
+    <ul>
+      
+        <li><a href="/">Home</a></li>
+      
+        <li><a href="/archives">Archives</a></li>
+      
+        <li><a href="/tags">about</a></li>
+      
+    </ul>
+  </nav>
+</header>
+
+    <main class="site-main posts-loop">
+    <article>
+
+  
+    
+    <h3 class="article-title"><span>iOS swift版本仿简书app弹出view效果</span></h3>
+    
+  
+
+  <div class="article-top-meta">
+    <span class="posted-on">
+      <a href="/2016/05/09/10/" rel="bookmark">
+        <time class="entry-date published" datetime="2016-05-09T14:56:21.000Z">
+          2016-05-09
+        </time>
+      </a>
+    </span>
+  </div>
+
+
+  
+
+  <div class="article-content">
+    <div class="entry">
+      
+        <p>这篇博文主要介绍了, 一种很友好的弹出<code>View</code>的方式, <code>Swift</code>版本, 当时正在学Siwft看到这个, 蛮有意思的就照着原作者的OC版本, 试着写了一下, 效果还不错, OC原文交接在文章的最后.<br><a id="more"></a></p>
+<p>主要有四个View: 黑色 <code>XtPopViewController</code>的<code>self.view</code>的颜色;白色 主控制器<code>self.view</code>颜色;在白色<code>View</code>上方 有个透明度为0.5的<code>View</code> 进行遮挡. (maskView);下方的灰色View (popView1)<br><img src="http://ww1.sinaimg.cn/large/e6a4355cgw1f3q2a2toxdg208w0fnn5i.gif" alt="效果图"><br>不多说直接上代码<br><figure class="highlight objectivec"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div></pre></td><td class="code"><pre><div class="line">let screen_Width = <span class="built_in">UIScreen</span>.mainScreen().bounds.size.width</div><div class="line">let screen_Height = <span class="built_in">UIScreen</span>.mainScreen().bounds.size.height</div><div class="line"><span class="keyword">class</span> XtPopViewController: <span class="built_in">UIViewController</span> &#123;</div><div class="line"></div><div class="line"><span class="comment">/// 在底部弹出的View</span></div><div class="line">var popView = <span class="built_in">UIView</span>()</div><div class="line"><span class="comment">/// rootView</span></div><div class="line">var rootView = <span class="built_in">UIView</span>()</div><div class="line"><span class="comment">/// 主VC</span></div><div class="line">var mainVc: <span class="built_in">UIViewController</span>?</div><div class="line"><span class="comment">/// maskView</span></div><div class="line">var maskView = <span class="built_in">UIView</span>()</div></pre></td></tr></table></figure></p>
+<h2 id="外部传参接口"><a href="#外部传参接口" class="headerlink" title="外部传参接口"></a>外部传参接口</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">func createPopViewControllerWithMainViewController(root: UIViewController, popView: UIView) -&gt; Void &#123;</div><div class="line">self.mainVc = root</div><div class="line">self.popView = popView</div><div class="line">self.createSubviews()</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<h2 id="创建视图"><a href="#创建视图" class="headerlink" title="创建视图"></a>创建视图</h2><figure class="highlight objectivec"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line">func createSubviews() &#123;</div><div class="line"><span class="keyword">self</span>.view.backgroundColor = <span class="built_in">UIColor</span>.blackColor()</div><div class="line">mainVc!.view.frame = <span class="keyword">self</span>.view.bounds</div><div class="line">mainVc!.view.backgroundColor = <span class="built_in">UIColor</span>.grayColor()</div><div class="line">rootView = mainVc!.view</div><div class="line"><span class="keyword">self</span>.addChildViewController(mainVc!)</div><div class="line"><span class="keyword">self</span>.view.addSubview(rootView)</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<h2 id="关键的打开方法"><a href="#关键的打开方法" class="headerlink" title="关键的打开方法"></a>关键的打开方法</h2><figure class="highlight objectivec"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div></pre></td><td class="code"><pre><div class="line">func openAction()&#123;</div><div class="line"><span class="built_in">UIApplication</span>.sharedApplication().windows[<span class="number">0</span>].addSubview(popView)</div><div class="line">var frame = popView.frame</div><div class="line">frame.origin.y = <span class="keyword">self</span>.view.bounds.size.height - <span class="keyword">self</span>.popView.frame.size.height</div><div class="line"></div><div class="line"><span class="built_in">UIView</span> .animateWithDuration(<span class="number">0.3</span>, delay: <span class="number">0</span>, options: <span class="built_in">UIViewAnimationOptions</span>.CurveEaseInOut, animations: &#123; </div><div class="line"><span class="comment">//</span></div><div class="line"><span class="keyword">self</span>.rootView.layer.transform = <span class="keyword">self</span>.firstTransform()</div><div class="line">&#125;) &#123; (Bool) <span class="keyword">in</span></div><div class="line"><span class="comment">//</span></div><div class="line"><span class="built_in">UIView</span> .animateWithDuration(<span class="number">0.3</span>, delay: <span class="number">0</span>, options: <span class="built_in">UIViewAnimationOptions</span>.CurveEaseInOut, animations: &#123; </div><div class="line"><span class="comment">//</span></div><div class="line"><span class="keyword">self</span>.rootView.layer.transform = <span class="keyword">self</span>.secondTransform()</div><div class="line"><span class="comment">// 显示maskview, 遮挡view</span></div><div class="line"><span class="keyword">self</span>.maskView = <span class="built_in">UIView</span>.init(frame: <span class="keyword">self</span>.view.bounds)</div><div class="line"><span class="keyword">self</span>.maskView.backgroundColor = <span class="built_in">UIColor</span>.whiteColor()</div><div class="line"><span class="keyword">self</span>.maskView.alpha = <span class="number">0.5</span></div><div class="line"><span class="keyword">self</span>.rootView.addSubview(<span class="keyword">self</span>.maskView)</div><div class="line"><span class="comment">// popView上升</span></div><div class="line"><span class="keyword">self</span>.popView.frame = frame</div><div class="line">&#125;, completion: &#123; (Bool) <span class="keyword">in</span></div><div class="line"><span class="comment">//</span></div><div class="line">&#125;)</div><div class="line">&#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<h2 id="关闭方法"><a href="#关闭方法" class="headerlink" title="关闭方法"></a>关闭方法</h2><figure class="highlight objectivec"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div></pre></td><td class="code"><pre><div class="line">func closeAction()&#123;</div><div class="line">var frame = popView.frame</div><div class="line">frame.origin.y += popView.frame.size.height</div><div class="line"></div><div class="line"><span class="built_in">UIView</span>.animateWithDuration(<span class="number">0.3</span>, animations: &#123;</div><div class="line"><span class="comment">//</span></div><div class="line"><span class="keyword">self</span>.maskView.alpha = <span class="number">0</span></div><div class="line"><span class="keyword">self</span>.popView.frame = frame</div><div class="line"><span class="comment">// 改善滑动效果</span></div><div class="line"><span class="keyword">self</span>.rootView.layer.transform = <span class="keyword">self</span>.firstTransform()</div><div class="line"></div><div class="line">&#125;) &#123; (Bool) <span class="keyword">in</span></div><div class="line"><span class="built_in">UIView</span>.animateWithDuration(<span class="number">0.3</span>, delay: <span class="number">0</span>, options: <span class="built_in">UIViewAnimationOptions</span>.CurveEaseInOut, animations: &#123;</div><div class="line"><span class="comment">// 变为初始值</span></div><div class="line"><span class="keyword">self</span>.rootView.layer.transform = <span class="built_in">CATransform3DIdentity</span>;</div><div class="line">&#125;, completion: &#123; (Bool) <span class="keyword">in</span></div><div class="line"><span class="comment">// 移除</span></div><div class="line"><span class="keyword">self</span>.popView.removeFromSuperview()</div><div class="line">&#125;)</div><div class="line">&#125;   </div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<h2 id="layer层-形变"><a href="#layer层-形变" class="headerlink" title="layer层 形变"></a>layer层 形变</h2><figure class="highlight objectivec"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div></pre></td><td class="code"><pre><div class="line">func firstTransform() -&gt; <span class="built_in">CATransform3D</span> &#123;</div><div class="line">var t1 = <span class="built_in">CATransform3DIdentity</span>;</div><div class="line">t1.m34 = <span class="number">1.0</span> / <span class="number">-900</span>;</div><div class="line"><span class="comment">//带点缩小的效果</span></div><div class="line">t1 = <span class="built_in">CATransform3DScale</span>(t1, <span class="number">0.95</span>, <span class="number">0.95</span>, <span class="number">1</span>);</div><div class="line"><span class="comment">//绕x轴旋转</span></div><div class="line">t1 = <span class="built_in">CATransform3DRotate</span>(t1, <span class="number">15.0</span> * (<span class="built_in">CGFloat</span>)(M_PI)/<span class="number">180.0</span>, <span class="number">1</span>, <span class="number">0</span>, <span class="number">0</span>);</div><div class="line"><span class="keyword">return</span> t1;</div><div class="line">&#125;</div><div class="line">func secondTransform() -&gt; <span class="built_in">CATransform3D</span> &#123;</div><div class="line">var t2 = <span class="built_in">CATransform3DIdentity</span></div><div class="line">t2.m34 = <span class="keyword">self</span>.firstTransform().m34;</div><div class="line"><span class="comment">//向上移</span></div><div class="line">t2 = <span class="built_in">CATransform3DTranslate</span>(t2, <span class="number">0</span>, <span class="keyword">self</span>.view.frame.size.height * (<span class="number">-0.08</span>), <span class="number">0</span>);</div><div class="line"><span class="comment">//第二次缩小</span></div><div class="line">t2 = <span class="built_in">CATransform3DScale</span>(t2, <span class="number">0.8</span>, <span class="number">0.8</span>, <span class="number">1</span>);</div><div class="line"><span class="keyword">return</span> t2;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>使用: 创建(TestViewController)继承于上面的控制器(XtViewController)<br><figure class="highlight objectivec"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div></pre></td><td class="code"><pre><div class="line">let popView1 = <span class="built_in">UIView</span>.init(frame: <span class="built_in">CGRectMake</span>(<span class="number">0</span>, screen_Height, screen_Width, screen_Height / <span class="number">2</span>))</div><div class="line"><span class="comment">/// popView1 是点击打开的时候下方弹出的view</span></div><div class="line">popView1.backgroundColor = <span class="built_in">UIColor</span>.grayColor()</div><div class="line"><span class="comment">/// 加个阴影</span></div><div class="line">popView1.layer.shadowColor = <span class="built_in">UIColor</span>.blackColor().CGColor</div><div class="line">popView1.layer.shadowOffset = <span class="built_in">CGSizeMake</span>(<span class="number">0.5</span>, <span class="number">0.5</span>)</div><div class="line">popView1.layer.shadowOpacity = <span class="number">0.8</span></div><div class="line">popView1.layer.shadowRadius = <span class="number">5</span></div><div class="line"></div><div class="line">let main = ViewController()</div><div class="line">let mainNav = <span class="built_in">UINavigationController</span>.init(rootViewController: main)</div><div class="line"></div><div class="line"><span class="comment">/// 关闭按钮</span></div><div class="line">let btnClose = <span class="built_in">UIButton</span>.init(type: <span class="built_in">UIButtonType</span>.Custom)</div><div class="line">btnClose.frame = <span class="built_in">CGRectMake</span>(<span class="number">15</span>, <span class="number">0</span>, <span class="number">50</span>, <span class="number">40</span>)</div><div class="line">btnClose.setTitle(<span class="string">"Close"</span>, forState: <span class="built_in">UIControlState</span>.Normal)</div><div class="line">btnClose.setTitleColor(<span class="built_in">UIColor</span>.cyanColor(), forState: <span class="built_in">UIControlState</span>.Normal)</div><div class="line">btnClose.addTarget(<span class="keyword">self</span>, action:Selector(<span class="string">"close"</span>), forControlEvents: <span class="built_in">UIControlEvents</span>.TouchUpInside)</div><div class="line">popView1.addSubview(btnClose)</div><div class="line"></div><div class="line"><span class="comment">// 打开按钮</span></div><div class="line">let btnOpen = <span class="built_in">UIButton</span>.init(type: <span class="built_in">UIButtonType</span>.Custom)</div><div class="line">btnOpen.frame = <span class="built_in">CGRectMake</span>(((screen_Width - <span class="number">100</span>) / <span class="number">2</span>), <span class="number">300</span>, <span class="number">50</span>, <span class="number">40</span>)</div><div class="line"></div><div class="line">btnOpen.setTitle(<span class="string">"打开"</span>, forState: <span class="built_in">UIControlState</span>.Normal)</div><div class="line">btnOpen.setTitleColor(<span class="built_in">UIColor</span>.cyanColor(), forState: <span class="built_in">UIControlState</span>.Normal)</div><div class="line">btnOpen.addTarget(<span class="keyword">self</span>, action: Selector(<span class="string">"open"</span>), forControlEvents: <span class="built_in">UIControlEvents</span>.TouchUpInside)</div><div class="line"><span class="comment">/// main.view 是主控制器的self.view</span></div><div class="line">main.view.addSubview(btnOpen)</div><div class="line">main.view.backgroundColor = <span class="built_in">UIColor</span>.whiteColor()</div><div class="line">main.title = <span class="string">"XTtest"</span></div><div class="line"><span class="keyword">self</span>.createPopViewControllerWithMainViewController(mainNav, popView: popView1)</div><div class="line"><span class="comment">//        self.view.backgroundColor = UIColor.whiteColor() // 底部</span></div><div class="line">&#125;</div><div class="line">func open()</div><div class="line">&#123;</div><div class="line">print(<span class="string">"+++++++++"</span>)</div><div class="line"><span class="keyword">self</span>.openAction()</div><div class="line">&#125;</div><div class="line">func close()</div><div class="line">&#123;</div><div class="line"><span class="keyword">self</span>.closeAction()</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<p><a href="http://www.jianshu.com/p/a697d2a38b3c" target="_blank" rel="external">OC版本原文</a>链接<br><a href="https://github.com/Zhangjingwang1993/PopViewControllerSwift.git" target="_blank" rel="external">Swift入口</a></p>
+<div align="center"><br>微信公众号 得到最快最新的推送<br></div>
+
+<div align="center"><br><img src="http://ww1.sinaimg.cn/large/0060lm7Tgw1f9656jhucpj307607674r.jpg" alt=""><br></div>
+
+      
+    </div>
+
+  </div>
+
+  <div class="article-footer">
+    <div class="article-meta pull-left">
+
+    
+
+    
+    
+
+    <span class="post-tags">
+      <i class="icon-tags"></i>
+        <a href="/tags/Swift/">Swift</a>
+    </span>
+    
+
+    </div>
+
+    
+  </div>
+</article>
+
+
+    </main>
+
+    <footer class="site-footer">
+  <p class="site-info">
+    Proudly powered by <a href="https://hexo.io/" target="_blank">Hexo</a> and
+    Theme by <a href="https://github.com/CodeDaraW/Hacker" target="_blank">Hacker</a>
+    </br>
+    
+    &copy; 2017 夏天然后
+    
+  </p>
+</footer>
+    
+  </div>
+</div>
+</body>
+</html>

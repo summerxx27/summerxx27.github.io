@@ -1,0 +1,152 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  <title>Swift语法之结构体 | 夏天然后</title>
+
+  
+  <meta name="author" content="夏天然后">
+  
+
+  
+  <meta name="description" content="">
+  
+
+  
+  
+  <meta name="keywords" content="Swift">
+  
+
+  <meta id="viewport" name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, minimum-scale=1, user-scalable=no, minimal-ui">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black">
+
+  <meta property="og:title" content="Swift语法之结构体"/>
+
+  <meta property="og:site_name" content="夏天然后"/>
+
+  
+  <meta property="og:image" content="/favicon.ico"/>
+  
+
+  <link href="/favicon.ico" rel="icon">
+  <link rel="alternate" href="/atom.xml" title="夏天然后" type="application/atom+xml">
+  <link rel="stylesheet" href="/css/style.css" media="screen" type="text/css">
+</head>
+
+
+<body>
+<div class="blog">
+  <div class="content">
+
+    <header>
+  <div class="site-branding">
+    <h1 class="site-title">
+      <a href="/">夏天然后</a>
+    </h1>
+    <p class="site-description"></p>
+  </div>
+  <nav class="site-navigation">
+    <ul>
+      
+        <li><a href="/">Home</a></li>
+      
+        <li><a href="/archives">Archives</a></li>
+      
+        <li><a href="/tags">about</a></li>
+      
+    </ul>
+  </nav>
+</header>
+
+    <main class="site-main posts-loop">
+    <article>
+
+  
+    
+    <h3 class="article-title"><span>Swift语法之结构体</span></h3>
+    
+  
+
+  <div class="article-top-meta">
+    <span class="posted-on">
+      <a href="/2016/10/11/33/" rel="bookmark">
+        <time class="entry-date published" datetime="2016-10-11T12:31:32.000Z">
+          2016-10-11
+        </time>
+      </a>
+    </span>
+  </div>
+
+
+  
+
+  <div class="article-content">
+    <div class="entry">
+      
+        <div align="center"><br><img src="http://ww4.sinaimg.cn/large/0060lm7Tgw1f8olv3zag1j30gh0ez75q.jpg" alt=""><br></div>
+
+<a id="more"></a>
+<h3 id="定义"><a href="#定义" class="headerlink" title="定义"></a>定义</h3><figure class="highlight objectivec"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div></pre></td><td class="code"><pre><div class="line"><span class="comment">/// 这里我定义了一个结构体类型</span></div><div class="line"><span class="comment">/// 结构体类型是一个新的Siwft类型 (命名类似于 Int Double)</span></div><div class="line"><span class="comment">/// 用来描述一个人的所带属性 name = "" age = 0</span></div><div class="line"><span class="keyword">struct</span> PersonStruct &#123;</div><div class="line">var name = <span class="string">" "</span></div><div class="line">var age = <span class="number">0</span></div><div class="line">&#125;</div><div class="line"><span class="comment">/// 接下来我定义了一个类</span></div><div class="line"><span class="comment">/// 其中包含PersonStruct结构体类型</span></div><div class="line"><span class="keyword">class</span> Person&#123;</div><div class="line">var personstruct = PersonStruct()</div><div class="line">var habbit = <span class="string">" "</span></div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<h3 id="实例化"><a href="#实例化" class="headerlink" title="实例化"></a>实例化</h3><figure class="highlight objectivec"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line"><span class="comment">/// 其中PersonStruct 和Person定义了抽象的PersonStruct, Person, 接下来我们进行实例化</span></div><div class="line"><span class="comment">/// 结构体和类都使用构造器语法来生成新的实例, 在结构体名和类名后加()</span></div><div class="line">let personStruct = PersonStruct()</div><div class="line">let person = Person()</div></pre></td></tr></table></figure>
+<h3 id="属性访问"><a href="#属性访问" class="headerlink" title="属性访问"></a>属性访问</h3><figure class="highlight objectivec"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line"><span class="comment">/// 属性访问</span></div><div class="line">print(<span class="string">"The PersonStruct Name is \(personStruct.name)"</span>)</div><div class="line"><span class="comment">/// 属性赋值操作</span></div><div class="line"><span class="comment">/// 可以直接访问结构体的子属性</span></div><div class="line">person.personstruct.name = <span class="string">"summmerxx"</span></div><div class="line">person.habbit = <span class="string">"love coding"</span></div><div class="line">print(<span class="string">"person-&gt;personstruct-&gt;name is \(person.personstruct.name) habbit is \(person.habbit)"</span>)</div></pre></td></tr></table></figure>
+<h3 id="结构体赋值的例子"><a href="#结构体赋值的例子" class="headerlink" title="结构体赋值的例子"></a>结构体赋值的例子</h3><figure class="highlight objectivec"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line">let obj = PersonStruct(name: <span class="string">"summerxx2"</span>, age: <span class="number">18</span>)</div><div class="line">var obj1 = obj</div><div class="line"><span class="comment">/// 把obj1.name 修改为暖暖</span></div><div class="line">obj1.name = <span class="string">"暖暖"</span></div><div class="line"><span class="comment">/// 接下来我们来看看</span></div><div class="line">print(<span class="string">"obj name is \(obj.name)"</span>) <span class="comment">// summerxx2</span></div><div class="line">print(<span class="string">"obj1 name is \(obj1.name)"</span>) <span class="comment">// 暖暖</span></div><div class="line"><span class="comment">/// 在将 obj 赋予给 obj1 的时候，实际上是将 obj 中所存储的值（values）进行拷贝. 只是单纯的进行值拷贝</span></div></pre></td></tr></table></figure>
+<h3 id="再看看类"><a href="#再看看类" class="headerlink" title="再看看类"></a>再看看类</h3><figure class="highlight objectivec"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line"><span class="comment">/// 类的操作</span></div><div class="line">let personObj = Person()</div><div class="line">personObj.habbit = <span class="string">"Beatiful things"</span></div><div class="line"></div><div class="line">let personObj1 = personObj</div><div class="line">personObj1.habbit = <span class="string">"Not habbit"</span></div><div class="line"></div><div class="line">print(<span class="string">"personObj habbit is \(personObj.habbit)"</span>) <span class="comment">// Not habbit</span></div><div class="line"><span class="comment">/// 在将 personObj 赋予给 personObj1 的时候，实际上是将 personObj 存储的地址值进行拷贝.</span></div></pre></td></tr></table></figure>
+<p>接下来看看使用场景, 究竟什么情况下使用结构体, 在Objective-C开发的时候, 用于数据存储我一般都是使用类, 也就是MVC中的Model</p>
+<blockquote>
+<ul>
+<li>结构体的主要目的是用来封装少量相关简单数据值。</li>
+<li>有理由预计一个结构体实例在赋值或传递时，封装的数据将会被拷贝而不是被引用。</li>
+<li>任何在结构体中储存的值类型属性，也将会被拷贝，而不是被引用</li>
+<li>结构体不需去继承另一个已存在类型的属性或者行为。</li>
+</ul>
+</blockquote>
+<p>总结: Siwft 结构体简单学习就到这, 待补充~</p>
+<div align="center"><br>微信公众号 得到最快最新的推送<br></div>
+
+<div align="center"><br><img src="http://ww1.sinaimg.cn/large/0060lm7Tgw1f9656jhucpj307607674r.jpg" alt=""><br></div>
+
+      
+    </div>
+
+  </div>
+
+  <div class="article-footer">
+    <div class="article-meta pull-left">
+
+    
+
+    
+    
+
+    <span class="post-tags">
+      <i class="icon-tags"></i>
+        <a href="/tags/Swift/">Swift</a>
+    </span>
+    
+
+    </div>
+
+    
+  </div>
+</article>
+
+
+    </main>
+
+    <footer class="site-footer">
+  <p class="site-info">
+    Proudly powered by <a href="https://hexo.io/" target="_blank">Hexo</a> and
+    Theme by <a href="https://github.com/CodeDaraW/Hacker" target="_blank">Hacker</a>
+    </br>
+    
+    &copy; 2017 夏天然后
+    
+  </p>
+</footer>
+    
+  </div>
+</div>
+</body>
+</html>

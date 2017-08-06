@@ -1,0 +1,166 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  <title>仿照系统AlertViewController样式-自定义 | 夏天然后</title>
+
+  
+  <meta name="author" content="夏天然后">
+  
+
+  
+  <meta name="description" content="preface: Meaning is to create a more versions compatible with similar to UIAlertView controlspic example:">
+  
+
+  
+  
+  <meta name="keywords" content="UI">
+  
+
+  <meta id="viewport" name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, minimum-scale=1, user-scalable=no, minimal-ui">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black">
+
+  <meta property="og:title" content="仿照系统AlertViewController样式-自定义"/>
+
+  <meta property="og:site_name" content="夏天然后"/>
+
+  
+  <meta property="og:image" content="/favicon.ico"/>
+  
+
+  <link href="/favicon.ico" rel="icon">
+  <link rel="alternate" href="/atom.xml" title="夏天然后" type="application/atom+xml">
+  <link rel="stylesheet" href="/css/style.css" media="screen" type="text/css">
+</head>
+
+
+<body>
+<div class="blog">
+  <div class="content">
+
+    <header>
+  <div class="site-branding">
+    <h1 class="site-title">
+      <a href="/">夏天然后</a>
+    </h1>
+    <p class="site-description"></p>
+  </div>
+  <nav class="site-navigation">
+    <ul>
+      
+        <li><a href="/">Home</a></li>
+      
+        <li><a href="/archives">Archives</a></li>
+      
+        <li><a href="/tags">about</a></li>
+      
+    </ul>
+  </nav>
+</header>
+
+    <main class="site-main posts-loop">
+    <article>
+
+  
+    
+    <h3 class="article-title"><span>仿照系统AlertViewController样式-自定义</span></h3>
+    
+  
+
+  <div class="article-top-meta">
+    <span class="posted-on">
+      <a href="/2016/09/01/28/" rel="bookmark">
+        <time class="entry-date published" datetime="2016-09-01T14:28:48.000Z">
+          2016-09-01
+        </time>
+      </a>
+    </span>
+  </div>
+
+
+  
+
+  <div class="article-content">
+    <div class="entry">
+      
+        <p>preface: Meaning is to create a more versions compatible with similar to UIAlertView controls<br>pic example:</p>
+<p><table border="1"></table></p>
+<p><tr></tr></p>
+<p><td><img src="http://ww4.sinaimg.cn/large/e6a4355cgw1f7e3c2t0mvj20jz0zkmyk.jpg" width="200" height="300"></td></p>
+<p><td><img src="http://ww1.sinaimg.cn/large/e6a4355cgw1f7e3cv8mv8j20ku112js8.jpg" width="200" height="300"></td></p>
+<p><td><img src="http://ww3.sinaimg.cn/large/e6a4355cgw1f7e3d0ucy1j20ku112jsm.jpg" width="200" height="300"></td></p>
+<p><td><img src="http://ww2.sinaimg.cn/large/e6a4355cgw1f7e3d5z1hbj20jz0zkmxx.jpg" width="200" height="300"></td><br><br><br><a id="more"></a></p>
+<h3 id="Advantages"><a href="#Advantages" class="headerlink" title="Advantages"></a>Advantages</h3><ul>
+<li>iOS 7.0 available after</li>
+<li>Header Image (optional)</li>
+<li>Title, des (optional)</li>
+<li>Low coupling (present new controller)</li>
+<li>Animation with UIKit Dynamics</li>
+</ul>
+<h3 id="Features"><a href="#Features" class="headerlink" title="Features"></a>Features</h3><ul>
+<li>Provide the expansion of the more interesting and powerful features</li>
+</ul>
+<h3 id="Cocoapods"><a href="#Cocoapods" class="headerlink" title="Cocoapods"></a>Cocoapods</h3><ul>
+<li>Add <code>pod &#39;XTAlertViewController&#39;, &#39;~&gt; 1.0.1&#39;</code> to your Podfile</li>
+<li>Run <code>pod install</code> or pod update –no-repo-update</li>
+<li><code>import &lt;XTAlertView.h&gt;</code></li>
+</ul>
+<h4 id="Usage"><a href="#Usage" class="headerlink" title="Usage"></a>Usage</h4><figure class="highlight objectivec"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div></pre></td><td class="code"><pre><div class="line"><span class="comment">// init obj</span></div><div class="line"><span class="comment">// Give a picture name</span></div><div class="line"><span class="comment">// Give a picture's height</span></div><div class="line"><span class="comment">// Give a btn's title array</span></div><div class="line"><span class="comment">// Give a title</span></div><div class="line"><span class="comment">// Give a describtion</span></div><div class="line"><span class="comment">// Give a style  two btn | double btn</span></div><div class="line"><span class="comment">// example 1</span></div><div class="line">[[XTAlertViewController new] showViewWithImage:<span class="string">@"summerxx"</span> imageHeight:<span class="number">188</span> title:<span class="string">@"This is an introduction"</span> btnTitles:@[<span class="string">@"Cancel"</span>, <span class="string">@"Determine"</span>] des:<span class="string">@"A simple and easy to use more version using the controls Copyright © 2016年 夏天然后. All rights reserved."</span> style:AlertDefault fromVC:<span class="keyword">self</span>];</div><div class="line"><span class="comment">// example 2</span></div><div class="line">XTAlertViewController *xtAlert = [[XTAlertViewController alloc] init];</div><div class="line">[xtAlert showViewWithImage:<span class="string">@"summerxx"</span> imageHeight:<span class="number">188</span> title:<span class="string">@"This is an introduction"</span> btnTitles:@[<span class="string">@"Cancel"</span>, <span class="string">@"Determine"</span>, <span class="string">@"Okey"</span>] des:<span class="string">@"A simple and easy to use more version using the controls Copyright © 2016年 夏天然后. All rights reserved."</span> style:AlertDouble fromVC:<span class="keyword">self</span>];</div><div class="line">xtAlert.delegate = <span class="keyword">self</span>;</div></pre></td></tr></table></figure>
+<h4 id="If-you-use-a-proxy-method"><a href="#If-you-use-a-proxy-method" class="headerlink" title="If you use a proxy method"></a>If you use a proxy method</h4><figure class="highlight objectivec"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line"><span class="comment">// Signed an delegate</span></div><div class="line"><span class="class"><span class="keyword">@interface</span> <span class="title">ViewController</span> ()&lt;<span class="title">XTAlertControllerDelegate</span>&gt;</span></div><div class="line"><span class="comment">// </span></div><div class="line">xt.delegate = <span class="keyword">self</span>;</div></pre></td></tr></table></figure>
+<h4 id="Implement-delegate-method-like-this"><a href="#Implement-delegate-method-like-this" class="headerlink" title="Implement delegate method like this"></a>Implement delegate method like this</h4><figure class="highlight objectivec"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div></pre></td><td class="code"><pre><div class="line">- (<span class="keyword">void</span>)xt_alertViewControllerClickIndex:(<span class="built_in">NSInteger</span>)buttonIndex</div><div class="line">&#123;</div><div class="line"></div><div class="line">    <span class="keyword">switch</span> (buttonIndex) &#123;</div><div class="line">        <span class="keyword">case</span> <span class="number">0</span>:</div><div class="line">            <span class="built_in">NSLog</span>(<span class="string">@"0"</span>);</div><div class="line">            <span class="built_in">NSLog</span>(<span class="string">@"Cancel"</span>);</div><div class="line">        <span class="keyword">break</span>;</div><div class="line">        <span class="keyword">case</span> <span class="number">1</span>:</div><div class="line">            <span class="built_in">NSLog</span>(<span class="string">@"1"</span>);</div><div class="line">            <span class="built_in">NSLog</span>(<span class="string">@"Determine"</span>);</div><div class="line">        <span class="keyword">break</span>;</div><div class="line">        <span class="keyword">case</span> <span class="number">2</span>:</div><div class="line">            <span class="built_in">NSLog</span>(<span class="string">@"2"</span>);</div><div class="line">            <span class="built_in">NSLog</span>(<span class="string">@"summerxx"</span>);</div><div class="line">        <span class="keyword">break</span>;</div><div class="line">        <span class="keyword">default</span>:</div><div class="line">        <span class="keyword">break</span>;</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<h3 id="Contributing"><a href="#Contributing" class="headerlink" title="Contributing"></a>Contributing</h3><ul>
+<li>If you need help, open an issue.</li>
+<li>If you found a bug, open an issue.</li>
+<li>If you have a new demand, also open an issue.</li>
+</ul>
+<h3 id="Acknowledgements"><a href="#Acknowledgements" class="headerlink" title="Acknowledgements"></a>Acknowledgements</h3><p>Made with by <a href="https://github.com/summerxx27" target="_blank" rel="external">summerxx27</a> , Thank you for your use</p>
+<h3 id="MIT-License"><a href="#MIT-License" class="headerlink" title="MIT License"></a>MIT License</h3><p>XTAlertController is available under the MIT license. See the LICENSE file for more info.</p>
+<div align="center"><br>微信公众号 得到最快最新的推送<br></div>
+
+<div align="center"><br><img src="http://ww1.sinaimg.cn/large/0060lm7Tgw1f9656jhucpj307607674r.jpg" alt=""><br></div>
+
+      
+    </div>
+
+  </div>
+
+  <div class="article-footer">
+    <div class="article-meta pull-left">
+
+    
+
+    
+    
+
+    <span class="post-tags">
+      <i class="icon-tags"></i>
+        <a href="/tags/UI/">UI</a>
+    </span>
+    
+
+    </div>
+
+    
+  </div>
+</article>
+
+
+    </main>
+
+    <footer class="site-footer">
+  <p class="site-info">
+    Proudly powered by <a href="https://hexo.io/" target="_blank">Hexo</a> and
+    Theme by <a href="https://github.com/CodeDaraW/Hacker" target="_blank">Hacker</a>
+    </br>
+    
+    &copy; 2017 夏天然后
+    
+  </p>
+</footer>
+    
+  </div>
+</div>
+</body>
+</html>

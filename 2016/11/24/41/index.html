@@ -1,0 +1,176 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  <title>厚积薄发之从Masonry 源码看Objective-C 开篇 | 夏天然后</title>
+
+  
+  <meta name="author" content="夏天然后">
+  
+
+  
+  <meta name="description" content="前言: 这个系列可能不会分析, Masonry如何如何好, 估计多在分析源码写法, 不清楚的语法, 用了什么知识点, 可能是这样, 写成什么样也不确定, Masonry 是一个关于iOS开发的布局框架, Masonry是对NSLayoutConstraint 的封装, 你知道的NSLayoutConstraint这个家伙使用起来很麻烦的, 语法相当的啰嗦. 所以Masonry 简化了这个家伙的使用方式, 同时Masonry有一个小兄弟, 也在成长中, 成长的也是不错, 你可以在Masonry的家里找到这个家伙(SnapKit), 不同的是SnapKit 是使用Siwft 写的, 如果你都知道, 就当是我在凑字数(来 qq群打我好啦 认真脸), 今天就主要介绍一些Masonry 相关的干货, 反正你知道我是学习记录, 谈不上分享的, 我一贯就是这个态度的[囧].下面的这张图, 简单介绍了Masonry的主要大部分类, 你说: 没写全? 对的. 我能说没有地方画让我删了吗? 认真.">
+  
+
+  
+  
+  <meta name="keywords" content="Masonry,源码">
+  
+
+  <meta id="viewport" name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, minimum-scale=1, user-scalable=no, minimal-ui">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black">
+
+  <meta property="og:title" content="厚积薄发之从Masonry 源码看Objective-C 开篇"/>
+
+  <meta property="og:site_name" content="夏天然后"/>
+
+  
+  <meta property="og:image" content="/favicon.ico"/>
+  
+
+  <link href="/favicon.ico" rel="icon">
+  <link rel="alternate" href="/atom.xml" title="夏天然后" type="application/atom+xml">
+  <link rel="stylesheet" href="/css/style.css" media="screen" type="text/css">
+</head>
+
+
+<body>
+<div class="blog">
+  <div class="content">
+
+    <header>
+  <div class="site-branding">
+    <h1 class="site-title">
+      <a href="/">夏天然后</a>
+    </h1>
+    <p class="site-description"></p>
+  </div>
+  <nav class="site-navigation">
+    <ul>
+      
+        <li><a href="/">Home</a></li>
+      
+        <li><a href="/archives">Archives</a></li>
+      
+        <li><a href="/tags">about</a></li>
+      
+    </ul>
+  </nav>
+</header>
+
+    <main class="site-main posts-loop">
+    <article>
+
+  
+    
+    <h3 class="article-title"><span>厚积薄发之从Masonry 源码看Objective-C 开篇</span></h3>
+    
+  
+
+  <div class="article-top-meta">
+    <span class="posted-on">
+      <a href="/2016/11/24/41/" rel="bookmark">
+        <time class="entry-date published" datetime="2016-11-24T07:25:02.000Z">
+          2016-11-24
+        </time>
+      </a>
+    </span>
+  </div>
+
+
+  
+
+  <div class="article-content">
+    <div class="entry">
+      
+        <p><img src="http://ww1.sinaimg.cn/large/e6a4355cgy1fia2r8913yj21z418g4k8.jpg" alt=""></p>
+<blockquote>
+<p>前言: 这个系列可能不会分析, <code>Masonry</code>如何如何好, 估计多在分析源码写法, 不清楚的语法, 用了什么知识点, 可能是这样, 写成什么样也不确定, <code>Masonry</code> 是一个关于iOS开发的布局框架, <code>Masonry</code>是对<code>NSLayoutConstraint</code> 的封装, 你知道的<code>NSLayoutConstraint</code>这个家伙使用起来很麻烦的, 语法相当的啰嗦. 所以<code>Masonry</code> 简化了这个家伙的使用方式, 同时<code>Masonry</code>有一个小兄弟, 也在成长中, 成长的也是不错, 你可以在<code>Masonry</code>的家里找到这个家伙(SnapKit), 不同的是SnapKit 是使用<code>Siwft</code> 写的, 如果你都知道, 就当是我在凑字数(来 qq群打我好啦 认真脸), 今天就主要介绍一些<code>Masonry</code> 相关的干货, 反正你知道我是学习记录, 谈不上分享的, 我一贯就是这个态度的[囧].<br>下面的这张图, 简单介绍了<code>Masonry</code>的主要大部分类, 你说: 没写全? 对的. 我能说没有地方画让我删了吗? 认真.<br><a id="more"></a></p>
+</blockquote>
+<p>可能会写这样几篇<br><a href="http://blog.csdn.net/sinat_30162391/article/details/53321046" target="_blank" rel="external">厚积薄发之从Masonry 源码看Objective-C [开篇]</a><br>[厚积薄发之从Masonry 源码看Objective-C [开篇 续]]<br>[厚积薄发之从Masonry 源码看Objective-C [开篇 续续]<br>[厚积薄发之从Masonry 源码看Objective-C [开篇 续续续]<br>[厚积薄发之从Masonry 源码看Objective-C [终篇 - 有始有终 希望最后能够完美]</p>
+<p>功力有限写什么样, 算什么样. 有点死猪不怕烫的意思. 逃跑~.</p>
+<h2 id="目录"><a href="#目录" class="headerlink" title="目录"></a>目录</h2><ul>
+<li>Objective-C可变参数</li>
+<li>内联函数 inline</li>
+<li>mas_equalTo这个宏的实现<div align="center"><br><img src="http://upload-images.jianshu.io/upload_images/1506501-0b89c72568d0ac94.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="简单介绍"><br></div>
+
+</li>
+</ul>
+<p>可变参数: 在开始之前, 我决定先看看这个小知识, 当然你了解C 语言对此并不陌生, 然而我不像你, 我已经把以前学的知识, 交还给我的teacher了. 你可能也忘记了来跟我一起复习一遍, 在C 语言中的解释大致是这个样子的, 可变参数的实现必然不能缺少<code>VA_LIST</code>,<br><code>VA_LIST 是在C语言中是这样解释的, 用来解决变参问题的一组宏，所在头文件：#include &lt;stdarg.h&gt;,用于获取不确定个数的参数</code><br>而在Objective-C中 同样也有关于处理不确定参数个数的实现使用<code>va_list</code>相关, 接下来通过一段简单的代码进行演示.</p>
+<h3 id="可变参数在OC中如何实现"><a href="#可变参数在OC中如何实现" class="headerlink" title="可变参数在OC中如何实现?"></a>可变参数在OC中如何实现?</h3><ul>
+<li><code>va_list</code>定义一个<code>va_list</code>变量, 这个变量的是指向参数的指针</li>
+<li><code>va_start</code>使用宏 定义<code>va_list</code>变量</li>
+<li><code>va_arg</code>va_arg返回可变的参数，<code>va_arg</code>的第二个参数是你要返回的参数的类型,如果函数有多个可变参数的，依次调用<code>va_arg</code>获取各个参数</li>
+<li><code>va_end</code>用va_end宏结束可变参数的获取</li>
+</ul>
+<figure class="highlight objectivec"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div></pre></td><td class="code"><pre><div class="line">- (<span class="built_in">NSMutableArray</span> *)vaListUsing:(<span class="built_in">NSString</span> *)p1,...NS_REQUIRES_NIL_TERMINATION&#123;</div><div class="line">    <span class="built_in">NSMutableArray</span> *array = [<span class="built_in">NSMutableArray</span> array];</div><div class="line">    <span class="comment">// 第一个参数进数组</span></div><div class="line">    [array addObject:p1];</div><div class="line">    <span class="comment">// 定义一个va_list变量, 这个变量的是指向参数的指针</span></div><div class="line">    va_list v;</div><div class="line">    <span class="keyword">id</span> vStr;</div><div class="line">    <span class="comment">// 使用宏定义va_list变量</span></div><div class="line">    va_start(v, p1);</div><div class="line">    <span class="comment">// va_arg返回可变的参数，va_arg的第二个参数是你要返回的参数的类型,如果函数有多个可变参数的，依次调用va_arg获取各个参数</span></div><div class="line">    <span class="keyword">while</span> ((vStr = va_arg(v, <span class="keyword">id</span>))) &#123;</div><div class="line">        [array addObject:vStr];</div><div class="line">    &#125;</div><div class="line">    <span class="comment">// 用va_end宏结束可变参数的获取</span></div><div class="line">    va_end(v);</div><div class="line">    <span class="keyword">return</span> array;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<figure class="highlight objectivec"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line"><span class="built_in">NSMutableArray</span> *array = [<span class="keyword">self</span> vaListUsing:<span class="string">@"Cancel"</span>, <span class="string">@"Other"</span>,<span class="string">@"OK"</span>, <span class="literal">nil</span>];</div><div class="line"><span class="built_in">NSLog</span>(<span class="string">@"%@"</span>, array);</div></pre></td></tr></table></figure>
+<blockquote>
+<p>这是获取的打印结果, 以上就是我通过代码的形式表现出来的, 你可以通过获取的参数名, 参数个数, 可进行适当的UI布局什么的.<br><strong>2016-11-23 15:58:09.225 Masonry*</strong>阅读理解<strong>**[5338:1112595] (</strong><br><strong>    Cancel,</strong><br><strong>    Other,</strong><br><strong>    OK</strong><br><strong>)</strong></p>
+</blockquote>
+<p>以上是不是跑题了, 我的回答是 并没有! 你也相信我不能在这瞎扯淡.<br>接下来看看Masonry中如何使用这个小知识的呢.</p>
+<h2 id="在MASUtilities中"><a href="#在MASUtilities中" class="headerlink" title="在MASUtilities中"></a>在MASUtilities中</h2><p>先看下面这段源码, 通过上面的介绍, 我觉的你可能有点能明白了, 稍后解释代码, 首先看看<code>inline</code> C和C++语言中inline用来声明内联函数的, 我还是有些印象的 作用是是 <code>用来替代C中表达式形式的宏定义</code>的. 而在OC用也是有同样的作用.<br><figure class="highlight objectivec"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div><div class="line">50</div><div class="line">51</div><div class="line">52</div><div class="line">53</div><div class="line">54</div><div class="line">55</div><div class="line">56</div><div class="line">57</div><div class="line">58</div><div class="line">59</div><div class="line">60</div><div class="line">61</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">static</span> <span class="keyword">inline</span> <span class="keyword">id</span> _MASBoxValue(<span class="keyword">const</span> <span class="keyword">char</span> *type, ...) &#123;</div><div class="line">    va_list v;</div><div class="line">    va_start(v, type);</div><div class="line">    <span class="keyword">id</span> obj = <span class="literal">nil</span>;</div><div class="line">    <span class="keyword">if</span> (strcmp(type, <span class="keyword">@encode</span>(<span class="keyword">id</span>)) == <span class="number">0</span>) &#123;</div><div class="line">        <span class="keyword">id</span> actual = va_arg(v, <span class="keyword">id</span>);</div><div class="line">        obj = actual;</div><div class="line">    &#125; <span class="keyword">else</span> <span class="keyword">if</span> (strcmp(type, <span class="keyword">@encode</span>(<span class="built_in">CGPoint</span>)) == <span class="number">0</span>) &#123;</div><div class="line">        <span class="built_in">CGPoint</span> actual = (<span class="built_in">CGPoint</span>)va_arg(v, <span class="built_in">CGPoint</span>);</div><div class="line">        obj = [<span class="built_in">NSValue</span> value:&amp;actual withObjCType:type];</div><div class="line">    &#125; <span class="keyword">else</span> <span class="keyword">if</span> (strcmp(type, <span class="keyword">@encode</span>(<span class="built_in">CGSize</span>)) == <span class="number">0</span>) &#123;</div><div class="line">        <span class="built_in">CGSize</span> actual = (<span class="built_in">CGSize</span>)va_arg(v, <span class="built_in">CGSize</span>);</div><div class="line">        obj = [<span class="built_in">NSValue</span> value:&amp;actual withObjCType:type];</div><div class="line">    &#125; <span class="keyword">else</span> <span class="keyword">if</span> (strcmp(type, <span class="keyword">@encode</span>(MASEdgeInsets)) == <span class="number">0</span>) &#123;</div><div class="line">        MASEdgeInsets actual = (MASEdgeInsets)va_arg(v, MASEdgeInsets);</div><div class="line">        obj = [<span class="built_in">NSValue</span> value:&amp;actual withObjCType:type];</div><div class="line">    &#125; <span class="keyword">else</span> <span class="keyword">if</span> (strcmp(type, <span class="keyword">@encode</span>(<span class="keyword">double</span>)) == <span class="number">0</span>) &#123;</div><div class="line">        <span class="keyword">double</span> actual = (<span class="keyword">double</span>)va_arg(v, <span class="keyword">double</span>);</div><div class="line">        obj = [<span class="built_in">NSNumber</span> numberWithDouble:actual];</div><div class="line">    &#125; <span class="keyword">else</span> <span class="keyword">if</span> (strcmp(type, <span class="keyword">@encode</span>(<span class="keyword">float</span>)) == <span class="number">0</span>) &#123;</div><div class="line">        <span class="keyword">float</span> actual = (<span class="keyword">float</span>)va_arg(v, <span class="keyword">double</span>);</div><div class="line">        obj = [<span class="built_in">NSNumber</span> numberWithFloat:actual];</div><div class="line">    &#125; <span class="keyword">else</span> <span class="keyword">if</span> (strcmp(type, <span class="keyword">@encode</span>(<span class="keyword">int</span>)) == <span class="number">0</span>) &#123;</div><div class="line">        <span class="keyword">int</span> actual = (<span class="keyword">int</span>)va_arg(v, <span class="keyword">int</span>);</div><div class="line">        obj = [<span class="built_in">NSNumber</span> numberWithInt:actual];</div><div class="line">    &#125; <span class="keyword">else</span> <span class="keyword">if</span> (strcmp(type, <span class="keyword">@encode</span>(<span class="keyword">long</span>)) == <span class="number">0</span>) &#123;</div><div class="line">        <span class="keyword">long</span> actual = (<span class="keyword">long</span>)va_arg(v, <span class="keyword">long</span>);</div><div class="line">        obj = [<span class="built_in">NSNumber</span> numberWithLong:actual];</div><div class="line">    &#125; <span class="keyword">else</span> <span class="keyword">if</span> (strcmp(type, <span class="keyword">@encode</span>(<span class="keyword">long</span> <span class="keyword">long</span>)) == <span class="number">0</span>) &#123;</div><div class="line">        <span class="keyword">long</span> <span class="keyword">long</span> actual = (<span class="keyword">long</span> <span class="keyword">long</span>)va_arg(v, <span class="keyword">long</span> <span class="keyword">long</span>);</div><div class="line">        obj = [<span class="built_in">NSNumber</span> numberWithLongLong:actual];</div><div class="line">    &#125; <span class="keyword">else</span> <span class="keyword">if</span> (strcmp(type, <span class="keyword">@encode</span>(<span class="keyword">short</span>)) == <span class="number">0</span>) &#123;</div><div class="line">        <span class="keyword">short</span> actual = (<span class="keyword">short</span>)va_arg(v, <span class="keyword">int</span>);</div><div class="line">        obj = [<span class="built_in">NSNumber</span> numberWithShort:actual];</div><div class="line">    &#125; <span class="keyword">else</span> <span class="keyword">if</span> (strcmp(type, <span class="keyword">@encode</span>(<span class="keyword">char</span>)) == <span class="number">0</span>) &#123;</div><div class="line">        <span class="keyword">char</span> actual = (<span class="keyword">char</span>)va_arg(v, <span class="keyword">int</span>);</div><div class="line">        obj = [<span class="built_in">NSNumber</span> numberWithChar:actual];</div><div class="line">    &#125; <span class="keyword">else</span> <span class="keyword">if</span> (strcmp(type, <span class="keyword">@encode</span>(<span class="keyword">bool</span>)) == <span class="number">0</span>) &#123;</div><div class="line">        <span class="keyword">bool</span> actual = (<span class="keyword">bool</span>)va_arg(v, <span class="keyword">int</span>);</div><div class="line">        obj = [<span class="built_in">NSNumber</span> numberWithBool:actual];</div><div class="line">    &#125; <span class="keyword">else</span> <span class="keyword">if</span> (strcmp(type, <span class="keyword">@encode</span>(<span class="keyword">unsigned</span> <span class="keyword">char</span>)) == <span class="number">0</span>) &#123;</div><div class="line">        <span class="keyword">unsigned</span> <span class="keyword">char</span> actual = (<span class="keyword">unsigned</span> <span class="keyword">char</span>)va_arg(v, <span class="keyword">unsigned</span> <span class="keyword">int</span>);</div><div class="line">        obj = [<span class="built_in">NSNumber</span> numberWithUnsignedChar:actual];</div><div class="line">    &#125; <span class="keyword">else</span> <span class="keyword">if</span> (strcmp(type, <span class="keyword">@encode</span>(<span class="keyword">unsigned</span> <span class="keyword">int</span>)) == <span class="number">0</span>) &#123;</div><div class="line">        <span class="keyword">unsigned</span> <span class="keyword">int</span> actual = (<span class="keyword">unsigned</span> <span class="keyword">int</span>)va_arg(v, <span class="keyword">unsigned</span> <span class="keyword">int</span>);</div><div class="line">        obj = [<span class="built_in">NSNumber</span> numberWithUnsignedInt:actual];</div><div class="line">    &#125; <span class="keyword">else</span> <span class="keyword">if</span> (strcmp(type, <span class="keyword">@encode</span>(<span class="keyword">unsigned</span> <span class="keyword">long</span>)) == <span class="number">0</span>) &#123;</div><div class="line">        <span class="keyword">unsigned</span> <span class="keyword">long</span> actual = (<span class="keyword">unsigned</span> <span class="keyword">long</span>)va_arg(v, <span class="keyword">unsigned</span> <span class="keyword">long</span>);</div><div class="line">        obj = [<span class="built_in">NSNumber</span> numberWithUnsignedLong:actual];</div><div class="line">    &#125; <span class="keyword">else</span> <span class="keyword">if</span> (strcmp(type, <span class="keyword">@encode</span>(<span class="keyword">unsigned</span> <span class="keyword">long</span> <span class="keyword">long</span>)) == <span class="number">0</span>) &#123;</div><div class="line">        <span class="keyword">unsigned</span> <span class="keyword">long</span> <span class="keyword">long</span> actual = (<span class="keyword">unsigned</span> <span class="keyword">long</span> <span class="keyword">long</span>)va_arg(v, <span class="keyword">unsigned</span> <span class="keyword">long</span> <span class="keyword">long</span>);</div><div class="line">        obj = [<span class="built_in">NSNumber</span> numberWithUnsignedLongLong:actual];</div><div class="line">    &#125; <span class="keyword">else</span> <span class="keyword">if</span> (strcmp(type, <span class="keyword">@encode</span>(<span class="keyword">unsigned</span> <span class="keyword">short</span>)) == <span class="number">0</span>) &#123;</div><div class="line">        <span class="keyword">unsigned</span> <span class="keyword">short</span> actual = (<span class="keyword">unsigned</span> <span class="keyword">short</span>)va_arg(v, <span class="keyword">unsigned</span> <span class="keyword">int</span>);</div><div class="line">        obj = [<span class="built_in">NSNumber</span> numberWithUnsignedShort:actual];</div><div class="line">    &#125;</div><div class="line">    va_end(v);</div><div class="line">    <span class="keyword">return</span> obj;</div><div class="line">&#125;</div><div class="line"></div><div class="line"><span class="meta">#define MASBoxValue(value) _MASBoxValue(@encode(__typeof__((value))), (value))</span></div></pre></td></tr></table></figure></p>
+<h2 id="由源代码引申之内联函数"><a href="#由源代码引申之内联函数" class="headerlink" title="由源代码引申之内联函数"></a>由源代码引申之内联函数</h2><p>定义: 内联函数是指用inline关键字修饰的函数<br>作用: 去掉函数调用带来的开销<br><a href="http://blog.csdn.net/chsadin/article/details/47982923" target="_blank" rel="external">这个说的可以 可以去看看</a><br>代码示例<br>仿照Masonry的示例代码, 我简单测试了一下, 准确性有待考察, 不过粗略的看, 貌似内联函数效率高一点, 你怎么看? 欢迎评论拍砖. 教我做人. </p>
+<h2 id="static-inline"><a href="#static-inline" class="headerlink" title="static inline"></a>static inline</h2><figure class="highlight objectivec"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">static</span> <span class="keyword">inline</span> <span class="keyword">int</span> xtAdd(<span class="keyword">int</span> x, <span class="keyword">int</span> y)&#123;</div><div class="line">    <span class="keyword">int</span> res = x + y;</div><div class="line">    <span class="keyword">return</span> res;</div><div class="line">&#125;</div><div class="line"><span class="meta">#define RESXyAdd(x, y) xtAdd(x, y)</span></div></pre></td></tr></table></figure>
+<figure class="highlight objectivec"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div></pre></td><td class="code"><pre><div class="line">    <span class="built_in">NSDate</span> *tmpStartData = [<span class="built_in">NSDate</span> date];</div><div class="line">    <span class="keyword">int</span> res = RESXyAdd(<span class="number">2</span>, <span class="number">3</span>);</div><div class="line">    <span class="comment">// 内联</span></div><div class="line">    <span class="comment">// 2016-11-24 14:06:13.816 Masonry解析[7209:1504811] &gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;cost time = 0.608981 ms</span></div><div class="line">    <span class="comment">// 2016-11-24 14:00:57.229 Masonry解析[6870:1496409] &gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;cost time = 0.648022 ms</span></div><div class="line">    <span class="comment">// 2016-11-24 14:01:38.670 Masonry解析[6898:1497238] &gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;cost time = 0.645995 ms</span></div><div class="line">    <span class="comment">// 非内联</span></div><div class="line">    <span class="comment">// 2016-11-24 14:03:57.975 Masonry解析[7052:1500940] &gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;cost time = 0.657976 ms</span></div><div class="line">    <span class="comment">// 2016-11-24 14:04:57.955 Masonry解析[7101:1502351] &gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;cost time = 0.651002 ms</span></div><div class="line">    <span class="built_in">NSLog</span>(<span class="string">@"res === %d"</span>, res);</div><div class="line">    <span class="keyword">double</span> deltaTime = [[<span class="built_in">NSDate</span> date] timeIntervalSinceDate:tmpStartData];</div><div class="line">    <span class="built_in">NSLog</span>(<span class="string">@"&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;cost time = %f ms"</span>, deltaTime * <span class="number">1000</span>);</div></pre></td></tr></table></figure>
+<p>接下来通过Masonry的使用来解释上面提到的代码<br>首先我定义了一个View 距上左88 宽高88 我分别可以使用<code>make.width.height.mas_equalTo(88)</code> <code>make.width.height.mas_equalTo(@88)</code> 或者 <code>make.size.mas_equalTo(CGSizeMake(88, 88))</code> 通过这个宏我分别可以实现相应很多操作. 其实这些都是通过上面提到的内联函数实现的. 先通过<code>strcmp</code>这个库函数比较传进来的类型跟什么类型匹配, 之后放回相应的对象. 完成对象的校验. 这样的效率很高, 同时使用方便.<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div></pre></td><td class="code"><pre><div class="line">    UIView *view = [UIView new];</div><div class="line">    [self.view addSubview:view];</div><div class="line">    view.backgroundColor = [UIColor redColor];</div><div class="line">    [view mas_makeConstraints:^(MASConstraintMaker *make) &#123;</div><div class="line">        //</div><div class="line">        make.top.equalTo(self.view.mas_top).with.offset(88);</div><div class="line">        make.left.equalTo(self.view.mas_left).with.offset(88);</div><div class="line">        // 我通过这个宏 传递88给width 和 height</div><div class="line">        make.width.height.mas_equalTo(88);</div><div class="line">        // 或者 @88 </div><div class="line">        // make.width.height.mas_equalTo(@88);</div><div class="line">        // 最终都是通过上述的内联函数实现了相应的类型对应</div><div class="line">        // make.size.mas_equalTo(CGSizeMake(88, 88));</div><div class="line">    &#125;];</div></pre></td></tr></table></figure></p>
+<blockquote>
+<p><code>#</code>define mas_equalTo(…)                 equalTo(MASBoxValue((<strong>VA_ARGS</strong>)))<br>mas_equalTo是个上面这样表示的宏定义<br><code>#</code>define MASBoxValue(value) _MASBoxValue(@encode(<strong>typeof</strong>((value))), (value))<br>而 MASBoxValue 最终是上面这个宏定义, 而最终 _MASBoxValue就是最上面提到的一大坨代码(那个内联函数). 而不确定参数, 我通过文章的开头, 也进行了交代.</p>
+</blockquote>
+<p>总结: 这个MASUtilities 文件 , 剩下就是一些重命名, 和宏定义的一些东西了, 这篇就到这, 篇幅太长是没有耐心看下去的, 起个抛砖引玉的作用, 先这样, 下一篇 还不知道怎么写, 尽力写的全面一点, 让自己有所收获.</p>
+<blockquote>
+<p>如果有一丝丝帮助 点个关注喜欢 又何妨??<br>文/ 夏天然后</p>
+<div align="center"><br>微信公众号 得到最快最新的推送<br></div>
+
+</blockquote>
+<div align="center"><br><img src="http://ww1.sinaimg.cn/large/0060lm7Tgw1f9656jhucpj307607674r.jpg" alt=""><br></div>
+
+<blockquote>
+<p>我是夏天, 暖暖的夏天<br>End</p>
+</blockquote>
+
+      
+    </div>
+
+  </div>
+
+  <div class="article-footer">
+    <div class="article-meta pull-left">
+
+    
+
+    
+    
+
+    <span class="post-tags">
+      <i class="icon-tags"></i>
+        <a href="/tags/Masonry-源码/">Masonry,源码</a>
+    </span>
+    
+
+    </div>
+
+    
+  </div>
+</article>
+
+
+    </main>
+
+    <footer class="site-footer">
+  <p class="site-info">
+    Proudly powered by <a href="https://hexo.io/" target="_blank">Hexo</a> and
+    Theme by <a href="https://github.com/CodeDaraW/Hacker" target="_blank">Hacker</a>
+    </br>
+    
+    &copy; 2017 夏天然后
+    
+  </p>
+</footer>
+    
+  </div>
+</div>
+</body>
+</html>

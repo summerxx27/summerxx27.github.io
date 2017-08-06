@@ -1,0 +1,158 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  <title>Masonry 实践实现类似微博微信朋友圈简单布局 | 夏天然后</title>
+
+  
+  <meta name="author" content="夏天然后">
+  
+
+  
+  <meta name="description" content="前言: 我模仿的是微博的布局所以也就没有 评论动态刷新cell.Demo链接~ 没有做优化流畅度暂时还可以 - 可以用来进行参考学习">
+  
+
+  
+  
+  <meta name="keywords" content="Masonry">
+  
+
+  <meta id="viewport" name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, minimum-scale=1, user-scalable=no, minimal-ui">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black">
+
+  <meta property="og:title" content="Masonry 实践实现类似微博微信朋友圈简单布局"/>
+
+  <meta property="og:site_name" content="夏天然后"/>
+
+  
+  <meta property="og:image" content="/favicon.ico"/>
+  
+
+  <link href="/favicon.ico" rel="icon">
+  <link rel="alternate" href="/atom.xml" title="夏天然后" type="application/atom+xml">
+  <link rel="stylesheet" href="/css/style.css" media="screen" type="text/css">
+</head>
+
+
+<body>
+<div class="blog">
+  <div class="content">
+
+    <header>
+  <div class="site-branding">
+    <h1 class="site-title">
+      <a href="/">夏天然后</a>
+    </h1>
+    <p class="site-description"></p>
+  </div>
+  <nav class="site-navigation">
+    <ul>
+      
+        <li><a href="/">Home</a></li>
+      
+        <li><a href="/archives">Archives</a></li>
+      
+        <li><a href="/tags">about</a></li>
+      
+    </ul>
+  </nav>
+</header>
+
+    <main class="site-main posts-loop">
+    <article>
+
+  
+    
+    <h3 class="article-title"><span>Masonry 实践实现类似微博微信朋友圈简单布局</span></h3>
+    
+  
+
+  <div class="article-top-meta">
+    <span class="posted-on">
+      <a href="/2016/10/10/31/" rel="bookmark">
+        <time class="entry-date published" datetime="2016-10-09T17:04:32.000Z">
+          2016-10-10
+        </time>
+      </a>
+    </span>
+  </div>
+
+
+  
+
+  <div class="article-content">
+    <div class="entry">
+      
+        <p>前言: 我模仿的是微博的布局所以也就没有 评论动态刷新cell.<br><a href="https://github.com/summerxx27/weibo" target="_blank" rel="external">Demo链接~ 没有做优化流畅度暂时还可以 - 可以用来进行参考学习</a></p>
+<a id="more"></a>
+<ol>
+<li><p>什么人群适合看?</p>
+<blockquote>
+<p>好奇Masonry使用的, 听过没用过, 没有深入的接触过的 可以看.</p>
+</blockquote>
+</li>
+<li><p>为什么要写?</p>
+<blockquote>
+<p>很多文章都是这个原因 1 备忘 2 给需要的人 -.- </p>
+</blockquote>
+</li>
+<li><p>这篇可以了解哪些?</p>
+<blockquote>
+<p>Masonry + HYBMasonryAutoCellHeight + TTTAttributedLabel + 话题正则 + 表情正则 + 链接  同时感谢作者开源<br>这里图片浏览器使用的 SDPhotoBrowser</p>
+</blockquote>
+</li>
+<li><p>使用方便吗?</p>
+<blockquote>
+<p>使用很方便, 不需要通过文本的宽度计算高度来自适应label了, 使用Masonry 在iOS10 貌似没有出现因为像素点原因, 而显示不完全的问题~</p>
+</blockquote>
+</li>
+</ol>
+<div align="center"><br><img src="http://ww1.sinaimg.cn/large/0060lm7Tgw1f8nmixkqmdj306x0abmz4.jpg" alt=""><br></div><br>下面进入正题代码的实现~<br>#### 布局cell上的子控件<br><figure class="highlight objectivec"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div></pre></td><td class="code"><pre><div class="line"><span class="comment">// Masonry布局</span></div><div class="line"><span class="comment">// 头像</span></div><div class="line">[_headerImageView mas_makeConstraints:^(MASConstraintMaker *make) &#123;</div><div class="line"><span class="comment">// 进行约束设置</span></div><div class="line">make.top.left.equalTo(<span class="keyword">self</span>.contentView).with.offset(SPACE);</div><div class="line">make.width.height.mas_equalTo(<span class="number">33</span>);</div><div class="line">&#125;];</div><div class="line"><span class="comment">// 昵称</span></div><div class="line"><span class="comment">// 文本内容要显示多长</span></div><div class="line">_labelName.preferredMaxLayoutWidth = SCREEN_W - <span class="number">63</span>;</div><div class="line">_labelName.numberOfLines = <span class="number">0</span>;</div><div class="line">[_labelName mas_makeConstraints:^(MASConstraintMaker *make) &#123;</div><div class="line">make.top.equalTo(<span class="keyword">self</span>.contentView).with.offset(SPACE);</div><div class="line">make.left.equalTo(<span class="keyword">self</span>.headerImageView.mas_right).with.offset(SPACE);</div><div class="line">make.right.equalTo(<span class="keyword">self</span>.contentView).with.offset(-SPACE);</div><div class="line">&#125;];</div><div class="line"><span class="comment">// 时间</span></div><div class="line">_labelTime.preferredMaxLayoutWidth = SCREEN_W - <span class="number">63</span>;</div><div class="line">_labelTime.numberOfLines = <span class="number">0</span>;</div><div class="line">[_labelTime mas_makeConstraints:^(MASConstraintMaker *make) &#123;</div><div class="line">make.top.equalTo(<span class="keyword">self</span>.labelName.mas_bottom).with.offset(SPACE); <span class="comment">// 空隙 为 10(SPACE)</span></div><div class="line">make.left.right.equalTo(<span class="keyword">self</span>.labelName);</div><div class="line">&#125;];</div><div class="line"><span class="comment">// 发布的内容</span></div><div class="line"><span class="comment">// 视图是多宽的 进行相应的设置</span></div><div class="line"><span class="keyword">self</span>.labelText.preferredMaxLayoutWidth = SCREEN_W - <span class="number">63</span>;</div><div class="line">_labelText.numberOfLines = <span class="number">0</span>;</div><div class="line">[_labelText mas_makeConstraints:^(MASConstraintMaker *make) &#123;</div><div class="line">make.top.equalTo(<span class="keyword">self</span>.labelTime.mas_bottom).with.offset(SPACE);</div><div class="line">make.left.right.mas_equalTo(<span class="keyword">self</span>.labelTime);</div><div class="line">&#125;];</div><div class="line"><span class="comment">// 自动检测链接</span></div><div class="line">_labelText.enabledTextCheckingTypes = <span class="built_in">NSTextCheckingTypeLink</span>;</div><div class="line"><span class="comment">// 图片浏览器</span></div><div class="line">[_photosGroup mas_makeConstraints:^(MASConstraintMaker *make) &#123;</div><div class="line"><span class="comment">//</span></div><div class="line">make.top.equalTo(<span class="keyword">self</span>.labelText.mas_bottom).with.offset(SPACE);</div><div class="line">make.left.equalTo(<span class="keyword">self</span>.labelText);</div><div class="line">make.width.mas_equalTo(SCREEN_W - <span class="number">63</span>);</div><div class="line">&#125;];</div></pre></td></tr></table></figure><br><br>#### 方法赋值 赋值 - 并且更新需要更新的布局<br><figure class="highlight objectivec"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div></pre></td><td class="code"><pre><div class="line"><span class="meta">#pragma mark - 赋值</span></div><div class="line">- (<span class="keyword">void</span>)configCellWithModel:(CommonModel *)model user:(User *)userModel</div><div class="line">&#123;</div><div class="line"><span class="comment">// 头像</span></div><div class="line">[_headerImageView sd_setImageWithURL:[<span class="built_in">NSURL</span> URLWithString:userModel.profile_image_url] placeholderImage:<span class="literal">nil</span>];</div><div class="line">_labelName.text = [<span class="built_in">NSString</span> stringWithFormat:<span class="string">@"%@ %@"</span>, userModel.name, <span class="string">@"我测试cell的高度是否准确, 我测试cell的高度是否准确"</span>];</div><div class="line">_labelTime.text = [<span class="built_in">NSString</span> stringWithFormat:<span class="string">@"%@ %@"</span>, model.created_at, <span class="string">@"我测试cell的高度是否准确, 我测试cell的高度是否准确"</span>];;</div><div class="line"><span class="comment">// 发布的内容</span></div><div class="line">_labelText.text = model.text;</div><div class="line"><span class="comment">// 计算Photo的height</span></div><div class="line"><span class="comment">// 这里用到了类似朋友圈的九宫格布局所以我进行了相应的计算</span></div><div class="line"><span class="built_in">CGFloat</span> pg_Height = <span class="number">0.0</span>;</div><div class="line"><span class="keyword">if</span> (model.pic_urls.count &gt; <span class="number">1</span> &amp;&amp; model.pic_urls.count &lt;= <span class="number">3</span>) &#123;</div><div class="line">pg_Height = (SCREEN_W - <span class="number">73</span>) / <span class="number">3</span> + <span class="number">5</span>;</div><div class="line">&#125;<span class="keyword">else</span> <span class="keyword">if</span>(model.pic_urls.count &gt; <span class="number">3</span> &amp;&amp; model.pic_urls.count &lt;= <span class="number">6</span>)</div><div class="line">&#123;</div><div class="line">pg_Height = (SCREEN_W - <span class="number">73</span>) / <span class="number">3</span> * <span class="number">2</span> + <span class="number">10</span>;</div><div class="line">&#125;<span class="keyword">else</span> <span class="keyword">if</span> (model.pic_urls.count &gt; <span class="number">6</span> &amp;&amp; model.pic_urls.count &lt;= <span class="number">9</span>)</div><div class="line">&#123;</div><div class="line">pg_Height = (SCREEN_W - <span class="number">73</span>) + <span class="number">15</span>;</div><div class="line">&#125;<span class="keyword">else</span> <span class="keyword">if</span> (model.pic_urls.count == <span class="number">1</span>)</div><div class="line">&#123;</div><div class="line"><span class="comment">// 单张图片 为 4/7</span></div><div class="line">pg_Height = (SCREEN_W - <span class="number">63</span>) * <span class="number">4</span> / <span class="number">7</span> + <span class="number">5</span>;</div><div class="line">&#125;</div><div class="line"><span class="keyword">else</span></div><div class="line">&#123;</div><div class="line">pg_Height = <span class="number">0.0</span>;</div><div class="line">&#125;</div><div class="line"><span class="comment">// 同时九宫格进行更新约束</span></div><div class="line">[_photosGroup mas_updateConstraints:^(MASConstraintMaker *make) &#123;</div><div class="line">make.height.mas_equalTo(pg_Height);</div><div class="line">&#125;];</div><div class="line">&#125;</div></pre></td></tr></table></figure><br><br>#### 在返回cell高度的方法中<br><figure class="highlight objectivec"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div></pre></td><td class="code"><pre><div class="line"><span class="meta">#pragma mark - 返回 Cell的高度</span></div><div class="line">- (<span class="built_in">CGFloat</span>)tableView:(<span class="built_in">UITableView</span> *)tableView heightForRowAtIndexPath:(<span class="built_in">NSIndexPath</span> *)indexPath</div><div class="line">&#123;</div><div class="line">CommonModel *model = <span class="keyword">self</span>.dataArray[indexPath.row];</div><div class="line">User *user = <span class="keyword">self</span>.userArray[indexPath.row];</div><div class="line"><span class="built_in">CGFloat</span> cellHeight = [CommonTableViewCell hyb_heightForTableView:tableView config:^(<span class="built_in">UITableViewCell</span> *sourceCell) &#123;</div><div class="line"><span class="comment">//</span></div><div class="line">CommonTableViewCell *cell = (CommonTableViewCell *)sourceCell;</div><div class="line"><span class="comment">// 进行模型方法赋值-传进cell</span></div><div class="line">[cell configCellWithModel:model user:user];</div><div class="line">&#125; cache:^<span class="built_in">NSDictionary</span> *&#123;</div><div class="line"><span class="keyword">return</span> @&#123;kHYBCacheUniqueKey: [<span class="built_in">NSString</span> stringWithFormat:<span class="string">@"%@"</span>, model.id],</div><div class="line">kHYBCacheStateKey : <span class="string">@""</span>,</div><div class="line">kHYBRecalculateForStateKey : @(<span class="literal">NO</span>) <span class="comment">// 标识不用重新更新</span></div><div class="line">&#125;;</div><div class="line">&#125;];</div><div class="line"><span class="keyword">return</span> cellHeight;</div><div class="line">&#125;</div></pre></td></tr></table></figure><br><br>除去以上这些你可能还好奇 话题+表情+链接如何实现识别可点击的<br>写一个工具类<br><figure class="highlight objectivec"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line"><span class="comment">// .h</span></div><div class="line"><span class="comment">/// 话题正则 例如 #夏天帅不帅#</span></div><div class="line">+ (<span class="built_in">NSRegularExpression</span> *)regexTopic;</div><div class="line"></div><div class="line"><span class="comment">/// 表情正则 例如 [偷笑]</span></div><div class="line">+ (<span class="built_in">NSRegularExpression</span> *)regexEmoticon;</div></pre></td></tr></table></figure><br><br><figure class="highlight objectivec"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div></pre></td><td class="code"><pre><div class="line"><span class="comment">// .m</span></div><div class="line">+ (<span class="built_in">NSRegularExpression</span> *)regexTopic &#123;</div><div class="line"><span class="keyword">static</span> <span class="built_in">NSRegularExpression</span> *regex;</div><div class="line"><span class="keyword">static</span> <span class="built_in">dispatch_once_t</span> onceToken;</div><div class="line"><span class="built_in">dispatch_once</span>(&amp;onceToken, ^&#123;</div><div class="line">regex = [<span class="built_in">NSRegularExpression</span> regularExpressionWithPattern:<span class="string">@"#[^@#]+?#"</span> options:kNilOptions error:<span class="literal">NULL</span>];</div><div class="line">&#125;);</div><div class="line"><span class="keyword">return</span> regex;</div><div class="line">&#125;</div><div class="line"></div><div class="line">+ (<span class="built_in">NSRegularExpression</span> *)regexEmoticon &#123;</div><div class="line"><span class="keyword">static</span> <span class="built_in">NSRegularExpression</span> *regex;</div><div class="line"><span class="keyword">static</span> <span class="built_in">dispatch_once_t</span> onceToken;</div><div class="line"><span class="built_in">dispatch_once</span>(&amp;onceToken, ^&#123;</div><div class="line">regex = [<span class="built_in">NSRegularExpression</span> regularExpressionWithPattern:<span class="string">@"\\[[^ \\[\\]]+?\\]"</span> options:kNilOptions error:<span class="literal">NULL</span>];</div><div class="line">&#125;);</div><div class="line"><span class="keyword">return</span> regex;</div><div class="line">&#125;</div></pre></td></tr></table></figure><br><br>然后在cell中进行使用检测文字<br><figure class="highlight objectivec"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div></pre></td><td class="code"><pre><div class="line"><span class="comment">// 话题检测</span></div><div class="line"><span class="built_in">NSArray</span> *results = [[XTWBStatusHelper regexTopic] matchesInString:model.text options:<span class="number">0</span> range:<span class="built_in">NSMakeRange</span>(<span class="number">0</span>, model.text.length)];</div><div class="line"><span class="keyword">for</span> (<span class="built_in">NSTextCheckingResult</span> *result <span class="keyword">in</span> results) &#123;</div><div class="line"><span class="comment">// 话题范围</span></div><div class="line"><span class="built_in">NSLog</span>(<span class="string">@"range === %@"</span>, <span class="built_in">NSStringFromRange</span>(result.range));</div><div class="line">[_labelText addLinkWithTextCheckingResult:result];</div><div class="line">&#125;</div><div class="line"><span class="comment">// 表情检测</span></div><div class="line"><span class="built_in">NSArray</span> *results1 = [[XTWBStatusHelper regexEmoticon] matchesInString:model.text options:<span class="number">0</span> range:<span class="built_in">NSMakeRange</span>(<span class="number">0</span>, model.text.length)];</div><div class="line"><span class="keyword">for</span> (<span class="built_in">NSTextCheckingResult</span> *result <span class="keyword">in</span> results1) &#123;</div><div class="line"><span class="comment">// 表情范围</span></div><div class="line"><span class="built_in">NSLog</span>(<span class="string">@"range === %@"</span>, <span class="built_in">NSStringFromRange</span>(result.range));</div><div class="line">[_labelText addLinkWithTextCheckingResult:result];</div><div class="line">&#125;</div></pre></td></tr></table></figure><br><br>TTTAttributedLabel的简单使用 — 点击了话题和链接 – 签订协议 指定代理人 实现协议方法<br><figure class="highlight objectivec"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div></pre></td><td class="code"><pre><div class="line"><span class="comment">/// 点击链接的方法</span></div><div class="line">- (<span class="keyword">void</span>)attributedLabel:(TTTAttributedLabel *)label</div><div class="line">didSelectLinkWithURL:(<span class="built_in">NSURL</span> *)url</div><div class="line">&#123;</div><div class="line"><span class="built_in">NSLog</span>(<span class="string">@"被点击的url === %@"</span>, url);</div><div class="line">&#125;</div><div class="line"></div><div class="line"><span class="comment">/// 点击长按数据</span></div><div class="line">- (<span class="keyword">void</span>)attributedLabel:(TTTAttributedLabel *)label</div><div class="line">didSelectLinkWithDate:(<span class="built_in">NSDate</span> *)date</div><div class="line">&#123;</div><div class="line"></div><div class="line">&#125;</div><div class="line"></div><div class="line"><span class="comment">/// 点击文本链接</span></div><div class="line">- (<span class="keyword">void</span>)attributedLabel:(TTTAttributedLabel *)label</div><div class="line">didSelectLinkWithTextCheckingResult:(<span class="built_in">NSTextCheckingResult</span> *)result</div><div class="line">&#123;</div><div class="line"><span class="built_in">NSLog</span>(<span class="string">@"被点击的话题 === %@"</span>, <span class="built_in">NSStringFromRange</span>(result.range))</div><div class="line"></div><div class="line">&#125;</div><div class="line"><span class="comment">/// 长按链接的方法</span></div><div class="line">- (<span class="keyword">void</span>)attributedLabel:(TTTAttributedLabel *)label</div><div class="line">didLongPressLinkWithURL:(<span class="built_in">NSURL</span> *)url</div><div class="line">atPoint:(<span class="built_in">CGPoint</span>)point</div><div class="line">&#123;</div><div class="line"><span class="built_in">NSLog</span>(<span class="string">@"被长按的url === %@"</span>, url);</div><div class="line">&#125;</div><div class="line"><span class="comment">/// 可以长按的文本</span></div><div class="line">- (<span class="keyword">void</span>)attributedLabel:(TTTAttributedLabel *)label</div><div class="line">didLongPressLinkWithTextCheckingResult:(<span class="built_in">NSTextCheckingResult</span> *)result</div><div class="line">atPoint:(<span class="built_in">CGPoint</span>)point</div><div class="line">&#123;</div><div class="line"><span class="built_in">NSLog</span>(<span class="string">@"被长按的话题 === %@"</span>, <span class="built_in">NSStringFromRange</span>(result.range))</div><div class="line">&#125;</div></pre></td></tr></table></figure><br><br>&gt; 总结: Masonry对cell的处理 我的逻辑是这样的, 对你有帮助点个喜欢/关注, 如果您有更好的方案, 请与我交流, 谢谢~.<br><br>&gt; 疑问: 为什么简书Markdown不支持html标签<br><br>文/ 夏天然后<br>###End<br><br><a href="http://weibo.com/345100543" target="_blank" rel="external">我的微博-点我@夏天是个大人了</a> || QQ群: 498143780 进群与我一起玩耍啊<br><br><br><div align="center"><br>微信公众号 得到最快最新的推送<br></div>
+
+<div align="center"><br><img src="http://ww1.sinaimg.cn/large/0060lm7Tgw1f9656jhucpj307607674r.jpg" alt=""><br></div>
+
+      
+    </div>
+
+  </div>
+
+  <div class="article-footer">
+    <div class="article-meta pull-left">
+
+    
+
+    
+    
+
+    <span class="post-tags">
+      <i class="icon-tags"></i>
+        <a href="/tags/Masonry/">Masonry</a>
+    </span>
+    
+
+    </div>
+
+    
+  </div>
+</article>
+
+
+    </main>
+
+    <footer class="site-footer">
+  <p class="site-info">
+    Proudly powered by <a href="https://hexo.io/" target="_blank">Hexo</a> and
+    Theme by <a href="https://github.com/CodeDaraW/Hacker" target="_blank">Hacker</a>
+    </br>
+    
+    &copy; 2017 夏天然后
+    
+  </p>
+</footer>
+    
+  </div>
+</div>
+</body>
+</html>

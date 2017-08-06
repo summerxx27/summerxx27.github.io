@@ -1,0 +1,135 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  <title>iOS SNOW动画 &amp;&amp; 跑马灯 | 夏天然后</title>
+
+  
+  <meta name="author" content="夏天然后">
+  
+
+  
+  <meta name="description" content="这篇是接着上一篇, 关于动画效果的收集篇, 这篇介绍了跑马灯动画以及下落雪花动画, 请看, 话说最近怎么不在状态呢, 好伤感(囧~).">
+  
+
+  
+  
+  <meta name="keywords" content="Animations">
+  
+
+  <meta id="viewport" name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, minimum-scale=1, user-scalable=no, minimal-ui">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black">
+
+  <meta property="og:title" content="iOS SNOW动画 &amp;&amp; 跑马灯"/>
+
+  <meta property="og:site_name" content="夏天然后"/>
+
+  
+  <meta property="og:image" content="/favicon.ico"/>
+  
+
+  <link href="/favicon.ico" rel="icon">
+  <link rel="alternate" href="/atom.xml" title="夏天然后" type="application/atom+xml">
+  <link rel="stylesheet" href="/css/style.css" media="screen" type="text/css">
+</head>
+
+
+<body>
+<div class="blog">
+  <div class="content">
+
+    <header>
+  <div class="site-branding">
+    <h1 class="site-title">
+      <a href="/">夏天然后</a>
+    </h1>
+    <p class="site-description"></p>
+  </div>
+  <nav class="site-navigation">
+    <ul>
+      
+        <li><a href="/">Home</a></li>
+      
+        <li><a href="/archives">Archives</a></li>
+      
+        <li><a href="/tags">about</a></li>
+      
+    </ul>
+  </nav>
+</header>
+
+    <main class="site-main posts-loop">
+    <article>
+
+  
+    
+    <h3 class="article-title"><span>iOS SNOW动画 &amp;&amp; 跑马灯</span></h3>
+    
+  
+
+  <div class="article-top-meta">
+    <span class="posted-on">
+      <a href="/2016/02/21/15/" rel="bookmark">
+        <time class="entry-date published" datetime="2016-02-21T08:40:40.000Z">
+          2016-02-21
+        </time>
+      </a>
+    </span>
+  </div>
+
+
+  
+
+  <div class="article-content">
+    <div class="entry">
+      
+        <p>这篇是接着上一篇, 关于动画效果的收集篇, 这篇介绍了跑马灯动画以及下落雪花动画, 请看, 话说最近怎么不在状态呢, 好伤感(囧~).<br><a id="more"></a></p>
+<h3 id="跑马灯效果演示"><a href="#跑马灯效果演示" class="headerlink" title="跑马灯效果演示"></a>跑马灯效果演示</h3><h4 id="分析-有三组文件构成-这里贴出使用代码-详细请下载Demo查看"><a href="#分析-有三组文件构成-这里贴出使用代码-详细请下载Demo查看" class="headerlink" title="分析- 有三组文件构成, 这里贴出使用代码, 详细请下载Demo查看"></a>分析- 有三组文件构成, 这里贴出使用代码, 详细请下载Demo查看</h4><h4 id="下载即用-快餐"><a href="#下载即用-快餐" class="headerlink" title="下载即用~ 快餐 - -"></a><a href="https://github.com/Zhangjingwang1993/XTAnimations.git" target="_blank" rel="external">下载即用~ 快餐 - -</a></h4><div align="center"><br><img src="http://ww4.sinaimg.cn/large/e6a4355cgw1f61mq3x60gg208w0gnkjl.gif" alt=""><br></div><br><figure class="highlight objectivec"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div><div class="line">50</div><div class="line">51</div><div class="line">52</div><div class="line">53</div><div class="line">54</div></pre></td><td class="code"><pre><div class="line">- (<span class="keyword">void</span>)viewDidLoad &#123;</div><div class="line">[<span class="keyword">super</span> viewDidLoad];</div><div class="line"><span class="comment">// Do any additional setup after loading the view.</span></div><div class="line"><span class="keyword">self</span>.view.backgroundColor = [<span class="built_in">UIColor</span> blackColor];</div><div class="line"></div><div class="line">XTScrollLabelView *drawMarqueeView  = [[XTScrollLabelView alloc] initWithFrame:<span class="built_in">CGRectMake</span>(<span class="number">0</span>, <span class="number">0</span>, <span class="number">250.</span>f, <span class="number">20</span>)];</div><div class="line">drawMarqueeView.delegate          = <span class="keyword">self</span>;</div><div class="line">drawMarqueeView.marqueeDirection  = FromLeftType;</div><div class="line">drawMarqueeView.center            = <span class="keyword">self</span>.view.center;</div><div class="line">[<span class="keyword">self</span>.view addSubview:drawMarqueeView];</div><div class="line">[drawMarqueeView addContentView:[<span class="keyword">self</span> createLabelWithText:<span class="string">@"夏天是个很好的季节, 而夏天然后是简书的推荐作者, 喜欢分享!"</span></div><div class="line">textColor:[<span class="keyword">self</span> randomColor]]];</div><div class="line">[drawMarqueeView startAnimation];</div><div class="line"></div><div class="line">&#125;</div><div class="line"></div><div class="line">- (<span class="built_in">UILabel</span> *)createLabelWithText:(<span class="built_in">NSString</span> *)text textColor:(<span class="built_in">UIColor</span> *)textColor &#123;</div><div class="line"></div><div class="line"><span class="built_in">NSString</span> *string = [<span class="built_in">NSString</span> stringWithFormat:<span class="string">@" %@ "</span>, text];</div><div class="line"><span class="built_in">CGFloat</span> width = [string widthWithStringAttribute:@&#123;<span class="built_in">NSFontAttributeName</span> : [<span class="built_in">UIFont</span> systemFontOfSize:<span class="number">14.</span>f]&#125;];</div><div class="line"><span class="built_in">UILabel</span>  *label  = [[<span class="built_in">UILabel</span> alloc] initWithFrame:<span class="built_in">CGRectMake</span>(<span class="number">0</span>, <span class="number">0</span>, width, <span class="number">20</span>)];</div><div class="line">label.font       = [<span class="built_in">UIFont</span> systemFontOfSize:<span class="number">14.</span>f];</div><div class="line">label.text       = string;</div><div class="line">label.textColor  = textColor;</div><div class="line"></div><div class="line"><span class="keyword">return</span> label;</div><div class="line">&#125;</div><div class="line">- (<span class="built_in">UIColor</span> *)randomColor &#123;</div><div class="line"></div><div class="line"><span class="keyword">return</span> [<span class="built_in">UIColor</span> colorWithRed:[<span class="keyword">self</span> randomValue] green:[<span class="keyword">self</span> randomValue] blue:[<span class="keyword">self</span> randomValue] alpha:<span class="number">1</span>];</div><div class="line">&#125;</div><div class="line">- (<span class="built_in">CGFloat</span>)randomValue &#123;</div><div class="line"></div><div class="line"><span class="keyword">return</span> arc4random() % <span class="number">256</span> / <span class="number">255.</span>f;</div><div class="line">&#125;</div><div class="line">- (<span class="keyword">void</span>)drawMarqueeView:(XTScrollLabelView *)drawMarqueeView animationDidStopFinished:(<span class="built_in">BOOL</span>)finished</div><div class="line">&#123;</div><div class="line">[drawMarqueeView stopAnimation];</div><div class="line">dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(<span class="number">1.0</span> * <span class="built_in">NSEC_PER_SEC</span>)), dispatch_get_main_queue(), ^&#123;</div><div class="line">[drawMarqueeView addContentView:[<span class="keyword">self</span> createLabelWithText:[<span class="keyword">self</span> randomString]</div><div class="line">textColor:[<span class="keyword">self</span> randomColor]]];</div><div class="line">[drawMarqueeView startAnimation];</div><div class="line">&#125;);</div><div class="line">&#125;</div><div class="line">- (<span class="built_in">NSString</span> *)randomString &#123;</div><div class="line"></div><div class="line"><span class="built_in">NSArray</span> *array = @[<span class="string">@"人帅"</span>,</div><div class="line"><span class="string">@"勤劳"</span>,</div><div class="line"><span class="string">@"年轻"</span>,</div><div class="line"><span class="string">@"刻苦"</span>,</div><div class="line"><span class="string">@"开玩笑"</span>,</div><div class="line"><span class="string">@"都是我编的, 前面的别跑"</span>];</div><div class="line"><span class="keyword">return</span> array[arc4random() % array.count];</div><div class="line">&#125;</div></pre></td></tr></table></figure><br><br><div align="center"><br><img src="http://ww4.sinaimg.cn/large/e6a4355cgw1f61moqud49g208w0gp4qq.gif" alt=""><br></div><br>#### 雪花动画代码演示<br><figure class="highlight objectivec"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div><div class="line">50</div><div class="line">51</div><div class="line">52</div><div class="line">53</div><div class="line">54</div><div class="line">55</div><div class="line">56</div><div class="line">57</div><div class="line">58</div><div class="line">59</div><div class="line">60</div><div class="line">61</div><div class="line">62</div><div class="line">63</div><div class="line">64</div><div class="line">65</div><div class="line">66</div><div class="line">67</div><div class="line">68</div><div class="line">69</div><div class="line">70</div></pre></td><td class="code"><pre><div class="line"><span class="comment">// 创建粒子Layer</span></div><div class="line"><span class="built_in">CAEmitterLayer</span> *snowEmitter = [<span class="built_in">CAEmitterLayer</span> layer];</div><div class="line"></div><div class="line"><span class="comment">// 粒子发射位置</span></div><div class="line">snowEmitter.emitterPosition = <span class="built_in">CGPointMake</span>(<span class="number">120</span>,<span class="number">0</span>);</div><div class="line"></div><div class="line"><span class="comment">// 发射源的尺寸大小</span></div><div class="line">snowEmitter.emitterSize     = <span class="keyword">self</span>.view.bounds.size;</div><div class="line"></div><div class="line"><span class="comment">// 发射模式</span></div><div class="line">snowEmitter.emitterMode     = kCAEmitterLayerSurface;</div><div class="line"></div><div class="line"><span class="comment">// 发射源的形状</span></div><div class="line">snowEmitter.emitterShape    = kCAEmitterLayerLine;</div><div class="line"></div><div class="line"><span class="comment">// 创建雪花类型的粒子</span></div><div class="line"><span class="built_in">CAEmitterCell</span> *snowflake    = [<span class="built_in">CAEmitterCell</span> emitterCell];</div><div class="line"></div><div class="line"><span class="comment">// 粒子的名字</span></div><div class="line">snowflake.name = <span class="string">@"snow"</span>;</div><div class="line"></div><div class="line"><span class="comment">// 粒子参数的速度乘数因子</span></div><div class="line">snowflake.birthRate = <span class="number">20.0</span>;</div><div class="line">snowflake.lifetime  = <span class="number">120.0</span>;</div><div class="line"></div><div class="line"><span class="comment">// 粒子速度</span></div><div class="line">snowflake.velocity  = <span class="number">10.0</span>;</div><div class="line"></div><div class="line"><span class="comment">// 粒子的速度范围</span></div><div class="line">snowflake.velocityRange = <span class="number">10</span>;</div><div class="line"></div><div class="line"><span class="comment">// 粒子y方向的加速度分量</span></div><div class="line">snowflake.yAcceleration = <span class="number">2</span>;</div><div class="line"></div><div class="line"><span class="comment">// 周围发射角度</span></div><div class="line">snowflake.emissionRange = <span class="number">0.5</span> * M_PI;</div><div class="line"></div><div class="line"><span class="comment">// 子旋转角度范围</span></div><div class="line">snowflake.spinRange = <span class="number">0.25</span> * M_PI;</div><div class="line">snowflake.contents  = (<span class="keyword">id</span>)[[<span class="built_in">UIImage</span> imageNamed:<span class="string">@"snow"</span>] <span class="built_in">CGImage</span>];</div><div class="line"></div><div class="line"><span class="comment">// 设置雪花形状的粒子的颜色</span></div><div class="line">snowflake.color      = [[<span class="built_in">UIColor</span> whiteColor] <span class="built_in">CGColor</span>];</div><div class="line">snowflake.redRange   = <span class="number">1.5</span>f;</div><div class="line">snowflake.greenRange = <span class="number">2.2</span>f;</div><div class="line">snowflake.blueRange  = <span class="number">2.2</span>f;</div><div class="line"></div><div class="line">snowflake.scaleRange = <span class="number">0.6</span>f;</div><div class="line">snowflake.scale      = <span class="number">0.7</span>f;</div><div class="line"></div><div class="line">snowEmitter.shadowOpacity = <span class="number">1.0</span>;</div><div class="line">snowEmitter.shadowRadius  = <span class="number">0.0</span>;</div><div class="line">snowEmitter.shadowOffset  = <span class="built_in">CGSizeMake</span>(<span class="number">0.0</span>, <span class="number">0.0</span>);</div><div class="line"></div><div class="line"><span class="comment">// 粒子边缘的颜色</span></div><div class="line">snowEmitter.shadowColor  = [[<span class="built_in">UIColor</span> whiteColor] <span class="built_in">CGColor</span>];</div><div class="line"></div><div class="line"><span class="comment">// 添加粒子</span></div><div class="line">snowEmitter.emitterCells = @[snowflake];</div><div class="line"></div><div class="line"><span class="comment">// 将粒子Layer添加进图层中</span></div><div class="line">[<span class="keyword">self</span>.view.layer addSublayer:snowEmitter];</div><div class="line"></div><div class="line"><span class="comment">// 形成遮罩</span></div><div class="line"><span class="built_in">UIImage</span> *image      = [<span class="built_in">UIImage</span> imageNamed:<span class="string">@"alpha"</span>];</div><div class="line">_layer              = [<span class="built_in">CALayer</span> layer];</div><div class="line">_layer.frame        = (<span class="built_in">CGRect</span>)&#123;<span class="built_in">CGPointZero</span>, <span class="keyword">self</span>.view.bounds.size&#125;;</div><div class="line">_layer.contents     = (__bridge <span class="keyword">id</span>)(image.CGImage);</div><div class="line">_layer.position     = <span class="keyword">self</span>.view.center;</div><div class="line">snowEmitter.mask    = _layer;</div></pre></td></tr></table></figure><br><br><div align="center"><br>微信公众号 得到最快最新的推送<br></div>
+
+<div align="center"><br><img src="http://ww1.sinaimg.cn/large/0060lm7Tgw1f9656jhucpj307607674r.jpg" alt=""><br></div>
+
+      
+    </div>
+
+  </div>
+
+  <div class="article-footer">
+    <div class="article-meta pull-left">
+
+    
+
+    
+    
+
+    <span class="post-tags">
+      <i class="icon-tags"></i>
+        <a href="/tags/Animations/">Animations</a>
+    </span>
+    
+
+    </div>
+
+    
+  </div>
+</article>
+
+
+    </main>
+
+    <footer class="site-footer">
+  <p class="site-info">
+    Proudly powered by <a href="https://hexo.io/" target="_blank">Hexo</a> and
+    Theme by <a href="https://github.com/CodeDaraW/Hacker" target="_blank">Hacker</a>
+    </br>
+    
+    &copy; 2017 夏天然后
+    
+  </p>
+</footer>
+    
+  </div>
+</div>
+</body>
+</html>

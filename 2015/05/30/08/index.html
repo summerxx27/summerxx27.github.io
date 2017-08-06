@@ -1,0 +1,141 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  <title>iOS Facebook POP | 夏天然后</title>
+
+  
+  <meta name="author" content="夏天然后">
+  
+
+  
+  <meta name="description" content="这是我写的关于POP的博文, 参照官方的DEMO, 稍作整理, 文章中放出了三个实例, 抛砖引玉~
+
+
+POP: 一个流行的可扩展的动画引擎iOS,它支持spring和衰变动态动画,使其可用于构建现实,基于物理交互。Objective - C API允许快速集成, 对于所有的动画和过渡他是成熟的.解释:1.1 POP 使用 Objective-C++ 编写，Objective-C++ 是对 C++ 的扩展，就像 Objective-C 是 C 的扩展。而至于为什么他们用 Objective-C++ 而不是纯粹的 Objective-C. 可能是偏爱(囧~).1.2 POP 目前由四部分组成：Animations, Engine, Utility, WebCore。下图有助于你更好的理解它的架构">
+  
+
+  
+  
+  <meta name="keywords" content="pop">
+  
+
+  <meta id="viewport" name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, minimum-scale=1, user-scalable=no, minimal-ui">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black">
+
+  <meta property="og:title" content="iOS Facebook POP"/>
+
+  <meta property="og:site_name" content="夏天然后"/>
+
+  
+  <meta property="og:image" content="/favicon.ico"/>
+  
+
+  <link href="/favicon.ico" rel="icon">
+  <link rel="alternate" href="/atom.xml" title="夏天然后" type="application/atom+xml">
+  <link rel="stylesheet" href="/css/style.css" media="screen" type="text/css">
+</head>
+
+
+<body>
+<div class="blog">
+  <div class="content">
+
+    <header>
+  <div class="site-branding">
+    <h1 class="site-title">
+      <a href="/">夏天然后</a>
+    </h1>
+    <p class="site-description"></p>
+  </div>
+  <nav class="site-navigation">
+    <ul>
+      
+        <li><a href="/">Home</a></li>
+      
+        <li><a href="/archives">Archives</a></li>
+      
+        <li><a href="/tags">about</a></li>
+      
+    </ul>
+  </nav>
+</header>
+
+    <main class="site-main posts-loop">
+    <article>
+
+  
+    
+    <h3 class="article-title"><span>iOS Facebook POP</span></h3>
+    
+  
+
+  <div class="article-top-meta">
+    <span class="posted-on">
+      <a href="/2015/05/30/08/" rel="bookmark">
+        <time class="entry-date published" datetime="2015-05-30T03:42:03.000Z">
+          2015-05-30
+        </time>
+      </a>
+    </span>
+  </div>
+
+
+  
+
+  <div class="article-content">
+    <div class="entry">
+      
+        <p>这是我写的关于POP的博文, 参照官方的DEMO, 稍作整理, 文章中放出了三个实例, 抛砖引玉~</p>
+<div align="center"><br><img src="http://ww1.sinaimg.cn/large/e6a4355cgw1f5d3v1m8kvj209s05kjre.jpg" alt=""><br></div>
+
+<h5 id="POP-一个流行的可扩展的动画引擎iOS-它支持spring和衰变动态动画-使其可用于构建现实-基于物理交互。Objective-C-API允许快速集成-对于所有的动画和过渡他是成熟的"><a href="#POP-一个流行的可扩展的动画引擎iOS-它支持spring和衰变动态动画-使其可用于构建现实-基于物理交互。Objective-C-API允许快速集成-对于所有的动画和过渡他是成熟的" class="headerlink" title="POP: 一个流行的可扩展的动画引擎iOS,它支持spring和衰变动态动画,使其可用于构建现实,基于物理交互。Objective - C API允许快速集成, 对于所有的动画和过渡他是成熟的."></a>POP: 一个流行的可扩展的动画引擎iOS,它支持<code>spring</code>和衰变动态动画,使其可用于构建现实,基于物理交互。<code>Objective - C</code> API允许快速集成, 对于所有的动画和过渡他是成熟的.</h5><p>解释:<br><em>1.1</em> POP 使用 <code>Objective-C++</code> 编写，<code>Objective-C++</code> 是对 <code>C++</code> 的扩展，就像 <code>Objective-C</code> 是 <code>C</code> 的扩展。而至于为什么他们用 <code>Objective-C++</code> 而不是纯粹的 <code>Objective-C</code>. 可能是偏爱(囧~).<br><em>1.2</em> POP 目前由四部分组成：<code>Animations</code>, <code>Engine</code>, <code>Utility</code>, <code>WebCore</code>。下图有助于你更好的理解它的架构</p>
+<div align="center"><br><img src="http://ww4.sinaimg.cn/large/e6a4355cgw1f5d3vjyo4qj20ex09cdgq.jpg" alt=""><br></div><br><a id="more"></a><br>1. 它支持<code>CocoaPods</code> 你可以这样<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">pod &apos;pop&apos;, &apos;~&gt; 1.0.8&apos;</div></pre></td></tr></table></figure><br><br>2. 或者这样<a href="https://github.com/facebook/pop" target="_blank" rel="external">点击下载</a>拉入工程<br><br>3. 我使用的Cocoapods 所以使用之前你需要这样<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">#import &lt;POP.h&gt;</div></pre></td></tr></table></figure><br><br><div align="center"><br><img src="http://ww3.sinaimg.cn/large/e6a4355cgw1f5d3vwodsug208w0cqgp6.gif" alt=""><br></div><br>#### E1:<br><figure class="highlight objectivec"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div></pre></td><td class="code"><pre><div class="line">- (<span class="keyword">void</span>)clickPopAction</div><div class="line">&#123;</div><div class="line">    <span class="comment">// kPOPLayerPositionY 向下</span></div><div class="line">    <span class="comment">// kPOPLayerPositionX 向右</span></div><div class="line">    POPSpringAnimation *anim = [POPSpringAnimation animationWithPropertyNamed:kPOPLayerPositionY];</div><div class="line">    <span class="comment">// 移动距离</span></div><div class="line">    anim.toValue = [[<span class="built_in">NSNumber</span> alloc] initWithFloat:_btnPop.center.y + <span class="number">200</span>];</div><div class="line">    <span class="comment">// 从当前 + 1s后开始</span></div><div class="line">    anim.beginTime = <span class="built_in">CACurrentMediaTime</span>() + <span class="number">1.0</span>f;</div><div class="line">    <span class="comment">// 弹力--晃动的幅度 (springSpeed速度)</span></div><div class="line">    anim.springBounciness = <span class="number">15.0</span>f;</div><div class="line">    [_btnPop pop_addAnimation:anim forKey:<span class="string">@"position"</span>];</div><div class="line">    POPSpringAnimation *anim1 = [POPSpringAnimation animationWithPropertyNamed:kPOPLayerBounds];</div><div class="line">    anim1.toValue = [<span class="built_in">NSValue</span> valueWithCGRect:<span class="built_in">CGRectMake</span>(<span class="number">100</span>, <span class="number">100</span>, <span class="number">99</span>, <span class="number">99</span>)];</div><div class="line">    [_btnPop pop_addAnimation:anim1 forKey:<span class="string">@"size"</span>];</div><div class="line">&#125;</div></pre></td></tr></table></figure><br><br><div align="center"><br><img src="http://ww4.sinaimg.cn/large/e6a4355cgw1f5d3w63wtmg208w07pq5d.gif" alt=""><br></div><br>#### E2:在很多金融类app中比较常见、支付宝中的余额包、京东金融余额、就类似这样<br><figure class="highlight objectivec"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div></pre></td><td class="code"><pre><div class="line"><span class="comment">// 初始化</span></div><div class="line">    POPBasicAnimation *anim = [POPBasicAnimation animation];</div><div class="line">    <span class="comment">// 限时 1s. 2s.</span></div><div class="line">    anim.duration = <span class="number">3.0</span>;</div><div class="line">    POPAnimatableProperty * prop = [POPAnimatableProperty propertyWithName:<span class="string">@"count++"</span> initializer:^(POPMutableAnimatableProperty *prop) &#123;</div><div class="line">        prop.readBlock = ^(<span class="keyword">id</span> obj, <span class="built_in">CGFloat</span> values[])&#123; values[<span class="number">0</span>] = [[obj description] floatValue]; &#125;;</div><div class="line">        prop.writeBlock = ^(<span class="keyword">id</span> obj, <span class="keyword">const</span> <span class="built_in">CGFloat</span> values[])</div><div class="line">        &#123;</div><div class="line">            [obj setText:[<span class="built_in">NSString</span> stringWithFormat:<span class="string">@"%.2f"</span>,values[<span class="number">0</span>]]];</div><div class="line">        &#125;;</div><div class="line">        prop.threshold = <span class="number">0.01</span>;</div><div class="line">    &#125;];</div><div class="line">    </div><div class="line">    anim.property = prop;</div><div class="line">    anim.fromValue = @(<span class="number">0.0</span>);</div><div class="line">    anim.toValue = @(<span class="number">1314.52</span>);</div><div class="line">    [<span class="keyword">self</span>.xt_countLabel pop_addAnimation:anim forKey:<span class="string">@"counting"</span>];</div></pre></td></tr></table></figure><br><br><div align="center"><br><img src="http://ww3.sinaimg.cn/large/e6a4355cgw1f5d3wakopqg208w05zgnd.gif" alt=""><br></div><br>#### E3<br><figure class="highlight objectivec"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div></pre></td><td class="code"><pre><div class="line"><span class="built_in">CALayer</span> *layer0 = [<span class="built_in">CALayer</span> layer];</div><div class="line">    layer0.opacity = <span class="number">1.0</span>;</div><div class="line">    layer0.transform = <span class="built_in">CATransform3DIdentity</span>;</div><div class="line">    [layer0 setMasksToBounds:<span class="literal">YES</span>];</div><div class="line">    [layer0 setBackgroundColor:[<span class="built_in">UIColor</span> colorWithRed:<span class="number">0.5448</span> green:<span class="number">0.6836</span> blue:<span class="number">0.9986</span> alpha:<span class="number">1.0</span>].CGColor];</div><div class="line">    [layer0 setCornerRadius:<span class="number">12.5</span>];</div><div class="line">    [layer0 setBounds:<span class="built_in">CGRectMake</span>(<span class="number">0</span>, <span class="number">0</span>, <span class="number">25</span>, <span class="number">25</span>)];</div><div class="line">    [<span class="keyword">self</span>.view.layer addSublayer:layer0];</div><div class="line">    layer0.position = <span class="built_in">CGPointMake</span>(<span class="keyword">self</span>.view.center.x, <span class="number">266</span>);</div><div class="line">    [<span class="keyword">self</span> performAnimation:layer0];</div></pre></td></tr></table></figure><br><br><figure class="highlight objectivec"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div></pre></td><td class="code"><pre><div class="line">- (<span class="keyword">void</span>)performAnimation:(<span class="built_in">CALayer</span> *)layer</div><div class="line">&#123;</div><div class="line">    [layer pop_removeAllAnimations];</div><div class="line">    POPBasicAnimation *anim = [POPBasicAnimation animationWithPropertyNamed:kPOPLayerScaleXY];</div><div class="line">    <span class="keyword">static</span> <span class="built_in">BOOL</span> ani = <span class="literal">YES</span>;</div><div class="line">    <span class="keyword">if</span> (ani) &#123;</div><div class="line">        anim.toValue = [<span class="built_in">NSValue</span> valueWithCGPoint:<span class="built_in">CGPointMake</span>(<span class="number">1.0</span>, <span class="number">1.0</span>)];</div><div class="line">    &#125;<span class="keyword">else</span>&#123;</div><div class="line">        anim.toValue = [<span class="built_in">NSValue</span> valueWithCGPoint:<span class="built_in">CGPointMake</span>(<span class="number">1.5</span>, <span class="number">1.5</span>)];</div><div class="line">    &#125;</div><div class="line">    ani = !ani;</div><div class="line">    anim.completionBlock = ^(POPAnimation *anim, <span class="built_in">BOOL</span> finished) &#123;</div><div class="line">        <span class="keyword">if</span> (finished) &#123; [<span class="keyword">self</span> performAnimation:layer]; &#125;</div><div class="line">    &#125;;</div><div class="line">    [layer pop_addAnimation:anim forKey:<span class="string">@"Animation"</span>];</div><div class="line">&#125;</div></pre></td></tr></table></figure><br><br><a href="http://www.jianshu.com/p/23b0fa948bcf" target="_blank" rel="external">Swift版本仿网易云音乐播放音乐动画效果– 简书</a><br><a href="http://www.jianshu.com/p/1dab64e7c9ba" target="_blank" rel="external">三分钟教你把代码托管到Github – 简书</a><br><a href="http://www.jianshu.com/p/0e025931a49a" target="_blank" rel="external">Swift 很强大的图表库-Charts使用 – 简书</a><br><a href="http://www.jianshu.com/p/01a420681ca9" target="_blank" rel="external">Swift版仿简书App淘宝App很友好弹出view效果 – 简书</a><br><a href="http://www.jianshu.com/p/31d07bf32d62" target="_blank" rel="external">iOS UICollectionView高级用法“长按自由移动cell重排 – 简书</a><br><a href="http://www.jianshu.com/p/260ca284fda0" target="_blank" rel="external">iOS仿微信App添加带箭头的view – 简书</a><br><a href="http://www.jianshu.com/p/d0ae176bc40b" target="_blank" rel="external">iOS仿美团外卖饿了吗App点餐动画 – 简书</a><br><a href="http://www.jianshu.com/p/4a1978845eac" target="_blank" rel="external">你要的Swift资料 – 简书</a><br><br>微博@夏天是个大人了欢迎你关注我<br>你还可以加入我创建技术交流群: 498143780 与我交流. 欢迎你加入<br><br><div align="center"><br>微信公众号 得到最快最新的推送<br></div>
+
+<div align="center"><br><img src="http://ww1.sinaimg.cn/large/0060lm7Tgw1f9656jhucpj307607674r.jpg" alt=""><br></div>
+
+      
+    </div>
+
+  </div>
+
+  <div class="article-footer">
+    <div class="article-meta pull-left">
+
+    
+
+    
+    
+
+    <span class="post-tags">
+      <i class="icon-tags"></i>
+        <a href="/tags/pop/">pop</a>
+    </span>
+    
+
+    </div>
+
+    
+  </div>
+</article>
+
+
+    </main>
+
+    <footer class="site-footer">
+  <p class="site-info">
+    Proudly powered by <a href="https://hexo.io/" target="_blank">Hexo</a> and
+    Theme by <a href="https://github.com/CodeDaraW/Hacker" target="_blank">Hacker</a>
+    </br>
+    
+    &copy; 2017 夏天然后
+    
+  </p>
+</footer>
+    
+  </div>
+</div>
+</body>
+</html>

@@ -1,0 +1,137 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  <title>iOS 自定义转场动画 | 夏天然后</title>
+
+  
+  <meta name="author" content="夏天然后">
+  
+
+  
+  <meta name="description" content="前言: 自定义转场动画其实并不难, 关键在于能够明白思路, 也就是操作步骤. 本篇博客主要以present转场动画为例, 进行分析, 操作, 如有错误请联系我.">
+  
+
+  
+  
+  <meta name="keywords" content="Animations">
+  
+
+  <meta id="viewport" name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, minimum-scale=1, user-scalable=no, minimal-ui">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black">
+
+  <meta property="og:title" content="iOS 自定义转场动画"/>
+
+  <meta property="og:site_name" content="夏天然后"/>
+
+  
+  <meta property="og:image" content="/favicon.ico"/>
+  
+
+  <link href="/favicon.ico" rel="icon">
+  <link rel="alternate" href="/atom.xml" title="夏天然后" type="application/atom+xml">
+  <link rel="stylesheet" href="/css/style.css" media="screen" type="text/css">
+</head>
+
+
+<body>
+<div class="blog">
+  <div class="content">
+
+    <header>
+  <div class="site-branding">
+    <h1 class="site-title">
+      <a href="/">夏天然后</a>
+    </h1>
+    <p class="site-description"></p>
+  </div>
+  <nav class="site-navigation">
+    <ul>
+      
+        <li><a href="/">Home</a></li>
+      
+        <li><a href="/archives">Archives</a></li>
+      
+        <li><a href="/tags">about</a></li>
+      
+    </ul>
+  </nav>
+</header>
+
+    <main class="site-main posts-loop">
+    <article>
+
+  
+    
+    <h3 class="article-title"><span>iOS 自定义转场动画</span></h3>
+    
+  
+
+  <div class="article-top-meta">
+    <span class="posted-on">
+      <a href="/2015/08/05/11/" rel="bookmark">
+        <time class="entry-date published" datetime="2015-08-05T09:08:07.000Z">
+          2015-08-05
+        </time>
+      </a>
+    </span>
+  </div>
+
+
+  
+
+  <div class="article-content">
+    <div class="entry">
+      
+        <p>前言: 自定义转场动画其实并不难, 关键在于能够明白思路, 也就是操作步骤. 本篇博客主要以present转场动画为例, 进行分析, 操作, 如有错误请联系我.<br><a id="more"></a><br>不进行修改的话, <code>presentViewController:animated:completion:</code>相信这个方法很多人都是用过, 称作模态推出界面, 默认都是从屏幕下方推出新的控制器.<br>自定义的目的就是为了修改固定的推出方式, 同时加上你想要的动画.</p>
+<p>一个关键的概念: <code>UIViewControllerAnimatedTransitioning</code>控制动画的协议, 需要自己实现这个. 下面来一看看代码如何进行实现. <a href="https://github.com/summerxx27/XTAnimations" target="_blank" rel="external">同时可以下载Demo查看 - 如果好用 请Star 表示支持</a><br><a href="http://www.jianshu.com/p/8d80998159c5" target="_blank" rel="external">iOS 仿YY直播心形动画 &amp; 烟花动画</a><br><a href="http://www.jianshu.com/p/4db578c4fc0f" target="_blank" rel="external">iOS 雪花动画与跑马灯</a><br><a href="http://www.jianshu.com/p/261d293579c1" target="_blank" rel="external">iOS POP动画实践</a></p>
+<p>这篇文章又用的POP, 冷漠脸.png</p>
+<div align="center"><br><img src="http://ww4.sinaimg.cn/large/e6a4355cgw1f6izi0brbog208w0gi4qp.gif" alt=""><br></div><br><figure class="highlight objectivec"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="class"><span class="keyword">@interface</span> <span class="title">ViewController</span> ()&lt;<span class="title">UIViewControllerTransitioningDelegate</span>&gt;</span></div></pre></td></tr></table></figure><br><br>#### 跳转点击方法<br><figure class="highlight objectivec"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div></pre></td><td class="code"><pre><div class="line">- (<span class="keyword">void</span>)click:(<span class="built_in">UIButton</span> *)sender</div><div class="line">&#123;</div><div class="line">    ModelViewController *modalViewController = [ModelViewController new];</div><div class="line"><span class="comment">// 指定代理</span></div><div class="line">    modalViewController.transitioningDelegate = <span class="keyword">self</span>;</div><div class="line"><span class="comment">// Style = 自定义方式</span></div><div class="line">    modalViewController.modalPresentationStyle = <span class="built_in">UIModalPresentationCustom</span>;</div><div class="line">    [<span class="keyword">self</span> presentViewController:modalViewController</div><div class="line">                                            animated:<span class="literal">YES</span></div><div class="line">                                          completion:<span class="literal">NULL</span>];</div><div class="line">&#125;</div></pre></td></tr></table></figure><br><br>#### UIViewControllerTransitioningDelegate<br><figure class="highlight objectivec"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div></pre></td><td class="code"><pre><div class="line"><span class="comment">// 修改动画的两个相关的协议方法, 建议仔细查看UIViewControllerTransitioningDelegate里面的注释</span></div><div class="line">-(<span class="keyword">id</span>&lt;<span class="built_in">UIViewControllerAnimatedTransitioning</span>&gt;)animationControllerForPresentedController:(<span class="built_in">UIViewController</span> *)presented</div><div class="line">                                                                  presentingController:(<span class="built_in">UIViewController</span> *)presenting</div><div class="line">                                                                      sourceController:(<span class="built_in">UIViewController</span> *)source</div><div class="line">&#123;</div><div class="line"><span class="comment">// 推出动画 - 下面会给出代码 我参照POP动画Demo写的.</span></div><div class="line">    <span class="keyword">return</span> [PresentAnimator new];</div><div class="line">&#125;</div><div class="line"></div><div class="line">- (<span class="keyword">id</span>&lt;<span class="built_in">UIViewControllerAnimatedTransitioning</span>&gt;)animationControllerForDismissedController:(<span class="built_in">UIViewController</span> *)dismissed</div><div class="line">&#123;</div><div class="line"><span class="comment">// 退出 </span></div><div class="line">    <span class="keyword">return</span> [DismissAnimator new];</div><div class="line">&#125;</div><div class="line"><span class="comment">// 想要实现手势控制可在这个方法中进行修改</span></div><div class="line">-(<span class="keyword">id</span>&lt;<span class="built_in">UIViewControllerInteractiveTransitioning</span>&gt;)interactionControllerForDismissal:(<span class="keyword">id</span>&lt;<span class="built_in">UIViewControllerAnimatedTransitioning</span>&gt;)animator &#123;</div><div class="line"></div><div class="line">&#125;</div></pre></td></tr></table></figure><br><br>#### 关键在于动画如何实现 分别进行的实现PresentAnimator, DismissAnimator的实现.<br><code>UIViewControllerAnimatedTransitioning</code>使用这个协议进行修改.<br><figure class="highlight objectivec"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="class"><span class="keyword">@interface</span> <span class="title">PresentAnimator</span> : <span class="title">NSObject</span> &lt;<span class="title">UIViewControllerAnimatedTransitioning</span>&gt;</span></div></pre></td></tr></table></figure><br><br>PresentAnimator.m<br><figure class="highlight objectivec"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div></pre></td><td class="code"><pre><div class="line"><span class="comment">// 交互所用时间</span></div><div class="line">- (<span class="built_in">NSTimeInterval</span>)transitionDuration:(<span class="keyword">id</span> &lt;<span class="built_in">UIViewControllerContextTransitioning</span>&gt;)transitionContext</div><div class="line">&#123;</div><div class="line">    <span class="keyword">return</span> <span class="number">0.5</span>f;</div><div class="line">&#125;</div><div class="line"><span class="comment">// 具体动画方式, 上面提到的POP</span></div><div class="line">- (<span class="keyword">void</span>)animateTransition:(<span class="keyword">id</span> &lt;<span class="built_in">UIViewControllerContextTransitioning</span>&gt;)transitionContext</div><div class="line">&#123;</div><div class="line"><span class="comment">// 这里拿到即将新推出的VC的View</span></div><div class="line">    <span class="built_in">UIView</span> *toView = [transitionContext viewControllerForKey:<span class="built_in">UITransitionContextToViewControllerKey</span>].view;</div><div class="line"><span class="comment">// 这里设置退出view具体如何设置</span></div><div class="line">    toView.frame = <span class="built_in">CGRectMake</span>(<span class="number">0</span>,<span class="number">0</span>, SCREEN_WIDTH, SCREEN_HEIGHT);</div><div class="line">    toView.center = <span class="built_in">CGPointMake</span>(transitionContext.containerView.center.x, -transitionContext.containerView.center.y);</div><div class="line">    </div><div class="line">    [transitionContext.containerView addSubview:toView];</div><div class="line"><span class="comment">// pop动画 </span></div><div class="line">    POPSpringAnimation *positionAnim = [POPSpringAnimation animationWithPropertyNamed:kPOPLayerPositionY];</div><div class="line">    positionAnim.toValue = @(transitionContext.containerView.center.y);</div><div class="line">    positionAnim.springBounciness = <span class="number">10</span>;</div><div class="line">    [positionAnim setCompletionBlock:^(POPAnimation *anim, <span class="built_in">BOOL</span> finished) &#123;</div><div class="line">        [transitionContext completeTransition:<span class="literal">YES</span>];</div><div class="line">    &#125;];</div><div class="line">    POPSpringAnimation *scaleAnim = [POPSpringAnimation animationWithPropertyNamed:kPOPLayerScaleXY];</div><div class="line">    scaleAnim.springBounciness = <span class="number">20</span>;</div><div class="line">    scaleAnim.fromValue = [<span class="built_in">NSValue</span> valueWithCGPoint:<span class="built_in">CGPointMake</span>(<span class="number">1.2</span>, <span class="number">1.4</span>)];</div><div class="line">    </div><div class="line">    [toView.layer pop_addAnimation:positionAnim forKey:<span class="string">@"positionAnimation"</span>];</div><div class="line">    [toView.layer pop_addAnimation:scaleAnim forKey:<span class="string">@"scaleAnimation"</span>];</div><div class="line">&#125;</div></pre></td></tr></table></figure><br><br>DismissAnimator.m<br><figure class="highlight objectivec"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div></pre></td><td class="code"><pre><div class="line">- (<span class="built_in">NSTimeInterval</span>)transitionDuration:(<span class="keyword">id</span> &lt;<span class="built_in">UIViewControllerContextTransitioning</span>&gt;)transitionContext</div><div class="line">&#123;</div><div class="line">    <span class="keyword">return</span> <span class="number">0.5</span>f;</div><div class="line">&#125;</div><div class="line"></div><div class="line">- (<span class="keyword">void</span>)animateTransition:(<span class="keyword">id</span> &lt;<span class="built_in">UIViewControllerContextTransitioning</span>&gt;)transitionContext</div><div class="line">&#123;</div><div class="line"><span class="comment">// fromVC 很好理解吧?? 就是从哪个控制器推过来回到哪里去.</span></div><div class="line">    <span class="built_in">UIViewController</span> *fromVC = [transitionContext viewControllerForKey:<span class="built_in">UITransitionContextFromViewControllerKey</span>];</div><div class="line">    POPBasicAnimation *offscreenAnimation = [POPBasicAnimation animationWithPropertyNamed:kPOPLayerPositionY];</div><div class="line">    offscreenAnimation.toValue = @(-fromVC.view.layer.position.y);</div><div class="line">    [offscreenAnimation setCompletionBlock:^(POPAnimation *anim, <span class="built_in">BOOL</span> finished) &#123;</div><div class="line">        [transitionContext completeTransition:<span class="literal">YES</span>];</div><div class="line">    &#125;];</div><div class="line">    [fromVC.view.layer pop_addAnimation:offscreenAnimation forKey:<span class="string">@"offscreenAnimation"</span>];</div><div class="line">&#125;</div></pre></td></tr></table></figure><br><br>顺便值得一提的是<strong>UINavigationController转场的动画</strong>也是可以自定义的. 通过这个<code>UINavigationControllerDelegate</code>来完成<br><div align="center"><br><img src="http://ww4.sinaimg.cn/large/e6a4355cgw1f6izibmb61g208w0ggayf.gif" alt=""><br></div><br><figure class="highlight objectivec"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line"><span class="comment">// 签订这个协议</span></div><div class="line">    <span class="keyword">self</span>.navigationController.delegate = <span class="keyword">self</span>;</div></pre></td></tr></table></figure><br><br><figure class="highlight objectivec"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div></pre></td><td class="code"><pre><div class="line">- (<span class="keyword">id</span>&lt;<span class="built_in">UIViewControllerAnimatedTransitioning</span>&gt;) navigationController:(<span class="built_in">UINavigationController</span> *)navigationController animationControllerForOperation:(<span class="built_in">UINavigationControllerOperation</span>)operation fromViewController:(<span class="built_in">UIViewController</span> *)fromVC toViewController:(<span class="built_in">UIViewController</span> *)toVC</div><div class="line">&#123;</div><div class="line">    </div><div class="line">    <span class="keyword">if</span> (operation == <span class="built_in">UINavigationControllerOperationPush</span>) &#123;</div><div class="line"><span class="comment">// 动画的方式不变</span></div><div class="line">        <span class="keyword">return</span> [PresentAnimator new];</div><div class="line">    &#125;<span class="keyword">else</span>&#123;</div><div class="line">        <span class="keyword">return</span> <span class="literal">nil</span>;</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure><br><br>文章参照 <a href="https://onevcat.com/2013/10/vc-transition-in-ios7/" target="_blank" rel="external">WWDC 2013 Session笔记 - iOS7中的ViewController切换 @ OneV’s Den</a><br><br><div align="center"><br>微信公众号 得到最快最新的推送<br></div>
+
+<div align="center"><br><img src="http://ww1.sinaimg.cn/large/0060lm7Tgw1f9656jhucpj307607674r.jpg" alt=""><br></div>
+
+      
+    </div>
+
+  </div>
+
+  <div class="article-footer">
+    <div class="article-meta pull-left">
+
+    
+
+    
+    
+
+    <span class="post-tags">
+      <i class="icon-tags"></i>
+        <a href="/tags/Animations/">Animations</a>
+    </span>
+    
+
+    </div>
+
+    
+  </div>
+</article>
+
+
+    </main>
+
+    <footer class="site-footer">
+  <p class="site-info">
+    Proudly powered by <a href="https://hexo.io/" target="_blank">Hexo</a> and
+    Theme by <a href="https://github.com/CodeDaraW/Hacker" target="_blank">Hacker</a>
+    </br>
+    
+    &copy; 2017 夏天然后
+    
+  </p>
+</footer>
+    
+  </div>
+</div>
+</body>
+</html>

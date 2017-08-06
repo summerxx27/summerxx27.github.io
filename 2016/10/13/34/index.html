@@ -1,0 +1,158 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  <title>数据持久化方式Sqlite 之 fmdb tips-1 | 夏天然后</title>
+
+  
+  <meta name="author" content="夏天然后">
+  
+
+  
+  <meta name="description" content="去年在CSDN上写了一篇关于fmdb的文章, 那时候排版烂, 写的也不够仔细, 最近项目会用到这类的知识, 打算做一个好好的总结, 今天这篇是第一篇 介绍一下简单的使用.
+
+
+FMDatabase 代表一个SQLite数据库。用于执行SQL语句
+FMResultSet 代表执行一个查询的结果 存储在一个“FMResultSet”对象中
+FMDatabaseQueue 如果你想在多个线程执行查询和更新,你可以使用这个类(用于在多线程中执行多个查询或更新，它是线程安全的)
+FMDatabaseAdditions 对 FMDatabase进行的扩展 (暂时还没仔细看)
+FMDatabasePool 用来统一管理 FMDatabase的对象的一个池子, 在使用这个之前先看看 FMDatabaseQueue是否能解决你的需求, 如不能, 在看FMDatabasePool 容易造成死锁, 小心使用, 不是必须使用, 尽量不用喽">
+  
+
+  
+  
+  <meta name="keywords" content="FMDB">
+  
+
+  <meta id="viewport" name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, minimum-scale=1, user-scalable=no, minimal-ui">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black">
+
+  <meta property="og:title" content="数据持久化方式Sqlite 之 fmdb tips-1"/>
+
+  <meta property="og:site_name" content="夏天然后"/>
+
+  
+  <meta property="og:image" content="/favicon.ico"/>
+  
+
+  <link href="/favicon.ico" rel="icon">
+  <link rel="alternate" href="/atom.xml" title="夏天然后" type="application/atom+xml">
+  <link rel="stylesheet" href="/css/style.css" media="screen" type="text/css">
+</head>
+
+
+<body>
+<div class="blog">
+  <div class="content">
+
+    <header>
+  <div class="site-branding">
+    <h1 class="site-title">
+      <a href="/">夏天然后</a>
+    </h1>
+    <p class="site-description"></p>
+  </div>
+  <nav class="site-navigation">
+    <ul>
+      
+        <li><a href="/">Home</a></li>
+      
+        <li><a href="/archives">Archives</a></li>
+      
+        <li><a href="/tags">about</a></li>
+      
+    </ul>
+  </nav>
+</header>
+
+    <main class="site-main posts-loop">
+    <article>
+
+  
+    
+    <h3 class="article-title"><span>数据持久化方式Sqlite 之 fmdb tips-1</span></h3>
+    
+  
+
+  <div class="article-top-meta">
+    <span class="posted-on">
+      <a href="/2016/10/13/34/" rel="bookmark">
+        <time class="entry-date published" datetime="2016-10-12T16:05:32.000Z">
+          2016-10-13
+        </time>
+      </a>
+    </span>
+  </div>
+
+
+  
+
+  <div class="article-content">
+    <div class="entry">
+      
+        <p>去年在CSDN上写了一篇关于<code>fmdb</code>的文章, 那时候排版烂, 写的也不够仔细, 最近项目会用到这类的知识, 打算做一个好好的总结, 今天这篇是第一篇 介绍一下简单的使用.</p>
+<blockquote>
+<ul>
+<li><code>FMDatabase</code> 代表一个SQLite数据库。用于执行SQL语句</li>
+<li><code>FMResultSet</code> 代表执行一个查询的结果 存储在一个“FMResultSet”对象中</li>
+<li><code>FMDatabaseQueue</code> 如果你想在多个线程执行查询和更新,你可以使用这个类(用于在多线程中执行多个查询或更新，它是线程安全的)</li>
+<li><code>FMDatabaseAdditions</code> 对 <code>FMDatabase</code>进行的扩展 (暂时还没仔细看)</li>
+<li><code>FMDatabasePool</code> 用来统一管理 <code>FMDatabase</code>的对象的一个池子, 在使用这个之前先看看 <code>FMDatabaseQueue</code>是否能解决你的需求, 如不能, 在看<code>FMDatabasePool</code> 容易造成死锁, 小心使用, 不是必须使用, 尽量不用喽<a id="more"></a>
+</li>
+</ul>
+</blockquote>
+<p>首先在一个目录下创建一个数据库<br><figure class="highlight objectivec"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line"><span class="comment">// 数据库路径</span></div><div class="line">    <span class="built_in">NSArray</span> *paths = <span class="built_in">NSSearchPathForDirectoriesInDomains</span>(<span class="built_in">NSDocumentDirectory</span>, <span class="built_in">NSUserDomainMask</span>, <span class="literal">YES</span>);</div><div class="line">    <span class="built_in">NSString</span> *documentDirectory = [paths objectAtIndex:<span class="number">0</span>];</div><div class="line">    <span class="built_in">NSString</span> *dbPath = [documentDirectory stringByAppendingPathComponent:<span class="string">@"StaffPosition.db"</span>];</div><div class="line">    _db = [FMDatabase databaseWithPath:dbPath];</div><div class="line">    [_db beginTransaction];</div></pre></td></tr></table></figure></p>
+<p>在创建表之前打开数据库<br><figure class="highlight objectivec"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">if</span> ([_db open]) &#123;</div><div class="line">    <span class="comment">// 创建表</span></div><div class="line">    [_db executeUpdate:<span class="string">@"create table weibo (created_at text, text text, current text)"</span>];</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<p>接下来看看如何插入数据<br><figure class="highlight objectivec"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">if</span> ([_db open]) &#123;</div><div class="line">    <span class="comment">// 插入数据</span></div><div class="line">    [_db executeUpdate:<span class="string">@"insert into weibo (created_at, text, current) values (?, ?, ?)"</span></div><div class="line">    ,<span class="string">@"夏天"</span>, <span class="string">@"iOS开发者, 爱分享, 爱学习"</span>, current];</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<p>如何更新呢?<br><figure class="highlight objectivec"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line"><span class="comment">// 把current改变</span></div><div class="line"><span class="built_in">NSString</span> *updateSql = [<span class="built_in">NSString</span> stringWithFormat:<span class="string">@"update weibo set current = '%@' where created_at = '%@'"</span>, <span class="string">@"XXXXXXXXX"</span>, <span class="string">@"夏天"</span>];    <span class="comment">// 同样删除直接写删除的sql</span></div><div class="line"><span class="comment">// you code</span></div></pre></td></tr></table></figure></p>
+<p>如何把数据库中的数据取出来呢<br><figure class="highlight objectivec"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line">    <span class="keyword">if</span> ([_db open]) &#123;</div><div class="line">    <span class="comment">// 这里我查找所有的数据</span></div><div class="line">    <span class="built_in">NSString</span> *sql = <span class="string">@"select * from weibo"</span>;</div><div class="line">    FMResultSet *rs = [_db executeQuery:sql];</div><div class="line">    <span class="keyword">while</span> ([rs next]) &#123;</div><div class="line">        <span class="comment">// 把相应的数据打印出来</span></div><div class="line">        <span class="built_in">NSLog</span>(<span class="string">@"created_at = %@, text = %@, current = %@"</span>, [rs objectForColumnName:<span class="string">@"created_at"</span>], [rs objectForColumnName:<span class="string">@"text"</span>], [rs objectForColumnName:<span class="string">@"current"</span>]);</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<p>到这简单的使用就结束了~, Good. 这只是一个开始, 未完待续!</p>
+<div align="center"><br>微信公众号 得到最快最新的推送<br></div>
+
+<div align="center"><br><img src="http://ww1.sinaimg.cn/large/0060lm7Tgw1f9656jhucpj307607674r.jpg" alt=""><br></div>
+
+      
+    </div>
+
+  </div>
+
+  <div class="article-footer">
+    <div class="article-meta pull-left">
+
+    
+
+    
+    
+
+    <span class="post-tags">
+      <i class="icon-tags"></i>
+        <a href="/tags/FMDB/">FMDB</a>
+    </span>
+    
+
+    </div>
+
+    
+  </div>
+</article>
+
+
+    </main>
+
+    <footer class="site-footer">
+  <p class="site-info">
+    Proudly powered by <a href="https://hexo.io/" target="_blank">Hexo</a> and
+    Theme by <a href="https://github.com/CodeDaraW/Hacker" target="_blank">Hacker</a>
+    </br>
+    
+    &copy; 2017 夏天然后
+    
+  </p>
+</footer>
+    
+  </div>
+</div>
+</body>
+</html>

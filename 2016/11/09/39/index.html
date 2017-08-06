@@ -1,0 +1,157 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  <title>iOS核心动画,基础动画, 关键帧动画, Spring动画, 转场动画, 组动画 | 夏天然后</title>
+
+  
+  <meta name="author" content="夏天然后">
+  
+
+  
+  <meta name="description" content="介绍: 核心动画, 提供丰富易用的API, 可以写出复杂交互性强的动画, 应用于Mac OS 和 iOS平台, 动画执行过程是在后台操作的, 不会影响主线程. 今天就来介绍一些API的示例使用. 下面的图很清楚了介绍了几个类之间的关系, 实际使用的过程中多使用以下几个
+
+
+CABasicAnimation
+CAKeyframeAnimation
+CATransition
+CAAnimationGroup
+CASpringAnimation">
+  
+
+  
+  
+  <meta name="keywords" content="iOS10 Xcode8">
+  
+
+  <meta id="viewport" name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, minimum-scale=1, user-scalable=no, minimal-ui">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black">
+
+  <meta property="og:title" content="iOS核心动画,基础动画, 关键帧动画, Spring动画, 转场动画, 组动画"/>
+
+  <meta property="og:site_name" content="夏天然后"/>
+
+  
+  <meta property="og:image" content="/favicon.ico"/>
+  
+
+  <link href="/favicon.ico" rel="icon">
+  <link rel="alternate" href="/atom.xml" title="夏天然后" type="application/atom+xml">
+  <link rel="stylesheet" href="/css/style.css" media="screen" type="text/css">
+</head>
+
+
+<body>
+<div class="blog">
+  <div class="content">
+
+    <header>
+  <div class="site-branding">
+    <h1 class="site-title">
+      <a href="/">夏天然后</a>
+    </h1>
+    <p class="site-description"></p>
+  </div>
+  <nav class="site-navigation">
+    <ul>
+      
+        <li><a href="/">Home</a></li>
+      
+        <li><a href="/archives">Archives</a></li>
+      
+        <li><a href="/tags">about</a></li>
+      
+    </ul>
+  </nav>
+</header>
+
+    <main class="site-main posts-loop">
+    <article>
+
+  
+    
+    <h3 class="article-title"><span>iOS核心动画,基础动画, 关键帧动画, Spring动画, 转场动画, 组动画</span></h3>
+    
+  
+
+  <div class="article-top-meta">
+    <span class="posted-on">
+      <a href="/2016/11/09/39/" rel="bookmark">
+        <time class="entry-date published" datetime="2016-11-08T16:32:02.000Z">
+          2016-11-09
+        </time>
+      </a>
+    </span>
+  </div>
+
+
+  
+
+  <div class="article-content">
+    <div class="entry">
+      
+        <p><img src="http://ww1.sinaimg.cn/large/e6a4355cgy1fia2uox8xoj21z418g4qp.jpg" alt=""></p>
+<blockquote>
+<p>介绍: 核心动画, 提供丰富易用的API, 可以写出复杂交互性强的动画, 应用于Mac OS 和 iOS平台, 动画执行过程是在后台操作的, 不会影响主线程. 今天就来介绍一些API的示例使用. 下面的图很清楚了介绍了几个类之间的关系, 实际使用的过程中多使用以下几个</p>
+</blockquote>
+<ul>
+<li>CABasicAnimation</li>
+<li>CAKeyframeAnimation</li>
+<li>CATransition</li>
+<li>CAAnimationGroup</li>
+<li>CASpringAnimation</li>
+</ul>
+<a id="more"></a>
+<div align="center"><br><img src="http://upload-images.jianshu.io/upload_images/1506501-0d9ff42a8359f0e0.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="简陋的图"><br></div><br>### KeyPath<br>关于KeyPath的<a href="https://developer.apple.com/library/content/documentation/Cocoa/Conceptual/CoreAnimation_guide/AnimatableProperties/AnimatableProperties.html" target="_blank" rel="external">官方文档</a><br>原文链接: <a href="http://blog.csdn.net/sinat_30162391/article/details/53092583" target="_blank" rel="external">http://blog.csdn.net/sinat_30162391/article/details/53092583</a><br><br>### CABasicAnimation<br><figure class="highlight objectivec"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line"><span class="comment">// 一个度数转弧度的宏定义</span></div><div class="line"><span class="meta">#define XTDEGREES_TO_RADIANS(angle) ((angle) / 180.0 * M_PI)</span></div></pre></td></tr></table></figure><br><br><div align="center"><br><img src="http://upload-images.jianshu.io/upload_images/1506501-6c4f121581676433.gif?imageMogr2/auto-orient/strip" alt="CABasicAnimation"><br></div><br><figure class="highlight objectivec"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div></pre></td><td class="code"><pre><div class="line"><span class="comment">// 初始化</span></div><div class="line"><span class="built_in">CABasicAnimation</span> *animate = [<span class="built_in">CABasicAnimation</span> animation];</div><div class="line"><span class="comment">// 执行位置动画</span></div><div class="line">animate.keyPath = <span class="string">@"position"</span>;</div><div class="line"><span class="comment">// 位置变化</span></div><div class="line"><span class="comment">// fromValue | toValue 为id类型 不能接受结构体类型, 使用NSValue转化后进行使用</span></div><div class="line">animate.fromValue = [<span class="built_in">NSValue</span> valueWithCGPoint:<span class="built_in">CGPointMake</span>(<span class="number">50</span>, <span class="number">50</span>)];</div><div class="line">animate.toValue = [<span class="built_in">NSValue</span> valueWithCGPoint:<span class="built_in">CGPointMake</span>(<span class="number">200</span>, <span class="number">300</span>)];</div><div class="line"><span class="comment">// 还可设置代理</span></div><div class="line">animate.delegate = <span class="keyword">self</span>;</div><div class="line"><span class="comment">// 动画所执行的时间</span></div><div class="line">animate.duration = <span class="number">1.0</span>;</div><div class="line"><span class="comment">// 添加动画到layer层</span></div><div class="line">[btn.layer addAnimation:animate forKey:<span class="literal">nil</span>];</div><div class="line"><span class="comment">// 这样做动画是可以完成很好的交互体验的, 但是此时btn的位置实际是没有放生变化的, 具体可以看图层</span></div></pre></td></tr></table></figure><br><br><div align="center"><br><img src="http://upload-images.jianshu.io/upload_images/1506501-9c0d552e3c5316ec.gif?imageMogr2/auto-orient/strip" alt="CABasicAnimation"><br></div><br><figure class="highlight objectivec"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div></pre></td><td class="code"><pre><div class="line"><span class="comment">// 初始化</span></div><div class="line"><span class="built_in">CABasicAnimation</span> *animate = [<span class="built_in">CABasicAnimation</span> animation];</div><div class="line"><span class="comment">// 执行位置动画</span></div><div class="line">animate.keyPath = <span class="string">@"bounds"</span>;</div><div class="line">animate.toValue = [<span class="built_in">NSValue</span> valueWithCGRect:<span class="built_in">CGRectMake</span>(<span class="number">0</span>, <span class="number">0</span>, <span class="number">111</span>, <span class="number">111</span>)];</div><div class="line"><span class="comment">// 还可设置代理</span></div><div class="line">animate.delegate = <span class="keyword">self</span>;</div><div class="line"><span class="comment">// 动画所执行的时间</span></div><div class="line">animate.duration = <span class="number">1.0</span>;</div><div class="line"><span class="comment">// 添加动画到layer层</span></div><div class="line">[btn.layer addAnimation:animate forKey:<span class="literal">nil</span>];</div></pre></td></tr></table></figure><br><br><div align="center"><br><img src="http://upload-images.jianshu.io/upload_images/1506501-cbf0ecfa68d65e52.gif?imageMogr2/auto-orient/strip" alt="CABasicAnimation"><br></div><br><figure class="highlight objectivec"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div></pre></td><td class="code"><pre><div class="line"><span class="built_in">CABasicAnimation</span> *animate = [<span class="built_in">CABasicAnimation</span> animation];</div><div class="line"><span class="comment">// 以旋转的形式</span></div><div class="line">animate.keyPath = <span class="string">@"transform"</span>;</div><div class="line">animate.duration = <span class="number">2.0</span>;</div><div class="line"><span class="comment">// CATransform3DMakeRotation这个方法会返回一个三维坐标的结构体</span></div><div class="line"><span class="comment">// M_PI_2 == π / 2</span></div><div class="line"><span class="comment">// CA_EXTERN CATransform3D CATransform3DMakeRotation (CGFloat angle, CGFloat x,CGFloat y, CGFloat z)</span></div><div class="line"><span class="comment">// x, y, z angle为旋转角参数</span></div><div class="line">animate.toValue = [<span class="built_in">NSValue</span> valueWithCATransform3D:<span class="built_in">CATransform3DMakeRotation</span>(M_PI_2 + M_PI_4, <span class="number">1</span>, <span class="number">1</span>, <span class="number">1</span>)];</div><div class="line">[btn.layer addAnimation:animate forKey:<span class="literal">nil</span>];</div></pre></td></tr></table></figure><br><br><div align="center"><br><img src="http://upload-images.jianshu.io/upload_images/1506501-78648e0eda412757.gif?imageMogr2/auto-orient/strip" alt="CAKeyframeAnimation"><br></div><br><figure class="highlight objectivec"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div></pre></td><td class="code"><pre><div class="line"><span class="built_in">CAKeyframeAnimation</span> *keyAnimate = [<span class="built_in">CAKeyframeAnimation</span> animation];</div><div class="line">keyAnimate.keyPath = <span class="string">@"position"</span>;</div><div class="line"><span class="comment">// 初始化</span></div><div class="line"><span class="built_in">NSValue</span> *value1=[<span class="built_in">NSValue</span> valueWithCGPoint:<span class="built_in">CGPointMake</span>(<span class="number">0</span>, <span class="number">0</span>)];</div><div class="line"><span class="built_in">NSValue</span> *value2=[<span class="built_in">NSValue</span> valueWithCGPoint:<span class="built_in">CGPointMake</span>(<span class="number">200</span>, <span class="number">0</span>)];</div><div class="line"><span class="built_in">NSValue</span> *value3=[<span class="built_in">NSValue</span> valueWithCGPoint:<span class="built_in">CGPointMake</span>(<span class="number">255</span>, <span class="number">255</span>)];</div><div class="line"><span class="built_in">NSValue</span> *value4=[<span class="built_in">NSValue</span> valueWithCGPoint:<span class="built_in">CGPointMake</span>(<span class="number">0</span>, <span class="number">255</span>)];</div><div class="line"><span class="built_in">NSValue</span> *value5=[<span class="built_in">NSValue</span> valueWithCGPoint:<span class="built_in">CGPointMake</span>(<span class="number">300</span>, <span class="number">600</span>)];</div><div class="line"><span class="comment">// 每一帧的位置</span></div><div class="line">keyAnimate.values = @[value1, value2 , value3, value4, value5];</div><div class="line"><span class="comment">// Timing function names.</span></div><div class="line">keyAnimate.duration = <span class="number">5.0</span>;</div><div class="line"><span class="built_in">CAMediaTimingFunction</span> *caMediaTime1 = [<span class="built_in">CAMediaTimingFunction</span> functionWithName:kCAMediaTimingFunctionLinear];</div><div class="line"><span class="built_in">CAMediaTimingFunction</span> *caMediaTime2 = [<span class="built_in">CAMediaTimingFunction</span> functionWithName:kCAMediaTimingFunctionEaseIn];</div><div class="line"><span class="built_in">CAMediaTimingFunction</span> *caMediaTime3 = [<span class="built_in">CAMediaTimingFunction</span> functionWithName:kCAMediaTimingFunctionEaseOut];</div><div class="line"><span class="built_in">CAMediaTimingFunction</span> *caMediaTime4 = [<span class="built_in">CAMediaTimingFunction</span> functionWithName:kCAMediaTimingFunctionEaseInEaseOut];</div><div class="line"><span class="built_in">CAMediaTimingFunction</span> *caMediaTime5 = [<span class="built_in">CAMediaTimingFunction</span> functionWithName:kCAMediaTimingFunctionDefault];</div><div class="line">keyAnimate.timingFunctions = @[caMediaTime1, caMediaTime2 , caMediaTime3, caMediaTime4, caMediaTime5];</div><div class="line"><span class="comment">// 每一帧的百分比 这个不设置的情况下, 那么就是等分时长的</span></div><div class="line">keyAnimate.keyTimes = @[[<span class="built_in">NSNumber</span> numberWithFloat:<span class="number">0.2</span>], [<span class="built_in">NSNumber</span> numberWithFloat:<span class="number">0.4</span>], [<span class="built_in">NSNumber</span> numberWithFloat:<span class="number">0.5</span>], [<span class="built_in">NSNumber</span> numberWithFloat:<span class="number">0.8</span>], [<span class="built_in">NSNumber</span> numberWithFloat:<span class="number">1</span>]];</div><div class="line">[btn.layer addAnimation:keyAnimate forKey:<span class="literal">nil</span>];</div></pre></td></tr></table></figure><br><br><div align="center"><br><img src="http://upload-images.jianshu.io/upload_images/1506501-f0bdb0224c5fdc0e.gif?imageMogr2/auto-orient/strip" alt="CAKeyframeAnimation"><br></div><br><figure class="highlight objectivec"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div></pre></td><td class="code"><pre><div class="line"><span class="built_in">CAKeyframeAnimation</span> *keyAnimate = [<span class="built_in">CAKeyframeAnimation</span> animation];</div><div class="line">keyAnimate.keyPath = <span class="string">@"position"</span>;</div><div class="line"></div><div class="line"><span class="comment">// 创建一条路径</span></div><div class="line"><span class="built_in">CGMutablePathRef</span> path = <span class="built_in">CGPathCreateMutable</span>();</div><div class="line"><span class="built_in">CGPathAddEllipseInRect</span>(path, <span class="literal">NULL</span>, <span class="built_in">CGRectMake</span>(<span class="number">0</span>, <span class="number">0</span>, <span class="number">300</span>, <span class="number">300</span>));</div><div class="line">keyAnimate.path = path;</div><div class="line"><span class="comment">// 解决内存问题</span></div><div class="line"><span class="built_in">CGPathRelease</span>(path);</div><div class="line">keyAnimate.duration = <span class="number">4.0</span>;</div><div class="line">keyAnimate.timingFunction = [<span class="built_in">CAMediaTimingFunction</span> functionWithName:kCAMediaTimingFunctionEaseOut];</div><div class="line">keyAnimate.rotationMode = kCAAnimationRotateAuto;</div><div class="line">[btn.layer addAnimation:keyAnimate forKey:<span class="string">@"path"</span>];</div><div class="line"><span class="comment">/* 这个需要手动remove*/</span></div><div class="line"><span class="comment">// [btn.layer removeAnimationForKey:@"path"];</span></div></pre></td></tr></table></figure><br><br><div align="center"><br><img src="http://upload-images.jianshu.io/upload_images/1506501-d602debcb21f98ee.gif?imageMogr2/auto-orient/strip" alt="CAKeyframeAnimation"><br></div><br><figure class="highlight objectivec"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div></pre></td><td class="code"><pre><div class="line"><span class="built_in">CAKeyframeAnimation</span> *keyAnimate = [<span class="built_in">CAKeyframeAnimation</span> animation];</div><div class="line">keyAnimate.keyPath = <span class="string">@"transform.rotation"</span>;</div><div class="line"><span class="comment">// 设置动画时间</span></div><div class="line">keyAnimate.duration = <span class="number">0.1</span>;</div><div class="line"><span class="comment">// 设置图标抖动弧度</span></div><div class="line"><span class="comment">// 把度数转换为弧度  度数/180*M_PI</span></div><div class="line">keyAnimate.values = @[@(-XTDEGREES_TO_RADIANS(<span class="number">4</span>)),@(XTDEGREES_TO_RADIANS(<span class="number">4</span>)),@(-XTDEGREES_TO_RADIANS(<span class="number">4</span>))];</div><div class="line"><span class="comment">// 设置动画的重复次数(设置为最大值)</span></div><div class="line">keyAnimate.repeatCount = MAXFLOAT;</div><div class="line"><span class="comment">// 添加动画</span></div><div class="line">[btn.layer addAnimation:keyAnimate forKey:<span class="string">@"xt-transform.rotation"</span>];</div><div class="line"><span class="comment">//</span></div><div class="line">dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(<span class="number">2.0</span> * <span class="built_in">NSEC_PER_SEC</span>)), dispatch_get_main_queue(), ^&#123;</div><div class="line">[btn.layer removeAnimationForKey:<span class="string">@"xt-transform.rotation"</span>];</div><div class="line">&#125;);</div></pre></td></tr></table></figure><br><br>### CATransition<br><div align="center"><br><img src="http://upload-images.jianshu.io/upload_images/1506501-480c8bb98961d013.gif?imageMogr2/auto-orient/strip" alt="动画效果为何如此之差"><br></div><br><figure class="highlight objectivec"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div></pre></td><td class="code"><pre><div class="line">- (<span class="keyword">void</span>)nextClick:(<span class="built_in">UIButton</span> *)btn&#123;</div><div class="line"><span class="keyword">self</span>.imageView.image = [<span class="built_in">UIImage</span> imageNamed:<span class="string">@"test.jpg"</span>];</div><div class="line"><span class="built_in">CATransition</span> *ca = [<span class="built_in">CATransition</span> animation];</div><div class="line"><span class="comment">/*</span></div><div class="line"><span class="comment">CA_EXTERN NSString * const kCATransitionFade</span></div><div class="line"><span class="comment">CA_AVAILABLE_STARTING (10.5, 2.0, 9.0, 2.0);</span></div><div class="line"><span class="comment">CA_EXTERN NSString * const kCATransitionMoveIn</span></div><div class="line"><span class="comment">CA_AVAILABLE_STARTING (10.5, 2.0, 9.0, 2.0);</span></div><div class="line"><span class="comment">CA_EXTERN NSString * const kCATransitionPush</span></div><div class="line"><span class="comment">CA_AVAILABLE_STARTING (10.5, 2.0, 9.0, 2.0);</span></div><div class="line"><span class="comment">CA_EXTERN NSString * const kCATransitionReveal</span></div><div class="line"><span class="comment">CA_AVAILABLE_STARTING (10.5, 2.0, 9.0, 2.0);</span></div><div class="line"><span class="comment">*/</span></div><div class="line">ca.type = kCATransitionMoveIn;</div><div class="line">ca.subtype = kCATransitionFromLeft;</div><div class="line">ca.duration = <span class="number">2.0</span>;</div><div class="line">[<span class="keyword">self</span>.imageView.layer addAnimation:ca forKey:<span class="literal">nil</span>];</div><div class="line">&#125;</div></pre></td></tr></table></figure><br><br>### CAAnimationGroup<br><div align="center"><br><img src="http://upload-images.jianshu.io/upload_images/1506501-7eeb344b6d786502.gif?imageMogr2/auto-orient/strip" alt="组动画"><br></div><br><figure class="highlight objectivec"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div></pre></td><td class="code"><pre><div class="line"><span class="built_in">CABasicAnimation</span> *bAniamte0 = [<span class="built_in">CABasicAnimation</span> animation];</div><div class="line">bAniamte0.keyPath = <span class="string">@"transform.translation.x"</span>;</div><div class="line">bAniamte0.toValue = @(<span class="number">300.0</span>);</div><div class="line"></div><div class="line"><span class="built_in">CABasicAnimation</span> *bAniamte1 = [<span class="built_in">CABasicAnimation</span> animation];</div><div class="line">bAniamte1.keyPath = <span class="string">@"transform.scale"</span>;</div><div class="line">bAniamte1.toValue = @(<span class="number">0.0</span>);</div><div class="line"></div><div class="line"><span class="built_in">CAAnimationGroup</span> *aniGroup = [<span class="built_in">CAAnimationGroup</span> animation];</div><div class="line">aniGroup.animations = @[bAniamte0, bAniamte1];</div><div class="line">aniGroup.duration = <span class="number">2.0</span>;</div><div class="line">[btn.layer addAnimation:aniGroup forKey:<span class="literal">nil</span>];</div></pre></td></tr></table></figure><br><br>### CASpringAnimation<br>系统的Spring动画就不那么好玩了, 大家有兴趣可以去看看POP, 更多更好玩的动画<br><div align="center"><br><img src="http://upload-images.jianshu.io/upload_images/1506501-1a2ebc8e375a0133.gif?imageMogr2/auto-orient/strip" alt="CASpringAnimation"><br></div><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line">CASpringAnimation *sAnimate = [CASpringAnimation animation];</div><div class="line">sAnimate.keyPath = @&quot;position.x&quot;;</div><div class="line">sAnimate.fromValue = @(btn.center.x);</div><div class="line">sAnimate.toValue = @(btn.center.x + 88);</div><div class="line">sAnimate.duration = 2.0;</div><div class="line">sAnimate.beginTime = CACurrentMediaTime() + 1.0;</div><div class="line">sAnimate.fillMode = kCAFillModeForwards;</div><div class="line">sAnimate.removedOnCompletion = NO;</div><div class="line">[btn.layer addAnimation:sAnimate forKey:nil];</div></pre></td></tr></table></figure><br><br>### CAAnimationDelegate 这个协议两个方法<br><figure class="highlight objectivec"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line"><span class="comment">// 签订协议和指定代理人就可以了</span></div><div class="line"><span class="comment">// 可以监测动画的开始和结束, 去做一些事情</span></div><div class="line">- (<span class="keyword">void</span>)animationDidStart:(<span class="built_in">CAAnimation</span> *)anim</div><div class="line">- (<span class="keyword">void</span>)animationDidStop:(<span class="built_in">CAAnimation</span> *)anim finished:(<span class="built_in">BOOL</span>)flag</div></pre></td></tr></table></figure><br><br>总结: 很复杂很复杂的动画, 也可以抽丝剥茧, 化繁为简, 一步一步进行拆分, 最后感谢你的阅读.<br><br>&gt;你好!<br>我是夏天<br><br><div align="center"><br>微信公众号 得到最快最新的推送<br></div>
+
+<div align="center"><br><img src="http://ww1.sinaimg.cn/large/0060lm7Tgw1f9656jhucpj307607674r.jpg" alt=""><br></div>
+
+<blockquote>
+<p>我是夏天, 暖暖的夏天<br>End</p>
+</blockquote>
+
+      
+    </div>
+
+  </div>
+
+  <div class="article-footer">
+    <div class="article-meta pull-left">
+
+    
+
+    
+    
+
+    <span class="post-tags">
+      <i class="icon-tags"></i>
+        <a href="/tags/iOS10-Xcode8/">iOS10 Xcode8</a>
+    </span>
+    
+
+    </div>
+
+    
+  </div>
+</article>
+
+
+    </main>
+
+    <footer class="site-footer">
+  <p class="site-info">
+    Proudly powered by <a href="https://hexo.io/" target="_blank">Hexo</a> and
+    Theme by <a href="https://github.com/CodeDaraW/Hacker" target="_blank">Hacker</a>
+    </br>
+    
+    &copy; 2017 夏天然后
+    
+  </p>
+</footer>
+    
+  </div>
+</div>
+</body>
+</html>

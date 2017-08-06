@@ -1,0 +1,172 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  <title>iOS UICollectionView那些我&#34;错过&#34;的API | 夏天然后</title>
+
+  
+  <meta name="author" content="夏天然后">
+  
+
+  
+  <meta name="description" content="前言: 这是博主在学习旧知识笔记中的一篇, 谁叫咱入门晚呢, 学习的过程中, 不会的知识, 就是因为我们年轻而已(囧~) 我总是这样安慰自己(逃~), 所以我们需要补充一下”错过”的重要的东西, 下面列出了本文会提到的一些概念.
+UICollectionView, UICollectionViewDataSource, UICollectionViewDelegate, UICollectionViewDelegateFlowLayout, UICollectionViewLayout">
+  
+
+  
+  
+  <meta name="keywords" content="UI">
+  
+
+  <meta id="viewport" name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, minimum-scale=1, user-scalable=no, minimal-ui">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black">
+
+  <meta property="og:title" content="iOS UICollectionView那些我&#34;错过&#34;的API"/>
+
+  <meta property="og:site_name" content="夏天然后"/>
+
+  
+  <meta property="og:image" content="/favicon.ico"/>
+  
+
+  <link href="/favicon.ico" rel="icon">
+  <link rel="alternate" href="/atom.xml" title="夏天然后" type="application/atom+xml">
+  <link rel="stylesheet" href="/css/style.css" media="screen" type="text/css">
+</head>
+
+
+<body>
+<div class="blog">
+  <div class="content">
+
+    <header>
+  <div class="site-branding">
+    <h1 class="site-title">
+      <a href="/">夏天然后</a>
+    </h1>
+    <p class="site-description"></p>
+  </div>
+  <nav class="site-navigation">
+    <ul>
+      
+        <li><a href="/">Home</a></li>
+      
+        <li><a href="/archives">Archives</a></li>
+      
+        <li><a href="/tags">about</a></li>
+      
+    </ul>
+  </nav>
+</header>
+
+    <main class="site-main posts-loop">
+    <article>
+
+  
+    
+    <h3 class="article-title"><span>iOS UICollectionView那些我&#34;错过&#34;的API</span></h3>
+    
+  
+
+  <div class="article-top-meta">
+    <span class="posted-on">
+      <a href="/2016/08/24/04/" rel="bookmark">
+        <time class="entry-date published" datetime="2016-08-24T09:45:13.000Z">
+          2016-08-24
+        </time>
+      </a>
+    </span>
+  </div>
+
+
+  
+
+  <div class="article-content">
+    <div class="entry">
+      
+        <p>前言: 这是博主在学习旧知识笔记中的一篇, 谁叫咱入门晚呢, 学习的过程中, 不会的知识, 就是因为我们年轻而已(囧~) 我总是这样安慰自己(逃~), 所以我们需要补充一下”错过”的重要的东西, 下面列出了本文会提到的一些概念.</p>
+<p>UICollectionView, UICollectionViewDataSource, UICollectionViewDelegate, UICollectionViewDelegateFlowLayout, UICollectionViewLayout</p>
+<a id="more"></a>
+<h4 id="在开始之前先有必要回忆一下UICollectionView"><a href="#在开始之前先有必要回忆一下UICollectionView" class="headerlink" title="在开始之前先有必要回忆一下UICollectionView"></a>在开始之前先有必要回忆一下UICollectionView</h4><p>使用collectionView有一段时间了, 进行一个简单的总结和理解~~~.<br><em>UICollectionView是一种类似于UITableView不同于UITableView的布局方式.</em></p>
+<ul>
+<li>Cells 用于展示内容的主体，对于不同的cell可以指定不同尺寸和不同的内容, 且可以复用(一般需要自定义 没有提供类似于tableview那么多的属性).</li>
+<li>Supplementary Views 追加视图 可以理解为tableView每个Section的Header或者Footer，用来标记每个section的view, 且也可以被复用.</li>
+<li>Decoration Views 装饰视图 这是每个section的背景, 且也可以被复用.</li>
+</ul>
+<blockquote>
+<p>关于Cell的说明:</p>
+<ul>
+<li>首先是cell本身作为容器view</li>
+<li>然后是一个大小自动适应整个cell的backgroundView，用作cell平时的背景</li>
+<li>再其上是selectedBackgroundView，是cell被选中时的背景</li>
+<li>最后是一个contentView，自定义内容应被加在这个view上</li>
+</ul>
+</blockquote>
+<h4 id="UICollectionViewDataSource"><a href="#UICollectionViewDataSource" class="headerlink" title="UICollectionViewDataSource"></a>UICollectionViewDataSource</h4><figure class="highlight objectivec"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line"><span class="comment">// 多少个Items</span></div><div class="line">- (<span class="built_in">NSInteger</span>)collectionView:(<span class="built_in">UICollectionView</span> *)collectionView numberOfItemsInSection:(<span class="built_in">NSInteger</span>)section;</div><div class="line"></div><div class="line"><span class="comment">// 显示cell</span></div><div class="line">- (<span class="built_in">UICollectionViewCell</span> *)collectionView:(<span class="built_in">UICollectionView</span> *)collectionView cellForItemAtIndexPath:(<span class="built_in">NSIndexPath</span> *)indexPath;</div><div class="line"></div><div class="line"><span class="comment">// 多少个Sections</span></div><div class="line">- (<span class="built_in">NSInteger</span>)numberOfSectionsInCollectionView:(<span class="built_in">UICollectionView</span> *)collectionView;</div></pre></td></tr></table></figure>
+<p>实现上面三个方法, 基本就可以正常工作了.</p>
+<h4 id="UICollectionViewDelegate"><a href="#UICollectionViewDelegate" class="headerlink" title="UICollectionViewDelegate"></a>UICollectionViewDelegate</h4><p>进行一些行为操作时候用到的</p>
+<ul>
+<li>cell的高亮</li>
+<li>cell的点击</li>
+<li>cell的选中状态等等.</li>
+</ul>
+<blockquote>
+<h5 id="对于点击cell发生哪些行为做一个说明"><a href="#对于点击cell发生哪些行为做一个说明" class="headerlink" title="对于点击cell发生哪些行为做一个说明"></a>对于点击cell发生哪些行为做一个说明</h5><p>1collectionView:shouldHighlightItemAtIndexPath: 是否应该高亮？<br>2￼collectionView:didHighlightItemAtIndexPath: 如果1回答为是，那么高亮<br>3collectionView:shouldSelectItemAtIndexPath: 无论1结果如何，都询问是否可以被选中？<br>4collectionView:didUnhighlightItemAtIndexPath: 如果1回答为是，那么现在取消高亮<br>5collectionView:didSelectItemAtIndexPath: 如果3回答为是，那么选中cell</p>
+</blockquote>
+<h4 id="UICollectionViewDelegateFlowLayout"><a href="#UICollectionViewDelegateFlowLayout" class="headerlink" title="UICollectionViewDelegateFlowLayout"></a>UICollectionViewDelegateFlowLayout</h4><p>可以对cell的大小, 间隙进行调整 使用协议的方式</p>
+<h4 id="UICollectionViewFlowLayout"><a href="#UICollectionViewFlowLayout" class="headerlink" title="UICollectionViewFlowLayout"></a>UICollectionViewFlowLayout</h4><p>是UICollectionViewLayout(稍后会提到)的子类, 他提供一些对cell进行简单设置的属性, Flow Layout简单说是一个直线对齐的layout.</p>
+<figure class="highlight objectivec"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div></pre></td><td class="code"><pre><div class="line"><span class="comment">// 系统API提供的一些属性</span></div><div class="line"><span class="keyword">@property</span> (<span class="keyword">nonatomic</span>) <span class="built_in">CGFloat</span> minimumLineSpacing;</div><div class="line"><span class="keyword">@property</span> (<span class="keyword">nonatomic</span>) <span class="built_in">CGFloat</span> minimumInteritemSpacing;</div><div class="line"><span class="keyword">@property</span> (<span class="keyword">nonatomic</span>) <span class="built_in">CGSize</span> itemSize;</div><div class="line"><span class="keyword">@property</span> (<span class="keyword">nonatomic</span>) <span class="built_in">CGSize</span> estimatedItemSize <span class="built_in">NS_AVAILABLE_IOS</span>(<span class="number">8</span>_0); <span class="comment">// defaults to CGSizeZero - setting a non-zero size enables cells that self-size via -preferredLayoutAttributesFittingAttributes:</span></div><div class="line"><span class="keyword">@property</span> (<span class="keyword">nonatomic</span>) <span class="built_in">UICollectionViewScrollDirection</span> scrollDirection; <span class="comment">// default is UICollectionViewScrollDirectionVertical</span></div><div class="line"><span class="keyword">@property</span> (<span class="keyword">nonatomic</span>) <span class="built_in">CGSize</span> headerReferenceSize;</div><div class="line"><span class="keyword">@property</span> (<span class="keyword">nonatomic</span>) <span class="built_in">CGSize</span> footerReferenceSize;</div><div class="line"><span class="keyword">@property</span> (<span class="keyword">nonatomic</span>) <span class="built_in">UIEdgeInsets</span> sectionInset;</div><div class="line"></div><div class="line"><span class="comment">// Set these properties to YES to get headers that pin to the top of the screen and footers that pin to the bottom while scrolling (similar to UITableView).</span></div><div class="line"><span class="keyword">@property</span> (<span class="keyword">nonatomic</span>) <span class="built_in">BOOL</span> sectionHeadersPinToVisibleBounds <span class="built_in">NS_AVAILABLE_IOS</span>(<span class="number">9</span>_0);</div><div class="line"><span class="keyword">@property</span> (<span class="keyword">nonatomic</span>) <span class="built_in">BOOL</span> sectionFootersPinToVisibleBounds <span class="built_in">NS_AVAILABLE_IOS</span>(<span class="number">9</span>_0);</div></pre></td></tr></table></figure>
+<h4 id="￼UICollectionViewLayout"><a href="#￼UICollectionViewLayout" class="headerlink" title="￼UICollectionViewLayout"></a>￼UICollectionViewLayout</h4><p>它负责了将各个cell、Supplementary View和Decoration Views进行组织，为它们设定各自的属性.可以有:位置, 尺寸, 透明, 层级, 形状, 等等. 所以自定义各种样式的布局就需要自定义Layout了.<br>实现一个自定义layout一般继承于UICollectionViewLayout然后需要重写以下几个方法:</p>
+<figure class="highlight objectivec"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div></pre></td><td class="code"><pre><div class="line"><span class="comment">//  返回CollectionView的内容尺寸</span></div><div class="line">-(<span class="built_in">CGSize</span>)collectionViewContentSize</div><div class="line"><span class="comment">// 返回rect中的所有的元素的布局属性, 返回的是包含UICollectionViewLayoutAttributes的NSArray, UICollectionViewLayoutAttributes可以是cell, Supplementary View和Decoration View</span></div><div class="line">-(<span class="built_in">NSArray</span> *)layoutAttributesForElementsInRect:(<span class="built_in">CGRect</span>)rect</div><div class="line"><span class="comment">// 返回对应于indexPath的位置的cell的布局属性</span></div><div class="line">-(<span class="built_in">UICollectionViewLayoutAttributes</span> _)layoutAttributesForItemAtIndexPath:(<span class="built_in">NSIndexPath</span> _)indexPath</div><div class="line"><span class="comment">//  返回对应于indexPath的位置的追加视图的布局属性</span></div><div class="line">-(<span class="built_in">UICollectionViewLayoutAttributes</span> _)layoutAttributesForSupplementaryViewOfKind:(<span class="built_in">NSString</span> _)kind atIndexPath:(<span class="built_in">NSIndexPath</span> *)indexPath</div><div class="line"><span class="comment">// 返回对应于indexPath的位置的装饰视图的布局属性</span></div><div class="line">-(<span class="built_in">UICollectionViewLayoutAttributes</span> * )layoutAttributesForDecorationViewOfKind:(<span class="built_in">NSString_</span>)decorationViewKind atIndexPath:(<span class="built_in">NSIndexPath</span> _)indexPath: </div><div class="line"><span class="comment">// 默认返回yes, 边界发生变化时, 重新进行布局.</span></div><div class="line">- (<span class="built_in">BOOL</span>)shouldInvalidateLayoutForBoundsChange:(<span class="built_in">CGRect</span>)newBounds:</div></pre></td></tr></table></figure>
+<p>注意: UICollectionViewLayout实例化之后, 有一些方法将自动被调用<br><figure class="highlight objectivec"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line"><span class="comment">// 一般在该方法中设定一些必要的layout的结构和初始需要的参数</span></div><div class="line">-(<span class="keyword">void</span>)prepareLayout</div><div class="line"><span class="comment">// 处置collection应该占据的尺寸(所有内容所占的尺寸) collectionView的本质是一个scrollView, 需要滚动尺寸</span></div><div class="line">-(<span class="built_in">CGSize</span>) collectionViewContentSize</div></pre></td></tr></table></figure></p>
+<p>需要更新layout时, 调用这个方法 有点UIView的setNeedsLayout的意思…<br><figure class="highlight objectivec"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">- invalidateLayout</div></pre></td></tr></table></figure></p>
+<p>说了这么多, 我觉得我理解的更深一点了, 你呢?<br>说的再多不如show you my demo 稍后有时间补上… [大笑.png]<br>这里是官方的一个Dmeo<a href="https://github.com/mpospese/CircleLayout.git" target="_blank" rel="external">https://github.com/mpospese/CircleLayout.git</a></p>
+<h4 id="End"><a href="#End" class="headerlink" title="End"></a><em>End</em></h4><div align="center"><br>微信公众号 得到最快最新的推送<br></div>
+
+<div align="center"><br><img src="http://ww1.sinaimg.cn/large/0060lm7Tgw1f9656jhucpj307607674r.jpg" alt=""><br></div>
+
+      
+    </div>
+
+  </div>
+
+  <div class="article-footer">
+    <div class="article-meta pull-left">
+
+    
+
+    
+    
+
+    <span class="post-tags">
+      <i class="icon-tags"></i>
+        <a href="/tags/UI/">UI</a>
+    </span>
+    
+
+    </div>
+
+    
+  </div>
+</article>
+
+
+    </main>
+
+    <footer class="site-footer">
+  <p class="site-info">
+    Proudly powered by <a href="https://hexo.io/" target="_blank">Hexo</a> and
+    Theme by <a href="https://github.com/CodeDaraW/Hacker" target="_blank">Hacker</a>
+    </br>
+    
+    &copy; 2017 夏天然后
+    
+  </p>
+</footer>
+    
+  </div>
+</div>
+</body>
+</html>

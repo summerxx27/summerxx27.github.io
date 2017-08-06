@@ -1,0 +1,160 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  <title>iOS GCD详细介绍 | 夏天然后</title>
+
+  
+  <meta name="author" content="夏天然后">
+  
+
+  
+  <meta name="description" content="这是一篇GCD基础教程, 对就需要这样说, GCD的强大, 纸上谈兵好像并不能显示它的强大(囧~)">
+  
+
+  
+  
+  <meta name="keywords" content="GCD">
+  
+
+  <meta id="viewport" name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, minimum-scale=1, user-scalable=no, minimal-ui">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black">
+
+  <meta property="og:title" content="iOS GCD详细介绍"/>
+
+  <meta property="og:site_name" content="夏天然后"/>
+
+  
+  <meta property="og:image" content="/favicon.ico"/>
+  
+
+  <link href="/favicon.ico" rel="icon">
+  <link rel="alternate" href="/atom.xml" title="夏天然后" type="application/atom+xml">
+  <link rel="stylesheet" href="/css/style.css" media="screen" type="text/css">
+</head>
+
+
+<body>
+<div class="blog">
+  <div class="content">
+
+    <header>
+  <div class="site-branding">
+    <h1 class="site-title">
+      <a href="/">夏天然后</a>
+    </h1>
+    <p class="site-description"></p>
+  </div>
+  <nav class="site-navigation">
+    <ul>
+      
+        <li><a href="/">Home</a></li>
+      
+        <li><a href="/archives">Archives</a></li>
+      
+        <li><a href="/tags">about</a></li>
+      
+    </ul>
+  </nav>
+</header>
+
+    <main class="site-main posts-loop">
+    <article>
+
+  
+    
+    <h3 class="article-title"><span>iOS GCD详细介绍</span></h3>
+    
+  
+
+  <div class="article-top-meta">
+    <span class="posted-on">
+      <a href="/2016/04/10/05/" rel="bookmark">
+        <time class="entry-date published" datetime="2016-04-10T10:04:00.000Z">
+          2016-04-10
+        </time>
+      </a>
+    </span>
+  </div>
+
+
+  
+
+  <div class="article-content">
+    <div class="entry">
+      
+        <p>这是一篇GCD基础教程, 对就需要这样说, GCD的强大, 纸上谈兵好像并不能显示它的强大(囧~)<br><a id="more"></a><br>今天分享的是关于GCD的知识, 对于GCD的说明: 开发者要做的只是定义想要执行的任务并追加到适当的Dispatch Queue中.存在两种<code>Dispatch Queue</code>:<code>Serial Dispatch Queue</code>等待现在执行中处理结束<code>Concurrent Dispatch Queue</code>不等待现在执行中处理结束, 而<code>Serial Dispatch Queue</code>使用一个线程 <code>Concurrent Dispatch Queue</code> 使用多个线程</p>
+<h2 id="dispatch-queue-create"><a href="#dispatch-queue-create" class="headerlink" title="dispatch_queue_create"></a>dispatch_queue_create</h2><figure class="highlight objectivec"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line"><span class="comment">/**</span></div><div class="line"><span class="comment">第一个参数指定, 线程的名称: 可以给NULL 该名称会出现在应用程序崩溃时所生成的CrashLog中, 所以最好给上名称</span></div><div class="line"><span class="comment">第二个参数指定, NULL(Serial Dispatch Queue), 或者 Concurrent Dispatch Queue.</span></div><div class="line"><span class="comment">*/</span></div><div class="line"><span class="comment">// dispatch_queue_t 代表线程类型  </span></div><div class="line"><span class="built_in">dispatch_queue_t</span> queue = dispatch_queue_create(<span class="string">"my.gcd.example"</span>, <span class="literal">NULL</span>);</div></pre></td></tr></table></figure>
+<p><code>Main Dispatch Queue / Global Dispatch Queue</code></p>
+<p>Main Dispatch Queue 像他的名字含有Main一样, 是在主线程中执行的Dispatch Queue因为主线程只有一个, 所以他是Serial Dispatch Queue</p>
+<p>Global Dispatch Queue 是所有是所有应用程序都能使用的Concurrent Dispatch Queue.<br>Global Dispatch Queue 有四个优先级别: High, Default, Low, Background(后台)</p>
+<p>各种Dispatch Queue 获取方法如下</p>
+<figure class="highlight objectivec"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line"><span class="comment">// main</span></div><div class="line"><span class="built_in">dispatch_queue_t</span> mainQueue = dispatch_get_main_queue();</div><div class="line"><span class="comment">// global</span></div><div class="line"><span class="comment">// DISPATCH_QUEUE_PRIORITY_HIGH</span></div><div class="line"><span class="comment">// DISPATCH_QUEUE_PRIORITY_DEFAULT</span></div><div class="line"><span class="comment">// DISPATCH_QUEUE_PRIORITY_LOW</span></div><div class="line"><span class="comment">// DISPATCH_QUEUE_PRIORITY_BACKGROUND</span></div><div class="line"><span class="built_in">dispatch_queue_t</span> globalQueue = dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_HIGH, <span class="number">0</span>)</div></pre></td></tr></table></figure>
+<h2 id="dispatch-after"><a href="#dispatch-after" class="headerlink" title="dispatch_after"></a>dispatch_after</h2><p>经常会有这样的情况, 想在3秒之后执行处理 可能不限于3秒,  使用dispatch_after</p>
+<figure class="highlight objectivec"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(<span class="number">3</span> * <span class="built_in">NSEC_PER_SEC</span>)), dispatch_get_main_queue(), ^&#123;</div><div class="line"><span class="comment">// do you something</span></div><div class="line">&#125;);</div></pre></td></tr></table></figure>
+<h2 id="Dispatch-Group"><a href="#Dispatch-Group" class="headerlink" title="Dispatch Group"></a>Dispatch Group</h2><p>在追加到Dispatch Queue中的多个处理全部结束后想执行结束处理, 这种应该如何处理呢?? 使用 group<br>假设你想, 追加3个Block 到Global Dispatch Queue 这些Block全部执行完, 执行 Main Dispatch 中结束处理用的Block<br><figure class="highlight objectivec"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div></pre></td><td class="code"><pre><div class="line"><span class="built_in">dispatch_queue_t</span> queue = dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, <span class="number">0</span>);</div><div class="line"></div><div class="line">dispatch_group_t group = dispatch_group_create();</div><div class="line"></div><div class="line">dispatch_group_async(group, queue, ^&#123;</div><div class="line"><span class="comment">//</span></div><div class="line"><span class="built_in">NSLog</span>(<span class="string">@"-------------1"</span>);</div><div class="line">&#125;);</div><div class="line">dispatch_group_async(group, queue, ^&#123;</div><div class="line"><span class="comment">//</span></div><div class="line"><span class="built_in">NSLog</span>(<span class="string">@"-------------2"</span>);</div><div class="line">&#125;);</div><div class="line">dispatch_group_async(group, queue, ^&#123;</div><div class="line"><span class="comment">//</span></div><div class="line"><span class="built_in">NSLog</span>(<span class="string">@"-------------3"</span>);</div><div class="line">&#125;);</div><div class="line"></div><div class="line">dispatch_group_notify(group, dispatch_get_main_queue(), ^&#123;</div><div class="line"><span class="built_in">NSLog</span>(<span class="string">@"-------------4"</span>);</div><div class="line">&#125;);</div><div class="line"><span class="comment">// 2016-05-08 02:02:56.376 GCD-01[3223:59296] -------------1</span></div><div class="line"><span class="comment">// 2016-05-08 02:02:56.376 GCD-01[3223:59298] -------------3</span></div><div class="line"><span class="comment">// 2016-05-08 02:02:56.376 GCD-01[3223:59297] -------------2</span></div><div class="line"><span class="comment">// 2016-05-08 02:02:56.385 GCD-01[3223:59213] -------------4</span></div></pre></td></tr></table></figure></p>
+<p>因为多个线程并行执行 所以追加的处理执行的顺序是不确定的, 但是4 一定是最后执行.<br>无论向什么样的 Dispatch Queue 中追加处理, 使用Dispatch Group 都可以监视这些处理的结束, 一旦所有的都结束执行, 就可以加结束的处理追加到Dispatch Queue, 这就是Gourp的奥义.</p>
+<h2 id="dispatch-group-wait"><a href="#dispatch-group-wait" class="headerlink" title="dispatch_group_wait"></a>dispatch_group_wait</h2><figure class="highlight objectivec"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div></pre></td><td class="code"><pre><div class="line">dispatch_group_wait(group, DISPATCH_TIME_FOREVER); <span class="comment">// 永久等待</span></div><div class="line"><span class="comment">// 具体使用代码如下</span></div><div class="line"><span class="built_in">dispatch_queue_t</span> queue = dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, <span class="number">0</span>);</div><div class="line"></div><div class="line">dispatch_group_t group = dispatch_group_create();</div><div class="line"></div><div class="line">dispatch_group_async(group, queue, ^&#123;</div><div class="line"><span class="comment">//</span></div><div class="line"><span class="built_in">NSLog</span>(<span class="string">@"-------------1"</span>);</div><div class="line">&#125;);</div><div class="line">dispatch_group_async(group, queue, ^&#123;</div><div class="line"><span class="comment">//</span></div><div class="line"><span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; <span class="number">2000</span>; i ++) &#123;</div><div class="line"><span class="built_in">NSLog</span>(<span class="string">@"%d"</span>, i);</div><div class="line">&#125;</div><div class="line"></div><div class="line"><span class="built_in">NSLog</span>(<span class="string">@"-------------2"</span>);</div><div class="line">&#125;);</div><div class="line">dispatch_group_async(group, queue, ^&#123;</div><div class="line"><span class="comment">//</span></div><div class="line"><span class="built_in">NSLog</span>(<span class="string">@"-------------3"</span>);</div><div class="line">&#125;);</div><div class="line"></div><div class="line">dispatch_time_t time1 = dispatch_time(DISPATCH_TIME_NOW, <span class="number">1</span> * <span class="built_in">NSEC_PER_SEC</span>);</div><div class="line"></div><div class="line"><span class="keyword">long</span> result = dispatch_group_wait(group, time1);</div><div class="line"></div><div class="line"><span class="keyword">if</span> (result == <span class="number">0</span>) &#123;</div><div class="line"><span class="built_in">NSLog</span>(<span class="string">@"全部处理结束"</span>);</div><div class="line">&#125;<span class="keyword">else</span>&#123;</div><div class="line"><span class="built_in">NSLog</span>(<span class="string">@"还在处理中"</span>);</div><div class="line">&#125;</div><div class="line"><span class="comment">// 2016-05-08 02:19:16.102 GCD-01[3376:65810] 1222</span></div><div class="line"><span class="comment">// 2016-05-08 02:19:16.102 GCD-01[3376:65742] 还在处理中</span></div><div class="line"><span class="comment">// 2016-05-08 02:19:16.103 GCD-01[3376:65810] 1223</span></div></pre></td></tr></table></figure>
+<h2 id="dispatch-barrier-async"><a href="#dispatch-barrier-async" class="headerlink" title="dispatch_barrier_async"></a>dispatch_barrier_async</h2><p>下面通过代码对他进行解释<br><figure class="highlight objectivec"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div></pre></td><td class="code"><pre><div class="line"><span class="built_in">dispatch_queue_t</span> queue = dispatch_queue_create(<span class="string">"queue.example"</span>, DISPATCH_QUEUE_CONCURRENT);</div><div class="line"></div><div class="line"><span class="built_in">dispatch_async</span>(queue, ^&#123;</div><div class="line"><span class="built_in">NSLog</span>(<span class="string">@"-------------------1"</span>);</div><div class="line">&#125;);</div><div class="line"></div><div class="line"><span class="built_in">dispatch_async</span>(queue, ^&#123;</div><div class="line"><span class="built_in">NSLog</span>(<span class="string">@"-------------------2"</span>);</div><div class="line">&#125;);</div><div class="line"></div><div class="line"><span class="built_in">dispatch_async</span>(queue, ^&#123;</div><div class="line"><span class="built_in">NSLog</span>(<span class="string">@"-------------------3"</span>);</div><div class="line">&#125;);</div><div class="line"></div><div class="line"><span class="built_in">dispatch_async</span>(queue, ^&#123;</div><div class="line"><span class="built_in">NSLog</span>(<span class="string">@"-------------------4"</span>);</div><div class="line">&#125;);</div><div class="line"></div><div class="line"></div><div class="line"><span class="comment">//   dispatch_barrier_async(queue, ^&#123;</span></div><div class="line"><span class="comment">//     NSLog(@"I am a barrier");</span></div><div class="line"><span class="comment">//    &#125;);</span></div><div class="line"></div><div class="line"></div><div class="line"><span class="built_in">dispatch_async</span>(queue, ^&#123;</div><div class="line"><span class="built_in">NSLog</span>(<span class="string">@"-------------------5"</span>);</div><div class="line">&#125;);</div><div class="line"></div><div class="line"><span class="built_in">dispatch_async</span>(queue, ^&#123;</div><div class="line"><span class="built_in">NSLog</span>(<span class="string">@"-------------------6"</span>);</div><div class="line">&#125;);</div><div class="line"></div><div class="line"><span class="built_in">dispatch_async</span>(queue, ^&#123;</div><div class="line"><span class="built_in">NSLog</span>(<span class="string">@"-------------------7"</span>);</div><div class="line">&#125;);</div><div class="line"></div><div class="line"><span class="built_in">dispatch_async</span>(queue, ^&#123;</div><div class="line"><span class="built_in">NSLog</span>(<span class="string">@"-------------------8"</span>);</div><div class="line">&#125;);</div></pre></td></tr></table></figure></p>
+<p>在开发的过程中某些功能实现的时候, 我们可能需要一些特定的表现形式, 比如我想让 在 1234 都执行结束之后, 在执行之后的操作(5678), 这样使用 <code>dispatch_barrier_async</code> 就可以实现了</p>
+<h2 id="dispatch-sync"><a href="#dispatch-sync" class="headerlink" title="dispatch_sync"></a>dispatch_sync</h2><p>dispatch_sync函数 “async” 异步即非同步, sync即是同步.</p>
+<p>假设一种场景: 在执行Main Dispatch Queue 时, 使用另外一种线程 Global Dispatch Queue 进行处理, 处理结束后立即使用所得到的结果 代码示例如下<br><figure class="highlight objectivec"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line"><span class="built_in">dispatch_queue_t</span> queue = dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, <span class="number">0</span>);</div><div class="line"></div><div class="line"><span class="built_in">dispatch_sync</span>(queue, ^&#123;</div><div class="line"><span class="comment">//</span></div><div class="line">&#125;);</div></pre></td></tr></table></figure></p>
+<p>sync 容易造成死锁情况. 下面列举几个<br>情景1<br><figure class="highlight objectivec"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line"><span class="built_in">dispatch_queue_t</span> queue2 = dispatch_get_main_queue();</div><div class="line"><span class="built_in">dispatch_sync</span>(queue2, ^&#123;</div><div class="line"><span class="comment">//</span></div><div class="line"><span class="built_in">NSLog</span>(<span class="string">@"----------"</span>); <span class="comment">// 不会被执行</span></div><div class="line">&#125;);</div></pre></td></tr></table></figure></p>
+<p>情景2<br><figure class="highlight objectivec"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line"><span class="built_in">dispatch_queue_t</span> queue3 = dispatch_get_main_queue();</div><div class="line"><span class="built_in">dispatch_async</span>(queue3, ^&#123;</div><div class="line"><span class="comment">//</span></div><div class="line"><span class="built_in">dispatch_sync</span>(queue3, ^&#123;</div><div class="line"><span class="built_in">NSLog</span>(<span class="string">@"----------"</span>);</div><div class="line">&#125;);</div><div class="line">&#125;);</div></pre></td></tr></table></figure></p>
+<p>情景3<br><figure class="highlight objectivec"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line"><span class="built_in">dispatch_queue_t</span> queue4 = dispatch_queue_create(<span class="string">"queue.example"</span>, DISPATCH_QUEUE_SERIAL);</div><div class="line"><span class="built_in">dispatch_async</span>(queue4, ^&#123;</div><div class="line"><span class="comment">//</span></div><div class="line"><span class="built_in">dispatch_sync</span>(queue4, ^&#123;</div><div class="line"><span class="comment">//</span></div><div class="line"><span class="built_in">NSLog</span>(<span class="string">@"---------"</span>);</div><div class="line">&#125;);</div><div class="line">&#125;);</div></pre></td></tr></table></figure></p>
+<h2 id="dispatch-apply"><a href="#dispatch-apply" class="headerlink" title="dispatch_apply"></a>dispatch_apply</h2><p>dispatch_apply 是 dispatch_sync 和 Dispatch Group 的关联API.<br>重复执行Block中代码. 示例如下<br><figure class="highlight objectivec"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line"><span class="built_in">dispatch_queue_t</span> queue5 = dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, <span class="number">0</span>);</div><div class="line">dispatch_apply(<span class="number">5</span>, queue5, ^(size_t i) &#123;</div><div class="line"><span class="built_in">NSLog</span>(<span class="string">@"i= %zu"</span>, i);</div><div class="line">&#125;);</div></pre></td></tr></table></figure></p>
+<h2 id="Dispatch-apply函数与Dispatch-sync函数相同-都是会等待处理执行结束所以推荐这样使用示例代码如下"><a href="#Dispatch-apply函数与Dispatch-sync函数相同-都是会等待处理执行结束所以推荐这样使用示例代码如下" class="headerlink" title="Dispatch_apply函数与Dispatch_sync函数相同, 都是会等待处理执行结束所以推荐这样使用示例代码如下"></a><code>Dispatch_apply</code>函数与<code>Dispatch_sync</code>函数相同, 都是会等待处理执行结束所以推荐这样使用示例代码如下</h2><figure class="highlight objectivec"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div></pre></td><td class="code"><pre><div class="line"><span class="built_in">dispatch_queue_t</span> queue6 = dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, <span class="number">0</span>);</div><div class="line"></div><div class="line"><span class="comment">// 在Global Dispatch Queue 中非同步执行</span></div><div class="line"><span class="built_in">dispatch_async</span>(queue6, ^&#123;</div><div class="line"><span class="comment">// Global Dispatch Queue 等待 Dispatch_apply 函数中的全部处理执行结束</span></div><div class="line">dispatch_apply(<span class="number">5</span>, queue6, ^(size_t index) &#123;</div><div class="line"><span class="comment">//</span></div><div class="line"><span class="built_in">NSLog</span>(<span class="string">@"i = %zu"</span>, index);</div><div class="line">&#125;);</div><div class="line"></div><div class="line"><span class="comment">// 在Dispatch_apply 函数中的处理全部执行结束</span></div><div class="line"><span class="comment">// 在Main Dispatch Queue 中非同步执行</span></div><div class="line"></div><div class="line"><span class="built_in">dispatch_async</span>(dispatch_get_main_queue(), ^&#123;</div><div class="line"><span class="comment">// 用户界面更新等</span></div><div class="line"><span class="built_in">NSLog</span>(<span class="string">@" end "</span>);</div><div class="line">&#125;);</div><div class="line">&#125;);</div></pre></td></tr></table></figure>
+<h2 id="dispatch-suspend-dispatch-resume"><a href="#dispatch-suspend-dispatch-resume" class="headerlink" title="dispatch_suspend / dispatch_resume"></a>dispatch_suspend / dispatch_resume</h2><p>当使用Dispatch Queue 进行复杂处理的时候,有的时候希望不执行已追加的处理. 这种情况下可以挂起Dispatch Queue就可以, 当需要他执行的时候在执行恢复<br><figure class="highlight objectivec"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line"><span class="comment">// 挂起(可以理解为暂停)</span></div><div class="line">dispatch_suspend(queue);</div><div class="line"><span class="comment">// 恢复</span></div><div class="line">dispatch_resume(queue);</div></pre></td></tr></table></figure></p>
+<p>###dispatch_once<br>函数是在应用程序执行中只执行一次指定处理的API<br>singleton 常用这个函数创建<br><figure class="highlight objectivec"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">static</span> <span class="built_in">dispatch_once_t</span> onceToken;</div><div class="line"><span class="built_in">dispatch_once</span>(&amp;onceToken, ^&#123;</div><div class="line"><span class="comment">//</span></div><div class="line"><span class="comment">// 初始化</span></div><div class="line">&#125;);</div></pre></td></tr></table></figure></p>
+<p>singleton<br><figure class="highlight objectivec"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div></pre></td><td class="code"><pre><div class="line">+ (<span class="keyword">instancetype</span>)shareVC</div><div class="line">&#123;</div><div class="line"><span class="comment">// 定义了一个标识(onceToken)</span></div><div class="line"><span class="comment">// 确保block里的内容只执行一次</span></div><div class="line"><span class="keyword">static</span> ZJW_VC *vc = <span class="literal">nil</span>;</div><div class="line"><span class="keyword">static</span> <span class="built_in">dispatch_once_t</span> onceToken;</div><div class="line"><span class="built_in">dispatch_once</span>(&amp;onceToken, ^&#123;</div><div class="line">vc = [[ZJW_VC alloc] init];</div><div class="line">&#125;);</div><div class="line"><span class="keyword">return</span> vc;</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<p>##GCD的实现<br>我们所使用的GCD的API 全部是C语言函数实现, Dispatch Queue通过结构体和链表被实现为FIFO队列<br>什么是FIFO队列: First Input First Output的缩写，先入先出队列，这是一种传统的按序执行方法，先进入的指令先完成并引退，跟着才执行第二条指令。</p>
+<h2 id="使用范例"><a href="#使用范例" class="headerlink" title="使用范例"></a>使用范例</h2><figure class="highlight objectivec"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div></pre></td><td class="code"><pre><div class="line"><span class="built_in">UIImageView</span> *imageView = [[<span class="built_in">UIImageView</span> alloc] init];</div><div class="line">imageView.frame = <span class="built_in">CGRectMake</span>(<span class="number">20</span>, <span class="number">20</span>, <span class="keyword">self</span>.view.frame.size.width - <span class="number">40</span>, <span class="keyword">self</span>.view.frame.size.height - <span class="number">40</span>);</div><div class="line">[<span class="keyword">self</span>.view addSubview:imageView];    </div><div class="line"><span class="comment">// 使用GCD 下载图片 dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_HIGH,0), ^&#123;</span></div><div class="line"><span class="built_in">NSString</span> *url =<span class="string">@"http://images11.app.happyjuzi.com/news/201604/22/5719667646455.jpg"</span>;</div><div class="line"><span class="comment">// 从网络获取数据</span></div><div class="line"><span class="built_in">NSData</span> *data  = [[<span class="built_in">NSData</span> alloc] initWithContentsOfURL:[<span class="built_in">NSURL</span> URLWithString:url]];</div><div class="line"><span class="comment">// 将网络的数据初始化UIImage 对象</span></div><div class="line"><span class="built_in">UIImage</span> *image = [[<span class="built_in">UIImage</span> alloc] initWithData:data];</div><div class="line"><span class="keyword">if</span> (image != <span class="literal">nil</span>) &#123;</div><div class="line"><span class="comment">// 该代码块将会有主线程完成</span></div><div class="line"><span class="built_in">dispatch_async</span>(dispatch_get_main_queue(), ^&#123;</div><div class="line">imageView.image = image;</div><div class="line">&#125;); <span class="comment">// 使用异步更新界面的UI控件</span></div><div class="line">&#125;<span class="keyword">else</span>&#123;</div><div class="line"><span class="built_in">NSLog</span>(<span class="string">@"错误"</span>);</div><div class="line">&#125;</div><div class="line">&#125;);</div></pre></td></tr></table></figure>
+<div align="center"><br>微信公众号 得到最快最新的推送<br></div>
+
+<div align="center"><br><img src="http://ww1.sinaimg.cn/large/0060lm7Tgw1f9656jhucpj307607674r.jpg" alt=""><br></div>
+
+      
+    </div>
+
+  </div>
+
+  <div class="article-footer">
+    <div class="article-meta pull-left">
+
+    
+
+    
+    
+
+    <span class="post-tags">
+      <i class="icon-tags"></i>
+        <a href="/tags/GCD/">GCD</a>
+    </span>
+    
+
+    </div>
+
+    
+  </div>
+</article>
+
+
+    </main>
+
+    <footer class="site-footer">
+  <p class="site-info">
+    Proudly powered by <a href="https://hexo.io/" target="_blank">Hexo</a> and
+    Theme by <a href="https://github.com/CodeDaraW/Hacker" target="_blank">Hacker</a>
+    </br>
+    
+    &copy; 2017 夏天然后
+    
+  </p>
+</footer>
+    
+  </div>
+</div>
+</body>
+</html>

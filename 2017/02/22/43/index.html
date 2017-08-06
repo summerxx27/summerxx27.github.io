@@ -1,0 +1,164 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  <title>autorelease | 夏天然后</title>
+
+  
+  <meta name="author" content="夏天然后">
+  
+
+  
+  <meta name="description" content="前言: 自动变量,在计算机编程中, 是一个局部变量)，当程序流进入并离开变量的范围时，该变量自动分配和释放.点击查看详细解释 , 由此引出这篇文章的主角 autorelease.">
+  
+
+  
+  
+  <meta name="keywords" content="autorelease">
+  
+
+  <meta id="viewport" name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, minimum-scale=1, user-scalable=no, minimal-ui">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black">
+
+  <meta property="og:title" content="autorelease"/>
+
+  <meta property="og:site_name" content="夏天然后"/>
+
+  
+  <meta property="og:image" content="/favicon.ico"/>
+  
+
+  <link href="/favicon.ico" rel="icon">
+  <link rel="alternate" href="/atom.xml" title="夏天然后" type="application/atom+xml">
+  <link rel="stylesheet" href="/css/style.css" media="screen" type="text/css">
+</head>
+
+
+<body>
+<div class="blog">
+  <div class="content">
+
+    <header>
+  <div class="site-branding">
+    <h1 class="site-title">
+      <a href="/">夏天然后</a>
+    </h1>
+    <p class="site-description"></p>
+  </div>
+  <nav class="site-navigation">
+    <ul>
+      
+        <li><a href="/">Home</a></li>
+      
+        <li><a href="/archives">Archives</a></li>
+      
+        <li><a href="/tags">about</a></li>
+      
+    </ul>
+  </nav>
+</header>
+
+    <main class="site-main posts-loop">
+    <article>
+
+  
+    
+    <h3 class="article-title"><span>autorelease</span></h3>
+    
+  
+
+  <div class="article-top-meta">
+    <span class="posted-on">
+      <a href="/2017/02/22/43/" rel="bookmark">
+        <time class="entry-date published" datetime="2017-02-21T16:48:02.000Z">
+          2017-02-22
+        </time>
+      </a>
+    </span>
+  </div>
+
+
+  
+
+  <div class="article-content">
+    <div class="entry">
+      
+        <p><img src="http://ww1.sinaimg.cn/large/e6a4355cgy1fia20tkjw1j21z418gu0x.jpg" alt=""><br>前言: 自动变量,在<a href="https://en.wikipedia.org/wiki/Computer_programming" target="_blank" rel="external">计算机编程中</a>, 是一个局部<a href="https://en.wikipedia.org/wiki/Variable_(programming" target="_blank" rel="external">变量</a>)，当程序流进入并离开变量的范围时，该变量自动分配和释放.<a href="https://en.wikipedia.org/wiki/Automatic_variable" target="_blank" rel="external">点击查看详细解释</a> , 由此引出这篇文章的主角 autorelease.</p>
+<a id="more"></a>
+<h3 id="autorelease"><a href="#autorelease" class="headerlink" title="autorelease"></a>autorelease</h3><p>解释:  类似于C语言中的自动变量, 超出其作用域(有效范围)便自动废弃</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">&#123;</div><div class="line">int a;</div><div class="line">&#125;</div><div class="line">// 变量 a 被废弃</div></pre></td></tr></table></figure>
+<p>不同于 C语言自动变量的是 在Objective-C中可以设定变量的作用域, 具体方法如下:</p>
+<ul>
+<li>生成并持有<code>NSAutoreleasePool</code></li>
+<li>调用autorelease方法</li>
+<li>废弃 <code>NSAutoreleasePool</code>对象</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">NSAutoreleasePool *pool = [[NSAutoreleasePool alloc] init];</div><div class="line">id object = [[NSObject alloc] init];</div><div class="line">[object autorelease];</div><div class="line">NSLog(@&quot;object ===== %@&quot;, object); // 正常</div><div class="line">[pool drain];</div><div class="line">[object class]; // crash</div></pre></td></tr></table></figure>
+<blockquote>
+<p>而实际在MRC下开发, 没有特殊要求可以不使用<code>NSAutoreleasePool</code> 因为在<code>Cocoa</code>框架中, 程序主循环<code>NSRunLoop</code>或者程序可运行的地方, 对这个对象(NSAutoreleasePool)的生成, 持有, 废弃, 已经进行了处理. </p>
+<p>值得注意的是有时候不得不用, 比如 程序主循环未退出, 而生成了大量的autorelease对象, 那就会造成内存不足的现象. 所以适当使用</p>
+</blockquote>
+<h3 id="实际开发中不”明显”的autorelease-同样值得注意"><a href="#实际开发中不”明显”的autorelease-同样值得注意" class="headerlink" title="实际开发中不”明显”的autorelease 同样值得注意."></a>实际开发中不”明显”的autorelease 同样值得注意.</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">NSMutableArray *array = [NSMutableArray arrayWithCapacity:1]; // 实际上这个方法也返回了一个autorelease对象.</div></pre></td></tr></table></figure>
+<p>伪代码arrayWithCapacity<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">- (id)arrayWithCapacity:(NSUInteger)num &#123;</div><div class="line">NSMutableArray *obj = [[NSMutableArray alloc] init];</div><div class="line">[obj autorelease]; // 这里使用了autorelease</div><div class="line">return obj;</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<h3 id="autorelease如何实现"><a href="#autorelease如何实现" class="headerlink" title="autorelease如何实现"></a>autorelease如何实现</h3><p><code>autoreleasepool</code> 是没有单独的内存结构的，它是通过以 <code>AutoreleasePoolPage</code> 为结点的双向链表来实现的,在 runtime/NSObject.mm <code>581行</code>可以找到相应的实现.<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div></pre></td><td class="code"><pre><div class="line">id *add(id obj)</div><div class="line">&#123;</div><div class="line">// 将对象加到内部数组中</div><div class="line">&#125;</div><div class="line"></div><div class="line">void releaseAll() </div><div class="line">&#123;</div><div class="line">// 调用内部数组中的对象的release实例方法 </div><div class="line">&#125;</div><div class="line">static inline id autorelease(id obj)</div><div class="line">&#123;</div><div class="line">// 取得正在使用的 AutoreleasePoolPage 实例</div><div class="line">&#125;</div><div class="line">static inline void *push() </div><div class="line">&#123;</div><div class="line">// 相当于生成或持有 NSAutoreleasePool类对象</div><div class="line">&#125;</div><div class="line"></div><div class="line">static inline void pop(void *token) </div><div class="line">&#123;</div><div class="line">// 相当于废弃NSAutoreleasePool 类对象</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<blockquote>
+<p>引用: </p>
+<ul>
+<li>每一个线程的 autoreleasepool 其实就是一个指针的堆栈；</li>
+<li>每一个指针代表一个需要 release 的对象或者 POOL_SENTINEL（哨兵对象，代表一个 autoreleasepool 的边界）；</li>
+<li>一个 pool token 就是这个 pool 所对应的 POOL_SENTINEL 的内存地址。当这个 pool 被 pop 的时候，所有内存地址在 pool token 之后的对象都会被 release ；</li>
+<li>这个堆栈被划分成了一个以 page 为结点的双向链表。pages 会在必要的时候动态地增加或删除；</li>
+<li>Thread-local storage（线程局部存储）指向 hot page ，即最新添加的 autoreleased 对象所在的那个 page 。</li>
+</ul>
+</blockquote>
+<h3 id="文章参照"><a href="#文章参照" class="headerlink" title="文章参照"></a>文章参照</h3><p><a href="https://github.com/opensource-apple/objc4/blob/master/runtime/NSObject.mm" target="_blank" rel="external">NSObject.mm</a><br><a href="http://blog.leichunfeng.com/posts/8/" target="_blank" rel="external">Objective-C Autorelease Pool 的实现原理</a></p>
+<blockquote>
+<p>一起学习 共同进步 走过一段有意义的时光<br>我是夏天 这是我维护的群 498143780 你可以来找我交流. </p>
+<p>我是夏天, 暖暖的夏天<br>End</p>
+</blockquote>
+
+      
+    </div>
+
+  </div>
+
+  <div class="article-footer">
+    <div class="article-meta pull-left">
+
+    
+
+    
+    
+
+    <span class="post-tags">
+      <i class="icon-tags"></i>
+        <a href="/tags/autorelease/">autorelease</a>
+    </span>
+    
+
+    </div>
+
+    
+  </div>
+</article>
+
+
+    </main>
+
+    <footer class="site-footer">
+  <p class="site-info">
+    Proudly powered by <a href="https://hexo.io/" target="_blank">Hexo</a> and
+    Theme by <a href="https://github.com/CodeDaraW/Hacker" target="_blank">Hacker</a>
+    </br>
+    
+    &copy; 2017 夏天然后
+    
+  </p>
+</footer>
+    
+  </div>
+</div>
+</body>
+</html>

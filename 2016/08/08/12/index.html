@@ -1,0 +1,157 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  <title>iOS runtime 之关联引用 | 夏天然后</title>
+
+  
+  <meta name="author" content="夏天然后">
+  
+
+  
+  <meta name="description" content="关联引用: 允许开发者为任何对象附着键值数据, 很常用的用法是为分类添加属性.节目预告 
+
+简单的关联引用
+为UIViewController 添加MBProgressHUD的HUB属性
+为UINavigationBar添加一个view属性 来完成动态改变UINavigationBar的外观">
+  
+
+  
+  
+  <meta name="keywords" content="rumtime">
+  
+
+  <meta id="viewport" name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, minimum-scale=1, user-scalable=no, minimal-ui">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black">
+
+  <meta property="og:title" content="iOS runtime 之关联引用"/>
+
+  <meta property="og:site_name" content="夏天然后"/>
+
+  
+  <meta property="og:image" content="/favicon.ico"/>
+  
+
+  <link href="/favicon.ico" rel="icon">
+  <link rel="alternate" href="/atom.xml" title="夏天然后" type="application/atom+xml">
+  <link rel="stylesheet" href="/css/style.css" media="screen" type="text/css">
+</head>
+
+
+<body>
+<div class="blog">
+  <div class="content">
+
+    <header>
+  <div class="site-branding">
+    <h1 class="site-title">
+      <a href="/">夏天然后</a>
+    </h1>
+    <p class="site-description"></p>
+  </div>
+  <nav class="site-navigation">
+    <ul>
+      
+        <li><a href="/">Home</a></li>
+      
+        <li><a href="/archives">Archives</a></li>
+      
+        <li><a href="/tags">about</a></li>
+      
+    </ul>
+  </nav>
+</header>
+
+    <main class="site-main posts-loop">
+    <article>
+
+  
+    
+    <h3 class="article-title"><span>iOS runtime 之关联引用</span></h3>
+    
+  
+
+  <div class="article-top-meta">
+    <span class="posted-on">
+      <a href="/2016/08/08/12/" rel="bookmark">
+        <time class="entry-date published" datetime="2016-08-08T09:34:21.000Z">
+          2016-08-08
+        </time>
+      </a>
+    </span>
+  </div>
+
+
+  
+
+  <div class="article-content">
+    <div class="entry">
+      
+        <h5 id="关联引用-允许开发者为任何对象附着键值数据-很常用的用法是为分类添加属性"><a href="#关联引用-允许开发者为任何对象附着键值数据-很常用的用法是为分类添加属性" class="headerlink" title="关联引用: 允许开发者为任何对象附着键值数据, 很常用的用法是为分类添加属性."></a>关联引用: 允许开发者为任何对象附着键值数据, 很常用的用法是为分类添加属性.</h5><p><strong>节目预告 </strong></p>
+<ol>
+<li>简单的关联引用</li>
+<li>为UIViewController 添加MBProgressHUD的HUB属性</li>
+<li>为UINavigationBar添加一个view属性 来完成动态改变UINavigationBar的外观              <a id="more"></a>
+官方API是这样的, 下面这篇博客也是围绕这些来展开<figure class="highlight objectivec"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div></pre></td><td class="code"><pre><div class="line"><span class="comment">// 关联策略枚举值</span></div><div class="line"><span class="keyword">typedef</span> OBJC_ENUM(uintptr_t, objc_AssociationPolicy) &#123;</div><div class="line">OBJC_ASSOCIATION_ASSIGN = <span class="number">0</span>,           </div><div class="line">OBJC_ASSOCIATION_RETAIN_NONATOMIC = <span class="number">1</span>, </div><div class="line">OBJC_ASSOCIATION_COPY_NONATOMIC = <span class="number">3</span>,  </div><div class="line">OBJC_ASSOCIATION_RETAIN = <span class="number">01401</span>, </div><div class="line">OBJC_ASSOCIATION_COPY = <span class="number">01403</span>     </div><div class="line">&#125;;</div><div class="line"></div><div class="line"><span class="comment">/**</span></div><div class="line"><span class="comment">object               源对象</span></div><div class="line"><span class="comment">key                关键字 唯一静态变量key</span></div><div class="line"><span class="comment">value               关联的对象 value(userAge)</span></div><div class="line"><span class="comment">关键策略           OBJC_ASSOCIATION_COPY</span></div><div class="line"><span class="comment">*/</span></div><div class="line">OBJC_EXPORT <span class="keyword">void</span> objc_setAssociatedObject(<span class="keyword">id</span> object, <span class="keyword">const</span> <span class="keyword">void</span> *key, <span class="keyword">id</span> value, objc_AssociationPolicy policy)</div><div class="line">__OSX_AVAILABLE_STARTING(__MAC_10_6, __IPHONE_3_1);</div><div class="line"></div><div class="line"><span class="comment">// 通过 objc_getAssociatedObject获取关联对象</span></div><div class="line">OBJC_EXPORT <span class="keyword">id</span> objc_getAssociatedObject(<span class="keyword">id</span> object, <span class="keyword">const</span> <span class="keyword">void</span> *key)</div><div class="line">__OSX_AVAILABLE_STARTING(__MAC_10_6, __IPHONE_3_1);</div><div class="line"></div><div class="line"><span class="comment">// 删除关联</span></div><div class="line">OBJC_EXPORT <span class="keyword">void</span> objc_removeAssociatedObjects(<span class="keyword">id</span> object)</div><div class="line">__OSX_AVAILABLE_STARTING(__MAC_10_6, __IPHONE_3_1);</div></pre></td></tr></table></figure>
+</li>
+</ol>
+<p>假设情景一<br>你要用分类为 <code>User</code>添加一个属性 叫做 <code>userAge</code>, <code>User</code>类在很多地方会用到, 而用户的年龄不常常被用到, 为了避免不必要的开销, 分类是个很好的选择.<br>首先我创建一个<code>User</code>类<br><figure class="highlight objectivec"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line"><span class="class"><span class="keyword">@interface</span> <span class="title">User</span> : <span class="title">NSObject</span></span></div><div class="line"><span class="keyword">@property</span> (<span class="keyword">nonatomic</span>, <span class="keyword">copy</span>) <span class="built_in">NSString</span> *userName;</div><div class="line"><span class="keyword">@end</span></div></pre></td></tr></table></figure></p>
+<figure class="highlight objectivec"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line"><span class="class"><span class="keyword">@implementation</span> <span class="title">User</span></span></div><div class="line"><span class="keyword">@end</span></div></pre></td></tr></table></figure>
+<p>接下来我采用扩展的方式为<code>User</code>添加一个 <code>userAge</code>的属性.<br><figure class="highlight objectivec"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line"><span class="class"><span class="keyword">@interface</span> <span class="title">User</span> (<span class="title">Extensions</span>)</span></div><div class="line"><span class="keyword">@property</span> (<span class="keyword">nonatomic</span>, <span class="keyword">copy</span>) <span class="built_in">NSString</span> *userAge;</div><div class="line"><span class="keyword">@end</span></div></pre></td></tr></table></figure></p>
+<figure class="highlight objectivec"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div></pre></td><td class="code"><pre><div class="line"><span class="meta">#import <span class="meta-string">"User+Extensions.h"</span></span></div><div class="line"><span class="meta">#import <span class="meta-string">&lt;objc/runtime.h&gt;</span></span></div><div class="line"></div><div class="line"><span class="class"><span class="keyword">@implementation</span> <span class="title">User</span> (<span class="title">Extensions</span>)</span></div><div class="line"><span class="keyword">static</span> <span class="keyword">char</span> userAgeKey;</div><div class="line">- (<span class="built_in">NSString</span> *)userAge</div><div class="line">&#123;</div><div class="line"><span class="keyword">return</span> objc_getAssociatedObject(<span class="keyword">self</span>, &amp;userAgeKey);</div><div class="line">&#125;</div><div class="line"></div><div class="line">- (<span class="keyword">void</span>)setUserAge:(<span class="built_in">NSString</span> *)userAge</div><div class="line">&#123;</div><div class="line">objc_setAssociatedObject(<span class="keyword">self</span>, &amp;userAgeKey, userAge, OBJC_ASSOCIATION_COPY);</div><div class="line">&#125;</div><div class="line"></div><div class="line"><span class="keyword">@end</span></div></pre></td></tr></table></figure>
+<p>如果单纯这样而使用关联引用, 我其实觉得很牵强, 表示恨不能理解…</p>
+<p>接下来会给出在项目中”很好”的实践. 囧~.<br>案例 1 : 为UIViewController  扩展一个 HUB属性, 接下来以 MBProgressHUD为例<br><figure class="highlight objectivec"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line"><span class="meta">#import <span class="meta-string">&lt;UIKit/UIKit.h&gt;</span></span></div><div class="line"><span class="class"><span class="keyword">@interface</span> <span class="title">UIViewController</span> (<span class="title">HUD</span>)</span></div><div class="line">- (<span class="keyword">void</span>)showHint:(<span class="built_in">NSString</span> *)hint yOffset:(<span class="keyword">float</span>)yOffset;</div><div class="line"><span class="keyword">@end</span></div></pre></td></tr></table></figure></p>
+<figure class="highlight objectivec"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div></pre></td><td class="code"><pre><div class="line"><span class="meta">#import <span class="meta-string">"UIViewController+HUD.h"</span></span></div><div class="line"><span class="meta">#import <span class="meta-string">"MBProgressHUD.h"</span></span></div><div class="line"><span class="meta">#import <span class="meta-string">&lt;objc/runtime.h&gt;</span></span></div><div class="line"></div><div class="line"><span class="keyword">static</span> <span class="keyword">const</span> <span class="keyword">void</span> * httpReqHUDKey = &amp;httpReqHUDKey;</div><div class="line"></div><div class="line"><span class="class"><span class="keyword">@implementation</span> <span class="title">UIViewController</span> (<span class="title">HUD</span>)</span></div><div class="line">- (MBProgressHUD *)HUD&#123;</div><div class="line"><span class="keyword">return</span> objc_getAssociatedObject(<span class="keyword">self</span>, httpReqHUDKey);</div><div class="line">&#125;</div><div class="line">- (<span class="keyword">void</span>)setHUD:(MBProgressHUD *)HUD&#123;</div><div class="line">objc_setAssociatedObject(<span class="keyword">self</span>, httpReqHUDKey, HUD, OBJC_ASSOCIATION_RETAIN_NONATOMIC);</div><div class="line">&#125;</div><div class="line">- (<span class="keyword">void</span>)showHint:(<span class="built_in">NSString</span> *)hint yOffset:(<span class="keyword">float</span>)yOffset &#123;</div><div class="line"><span class="comment">//显示提示信息</span></div><div class="line"><span class="built_in">UIView</span> *view = [[<span class="built_in">UIApplication</span> sharedApplication].delegate window];</div><div class="line">MBProgressHUD *hud = [MBProgressHUD showHUDAddedTo:view animated:<span class="literal">YES</span>];</div><div class="line">hud.userInteractionEnabled = <span class="literal">NO</span>;</div><div class="line"><span class="comment">// Configure for text only and offset down</span></div><div class="line">hud.mode = MBProgressHUDModeText;</div><div class="line">hud.labelText = hint;</div><div class="line">hud.margin = <span class="number">10.</span>f;</div><div class="line">hud.yOffset = <span class="number">200.</span>f;</div><div class="line">hud.yOffset += yOffset;</div><div class="line">hud.removeFromSuperViewOnHide = <span class="literal">YES</span>;</div><div class="line">[hud hide:<span class="literal">YES</span> afterDelay:<span class="number">2</span>];</div><div class="line">&#125;</div><div class="line"><span class="keyword">@end</span></div></pre></td></tr></table></figure>
+<p>之后再Controller中就可以这样使用了<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">[self showHint:@&quot;网络请求成功&quot; yOffset:-88];</div></pre></td></tr></table></figure></p>
+<p>可能看到这里有的同学已经明白了一点点, 说白了, 就是给原有的类扩展一个属性并且实现我们想要对属性进行的操作.</p>
+<p>案例 2 为系统UINavigationBar 扩展一个属性overlay(UIView) 来实现在很多App中流行的一个交互, 滑动界面的时候导航栏的显隐功能 — 类似于简书iOS端App那样的效果 . 代码来自一个很有名的三方库(LTNavigationBar). 反正3000+ 的Star. 没记错的话只有几十行代码, 想法非常的棒, 用到了关联属性, 在GitHub可以找到. 也可以看我这篇文章.<br><a href="http://summerxx.com/2016/07/26/what/" target="_blank" rel="external">http://summerxx.com/2016/07/26/what/</a></p>
+<p>如果对于这个Demo比较感兴趣 可以下载来看一看 这里放出地址<br><a href="https://github.com/summerxx27/MyBlogCode" target="_blank" rel="external">https://github.com/summerxx27/MyBlogCode</a> 便于学习与交流.</p>
+<div align="center"><br>微信公众号 得到最快最新的推送<br></div>
+
+<div align="center"><br><img src="http://ww1.sinaimg.cn/large/0060lm7Tgw1f9656jhucpj307607674r.jpg" alt=""><br></div>
+
+      
+    </div>
+
+  </div>
+
+  <div class="article-footer">
+    <div class="article-meta pull-left">
+
+    
+
+    
+    
+
+    <span class="post-tags">
+      <i class="icon-tags"></i>
+        <a href="/tags/rumtime/">rumtime</a>
+    </span>
+    
+
+    </div>
+
+    
+  </div>
+</article>
+
+
+    </main>
+
+    <footer class="site-footer">
+  <p class="site-info">
+    Proudly powered by <a href="https://hexo.io/" target="_blank">Hexo</a> and
+    Theme by <a href="https://github.com/CodeDaraW/Hacker" target="_blank">Hacker</a>
+    </br>
+    
+    &copy; 2017 夏天然后
+    
+  </p>
+</footer>
+    
+  </div>
+</div>
+</body>
+</html>

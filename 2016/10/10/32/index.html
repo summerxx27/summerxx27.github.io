@@ -1,0 +1,228 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  <title>浏览博客偶然碰到的一篇关于面试的文 | 夏天然后</title>
+
+  
+  <meta name="author" content="夏天然后">
+  
+
+  
+  <meta name="description" content="本来打算发在简书的, 但是写的还不全暂时也没有实践好好整理, 暂时放在博客中, 待后续完善, 面试笔者说是适合1-3年工作者的, 很中肯.
+1 什么是ARC?
+
+ARC解决了MRC下(手动管理引用计数的问题), 也就是说在MRC下 alloc | retain 之后可以把新创建的对象引用计数产生 0 -&amp;gt; 1的效果, 达到对对象持有的作用, 所以出现相应的release对对象进行释放, ARC为解决这一问题在iOS5之后应运而生.ARC的规则: 只要还有一个变量指向对象, 对象就不会被释放, 就会保存在内存中.ARC实际上:
+
+在对象被创建时 引用计数 +1，在对象被release时 引用计数 -1.当引用计数为0 时，销毁对象。
+程序中加入自动释放池的对象会由系统自动加上autorelease方法，如果该对象引用计数为0，则销毁.">
+  
+
+  
+  
+  <meta name="keywords" content="iOS面试">
+  
+
+  <meta id="viewport" name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, minimum-scale=1, user-scalable=no, minimal-ui">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black">
+
+  <meta property="og:title" content="浏览博客偶然碰到的一篇关于面试的文"/>
+
+  <meta property="og:site_name" content="夏天然后"/>
+
+  
+  <meta property="og:image" content="/favicon.ico"/>
+  
+
+  <link href="/favicon.ico" rel="icon">
+  <link rel="alternate" href="/atom.xml" title="夏天然后" type="application/atom+xml">
+  <link rel="stylesheet" href="/css/style.css" media="screen" type="text/css">
+</head>
+
+
+<body>
+<div class="blog">
+  <div class="content">
+
+    <header>
+  <div class="site-branding">
+    <h1 class="site-title">
+      <a href="/">夏天然后</a>
+    </h1>
+    <p class="site-description"></p>
+  </div>
+  <nav class="site-navigation">
+    <ul>
+      
+        <li><a href="/">Home</a></li>
+      
+        <li><a href="/archives">Archives</a></li>
+      
+        <li><a href="/tags">about</a></li>
+      
+    </ul>
+  </nav>
+</header>
+
+    <main class="site-main posts-loop">
+    <article>
+
+  
+    
+    <h3 class="article-title"><span>浏览博客偶然碰到的一篇关于面试的文</span></h3>
+    
+  
+
+  <div class="article-top-meta">
+    <span class="posted-on">
+      <a href="/2016/10/10/32/" rel="bookmark">
+        <time class="entry-date published" datetime="2016-10-09T17:04:32.000Z">
+          2016-10-10
+        </time>
+      </a>
+    </span>
+  </div>
+
+
+  
+
+  <div class="article-content">
+    <div class="entry">
+      
+        <p>本来打算发在简书的, 但是写的还不全暂时也没有实践好好整理, 暂时放在博客中, 待后续完善, 面试笔者说是适合1-3年工作者的, 很中肯.</p>
+<p>1 <strong>什么是ARC?</strong></p>
+<blockquote>
+<p>ARC解决了MRC下(手动管理引用计数的问题), 也就是说在MRC下 alloc | retain 之后可以把新创建的对象引用计数产生 0 -&gt; 1的效果, 达到对对象持有的作用, 所以出现相应的release对对象进行释放, ARC为解决这一问题在iOS5之后应运而生.<br>ARC的规则: 只要还有一个变量指向对象, 对象就不会被释放, 就会保存在内存中.<br>ARC实际上:</p>
+<ul>
+<li>在对象被创建时 引用计数 +1，在对象被release时 引用计数 -1.当引用计数为0 时，销毁对象。</li>
+<li>程序中加入自动释放池的对象会由系统自动加上autorelease方法，如果该对象引用计数为0，则销毁.</li>
+</ul>
+</blockquote>
+<a id="more"></a>
+<p>2 <strong>请解释以下keywords的区别： <code>assign</code> vs <code>weak</code>, <code>__block</code> vs <code>__weak</code></strong></p>
+<blockquote>
+<p>assign 修饰基本数据类型, weak修饰Objective-C对象, 且为弱引用 同时weak修饰的对象释放后, 内存地址自动置为nil.<br>首先<code>__block</code>是用来修饰一个变量，这个变量就可以在block中被修改(可以调研block内部实现)<br><code>__block</code>：ARC情况下 使用<code>__block</code>修饰的变量在block代码块中会被retain, MRC下不会retain<br><code>__weak</code>：使用<code>__weak</code>修饰的变量不会在block代码块中被retain </p>
+</blockquote>
+<p>3 <strong>使用atomic一定是线程安全的吗？</strong></p>
+<blockquote>
+<p>不是的。<br> atomic原子操作，系统会为setter方法加锁。 具体使用 @synchronized(self){//code } nonatomic不会为setter方法加锁。 atomic：线程安全，需要消耗大量系统资源来为属性加锁 nonatomic：非线程安全，适合内存较小的移动设备</p>
+</blockquote>
+<p>4 <strong>描述一个你遇到过的retain cycle例子。(别撒谎，你肯定遇到过)</strong><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">cell.block = ^(NSInteger nCount, BOOL boo)&#123;</div><div class="line">// </div><div class="line">cell.***</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<p>解决<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">__weak __typeof(&amp;*cell) weakCell = cell;</div><div class="line">cell.block = ^(NSInteger nCount, BOOL boo)&#123;</div><div class="line">// </div><div class="line">weakCell.***</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<p>5 <strong>+(void)load; +(void)initialize；有什么用处？</strong></p>
+<blockquote>
+<ul>
+<li>两个方法只会被调用一次</li>
+<li>+load会在类初始加载时调用</li>
+<li>+initialize会在第一次调用类的类方法或实例方法之前被调用</li>
+</ul>
+</blockquote>
+<p>详细可看这篇<a href="http://www.jianshu.com/p/d25f691f0b07" target="_blank" rel="external">细说OC中的load和initialize方法</a></p>
+<p>6 <strong>什么是method swizzling?</strong></p>
+<blockquote>
+<p><a href="http://blog.csdn.net/yiyaaixuexi/article/details/9374411" target="_blank" rel="external">http://blog.csdn.net/yiyaaixuexi/article/details/9374411</a></p>
+</blockquote>
+<p>7 <strong>UIView和CALayer是啥关系?</strong></p>
+<blockquote>
+<ul>
+<li>我的理解是 UIView是对CALayer 的再实现, 使能够完成CALayer以前不具有的特性 比如可用户交互性.</li>
+<li>UIView用来操作 CALayer用来绘制</li>
+</ul>
+</blockquote>
+<p>8 <strong>如何高性能的给UIImageView加个圆角？（不准说layer.cornerRadius!）</strong></p>
+<blockquote>
+<p><a href="http://www.jianshu.com/p/f970872fdc22" target="_blank" rel="external">http://www.jianshu.com/p/f970872fdc22</a><br><a href="http://www.jianshu.com/p/c0b53a8096ce" target="_blank" rel="external">http://www.jianshu.com/p/c0b53a8096ce</a></p>
+</blockquote>
+<p>9 <strong>使用drawRect有什么影响？（这个可深可浅，你至少得用过。。）</strong></p>
+<blockquote>
+<ul>
+<li>drawRect方法依赖<code>Core Graphics</code>框架来进行自定义的绘制, 这个方法的影响在于有touch event的时候之后，会重新绘制，很多这样的按钮的话就会比较影响效率。以下都会被调用</li>
+<li>如果在UIView初始化时没有设置rect大小，将直接导致drawRect不被自动调用。</li>
+<li>该方法在调用<code>sizeToFit</code>后被调用，所以可以先调用<code>sizeToFit</code>计算出size。然后系统自动调用drawRect:方法。</li>
+<li>通过设置contentMode属性值为<code>UIViewContentModeRedraw</code>。那么将在每次设置或更改frame的时候自动调用drawRect:。</li>
+<li>直接调用<code>setNeedsDisplay</code>，或者<code>setNeedsDisplayInRect:</code>触发drawRect:，但是有个前提条件是rect不能为0。</li>
+</ul>
+</blockquote>
+<p><a href="http://www.jianshu.com/p/260ca284fda0" target="_blank" rel="external">这篇我使用drawRect 绘制出一个箭头 就废了不少功夫</a></p>
+<p>10 <strong>ASIHttpRequest或者SDWebImage里面给UIImageView加载图片的逻辑是什么样的？（把UIImageView放到UITableViewCell里面问更赞）</strong></p>
+<blockquote>
+<p>图片的内存缓存，可以考虑将图片数据保存到一个数据模型中。所以在程序运行时这个模型都存在内存中。 移除策略：释放数据模型对象。<br><a href="http://www.cnblogs.com/6duxz/p/4159572.html" target="_blank" rel="external">http://www.cnblogs.com/6duxz/p/4159572.html</a></p>
+</blockquote>
+<p>11 <strong>麻烦你设计个简单的图片内存缓存器（移除策略是一定要说的）</strong></p>
+<blockquote>
+<p>图片的内存缓存，可以考虑将图片数据保存到一个数据模型中。所以在程序运行时这个模型都存在内存中。 移除策略：释放数据模型对象。</p>
+</blockquote>
+<p>12 <strong>讲讲你用Instrument优化动画性能的经历吧（别问我什么是Instrument）</strong></p>
+<blockquote>
+<p><a href="http://wiki.jikexueyuan.com/project/ios-core-animation/performance-tuning.html" target="_blank" rel="external">http://wiki.jikexueyuan.com/project/ios-core-animation/performance-tuning.html</a></p>
+</blockquote>
+<p>13 <strong>loadView是干嘛用的？</strong></p>
+<blockquote>
+<p><a href="http://www.cnblogs.com/dyllove98/archive/2013/06/06/3123005.html" target="_blank" rel="external">http://www.cnblogs.com/dyllove98/archive/2013/06/06/3123005.html</a></p>
+</blockquote>
+<p>14 <strong>GCD里面有哪几种Queue？你自己建立过串行queue吗？背后的线程模型是什么样的？</strong></p>
+<blockquote>
+<p>1.主队列 dispatch_main_queue(); 串行 ，更新UI 2.全局队列 dispatch_global_queue(); 并行，四个优先级：background，low，default，high 3.自定义队列 dispatch_queue_t queue ; 可以自定义是并行：DISPATCH_QUEUE_CONCURRENT或者串行DISPATCH_QUEUE_SERIAL</p>
+</blockquote>
+<p>15 <strong>用过coredata或者sqlite吗？读写是分线程的吗？遇到过死锁没？咋解决的？</strong></p>
+<blockquote>
+<p><a href="http://www.jianshu.com/p/95db3fc4deb3" target="_blank" rel="external">CoreData与SQLite的线程安全</a></p>
+</blockquote>
+<p>16 <strong>http的post和get啥区别？（区别挺多的，麻烦多说点）</strong></p>
+<blockquote>
+<p>1.GET请求的数据会附在URL之后（就是把数据放置在HTTP协议头中），以?分割URL和传输数据，参数之间以&amp;相连，如：login.action?name=hyddd&amp;password=idontknow&amp;verify=%E4%BD%A0%E5%A5%BD。如果数据是英文字母/数字，原样发送，如果是空格，转换为+，如果是中文/其他字符，则直接把字符串用BASE64加密，得出如：%E4%BD%A0%E5%A5%BD，其中％XX中的XX为该符号以16进制表示的ASCII。<br>　　POST把提交的数据则放置在是HTTP包的包体中。<br>2.”GET方式提交的数据最多只能是1024字节，理论上POST没有限制，可传较大量的数据，IIS4中最大为80KB，IIS5中为100KB”？？！<br>　　以上这句是我从其他文章转过来的，其实这样说是错误的，不准确的：<br>　　(1).首先是”GET方式提交的数据最多只能是1024字节”，因为GET是通过URL提交数据，那么GET可提交的数据量就跟URL的长度有直接关系了。而实际上，URL不存在参数上限的问题，HTTP协议规范没有对URL长度进行限制。这个限制是特定的浏览器及服务器对它的限制。IE对URL长度的限制是2083字节(2K+35)。对于其他浏览器，如Netscape、FireFox等，理论上没有长度限制，其限制取决于操作系统的支持。<br>　　注意这是限制是整个URL长度，而不仅仅是你的参数值数据长度。[见参考资料5]<br>　　(2).理论上讲，POST是没有大小限制的，HTTP协议规范也没有进行大小限制，说“POST数据量存在80K/100K的大小限制”是不准确的，POST数据是没有限制的，起限制作用的是服务器的处理程序的处理能力。<br>3.在ASP中，服务端获取GET请求参数用Request.QueryString，获取POST请求参数用Request.Form。在JSP中，用request.getParameter(\”XXXX\”)来获取，虽然jsp中也有request.getQueryString()方法，但使用起来比较麻烦，比如：传一个test.jsp?name=hyddd&amp;password=hyddd，用request.getQueryString()得到的是：name=hyddd&amp;password=hyddd。在PHP中，可以用GET和_POST分别获取GET和POST中的数据，而REQUEST则可以获取GET和POST两种请求中的数据。值得注意的是，JSP中使用request和PHP中使用_REQUEST都会有隐患，这个下次再写个文章总结。<br>4.POST的安全性要比GET的安全性高。注意：这里所说的安全性和上面GET提到的“安全”不是同个概念。上面“安全”的含义仅仅是不作数据修改，而这里安全的含义是真正的Security的含义，比如：通过GET提交数据，用户名和密码将明文出现在URL上，因为(1)登录页面有可能被浏览器缓存，(2)其他人查看浏览器的历史纪录，那么别人就可以拿到你的账号和密码了，除此之外，使用GET提交数据还可能会造成Cross-site request forgery攻击。<br>总结一下，Get是向服务器发索取数据的一种请求，而Post是向服务器提交数据的一种请求，在FORM（表单）中，Method默认为”GET”，实质上，GET和POST只是发送机制不同，并不是一个取一个发！</p>
+</blockquote>
+<p>17 <strong>我知道你大学毕业过后就没接触过算法数据结构了，但是请你一定告诉我什么是Binary search tree? search的时间复杂度是多少？我很想知道！</strong></p>
+<blockquote>
+<p>Binary search tree:二叉搜索树。<br>主要由四个方法：（用C语言实现或者Python）<br>1.search：时间复杂度为O(h)，h为树的高度<br>2.traversal：时间复杂度为O(n)，n为树的总结点数。<br>3.insert：时间复杂度为O(h)，h为树的高度。<br>4.delete：最坏情况下，时间复杂度为O(h)+指针的移动开销。<br>可以看到，二叉搜索树的dictionary operation的时间复杂度与树的高度h相关。所以需要尽可能的降低树的高度，由此引出平衡二叉树Balanced binary tree。它要求左右两个子树的高度差的绝对值不超过1，并且左右两个子树都是一棵平衡二叉树。这样就可以将搜索树的高度尽量减小。常用算法有红黑树、AVL、Treap、伸展树等。</p>
+</blockquote>
+<p><a href="http://blog.csdn.net/hanangellove/article/details/45033453" target="_blank" rel="external">文章参照</a><br><a href="http://mrpeak.cn/ios/2016/01/07/push" target="_blank" rel="external">原文在这里</a><br><a href="http://weibo.com/345100543" target="_blank" rel="external">我的微博-点我@夏天是个大人了</a> || QQ群: 498143780 进群与我一起玩耍啊</p>
+<div align="center"><br>微信公众号 得到最快最新的推送<br></div>
+
+<div align="center"><br><img src="http://ww1.sinaimg.cn/large/0060lm7Tgw1f9656jhucpj307607674r.jpg" alt=""><br></div>
+
+      
+    </div>
+
+  </div>
+
+  <div class="article-footer">
+    <div class="article-meta pull-left">
+
+    
+
+    
+    
+
+    <span class="post-tags">
+      <i class="icon-tags"></i>
+        <a href="/tags/iOS面试/">iOS面试</a>
+    </span>
+    
+
+    </div>
+
+    
+  </div>
+</article>
+
+
+    </main>
+
+    <footer class="site-footer">
+  <p class="site-info">
+    Proudly powered by <a href="https://hexo.io/" target="_blank">Hexo</a> and
+    Theme by <a href="https://github.com/CodeDaraW/Hacker" target="_blank">Hacker</a>
+    </br>
+    
+    &copy; 2017 夏天然后
+    
+  </p>
+</footer>
+    
+  </div>
+</div>
+</body>
+</html>

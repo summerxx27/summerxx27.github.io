@@ -1,0 +1,170 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  <title>Hexo + GitHub 建站详细教程 | 夏天然后</title>
+
+  
+  <meta name="author" content="夏天然后">
+  
+
+  
+  <meta name="description" content="这个完整版是作者的博客站 http://litten.github.io
+吐槽: 下载软件耽误时间, 还可能遇到各种问题, 不想折腾就算了吧.
+1. 搭建环境：1.1 Node.jshttps://nodejs.org/en/说明： 下载之后安装，安装过程一直下一步就好了，可能出现不明身份开发者字样，选择仍要安装即可。
+1.2 安装Githttps://git-scm.com 这个下载会比较慢 想要的我直接给你我下载好的可以. 安装就一步一步的.1.3 安装Hexohttps://hexo.io/zh-cn/docs/">
+  
+
+  
+  
+  <meta name="keywords" content="Hexo">
+  
+
+  <meta id="viewport" name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, minimum-scale=1, user-scalable=no, minimal-ui">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black">
+
+  <meta property="og:title" content="Hexo + GitHub 建站详细教程"/>
+
+  <meta property="og:site_name" content="夏天然后"/>
+
+  
+  <meta property="og:image" content="/favicon.ico"/>
+  
+
+  <link href="/favicon.ico" rel="icon">
+  <link rel="alternate" href="/atom.xml" title="夏天然后" type="application/atom+xml">
+  <link rel="stylesheet" href="/css/style.css" media="screen" type="text/css">
+</head>
+
+
+<body>
+<div class="blog">
+  <div class="content">
+
+    <header>
+  <div class="site-branding">
+    <h1 class="site-title">
+      <a href="/">夏天然后</a>
+    </h1>
+    <p class="site-description"></p>
+  </div>
+  <nav class="site-navigation">
+    <ul>
+      
+        <li><a href="/">Home</a></li>
+      
+        <li><a href="/archives">Archives</a></li>
+      
+        <li><a href="/tags">about</a></li>
+      
+    </ul>
+  </nav>
+</header>
+
+    <main class="site-main posts-loop">
+    <article>
+
+  
+    
+    <h3 class="article-title"><span>Hexo + GitHub 建站详细教程</span></h3>
+    
+  
+
+  <div class="article-top-meta">
+    <span class="posted-on">
+      <a href="/2016/09/11/01/" rel="bookmark">
+        <time class="entry-date published" datetime="2016-09-11T07:58:11.000Z">
+          2016-09-11
+        </time>
+      </a>
+    </span>
+  </div>
+
+
+  
+
+  <div class="article-content">
+    <div class="entry">
+      
+        <p>这个完整版是作者的博客站 <a href="http://litten.github.io" target="_blank" rel="external">http://litten.github.io</a></p>
+<p>吐槽: 下载软件耽误时间, 还可能遇到各种问题, 不想折腾就算了吧.</p>
+<h4 id="1-搭建环境："><a href="#1-搭建环境：" class="headerlink" title="1. 搭建环境："></a>1. 搭建环境：</h4><p>1.1 Node.js<br><a href="https://nodejs.org/en/" target="_blank" rel="external">https://nodejs.org/en/</a><br>说明： 下载之后安装，安装过程一直下一步就好了，可能出现不明身份开发者字样，选择仍要安装即可。</p>
+<p>1.2 安装Git<br><a href="https://git-scm.com" target="_blank" rel="external">https://git-scm.com</a> 这个下载会比较慢 想要的我直接给你我下载好的可以. 安装就一步一步的.<br>1.3 安装Hexo<br><a href="https://hexo.io/zh-cn/docs/" target="_blank" rel="external">https://hexo.io/zh-cn/docs/</a></p>
+<a id="more"></a>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">// npm安装命令 Node.js里已经包含</div><div class="line">sudo npm install -g hexo-cli</div><div class="line">// 查看版本, 有版本号代表成功</div><div class="line">hexo －v</div></pre></td></tr></table></figure>
+<h4 id="2-初始化hexo环境"><a href="#2-初始化hexo环境" class="headerlink" title="2. 初始化hexo环境"></a>2. 初始化hexo环境</h4><p>2.1 切换到你想要安装的目录, 然后进行初始化<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">hexo init summerxx</div></pre></td></tr></table></figure></p>
+<p>2.2  把主题放到themes文件中<br>2.3  切换到安装目录 , 编辑<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">vim _config.yml  </div><div class="line">// 改变主题字段：**hexo-theme-yilia**（主题 名）保存退出</div><div class="line">theme: hexo-theme-yilia</div></pre></td></tr></table></figure></p>
+<p>2.4 生成静态网页<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">// 因为你初始化hexo 之后source目录下自带一篇hello world文章, 所以直接执行下方命令</div><div class="line">hexo generate</div><div class="line">// 启动本地服务器</div><div class="line">hexo server</div><div class="line">// 在浏览器输入 http://localhost:4000/就可以看见网页和模板了</div></pre></td></tr></table></figure></p>
+<h4 id="3-使用Github-Page-Hexo"><a href="#3-使用Github-Page-Hexo" class="headerlink" title="3. 使用Github Page + Hexo"></a>3. 使用Github Page + Hexo</h4><p>3.1 修改_config.yml文件<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">// 文件最下修改如下</div><div class="line">deploy: </div><div class="line">  type: git</div><div class="line">  repo: https://github.com/summerxx27/summerxx27.github.io.git</div><div class="line">  branch: master</div><div class="line">// 然后执行 hexo generate</div></pre></td></tr></table></figure></p>
+<p>3.2 把新生成的public文件中的全部文件上传到你创建好的仓库(在这之前先创建一个名字为 summerxx27.github.io (summer27是我的用户名[必须与用户名一致]))</p>
+<h4 id="4-购买域名-解析-绑定-成功"><a href="#4-购买域名-解析-绑定-成功" class="headerlink" title="4. 购买域名 - 解析 - 绑定 - 成功"></a>4. 购买域名 - 解析 - 绑定 - 成功</h4><p>4.1 创建名为<strong>CNAME</strong>的文件 必须为这个名字<br>里边填写你要买的域名比如 <code>summerxx.com</code><br>4.2 把这个文件推送到仓库<br>4.3 买域名(这个去阿里云就可以)<br>4.4 域名解析: <a href="http://summerxx27.github.io(说白了就是域名和ip绑定的一个过程" target="_blank" rel="external">http://summerxx27.github.io(说白了就是域名和ip绑定的一个过程</a>), 所以你要知道你的仓库所对应的ip<br>在终端 ping一下<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">ping http://summerxx27.github.io(ping你自己的 O.0) // ip在阿里云控制台就可以进行解析了</div></pre></td></tr></table></figure></p>
+<p>之后通过 summerxx.com 就可以访问了</p>
+<p>总结: 到这里基本就结束了, 今天已经很晚了, 有空再补充一些细节. 好梦~<br>文章参考</p>
+<ol>
+<li><a href="http://theme-next.iissnan.com/getting-started.html#download-next-theme" target="_blank" rel="external">http://theme-next.iissnan.com/getting-started.html#download-next-theme</a></li>
+<li><a href="https://github.com/litten/hexo-theme-yilia" target="_blank" rel="external">https://github.com/litten/hexo-theme-yilia</a></li>
+</ol>
+<p>细节补充———————</p>
+<ol>
+<li>yilia主题头像无法显示的问题, 首先设置主题目录的URL(使用微博图床就可以生成一个图片你的url)</li>
+<li><p>修改主题文件下 layout/_partial/left-col.ejs的第6行和第8行为：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">&lt;img src=&quot;&lt;%=theme.avatar%&gt;&quot; class=&quot;js-avatar show&quot;&gt;</div><div class="line">&lt;img src=&quot;&lt;%=theme.avatar%&gt;&quot; class=&quot;js-avatar show&quot; style=&quot;width: 100%;height: 100%;opacity: 1;&quot;&gt;</div></pre></td></tr></table></figure>
+</li>
+<li><p>小房子点击不好用等等修改可以看这篇<br>解决办法: <a href="http://xingbofeng.com/2016/09/05/hexo+github搭建个人博客/" target="_blank" rel="external">http://xingbofeng.com/2016/09/05/hexo+github搭建个人博客/</a></p>
+</li>
+<li>写文章发布<br><a href="https://hexo.io/zh-cn/docs/commands.html#new" target="_blank" rel="external">https://hexo.io/zh-cn/docs/commands.html#new</a></li>
+<li>显示点击阅读更多 more<br>在需要的位置<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">// 写上这句</div><div class="line">&lt;!-- more --&gt;</div></pre></td></tr></table></figure>
+</li>
+</ol>
+<hr>
+<p>文章到这里基本就结束了 over.</p>
+<p>文 / 夏天然后<br>End</p>
+<div align="center"><br>微信公众号 得到最快最新的推送<br></div>
+
+<div align="center"><br><img src="http://ww1.sinaimg.cn/large/0060lm7Tgw1f9656jhucpj307607674r.jpg" alt=""><br></div>
+
+      
+    </div>
+
+  </div>
+
+  <div class="article-footer">
+    <div class="article-meta pull-left">
+
+    
+
+    
+    
+
+    <span class="post-tags">
+      <i class="icon-tags"></i>
+        <a href="/tags/Hexo/">Hexo</a>
+    </span>
+    
+
+    </div>
+
+    
+  </div>
+</article>
+
+
+    </main>
+
+    <footer class="site-footer">
+  <p class="site-info">
+    Proudly powered by <a href="https://hexo.io/" target="_blank">Hexo</a> and
+    Theme by <a href="https://github.com/CodeDaraW/Hacker" target="_blank">Hacker</a>
+    </br>
+    
+    &copy; 2017 夏天然后
+    
+  </p>
+</footer>
+    
+  </div>
+</div>
+</body>
+</html>

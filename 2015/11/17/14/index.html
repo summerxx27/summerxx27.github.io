@@ -1,0 +1,137 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  <title>iOS Snapkit | 夏天然后</title>
+
+  
+  <meta name="author" content="夏天然后">
+  
+
+  
+  <meta name="description" content="今天介绍的是一个三方库. SnapKit 是在iOS开发中使用添加约束的纯代码库, 使用Swift语言进行编写. 跟Masonry基本一样, 详细点击READ MORE.">
+  
+
+  
+  
+  <meta name="keywords" content="Snapkit">
+  
+
+  <meta id="viewport" name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, minimum-scale=1, user-scalable=no, minimal-ui">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black">
+
+  <meta property="og:title" content="iOS Snapkit"/>
+
+  <meta property="og:site_name" content="夏天然后"/>
+
+  
+  <meta property="og:image" content="/favicon.ico"/>
+  
+
+  <link href="/favicon.ico" rel="icon">
+  <link rel="alternate" href="/atom.xml" title="夏天然后" type="application/atom+xml">
+  <link rel="stylesheet" href="/css/style.css" media="screen" type="text/css">
+</head>
+
+
+<body>
+<div class="blog">
+  <div class="content">
+
+    <header>
+  <div class="site-branding">
+    <h1 class="site-title">
+      <a href="/">夏天然后</a>
+    </h1>
+    <p class="site-description"></p>
+  </div>
+  <nav class="site-navigation">
+    <ul>
+      
+        <li><a href="/">Home</a></li>
+      
+        <li><a href="/archives">Archives</a></li>
+      
+        <li><a href="/tags">about</a></li>
+      
+    </ul>
+  </nav>
+</header>
+
+    <main class="site-main posts-loop">
+    <article>
+
+  
+    
+    <h3 class="article-title"><span>iOS Snapkit</span></h3>
+    
+  
+
+  <div class="article-top-meta">
+    <span class="posted-on">
+      <a href="/2015/11/17/14/" rel="bookmark">
+        <time class="entry-date published" datetime="2015-11-17T08:47:18.000Z">
+          2015-11-17
+        </time>
+      </a>
+    </span>
+  </div>
+
+
+  
+
+  <div class="article-content">
+    <div class="entry">
+      
+        <p>今天介绍的是一个三方库. <code>SnapKit</code> 是在iOS开发中使用添加约束的纯代码库, 使用<code>Swift</code>语言进行编写. 跟<code>Masonry</code>基本一样, 详细点击READ MORE.<br><a id="more"></a><br><img src="http://ww2.sinaimg.cn/large/e6a4355cgw1f3yhapg0dcj206z0bzaa4.jpg" alt=""></p>
+<figure class="highlight objectivec"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line">var redView      = <span class="built_in">UIView</span>()</div><div class="line">var yellowView   = <span class="built_in">UIView</span>()</div><div class="line">var greenView    = <span class="built_in">UIView</span>()</div><div class="line">var blackView    = <span class="built_in">UIView</span>()</div><div class="line">var purpleView   = <span class="built_in">UIView</span>()</div><div class="line">var cyanView     = <span class="built_in">UIView</span>()</div><div class="line">var grayViewBtn  = <span class="built_in">UIButton</span>()</div><div class="line">var leftView     = <span class="built_in">UIView</span>()</div><div class="line">var rightView    = <span class="built_in">UIView</span>()</div></pre></td></tr></table></figure>
+<p>在viewdidload中进行一些设置<br><figure class="highlight objectivec"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div><div class="line">50</div><div class="line">51</div><div class="line">52</div><div class="line">53</div><div class="line">54</div><div class="line">55</div><div class="line">56</div><div class="line">57</div><div class="line">58</div><div class="line">59</div><div class="line">60</div><div class="line">61</div><div class="line">62</div><div class="line">63</div><div class="line">64</div><div class="line">65</div><div class="line">66</div><div class="line">67</div><div class="line">68</div><div class="line">69</div><div class="line">70</div><div class="line">71</div><div class="line">72</div><div class="line">73</div><div class="line">74</div><div class="line">75</div><div class="line">76</div></pre></td><td class="code"><pre><div class="line">redView.backgroundColor = <span class="built_in">UIColor</span>.redColor()</div><div class="line">yellowView.backgroundColor = <span class="built_in">UIColor</span>.yellowColor()</div><div class="line">greenView.backgroundColor = <span class="built_in">UIColor</span>.greenColor()</div><div class="line">blackView.backgroundColor = <span class="built_in">UIColor</span>.blackColor()</div><div class="line">purpleView.backgroundColor = <span class="built_in">UIColor</span>.purpleColor()</div><div class="line">cyanView.backgroundColor = <span class="built_in">UIColor</span>.cyanColor()</div><div class="line">grayViewBtn.backgroundColor = <span class="built_in">UIColor</span>.grayColor()</div><div class="line">leftView.backgroundColor = <span class="built_in">UIColor</span>.cyanColor()</div><div class="line">rightView.backgroundColor = <span class="built_in">UIColor</span>.orangeColor()</div><div class="line"><span class="comment">// 添加</span></div><div class="line">view.addSubview(redView)</div><div class="line">view.addSubview(yellowView)</div><div class="line">view.addSubview(greenView)</div><div class="line">view.addSubview(blackView)</div><div class="line">view.addSubview(purpleView)</div><div class="line">view.addSubview(cyanView)</div><div class="line">view.addSubview(grayViewBtn)</div><div class="line">view.addSubview(leftView)</div><div class="line">view.addSubview(rightView)</div><div class="line">grayViewBtn.setTitle(<span class="string">"PopLabel"</span>, forState: <span class="built_in">UIControlState</span>.Normal)</div><div class="line">grayViewBtn.addTarget(<span class="keyword">self</span>, action: <span class="meta">#selector(ViewController.clcik), forControlEvents: UIControlEvents.TouchUpInside)</span></div><div class="line"><span class="comment">// 进行约束</span></div><div class="line">blackView.snp_makeConstraints &#123; make <span class="keyword">in</span></div><div class="line">make.center.equalTo(view)</div><div class="line">make.size.equalTo(<span class="built_in">CGSizeMake</span>(<span class="number">100.0</span>, <span class="number">100.0</span>))</div><div class="line">&#125;</div><div class="line"></div><div class="line">redView.snp_makeConstraints &#123; make <span class="keyword">in</span></div><div class="line">make.top.equalTo(blackView.snp_bottom).offset(<span class="number">20.0</span>)</div><div class="line">make.left.equalTo(<span class="number">20.0</span>)</div><div class="line">make.size.equalTo(<span class="built_in">CGSizeMake</span>(<span class="number">100.0</span>, <span class="number">100.0</span>))</div><div class="line">&#125;</div><div class="line"></div><div class="line">yellowView.snp_makeConstraints &#123; make <span class="keyword">in</span></div><div class="line">make.top.equalTo(blackView.snp_bottom).offset(<span class="number">20.0</span>)</div><div class="line">make.left.equalTo(blackView.snp_right).offset(<span class="number">20.0</span>)</div><div class="line">make.size.equalTo(<span class="built_in">CGSizeMake</span>(<span class="number">100.0</span>, <span class="number">100.0</span>))</div><div class="line">&#125;</div><div class="line"></div><div class="line">purpleView.snp_makeConstraints &#123; make <span class="keyword">in</span></div><div class="line">make.bottom.equalTo(blackView.snp_top).offset(<span class="number">-20.0</span>)</div><div class="line">make.left.equalTo(blackView.snp_right).offset(<span class="number">20.0</span>)</div><div class="line">make.size.equalTo(<span class="built_in">CGSizeMake</span>(<span class="number">100.0</span>, <span class="number">100.0</span>))</div><div class="line">&#125;</div><div class="line"></div><div class="line">greenView.snp_makeConstraints &#123; make <span class="keyword">in</span></div><div class="line">make.bottom.equalTo(blackView.snp_top).offset(<span class="number">-20.0</span>)</div><div class="line">make.right.equalTo(blackView.snp_left).offset(<span class="number">-20.0</span>)</div><div class="line">make.size.equalTo(<span class="built_in">CGSizeMake</span>(<span class="number">100.0</span>, <span class="number">100.0</span>))</div><div class="line">&#125;</div><div class="line"><span class="comment">// cyan</span></div><div class="line">cyanView.snp_makeConstraints(closure: &#123; (make) <span class="keyword">in</span></div><div class="line">make.top.equalTo(redView.snp_bottom).offset(<span class="number">20.0</span>)</div><div class="line">make.centerX.equalTo(view)</div><div class="line">make.size.equalTo(<span class="built_in">CGSizeMake</span>(<span class="number">100.0</span>, <span class="number">100.0</span>))</div><div class="line">&#125;)</div><div class="line"><span class="comment">// gray</span></div><div class="line">grayViewBtn.snp_makeConstraints(closure: &#123; (make) <span class="keyword">in</span></div><div class="line">make.bottom.equalTo(greenView.snp_top).offset(<span class="number">-20.0</span>)</div><div class="line">make.centerX.equalTo(view)</div><div class="line">make.size.equalTo(<span class="built_in">CGSizeMake</span>(<span class="number">100.0</span>, <span class="number">100.0</span>))</div><div class="line">&#125;)</div><div class="line"><span class="comment">//</span></div><div class="line">leftView.snp_makeConstraints(closure: &#123; (make) <span class="keyword">in</span></div><div class="line">make.top.equalTo(greenView.snp_bottom).offset(<span class="number">20.0</span>)</div><div class="line">make.bottom.equalTo(redView.snp_top).offset(<span class="number">-20.0</span>)</div><div class="line">make.left.equalTo(view.snp_left).offset(<span class="number">5</span>)</div><div class="line">make.width.equalTo(<span class="number">50</span>)</div><div class="line">&#125;)</div><div class="line"></div><div class="line">rightView.snp_makeConstraints(closure: &#123; (make) <span class="keyword">in</span></div><div class="line">make.top.equalTo(purpleView.snp_bottom).offset(<span class="number">20.0</span>)</div><div class="line">make.bottom.equalTo(yellowView.snp_top).offset(<span class="number">-20.0</span>)</div><div class="line">make.right.equalTo(view.snp_right).offset(<span class="number">-5</span>)</div><div class="line">make.width.equalTo(leftView)</div><div class="line">&#125;)</div></pre></td></tr></table></figure></p>
+<div align="center"><br>微信公众号 得到最快最新的推送<br></div>
+
+<div align="center"><br><img src="http://ww1.sinaimg.cn/large/0060lm7Tgw1f9656jhucpj307607674r.jpg" alt=""><br></div>
+
+      
+    </div>
+
+  </div>
+
+  <div class="article-footer">
+    <div class="article-meta pull-left">
+
+    
+
+    
+    
+
+    <span class="post-tags">
+      <i class="icon-tags"></i>
+        <a href="/tags/Snapkit/">Snapkit</a>
+    </span>
+    
+
+    </div>
+
+    
+  </div>
+</article>
+
+
+    </main>
+
+    <footer class="site-footer">
+  <p class="site-info">
+    Proudly powered by <a href="https://hexo.io/" target="_blank">Hexo</a> and
+    Theme by <a href="https://github.com/CodeDaraW/Hacker" target="_blank">Hacker</a>
+    </br>
+    
+    &copy; 2017 夏天然后
+    
+  </p>
+</footer>
+    
+  </div>
+</div>
+</body>
+</html>

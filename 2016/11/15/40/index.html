@@ -1,0 +1,153 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  <title>Swift 类似于微信带箭头的View | 夏天然后</title>
+
+  
+  <meta name="author" content="夏天然后">
+  
+
+  
+  <meta name="description" content="前言: 学习Swift语法的同时, 加上一点点的小实践. 囧~OC版本带箭头的ViewOC&amp;amp;Swift版本的Demo如果你想看看
+
+熟悉swift语法
+Swift中的drawRect
+扩展阅读
+Swift源码推荐
+一如既往的图文并茂">
+  
+
+  
+  
+  <meta name="keywords" content="Swift">
+  
+
+  <meta id="viewport" name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, minimum-scale=1, user-scalable=no, minimal-ui">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black">
+
+  <meta property="og:title" content="Swift 类似于微信带箭头的View"/>
+
+  <meta property="og:site_name" content="夏天然后"/>
+
+  
+  <meta property="og:image" content="/favicon.ico"/>
+  
+
+  <link href="/favicon.ico" rel="icon">
+  <link rel="alternate" href="/atom.xml" title="夏天然后" type="application/atom+xml">
+  <link rel="stylesheet" href="/css/style.css" media="screen" type="text/css">
+</head>
+
+
+<body>
+<div class="blog">
+  <div class="content">
+
+    <header>
+  <div class="site-branding">
+    <h1 class="site-title">
+      <a href="/">夏天然后</a>
+    </h1>
+    <p class="site-description"></p>
+  </div>
+  <nav class="site-navigation">
+    <ul>
+      
+        <li><a href="/">Home</a></li>
+      
+        <li><a href="/archives">Archives</a></li>
+      
+        <li><a href="/tags">about</a></li>
+      
+    </ul>
+  </nav>
+</header>
+
+    <main class="site-main posts-loop">
+    <article>
+
+  
+    
+    <h3 class="article-title"><span>Swift 类似于微信带箭头的View</span></h3>
+    
+  
+
+  <div class="article-top-meta">
+    <span class="posted-on">
+      <a href="/2016/11/15/40/" rel="bookmark">
+        <time class="entry-date published" datetime="2016-11-14T16:25:02.000Z">
+          2016-11-15
+        </time>
+      </a>
+    </span>
+  </div>
+
+
+  
+
+  <div class="article-content">
+    <div class="entry">
+      
+        <p><img src="http://ww1.sinaimg.cn/large/e6a4355cgy1fia2snqryaj21z418gtsg.jpg" alt=""><br>前言: 学习<code>Swift</code>语法的同时, 加上一点点的小实践. 囧~<br><a href="http://www.jianshu.com/p/260ca284fda0" target="_blank" rel="external">OC版本带箭头的View</a><br><a href="https://github.com/summerxx27/XTPopView" target="_blank" rel="external">OC&amp;Swift版本的Demo如果你想看看</a></p>
+<ul>
+<li>熟悉swift语法</li>
+<li>Swift中的drawRect</li>
+<li>扩展阅读</li>
+<li>Swift源码推荐</li>
+<li>一如既往的图文并茂</li>
+</ul>
+<a id="more"></a>
+<div align="center"><br><img src="http://upload-images.jianshu.io/upload_images/1506501-fb0525fc17ca33a0.gif?imageMogr2/auto-orient/strip" alt="效果演示f"><br></div><br>这里我只做了箭头在上方中心位置作为演示<br><br><figure class="highlight objectivec"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line"><span class="comment">// 然而我还是定义了一个枚举, 然而并没有用 [大笑](就当做熟悉一下语法好啦)</span></div><div class="line"><span class="keyword">enum</span> ArrowOfDirection &#123;</div><div class="line"><span class="keyword">case</span> XTUpCenter</div><div class="line">&#125;</div></pre></td></tr></table></figure><br><br>构造过程<br><figure class="highlight objectivec"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div></pre></td><td class="code"><pre><div class="line">var bgView = <span class="built_in">UIView</span>()</div><div class="line">var origin = <span class="built_in">CGPoint</span>()</div><div class="line">var height = <span class="number">0.0</span></div><div class="line">var width = <span class="number">0.0</span></div><div class="line">var arrow = ArrowOfDirection.XTUpCenter</div><div class="line"><span class="comment">// 初始化方法</span></div><div class="line">required init(origin: <span class="built_in">CGPoint</span>, width: Double, height: Double) &#123;</div><div class="line"><span class="keyword">super</span>.init(frame: <span class="built_in">CGRect</span>.init(x: <span class="number">0</span>, y: <span class="number">0</span>, width: <span class="built_in">UIScreen</span>.main.bounds.size.width, height: <span class="built_in">UIScreen</span>.main.bounds.height))</div><div class="line"><span class="keyword">self</span>.backgroundColor = <span class="built_in">UIColor</span>.clear</div><div class="line"><span class="keyword">self</span>.origin = origin</div><div class="line"><span class="keyword">self</span>.width = Double(width)</div><div class="line"><span class="keyword">self</span>.height = Double(height)</div><div class="line">let x = Double(origin.x)</div><div class="line">let y = Double(origin.y)</div><div class="line">bgView = <span class="built_in">UIView</span>.init(frame: <span class="built_in">CGRect</span>.init(x: x, y: y, width: width, height: height))</div><div class="line"><span class="keyword">self</span>.addSubview(<span class="keyword">self</span>.bgView)</div><div class="line">&#125;</div><div class="line">required init?(coder aDecoder: <span class="built_in">NSCoder</span>) &#123;</div><div class="line">fatalError(<span class="string">"init(coder:) has not been implemented"</span>)</div><div class="line">&#125;</div></pre></td></tr></table></figure><br><br>画出一个箭头<br><figure class="highlight objectivec"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div></pre></td><td class="code"><pre><div class="line">override func draw(_ rect: <span class="built_in">CGRect</span>) &#123;</div><div class="line">let context = <span class="built_in">UIGraphicsGetCurrentContext</span>()</div><div class="line"></div><div class="line">let startX = <span class="keyword">self</span>.origin.x</div><div class="line">let startY = <span class="keyword">self</span>.origin.y</div><div class="line"></div><div class="line">context?.move(to: <span class="built_in">CGPoint</span>.init(x: startX, y: startY))</div><div class="line"><span class="comment">// 画出两条线</span></div><div class="line">context?.addLine(to: <span class="built_in">CGPoint</span>.init(x: startX + <span class="number">5.0</span>, y: startY + <span class="number">5.0</span>))</div><div class="line">context?.addLine(to: <span class="built_in">CGPoint</span>.init(x: startX - <span class="number">5.0</span>, y: startY + <span class="number">5.0</span>))</div><div class="line"></div><div class="line">context?.closePath()</div><div class="line"><span class="comment">// 填充颜色</span></div><div class="line"><span class="keyword">self</span>.bgView.backgroundColor?.setFill()</div><div class="line"><span class="keyword">self</span>.backgroundColor?.setStroke()</div><div class="line">context?.drawPath(using: <span class="built_in">CGPathDrawingMode</span>.fillStroke)</div><div class="line">&#125;</div></pre></td></tr></table></figure><br><br><figure class="highlight objectivec"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div></pre></td><td class="code"><pre><div class="line">func popView()-&gt;Void&#123;</div><div class="line"><span class="comment">// 创建keyWindow</span></div><div class="line">let window = <span class="built_in">UIApplication</span>.shared.keyWindow</div><div class="line">window?.addSubview(<span class="keyword">self</span>)</div><div class="line"><span class="keyword">self</span>.bgView.frame = <span class="built_in">CGRect</span>.init(x: <span class="keyword">self</span>.origin.x, y: <span class="keyword">self</span>.origin.y + <span class="number">5.0</span>, width: <span class="number">0</span>, height: <span class="number">0</span>)</div><div class="line"><span class="comment">// 类型CGFloat -&gt; Double</span></div><div class="line">let originX = Double(<span class="keyword">self</span>.origin.x) - <span class="keyword">self</span>.width / <span class="number">2</span></div><div class="line">let originY = Double(<span class="keyword">self</span>.origin.y) + <span class="number">5.0</span></div><div class="line">let width = <span class="keyword">self</span>.width</div><div class="line">let height = <span class="keyword">self</span>.height</div><div class="line"><span class="comment">// 这里为什么抽出一个方法呢, 如果有很多类型箭头就方便很多, 可以看看OC版本</span></div><div class="line"><span class="keyword">self</span>.updateFrame(x: originX, y: originY, width: width, height: height)</div><div class="line"></div><div class="line">&#125;</div></pre></td></tr></table></figure><br><br>调整Frame<br><code>touchesBegan</code>这个方法完成点击除黑色View以外的部分, 移除View操作<br><figure class="highlight objectivec"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div></pre></td><td class="code"><pre><div class="line">func updateFrame(x: Double, y: Double, width: Double, height: Double)&#123;</div><div class="line"><span class="keyword">self</span>.bgView.frame = <span class="built_in">CGRect</span>.init(x: x, y: y, width: width, height: height)</div><div class="line">&#125;</div><div class="line"></div><div class="line">override func touchesBegan(_ touches: Set&lt;<span class="built_in">UITouch</span>&gt;, with event: <span class="built_in">UIEvent</span>?) &#123;</div><div class="line"><span class="comment">// 这里遍历包含UITouch的集合, 从中找到黑色View</span></div><div class="line"><span class="keyword">for</span> touch: AnyObject <span class="keyword">in</span> touches &#123;</div><div class="line">let t:<span class="built_in">UITouch</span> = touch as! <span class="built_in">UITouch</span></div><div class="line"><span class="keyword">if</span>(!(t.view?.isEqual(<span class="keyword">self</span>.bgView))!)&#123;</div><div class="line"><span class="keyword">self</span>.dismiss()</div><div class="line">&#125;</div><div class="line">&#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure><br><br>移除方法 , 顺便感受一下Swift GCD 操作<br><figure class="highlight objectivec"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div></pre></td><td class="code"><pre><div class="line">func dismiss()-&gt;Void&#123;</div><div class="line">let delay = DispatchTime.now() + DispatchTimeInterval.seconds(<span class="number">1</span>)</div><div class="line">DispatchQueue.main.asyncAfter(deadline: delay) &#123;</div><div class="line"><span class="comment">// 延迟执行</span></div><div class="line">let res = <span class="keyword">self</span>.subviews</div><div class="line"><span class="keyword">for</span> view <span class="keyword">in</span> res &#123;</div><div class="line">view.removeFromSuperview()</div><div class="line">&#125;</div><div class="line"><span class="keyword">self</span>.removeFromSuperview()</div><div class="line">&#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure><br><br>推荐阅读 卓同学的文章<br><a href="http://www.jianshu.com/p/fc78dab5736f" target="_blank" rel="external">Swift 3必看：从使用场景了解GCD新API</a><br><br>源码推荐<br><a href="https://github.com/tristanhimmelman/HidingNavigationBar" target="_blank" rel="external">https://github.com/tristanhimmelman/HidingNavigationBar</a><br><br>介绍<br>- 隐藏导航栏<br>- 隐藏导航栏+ Extension View<br>- 隐藏导航栏+ ToolBar<br>- 隐藏导航栏+ TabBar<br><br><div align="center"><br><img src="http://upload-images.jianshu.io/upload_images/1506501-4592f5ce8ee056ce.gif?imageMogr2/auto-orient/strip" alt="效果演示"><br></div><br><div align="center"><br>微信公众号 得到最快最新的推送<br></div>
+
+<div align="center"><br><img src="http://ww1.sinaimg.cn/large/0060lm7Tgw1f9656jhucpj307607674r.jpg" alt=""><br></div>
+
+<blockquote>
+<p>我是夏天, 暖暖的夏天<br>End</p>
+</blockquote>
+
+      
+    </div>
+
+  </div>
+
+  <div class="article-footer">
+    <div class="article-meta pull-left">
+
+    
+
+    
+    
+
+    <span class="post-tags">
+      <i class="icon-tags"></i>
+        <a href="/tags/Swift/">Swift</a>
+    </span>
+    
+
+    </div>
+
+    
+  </div>
+</article>
+
+
+    </main>
+
+    <footer class="site-footer">
+  <p class="site-info">
+    Proudly powered by <a href="https://hexo.io/" target="_blank">Hexo</a> and
+    Theme by <a href="https://github.com/CodeDaraW/Hacker" target="_blank">Hacker</a>
+    </br>
+    
+    &copy; 2017 夏天然后
+    
+  </p>
+</footer>
+    
+  </div>
+</div>
+</body>
+</html>

@@ -1,0 +1,163 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  <title>iOS 谈谈RunLoop我的一些理解 | 夏天然后</title>
+
+  
+  <meta name="author" content="夏天然后">
+  
+
+  
+  <meta name="description" content="做iOS开发有一点时间了, 或者更确切的说已经好长一段时间了, 对于iOS开发或者说Objective-C 语言的理解十分有限, 很多停留在系统API的调用上, 这让我感到很焦虑, 或者说很悲哀, 这样下去并不能达到真正的成长, 今天试着谈一谈深层次一些的东西, 谈谈RunLoop 下面进入今天的主题.">
+  
+
+  
+  
+  <meta name="keywords" content="RunLoop">
+  
+
+  <meta id="viewport" name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, minimum-scale=1, user-scalable=no, minimal-ui">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black">
+
+  <meta property="og:title" content="iOS 谈谈RunLoop我的一些理解"/>
+
+  <meta property="og:site_name" content="夏天然后"/>
+
+  
+  <meta property="og:image" content="/favicon.ico"/>
+  
+
+  <link href="/favicon.ico" rel="icon">
+  <link rel="alternate" href="/atom.xml" title="夏天然后" type="application/atom+xml">
+  <link rel="stylesheet" href="/css/style.css" media="screen" type="text/css">
+</head>
+
+
+<body>
+<div class="blog">
+  <div class="content">
+
+    <header>
+  <div class="site-branding">
+    <h1 class="site-title">
+      <a href="/">夏天然后</a>
+    </h1>
+    <p class="site-description"></p>
+  </div>
+  <nav class="site-navigation">
+    <ul>
+      
+        <li><a href="/">Home</a></li>
+      
+        <li><a href="/archives">Archives</a></li>
+      
+        <li><a href="/tags">about</a></li>
+      
+    </ul>
+  </nav>
+</header>
+
+    <main class="site-main posts-loop">
+    <article>
+
+  
+    
+    <h3 class="article-title"><span>iOS 谈谈RunLoop我的一些理解</span></h3>
+    
+  
+
+  <div class="article-top-meta">
+    <span class="posted-on">
+      <a href="/2015/09/17/13/" rel="bookmark">
+        <time class="entry-date published" datetime="2015-09-17T02:15:15.000Z">
+          2015-09-17
+        </time>
+      </a>
+    </span>
+  </div>
+
+
+  
+
+  <div class="article-content">
+    <div class="entry">
+      
+        <p>做iOS开发有一点时间了, 或者更确切的说已经好长一段时间了, 对于iOS开发或者说Objective-C 语言的理解十分有限, 很多停留在系统API的调用上, 这让我感到很焦虑, 或者说很悲哀, 这样下去并不能达到真正的成长, 今天试着谈一谈深层次一些的东西, 谈谈RunLoop 下面进入今天的主题.</p>
+<a id="more"></a>
+<h4 id="RunLoop的一些理解"><a href="#RunLoop的一些理解" class="headerlink" title="RunLoop的一些理解"></a>RunLoop的一些理解</h4><p>RunLoop是在iOS开发中很常见的一个概念, 似乎离我们很近, 却又很遥远.</p>
+<p>一般来说一个线程只执行一个任务, 执行结束退出, 而在我们开发App的时候, 似乎需要一种新概念来保证App永远处于”待命”的状态, Node.js的实践处理, Windows程序的消息循环, 而在iOS开发中叫做RunLoop, 更加准确描述他的含义我觉得可以这样:</p>
+<ul>
+<li><p>在没有事件(点击, 双击等等)需要处理的时候, 他是以一种休眠的状态存在, 以保证不占用系统的资源, 在有事件需要处理的时候立即被唤醒.</p>
+</li>
+<li><p>所以RunLoop实际就是一个管理消息和事件处理的对象.</p>
+</li>
+<li><p>他似乎类似进入了一个圈, 就像电影死亡游轮里的剧情一样: </p>
+</li>
+</ul>
+<div align="center"><br>– 杀人 – 下船 – 上船 – 杀人; 如此反复<br></div><br><div align="center"><br>– 休眠等待 –触发– 处理事件 –完成– 休眠等待; 如此反复<br></div>
+
+<ul>
+<li>在iOS开发中, 提供了两个这样的对象: NSRunLoop 和 CFRunLoopRef.<br>CFRunLoopRef 是在 CoreFoundation 框架内的，它提供了纯 C 函数的 API，所有这些 API 都是线程安全的。<br>NSRunLoop 是基于 CFRunLoopRef 的封装，提供了面向对象的 API，但是这些 API 不是线程安全的。</li>
+</ul>
+<h4 id="RunLoop与线程"><a href="#RunLoop与线程" class="headerlink" title="RunLoop与线程"></a>RunLoop与线程</h4><p>每个线程，包括程序的主线程（main thread）都有与之相应的RunLoop对象, 也就是说是一一对应的关系.</p>
+<ul>
+<li>主线程的RunLoop是默认启动的<br>iOS的应用程序里面, 在main.m 会有这样一个面main()函数</li>
+</ul>
+<figure class="highlight objectivec"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">int</span> main(<span class="keyword">int</span> argc, <span class="keyword">char</span> * argv[]) &#123;</div><div class="line">    <span class="keyword">@autoreleasepool</span> &#123;</div><div class="line">        <span class="keyword">return</span> <span class="built_in">UIApplicationMain</span>(argc, argv, <span class="literal">nil</span>, <span class="built_in">NSStringFromClass</span>([AppDelegate <span class="keyword">class</span>]));</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<h4 id="PerformSelecter"><a href="#PerformSelecter" class="headerlink" title="PerformSelecter"></a>PerformSelecter</h4><p>当调用 NSObject 的 performSelecter:afterDelay: 后，实际上其内部会创建一个 Timer 并添加到当前线程的 RunLoop 中。所以如果当前线程没有 RunLoop，则这个方法会失效.</p>
+<h4 id="RunLoop实际应用举例"><a href="#RunLoop实际应用举例" class="headerlink" title="RunLoop实际应用举例"></a>RunLoop实际应用举例</h4><ol>
+<li>AFN 2. AsyncDisplayKit<br>后记: 水平有限, 请多指教.<br><a href="https://github.com/facebook/AsyncDisplayKit/blob/master/AsyncDisplayKit%2FDetails%2FTransactions%2F_ASAsyncTransactionGroup.m" target="_blank" rel="external">https://github.com/facebook/AsyncDisplayKit/</a></li>
+</ol>
+<p>文章参照:</p>
+<p><a href="http://blog.ibireme.com/2015/05/18/runloop/" target="_blank" rel="external">http://blog.ibireme.com/2015/05/18/runloop/</a></p>
+<p><a href="http://blog.csdn.net/ztp800201/article/details/9240913" target="_blank" rel="external">http://blog.csdn.net/ztp800201/article/details/9240913</a></p>
+<div align="center"><br>微信公众号 得到最快最新的推送<br></div>
+
+<div align="center"><br><img src="http://ww1.sinaimg.cn/large/0060lm7Tgw1f9656jhucpj307607674r.jpg" alt=""><br></div>
+
+      
+    </div>
+
+  </div>
+
+  <div class="article-footer">
+    <div class="article-meta pull-left">
+
+    
+
+    
+    
+
+    <span class="post-tags">
+      <i class="icon-tags"></i>
+        <a href="/tags/RunLoop/">RunLoop</a>
+    </span>
+    
+
+    </div>
+
+    
+  </div>
+</article>
+
+
+    </main>
+
+    <footer class="site-footer">
+  <p class="site-info">
+    Proudly powered by <a href="https://hexo.io/" target="_blank">Hexo</a> and
+    Theme by <a href="https://github.com/CodeDaraW/Hacker" target="_blank">Hacker</a>
+    </br>
+    
+    &copy; 2017 夏天然后
+    
+  </p>
+</footer>
+    
+  </div>
+</div>
+</body>
+</html>

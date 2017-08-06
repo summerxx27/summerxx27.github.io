@@ -1,0 +1,169 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  <title>基于AVPlayer封装的一个视频播放器 | 夏天然后</title>
+
+  
+  <meta name="author" content="夏天然后">
+  
+
+  
+  <meta name="description" content="有一个月没写博客了, 今天分享一篇关于多媒体的文章, 平时我多分享一些UI方面的零散知识, 这种一般好理解, 让人愿意学习, 看完能够实现某些效果, 今天也是本着这个目的, 今天通过简单封装一个视频播放器, 来学一些AVPlayer相关的一些知识播放器地址https://github.com/summerxx27/XXVideoPlayer">
+  
+
+  
+  
+  <meta name="keywords" content="AVPlayer">
+  
+
+  <meta id="viewport" name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, minimum-scale=1, user-scalable=no, minimal-ui">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black">
+
+  <meta property="og:title" content="基于AVPlayer封装的一个视频播放器"/>
+
+  <meta property="og:site_name" content="夏天然后"/>
+
+  
+  <meta property="og:image" content="/favicon.ico"/>
+  
+
+  <link href="/favicon.ico" rel="icon">
+  <link rel="alternate" href="/atom.xml" title="夏天然后" type="application/atom+xml">
+  <link rel="stylesheet" href="/css/style.css" media="screen" type="text/css">
+</head>
+
+
+<body>
+<div class="blog">
+  <div class="content">
+
+    <header>
+  <div class="site-branding">
+    <h1 class="site-title">
+      <a href="/">夏天然后</a>
+    </h1>
+    <p class="site-description"></p>
+  </div>
+  <nav class="site-navigation">
+    <ul>
+      
+        <li><a href="/">Home</a></li>
+      
+        <li><a href="/archives">Archives</a></li>
+      
+        <li><a href="/tags">about</a></li>
+      
+    </ul>
+  </nav>
+</header>
+
+    <main class="site-main posts-loop">
+    <article>
+
+  
+    
+    <h3 class="article-title"><span>基于AVPlayer封装的一个视频播放器</span></h3>
+    
+  
+
+  <div class="article-top-meta">
+    <span class="posted-on">
+      <a href="/2016/10/19/35/" rel="bookmark">
+        <time class="entry-date published" datetime="2016-10-19T13:51:02.000Z">
+          2016-10-19
+        </time>
+      </a>
+    </span>
+  </div>
+
+
+  
+
+  <div class="article-content">
+    <div class="entry">
+      
+        <blockquote>
+<p>有一个月没写博客了, 今天分享一篇关于多媒体的文章, 平时我多分享一些UI方面的零散知识, 这种一般好理解, 让人愿意学习, 看完能够实现某些效果, 今天也是本着这个目的, 今天通过简单封装一个视频播放器, 来学一些AVPlayer相关的一些知识<br><a href="https://github.com/summerxx27/XXVideoPlayer" target="_blank" rel="external">播放器地址https://github.com/summerxx27/XXVideoPlayer</a></p>
+</blockquote>
+<div align="center"><br><img src="http://ww1.sinaimg.cn/large/0060lm7Tgw1f8xx142q53j30zi0nyajr.jpg" alt=""><br></div>
+
+<a id="more"></a>
+<blockquote>
+<ul>
+<li>编译环境 Xcode 8</li>
+<li>支持 iOS 7.0</li>
+<li>AVPlayer相关</li>
+<li>AVPlayerItem</li>
+<li>支持多种视频格式</li>
+<li>完成了 快进 快退 暂停 播放 全屏等视频播放器的基础功能</li>
+<li>后期会添加更加丰富的内容, 还可能写一个Swift版本的</li>
+</ul>
+</blockquote>
+<figure class="highlight objectivec"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">_avPlayerItem = [[<span class="built_in">AVPlayerItem</span> alloc] initWithURL:playFormURL];</div></pre></td></tr></table></figure>
+<figure class="highlight objectivec"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line"><span class="comment">// 通过AVPlayerItem创建一个AVPlayer对象</span></div><div class="line"><span class="keyword">self</span>.avPlayer = [[<span class="built_in">AVPlayer</span> alloc] initWithPlayerItem:_avPlayerItem];</div></pre></td></tr></table></figure>
+<figure class="highlight objectivec"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line"><span class="comment">// 创建 AVPlayerLayer</span></div><div class="line"><span class="keyword">self</span>.playLayer = [<span class="built_in">AVPlayerLayer</span> playerLayerWithPlayer:<span class="keyword">self</span>.avPlayer];</div></pre></td></tr></table></figure>
+<figure class="highlight objectivec"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line"><span class="comment">// 添加到要显示视频的View</span></div><div class="line">[<span class="keyword">self</span>.view.layer addSublayer:<span class="keyword">self</span>.playLayer];</div></pre></td></tr></table></figure>
+<figure class="highlight objectivec"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line"><span class="comment">// 播放 | 暂停</span></div><div class="line">- (<span class="keyword">void</span>)xx_VideoPlay</div><div class="line">&#123;</div><div class="line">[<span class="keyword">self</span>.avPlayer play];</div><div class="line">&#125;</div><div class="line">- (<span class="keyword">void</span>)xx_VideoPause</div><div class="line">&#123;</div><div class="line">[<span class="keyword">self</span>.avPlayer pause];</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<figure class="highlight objectivec"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line"><span class="comment">// 快进处理 slider 就是滑动条.</span></div><div class="line">[<span class="keyword">self</span>.avPlayer seekToTime:<span class="built_in">CMTimeMakeWithSeconds</span>(slider.value, <span class="keyword">self</span>.avPlayerItem.currentTime.timescale)];</div></pre></td></tr></table></figure>
+<figure class="highlight objectivec"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line"><span class="comment">// 获取总的播放时间 self.avPlayerItem(当前播放AVPlayerItem的对象)</span></div><div class="line"><span class="built_in">CMTimeGetSeconds</span>(<span class="keyword">self</span>.avPlayerItem.asset.duration)</div></pre></td></tr></table></figure>
+<figure class="highlight objectivec"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div></pre></td><td class="code"><pre><div class="line"><span class="comment">// 观察AVPlayerItem的播放状态</span></div><div class="line"><span class="built_in">AVF_EXPORT</span> <span class="built_in">NSString</span> *<span class="keyword">const</span> <span class="built_in">AVPlayerItemTimeJumpedNotification</span>			 <span class="built_in">NS_AVAILABLE</span>(<span class="number">10</span>_7, <span class="number">5</span>_0);	<span class="comment">// the item's current time has changed discontinuously</span></div><div class="line"><span class="built_in">AVF_EXPORT</span> <span class="built_in">NSString</span> *<span class="keyword">const</span> <span class="built_in">AVPlayerItemDidPlayToEndTimeNotification</span>      <span class="built_in">NS_AVAILABLE</span>(<span class="number">10</span>_7, <span class="number">4</span>_0);   <span class="comment">// item has played to its end time</span></div><div class="line"><span class="built_in">AVF_EXPORT</span> <span class="built_in">NSString</span> *<span class="keyword">const</span> <span class="built_in">AVPlayerItemFailedToPlayToEndTimeNotification</span> <span class="built_in">NS_AVAILABLE</span>(<span class="number">10</span>_7, <span class="number">4</span>_3);   <span class="comment">// item has failed to play to its end time</span></div><div class="line"><span class="built_in">AVF_EXPORT</span> <span class="built_in">NSString</span> *<span class="keyword">const</span> <span class="built_in">AVPlayerItemPlaybackStalledNotification</span>       <span class="built_in">NS_AVAILABLE</span>(<span class="number">10</span>_9, <span class="number">6</span>_0);    <span class="comment">// media did not arrive in time to continue playback</span></div><div class="line"><span class="built_in">AVF_EXPORT</span> <span class="built_in">NSString</span> *<span class="keyword">const</span> <span class="built_in">AVPlayerItemNewAccessLogEntryNotification</span>	 <span class="built_in">NS_AVAILABLE</span>(<span class="number">10</span>_9, <span class="number">6</span>_0);	<span class="comment">// a new access log entry has been added</span></div><div class="line"><span class="built_in">AVF_EXPORT</span> <span class="built_in">NSString</span> *<span class="keyword">const</span> <span class="built_in">AVPlayerItemNewErrorLogEntryNotification</span>		 <span class="built_in">NS_AVAILABLE</span>(<span class="number">10</span>_9, <span class="number">6</span>_0);	<span class="comment">// a new error log entry has been added</span></div><div class="line"></div><div class="line"><span class="comment">// notification userInfo key                                                                    type</span></div><div class="line"><span class="built_in">AVF_EXPORT</span> <span class="built_in">NSString</span> *<span class="keyword">const</span> <span class="built_in">AVPlayerItemFailedToPlayToEndTimeErrorKey</span>     <span class="built_in">NS_AVAILABLE</span>(<span class="number">10</span>_7, <span class="number">4</span>_3);   <span class="comment">// NSError</span></div></pre></td></tr></table></figure>
+<figure class="highlight objectivec"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line"><span class="comment">// 旋转方法 之后 调整frame</span></div><div class="line">[<span class="keyword">self</span>.view setTransform:<span class="built_in">CGAffineTransformMakeRotation</span>(M_PI_2)];</div><div class="line"><span class="comment">// 取消全屏</span></div><div class="line">[<span class="keyword">self</span>.view setTransform:<span class="built_in">CGAffineTransformIdentity</span>];</div></pre></td></tr></table></figure>
+<figure class="highlight objectivec"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line"><span class="comment">// 隐藏状态栏的相关方法</span></div><div class="line">[[<span class="built_in">UIApplication</span> sharedApplication] setStatusBarHidden:<span class="literal">YES</span> withAnimation:<span class="built_in">UIStatusBarAnimationFade</span>];</div><div class="line"><span class="comment">// 同时需要在info.plist文件中进行配置</span></div><div class="line"><span class="comment">// View controller-based status bar appearance = NO</span></div></pre></td></tr></table></figure>
+<blockquote>
+<p>以上就是对于视频播放器封装用到的知识点了~<br>第一次学习AVPlayer 难免出现错误的地方, 请告知我, 这样我就能及时修正了<br>感谢 <a href="https://github.com/36Kr-Mobile" target="_blank" rel="external">36Kr</a> 的开源, 让我能够学习相关的知识点</p>
+</blockquote>
+<p>不同的是 36Kr使用MPMoviePlayerController, 而我使用AVPlayer, UI方面我直接使用了他提供的UI方便快速, 当然可以随意修改, 简单方便.</p>
+<p>最后感谢您的阅读, 如果感觉有帮助可以关注我 和我一起学习! </p>
+<blockquote>
+<p>我是夏天, 暖暖的夏天<br>End</p>
+</blockquote>
+<div align="center"><br>微信公众号 得到最快最新的推送<br></div>
+
+<div align="center"><br><img src="http://ww1.sinaimg.cn/large/0060lm7Tgw1f9656jhucpj307607674r.jpg" alt=""><br></div>
+
+      
+    </div>
+
+  </div>
+
+  <div class="article-footer">
+    <div class="article-meta pull-left">
+
+    
+
+    
+    
+
+    <span class="post-tags">
+      <i class="icon-tags"></i>
+        <a href="/tags/AVPlayer/">AVPlayer</a>
+    </span>
+    
+
+    </div>
+
+    
+  </div>
+</article>
+
+
+    </main>
+
+    <footer class="site-footer">
+  <p class="site-info">
+    Proudly powered by <a href="https://hexo.io/" target="_blank">Hexo</a> and
+    Theme by <a href="https://github.com/CodeDaraW/Hacker" target="_blank">Hacker</a>
+    </br>
+    
+    &copy; 2017 夏天然后
+    
+  </p>
+</footer>
+    
+  </div>
+</div>
+</body>
+</html>

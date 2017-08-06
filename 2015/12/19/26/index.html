@@ -1,0 +1,139 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  <title>iOS 3DTouch - Tips | 夏天然后</title>
+
+  
+  <meta name="author" content="夏天然后">
+  
+
+  
+  <meta name="description" content="关于3D Touch相关的收集整理, 这里讲解了两种场景下的应用, 一种长按icon图, 一种特定的TableViewCell预览, 我分别使用Objective-C和Swift语言进行了实现, 请看代码.">
+  
+
+  
+  
+  <meta name="keywords" content="新特性">
+  
+
+  <meta id="viewport" name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, minimum-scale=1, user-scalable=no, minimal-ui">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black">
+
+  <meta property="og:title" content="iOS 3DTouch - Tips"/>
+
+  <meta property="og:site_name" content="夏天然后"/>
+
+  
+  <meta property="og:image" content="/favicon.ico"/>
+  
+
+  <link href="/favicon.ico" rel="icon">
+  <link rel="alternate" href="/atom.xml" title="夏天然后" type="application/atom+xml">
+  <link rel="stylesheet" href="/css/style.css" media="screen" type="text/css">
+</head>
+
+
+<body>
+<div class="blog">
+  <div class="content">
+
+    <header>
+  <div class="site-branding">
+    <h1 class="site-title">
+      <a href="/">夏天然后</a>
+    </h1>
+    <p class="site-description"></p>
+  </div>
+  <nav class="site-navigation">
+    <ul>
+      
+        <li><a href="/">Home</a></li>
+      
+        <li><a href="/archives">Archives</a></li>
+      
+        <li><a href="/tags">about</a></li>
+      
+    </ul>
+  </nav>
+</header>
+
+    <main class="site-main posts-loop">
+    <article>
+
+  
+    
+    <h3 class="article-title"><span>iOS 3DTouch - Tips</span></h3>
+    
+  
+
+  <div class="article-top-meta">
+    <span class="posted-on">
+      <a href="/2015/12/19/26/" rel="bookmark">
+        <time class="entry-date published" datetime="2015-12-19T02:34:58.000Z">
+          2015-12-19
+        </time>
+      </a>
+    </span>
+  </div>
+
+
+  
+
+  <div class="article-content">
+    <div class="entry">
+      
+        <p>关于3D Touch相关的收集整理, 这里讲解了两种场景下的应用, 一种长按icon图, 一种特定的TableViewCell预览, 我分别使用Objective-C和Swift语言进行了实现, 请看代码.<br><a id="more"></a></p>
+<h3 id="先来看第一种"><a href="#先来看第一种" class="headerlink" title="先来看第一种"></a>先来看第一种</h3><p>这是微信效果图</p>
+<div align="center"><br><img src="http://ww1.sinaimg.cn/large/e6a4355cgw1f5z0lbnv1hj20c40f20ty.jpg" alt=""><br></div><br>这是我制作的效果图<br><div align="center"><br><img src="http://ww1.sinaimg.cn/large/e6a4355cgw1f5z0p8nzfnj20ey0dwabb.jpg" alt=""><br></div>
+
+<h4 id="静态添加"><a href="#静态添加" class="headerlink" title="静态添加"></a>静态添加</h4><p>在Info.plist文件中添加</p>
+<div align="center"><br><img src="http://ww2.sinaimg.cn/large/e6a4355cgw1f5z0sos1rdj20of04xaaw.jpg" alt=""><br></div><br>&gt; 首先是UIApplicationShortcutItems，他是一个数组类型，数组中的每一个元素表示一个入口标签。然后是Item0，这是数组中的一个元素，字典类型。在这个字典中配置各个标签的相关属性。<br>1. UIApplicationShortcutItemType    这个键值设置一个快捷通道类型的字符串    必有项    我们可以监听该项的值来判断用户是从哪一个标签进入App的，该字段的值可以为空。<br>2. UIApplicationShortcutItemTitle    这个键值设置标签的标题    必有项    我们可以监听该项的值来判断用户是从哪一个标签进入App的<br>3. UIApplicationShortcutItemSubtitle    设置标签的副标题    可选项<br>4. UIApplicationShortcutItemIconType    设置标签的图标样式，系统提供了29中样式的图标，但大部分只能在9.1的系统上使用，只有少数可以在9.0的系统中使用，这一部分会在后边详细介绍    可选项<br>5. UIApplicationShortcutItemIconFile    设置自定义标签图片文件的路径    可选项<br>6. UIApplicationShortcutItemUserInfo    设置用户信息，是一个字典类型，可以用来传值    可选项<br><br>#### 动态添加<br><figure class="highlight objectivec"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div></pre></td><td class="code"><pre><div class="line"><span class="comment">// rootVc</span></div><div class="line"><span class="comment">// 创建标签的ICON图标。</span></div><div class="line"><span class="built_in">UIApplicationShortcutIcon</span> *icon = [<span class="built_in">UIApplicationShortcutIcon</span> iconWithType:<span class="built_in">UIApplicationShortcutIconTypeMail</span>];</div><div class="line"><span class="comment">// 创建一个标签，并配置相关属性。</span></div><div class="line"><span class="built_in">UIApplicationShortcutItem</span> *item = [[<span class="built_in">UIApplicationShortcutItem</span> alloc] initWithType:<span class="string">@"one"</span> localizedTitle:<span class="string">@"邮件"</span> localizedSubtitle:<span class="literal">nil</span> icon:icon userInfo:<span class="literal">nil</span>];</div><div class="line"></div><div class="line"><span class="comment">// 创建标签的ICON图标。</span></div><div class="line"><span class="built_in">UIApplicationShortcutIcon</span> *icon1 = [<span class="built_in">UIApplicationShortcutIcon</span> iconWithType:<span class="built_in">UIApplicationShortcutIconTypeFavorite</span>];</div><div class="line"><span class="comment">// 创建一个标签，并配置相关属性。</span></div><div class="line"><span class="built_in">UIApplicationShortcutItem</span> *item1 = [[<span class="built_in">UIApplicationShortcutItem</span> alloc] initWithType:<span class="string">@"two"</span> localizedTitle:<span class="string">@"喜欢"</span> localizedSubtitle:<span class="literal">nil</span> icon:icon1 userInfo:<span class="literal">nil</span>];</div><div class="line"><span class="comment">// 将标签添加进Application的shortcutItems中。</span></div><div class="line">[<span class="built_in">UIApplication</span> sharedApplication].shortcutItems = @[item, item1];</div><div class="line"></div><div class="line"></div><div class="line">[[<span class="built_in">NSNotificationCenter</span> defaultCenter] addObserver:<span class="keyword">self</span> selector:<span class="keyword">@selector</span>(touch3D:) name:<span class="string">@"zjw"</span> object:<span class="literal">nil</span>];</div></pre></td></tr></table></figure><br><br><figure class="highlight objectivec"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line"><span class="comment">// rootVc, do you something</span></div><div class="line">- (<span class="keyword">void</span>)touch3D:(<span class="built_in">NSNotification</span> *)object</div><div class="line">&#123;</div><div class="line">SecondViewController *sec = [[SecondViewController alloc] init];</div><div class="line">[<span class="keyword">self</span>.navigationController pushViewController:sec animated:<span class="literal">YES</span>];</div><div class="line">&#125;</div></pre></td></tr></table></figure><br><br><figure class="highlight objectivec"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div></pre></td><td class="code"><pre><div class="line"><span class="comment">// AppDelgate.m</span></div><div class="line"><span class="comment">// 程序在后台运行，或者从死亡被激活，从3d进来的页面</span></div><div class="line">- (<span class="keyword">void</span>)application:(<span class="built_in">UIApplication</span> *)application performActionForShortcutItem:(<span class="built_in">UIApplicationShortcutItem</span> *)shortcutItem completionHandler:(<span class="keyword">void</span> (^)(<span class="built_in">BOOL</span>))completionHandler &#123;</div><div class="line"><span class="keyword">if</span> ([shortcutItem.localizedTitle isEqualToString:<span class="string">@"邮件"</span>]) &#123;</div><div class="line"><span class="comment">// 或者使用消息中心</span></div><div class="line">dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(<span class="number">1</span> * <span class="built_in">NSEC_PER_SEC</span>)), dispatch_get_main_queue(), ^&#123;</div><div class="line">[[<span class="built_in">NSNotificationCenter</span> defaultCenter] postNotificationName:<span class="string">@"zjw"</span> object:<span class="literal">nil</span> userInfo:<span class="literal">nil</span>];</div><div class="line"></div><div class="line">&#125;);        &#125;);</div><div class="line"><span class="comment">/// 或者直接改变跟视图 </span></div><div class="line">SecondViewController *sec = [[SecondViewController alloc] init];</div><div class="line"><span class="keyword">self</span>.window.rootViewController = sec;</div><div class="line"></div><div class="line">&#125; <span class="keyword">else</span> <span class="keyword">if</span> ([shortcutItem.localizedTitle isEqualToString:<span class="string">@"喜欢"</span>]) &#123;</div><div class="line"><span class="keyword">self</span>.window.rootViewController.view.backgroundColor = [<span class="built_in">UIColor</span> redColor];</div><div class="line"><span class="comment">// do some thing</span></div><div class="line">&#125;<span class="keyword">else</span>&#123;</div><div class="line"><span class="built_in">NSLog</span>(<span class="string">@"我是第一个"</span>);</div><div class="line">&#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure><br><br>### 第二种预览特定的TableViewCell<br>具体应用场景看简书首页、微博首页, 实现预览的效果, 而下面是我做的效果图<br><div align="center"><br><img src="http://ww1.sinaimg.cn/large/e6a4355cgw1f5z0zbh71ej20ar0j7tcm.jpg" alt=""><br></div><br><div align="center"><br><img src="http://ww2.sinaimg.cn/large/e6a4355cgw1f5z0zta66oj20a10imdhr.jpg" alt=""><br></div><br>在开始之前<br><figure class="highlight objectivec"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="built_in">UIViewControllerPreviewingDelegate</span> <span class="comment">// 签订这个协议</span></div></pre></td></tr></table></figure><br><br>#### Objective-C版本<br><figure class="highlight objectivec"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line">- (<span class="built_in">UITableViewCell</span> *)tableView:(<span class="built_in">UITableView</span> *)tableView cellForRowAtIndexPath:(<span class="built_in">NSIndexPath</span> *)indexPath</div><div class="line">&#123;</div><div class="line"><span class="built_in">UITableViewCell</span> *cell = [tableView dequeueReusableCellWithIdentifier:<span class="string">@"cellId"</span>];</div><div class="line"><span class="comment">// 对每个cell指定代理, 大致是这个意思</span></div><div class="line">[<span class="keyword">self</span> registerForPreviewingWithDelegate:<span class="keyword">self</span> sourceView:cell];</div><div class="line"><span class="comment">//</span></div><div class="line">cell.textLabel.text = <span class="keyword">self</span>.arrayData[indexPath.row];</div><div class="line"><span class="keyword">return</span> cell;</div><div class="line">&#125;</div></pre></td></tr></table></figure><br><br><figure class="highlight objectivec"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div></pre></td><td class="code"><pre><div class="line"><span class="meta">#pragma mark - peek的代理方法，轻按即可触发弹出vc</span></div><div class="line">- (<span class="built_in">UIViewController</span> *)previewingContext:(<span class="keyword">id</span> &lt;<span class="built_in">UIViewControllerPreviewing</span>&gt;)previewingContext viewControllerForLocation:(<span class="built_in">CGPoint</span>)location&#123;</div><div class="line"><span class="comment">//通过[previewingContext sourceView]拿到对应的cell的数据；</span></div><div class="line"><span class="built_in">NSIndexPath</span> *indexPath = [_tableView indexPathForCell:(<span class="built_in">UITableViewCell</span>* )[previewingContext sourceView]];</div><div class="line"><span class="comment">// 用于显示预览的vc</span></div><div class="line">ListViewController *listVc = [[ListViewController alloc] init];</div><div class="line"><span class="comment">// 演示的是传入一个字符串 , 实际可能是你需要的model</span></div><div class="line">listVc.strText = [<span class="keyword">self</span>.arrayData objectAtIndex:indexPath.row];</div><div class="line"><span class="keyword">return</span> listVc;</div><div class="line">&#125;</div><div class="line"><span class="meta">#pragma mark -  pop的代理方法，在此处可对将要进入的vc进行处理</span></div><div class="line">- (<span class="keyword">void</span>)previewingContext:(<span class="keyword">id</span> &lt;<span class="built_in">UIViewControllerPreviewing</span>&gt;)previewingContext commitViewController:(<span class="built_in">UIViewController</span> *)viewControllerToCommit</div><div class="line">&#123;</div><div class="line">&#125;</div></pre></td></tr></table></figure><br><br>在 ListViewController 中我用一个label作为演示的, 您可能还需要添加底部菜单(类似于 收藏 喜欢这样)<br><figure class="highlight objectivec"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div></pre></td><td class="code"><pre><div class="line">-(<span class="built_in">NSArray</span>&lt;<span class="keyword">id</span>&lt;<span class="built_in">UIPreviewActionItem</span>&gt;&gt; *)previewActionItems</div><div class="line">&#123;</div><div class="line"><span class="built_in">UIPreviewAction</span> * action1 = [<span class="built_in">UIPreviewAction</span> actionWithTitle:<span class="string">@"收藏"</span> style:<span class="number">1</span> handler:^(<span class="built_in">UIPreviewAction</span> * _Nonnull action, <span class="built_in">UIViewController</span> * _Nonnull previewViewController) &#123;</div><div class="line"><span class="built_in">NSLog</span>(<span class="string">@"收藏"</span>);</div><div class="line">&#125;];</div><div class="line"></div><div class="line"><span class="built_in">UIPreviewAction</span> * action2 = [<span class="built_in">UIPreviewAction</span> actionWithTitle:<span class="string">@"喜欢"</span> style:<span class="number">0</span> handler:^(<span class="built_in">UIPreviewAction</span> * _Nonnull action, <span class="built_in">UIViewController</span> * _Nonnull previewViewController) &#123;</div><div class="line"><span class="built_in">NSLog</span>(<span class="string">@"喜欢"</span>);</div><div class="line"></div><div class="line">&#125;];</div><div class="line"><span class="built_in">NSArray</span> *items = @[action1,action2];</div><div class="line"><span class="keyword">return</span> items;</div><div class="line">&#125;</div></pre></td></tr></table></figure><br><br>#### Swift版本<br><figure class="highlight objectivec"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line">func tableView(tableView: <span class="built_in">UITableView</span>, cellForRowAtIndexPath indexPath: <span class="built_in">NSIndexPath</span>) -&gt; <span class="built_in">UITableViewCell</span> &#123;</div><div class="line"><span class="comment">// 指定代理人</span></div><div class="line"><span class="keyword">if</span> <span class="meta">#available(iOS 9.0, *) &#123;</span></div><div class="line"><span class="keyword">self</span>.registerForPreviewingWithDelegate(<span class="keyword">self</span>, sourceView: cell)</div><div class="line">&#125; <span class="keyword">else</span> &#123;</div><div class="line"><span class="comment">// Fallback on earlier versions</span></div><div class="line">&#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure><br><br><figure class="highlight objectivec"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div></pre></td><td class="code"><pre><div class="line"><span class="comment">/// MARK: - peek的代理方法, 长按触发弹出预览VC</span></div><div class="line">func previewingContext(previewingContext: <span class="built_in">UIViewControllerPreviewing</span>, viewControllerForLocation location: <span class="built_in">CGPoint</span>) -&gt; <span class="built_in">UIViewController</span>? &#123;</div><div class="line">let preVC = PreviewViewController()</div><div class="line"><span class="keyword">if</span> <span class="meta">#available(iOS 9.0, *) &#123;</span></div><div class="line">let indexPath = <span class="keyword">self</span>.tableView.indexPathForCell((previewingContext.sourceView) as! AlamofieCustomCell)! as <span class="built_in">NSIndexPath</span></div><div class="line">preVC.preViewModel = <span class="keyword">self</span>.dataArray[indexPath.row] as! AlamofireVCModel</div><div class="line">&#125; <span class="keyword">else</span> &#123;</div><div class="line"><span class="comment">// Fallback on earlier versions</span></div><div class="line">&#125;</div><div class="line"><span class="keyword">return</span> preVC</div><div class="line">&#125;</div></pre></td></tr></table></figure><br><br><figure class="highlight objectivec"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line"><span class="comment">/// MARK: - pop的代理方法，在此处可对将要进入的vc进行处理</span></div><div class="line">func previewingContext(previewingContext: <span class="built_in">UIViewControllerPreviewing</span>, commitViewController viewControllerToCommit: <span class="built_in">UIViewController</span>) &#123;</div><div class="line"><span class="comment">// code</span></div><div class="line">&#125;</div></pre></td></tr></table></figure><br><br><figure class="highlight objectivec"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div></pre></td><td class="code"><pre><div class="line">@available(iOS <span class="number">9.0</span>, *)</div><div class="line">override func previewActionItems() -&gt; [<span class="built_in">UIPreviewActionItem</span>] &#123;</div><div class="line">var items = [<span class="built_in">UIPreviewAction</span>]()</div><div class="line">let action1 = <span class="built_in">UIPreviewAction</span>.init(title: <span class="string">"收藏"</span>, style: <span class="built_in">UIPreviewActionStyle</span>.Default, handler: &#123; (action: <span class="built_in">UIPreviewAction</span>, previewViewController: <span class="built_in">UIViewController</span>) <span class="keyword">in</span></div><div class="line">print(<span class="string">"收藏"</span>)</div><div class="line">&#125;)</div><div class="line"></div><div class="line">let action2 = <span class="built_in">UIPreviewAction</span>.init(title: <span class="string">"喜欢"</span>, style: <span class="built_in">UIPreviewActionStyle</span>.Default, handler: &#123; (action: <span class="built_in">UIPreviewAction</span>, previewViewController: <span class="built_in">UIViewController</span>) <span class="keyword">in</span></div><div class="line">print(<span class="string">"喜欢"</span>)</div><div class="line">&#125;)    </div><div class="line">items.append(action1)</div><div class="line">items.append(action2)</div><div class="line"><span class="keyword">return</span> items;</div><div class="line">&#125;</div></pre></td></tr></table></figure><br><br><a href="http://swift.gg/2016/04/12/peek-pop-view-inside-tableviewcell/" target="_blank" rel="external">iOS9：预览特定的 UITableViewCell 视图</a><br>#####—————————————<br>#####走心文章, 值得点赞 —文/夏天然后<br>#####微博@夏天是个大人了 QQQ: 498143780<br>#####—————————————<br><br><br><div align="center"><br>微信公众号 得到最快最新的推送<br></div>
+
+<div align="center"><br><img src="http://ww1.sinaimg.cn/large/0060lm7Tgw1f9656jhucpj307607674r.jpg" alt=""><br></div>
+
+      
+    </div>
+
+  </div>
+
+  <div class="article-footer">
+    <div class="article-meta pull-left">
+
+    
+
+    
+    
+
+    <span class="post-tags">
+      <i class="icon-tags"></i>
+        <a href="/tags/新特性/">新特性</a>
+    </span>
+    
+
+    </div>
+
+    
+  </div>
+</article>
+
+
+    </main>
+
+    <footer class="site-footer">
+  <p class="site-info">
+    Proudly powered by <a href="https://hexo.io/" target="_blank">Hexo</a> and
+    Theme by <a href="https://github.com/CodeDaraW/Hacker" target="_blank">Hacker</a>
+    </br>
+    
+    &copy; 2017 夏天然后
+    
+  </p>
+</footer>
+    
+  </div>
+</div>
+</body>
+</html>

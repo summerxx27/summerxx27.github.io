@@ -1,0 +1,135 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  <title>iOS POP实践 | 夏天然后</title>
+
+  
+  <meta name="author" content="夏天然后">
+  
+
+  
+  <meta name="description" content="前言: 哇喔从题目是不是看出了什么端倪, 没错我打算要造好多好多POP小轮子, 今天是轮子01 ,  演示图片我也是挑了好久呢, 博主真是用心呢, 中午空闲时间发出来, 没午睡好困, 扯得有点多~小轮子01的用途, 可以做提示窗, 也在很多直播的App中比较常见, 尾巴会放出实例工程.">
+  
+
+  
+  
+  <meta name="keywords" content="pop">
+  
+
+  <meta id="viewport" name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, minimum-scale=1, user-scalable=no, minimal-ui">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black">
+
+  <meta property="og:title" content="iOS POP实践"/>
+
+  <meta property="og:site_name" content="夏天然后"/>
+
+  
+  <meta property="og:image" content="/favicon.ico"/>
+  
+
+  <link href="/favicon.ico" rel="icon">
+  <link rel="alternate" href="/atom.xml" title="夏天然后" type="application/atom+xml">
+  <link rel="stylesheet" href="/css/style.css" media="screen" type="text/css">
+</head>
+
+
+<body>
+<div class="blog">
+  <div class="content">
+
+    <header>
+  <div class="site-branding">
+    <h1 class="site-title">
+      <a href="/">夏天然后</a>
+    </h1>
+    <p class="site-description"></p>
+  </div>
+  <nav class="site-navigation">
+    <ul>
+      
+        <li><a href="/">Home</a></li>
+      
+        <li><a href="/archives">Archives</a></li>
+      
+        <li><a href="/tags">about</a></li>
+      
+    </ul>
+  </nav>
+</header>
+
+    <main class="site-main posts-loop">
+    <article>
+
+  
+    
+    <h3 class="article-title"><span>iOS POP实践</span></h3>
+    
+  
+
+  <div class="article-top-meta">
+    <span class="posted-on">
+      <a href="/2015/06/29/09/" rel="bookmark">
+        <time class="entry-date published" datetime="2015-06-29T05:11:47.000Z">
+          2015-06-29
+        </time>
+      </a>
+    </span>
+  </div>
+
+
+  
+
+  <div class="article-content">
+    <div class="entry">
+      
+        <p>前言: 哇喔从题目是不是看出了什么端倪, 没错我打算要造好多好多POP小轮子, 今天是轮子01 ,  演示图片我也是挑了好久呢, 博主真是用心呢, 中午空闲时间发出来, 没午睡好困, 扯得有点多~<br>小轮子01的用途, 可以做提示窗, 也在很多直播的App中比较常见, 尾巴会放出实例工程.<br><a id="more"></a></p>
+<div align="center"><br><img src="http://ww1.sinaimg.cn/large/e6a4355cgw1f6aovm0tm6g208w0gib2d.gif" alt="精心制作, 图片是不是很美"><br></div><br>#####创建继承于UIView的XTPopingView 暂时没做更多功能, 可以实现 下-下 上-下 两种 来看看如何实现吧<br>声明: 使用Facebook POP了.<br><br>##### 1.初始化<br><figure class="highlight objectivec"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div></pre></td><td class="code"><pre><div class="line">- (<span class="keyword">instancetype</span>)initWithFrame:(<span class="built_in">CGRect</span>)frame</div><div class="line">&#123;</div><div class="line"></div><div class="line"><span class="keyword">self</span> = [<span class="keyword">super</span> initWithFrame:frame];</div><div class="line"><span class="keyword">if</span> (<span class="keyword">self</span>) &#123;</div><div class="line"><span class="keyword">self</span>.backgroundColor = [[<span class="built_in">UIColor</span> blackColor] colorWithAlphaComponent:<span class="number">0.3</span>];</div><div class="line">[<span class="keyword">self</span> addSubview:<span class="keyword">self</span>.flyView];</div><div class="line"><span class="built_in">UITapGestureRecognizer</span> *tapGes = [[<span class="built_in">UITapGestureRecognizer</span> alloc] initWithTarget:<span class="keyword">self</span> action:<span class="keyword">@selector</span>(tapClickAction)];</div><div class="line">[<span class="keyword">self</span> addGestureRecognizer:tapGes];</div><div class="line">&#125;</div><div class="line"><span class="keyword">return</span> <span class="keyword">self</span>;</div><div class="line">&#125;</div><div class="line">- (<span class="built_in">UIView</span> *)flyView</div><div class="line">&#123;</div><div class="line"><span class="keyword">if</span> (!_flyView) &#123;</div><div class="line">_flyView = [[<span class="built_in">UIView</span> alloc] init];</div><div class="line">&#125;</div><div class="line"><span class="keyword">return</span> _flyView;</div><div class="line">&#125;</div></pre></td></tr></table></figure><br><br>##### 2. 开始视图<br><figure class="highlight objectivec"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div></pre></td><td class="code"><pre><div class="line">- (<span class="keyword">void</span>)startFly:(FlyType)type</div><div class="line">&#123;</div><div class="line"><span class="keyword">switch</span> (type) &#123;</div><div class="line"><span class="keyword">case</span> FlyTypeUToD:</div><div class="line">&#123;</div><div class="line">_flyView.frame = <span class="built_in">CGRectMake</span>(SCREEN_WIDTH_XT / <span class="number">2</span> - <span class="keyword">self</span>.fly_w / <span class="number">2</span>, -<span class="keyword">self</span>.fly_h, <span class="keyword">self</span>.fly_w, <span class="keyword">self</span>.fly_h);</div><div class="line">&#125;</div><div class="line"><span class="keyword">break</span>;</div><div class="line"><span class="keyword">case</span> FlyTypeDToD:</div><div class="line">&#123;</div><div class="line">_flyView.frame = <span class="built_in">CGRectMake</span>(SCREEN_WIDTH_XT / <span class="number">2</span> - <span class="keyword">self</span>.fly_w / <span class="number">2</span>, SCREEN_HEIGHT_XT + <span class="keyword">self</span>.fly_h, <span class="keyword">self</span>.fly_w, <span class="keyword">self</span>.fly_h);</div><div class="line">&#125;</div><div class="line"><span class="keyword">default</span>:</div><div class="line"><span class="keyword">break</span>;</div><div class="line">&#125;</div><div class="line">_flyView.backgroundColor = [<span class="built_in">UIColor</span> purpleColor];</div><div class="line">POPSpringAnimation *anim = [POPSpringAnimation animationWithPropertyNamed:kPOPViewCenter];</div><div class="line">anim.toValue = [<span class="built_in">NSValue</span> valueWithCGPoint:<span class="keyword">self</span>.center];</div><div class="line"><span class="comment">// 速度</span></div><div class="line">anim.springSpeed = <span class="number">5</span>;</div><div class="line"><span class="comment">// 弹力--晃动的幅度 (springSpeed速度)</span></div><div class="line">anim.springBounciness = <span class="number">10.0</span>f;</div><div class="line">[_flyView pop_addAnimation:anim forKey:<span class="string">@"animationShow"</span>];</div><div class="line">&#125;</div></pre></td></tr></table></figure><br><br>##### 3. 移除视图<br><figure class="highlight objectivec"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div></pre></td><td class="code"><pre><div class="line">- (<span class="keyword">void</span>)tapClickAction</div><div class="line">&#123;</div><div class="line">POPSpringAnimation *anim = [POPSpringAnimation animationWithPropertyNamed:kPOPViewCenter];</div><div class="line">anim.toValue = [<span class="built_in">NSValue</span> valueWithCGPoint:<span class="built_in">CGPointMake</span>(<span class="keyword">self</span>.center.x, SCREEN_HEIGHT_XT + <span class="keyword">self</span>.fly_h)];</div><div class="line">[_flyView pop_addAnimation:anim forKey:<span class="string">@"animationRemove"</span>];</div><div class="line">anim.springSpeed = <span class="number">5</span>;</div><div class="line">dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(<span class="number">0.1</span> * <span class="built_in">NSEC_PER_SEC</span>)), dispatch_get_main_queue(), ^&#123;</div><div class="line">[<span class="keyword">self</span> removeFromSuperview];</div><div class="line">&#125;);</div><div class="line">&#125;</div></pre></td></tr></table></figure><br><br>#####—————————————<br>走心文章, 值得点赞 —文/夏天然后<br><a href="https://github.com/Zhangjingwang1993/XTAnimations" target="_blank" rel="external">实例工程 - 放在我的动画收集中</a><br><br><div align="center"><br>微信公众号 得到最快最新的推送<br></div>
+
+<div align="center"><br><img src="http://ww1.sinaimg.cn/large/0060lm7Tgw1f9656jhucpj307607674r.jpg" alt=""><br></div>
+
+      
+    </div>
+
+  </div>
+
+  <div class="article-footer">
+    <div class="article-meta pull-left">
+
+    
+
+    
+    
+
+    <span class="post-tags">
+      <i class="icon-tags"></i>
+        <a href="/tags/pop/">pop</a>
+    </span>
+    
+
+    </div>
+
+    
+  </div>
+</article>
+
+
+    </main>
+
+    <footer class="site-footer">
+  <p class="site-info">
+    Proudly powered by <a href="https://hexo.io/" target="_blank">Hexo</a> and
+    Theme by <a href="https://github.com/CodeDaraW/Hacker" target="_blank">Hacker</a>
+    </br>
+    
+    &copy; 2017 夏天然后
+    
+  </p>
+</footer>
+    
+  </div>
+</div>
+</body>
+</html>

@@ -1,0 +1,168 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  <title>iOS Charts | 夏天然后</title>
+
+  
+  <meta name="author" content="夏天然后">
+  
+
+  
+  <meta name="description" content="Charts是个很有意思的框架, 采用Swift语言进行编写, 由于本人对线, 图标等等比较感兴趣, 或者说对跟证券密切相关的图比较感兴趣, 这样说更加的贴切. 这篇博客介绍了集成, 以及简单的使用.">
+  
+
+  
+  
+  <meta name="keywords" content="Charts">
+  
+
+  <meta id="viewport" name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, minimum-scale=1, user-scalable=no, minimal-ui">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black">
+
+  <meta property="og:title" content="iOS Charts"/>
+
+  <meta property="og:site_name" content="夏天然后"/>
+
+  
+  <meta property="og:image" content="/favicon.ico"/>
+  
+
+  <link href="/favicon.ico" rel="icon">
+  <link rel="alternate" href="/atom.xml" title="夏天然后" type="application/atom+xml">
+  <link rel="stylesheet" href="/css/style.css" media="screen" type="text/css">
+</head>
+
+
+<body>
+<div class="blog">
+  <div class="content">
+
+    <header>
+  <div class="site-branding">
+    <h1 class="site-title">
+      <a href="/">夏天然后</a>
+    </h1>
+    <p class="site-description"></p>
+  </div>
+  <nav class="site-navigation">
+    <ul>
+      
+        <li><a href="/">Home</a></li>
+      
+        <li><a href="/archives">Archives</a></li>
+      
+        <li><a href="/tags">about</a></li>
+      
+    </ul>
+  </nav>
+</header>
+
+    <main class="site-main posts-loop">
+    <article>
+
+  
+    
+    <h3 class="article-title"><span>iOS Charts</span></h3>
+    
+  
+
+  <div class="article-top-meta">
+    <span class="posted-on">
+      <a href="/2016/06/24/02/" rel="bookmark">
+        <time class="entry-date published" datetime="2016-06-24T04:11:57.000Z">
+          2016-06-24
+        </time>
+      </a>
+    </span>
+  </div>
+
+
+  
+
+  <div class="article-content">
+    <div class="entry">
+      
+        <p>Charts是个很有意思的框架, 采用<code>Swift</code>语言进行编写, 由于本人对线, 图标等等比较感兴趣, 或者说对跟证券密切相关的图比较感兴趣, 这样说更加的贴切. 这篇博客介绍了集成, 以及简单的使用.</p>
+<p><table border="1"></table></p>
+<p><tr></tr></p>
+<p><td><img src="http://ww4.sinaimg.cn/large/e6a4355cgw1f567amxuznj206z0d0q3l.jpg" width="200" height="300"></td></p>
+<p><td><img src="http://ww4.sinaimg.cn/large/e6a4355cgw1f567b1n5s7j206v0cuq3i.jpg" width="200" height="300"></td></p>
+<p><td><img src="http://ww2.sinaimg.cn/large/e6a4355cgw1f567c1bpjkj206y0d0q3r.jpg" width="200" height="300"></td></p>
+<p><td><img src="http://ww2.sinaimg.cn/large/e6a4355cgw1f567cekbk0j206z0cz0tl.jpg" width="200" height="300"></td></p>
+<p><td><img src="http://ww3.sinaimg.cn/large/e6a4355cgw1f567bolsqqj206s0d2752.jpg" width="200" height="300"></td><br><br><br><a id="more"></a></p>
+<blockquote>
+<h5 id="我是前言-大约几个月前我在简书写了一篇文章-文中简单地介绍了Charts两种图表的样式的使用-不过有种意犹未尽的感觉-利用周末的空闲时间再次看了看-有了新的收获-今天发出来-分享给大家-来稍加详细的再次走进Charts的世界-完全纯代码-说在前面的话：-这篇的篇幅确实是有些长-不过你可以会一些图表的tips-还能熟悉Swift语言的语法-感觉不错请点个赞-摸摸哒-冷漠脸-png-如果还想看更多关于Swift和iOS开发相关的知识-请关注我"><a href="#我是前言-大约几个月前我在简书写了一篇文章-文中简单地介绍了Charts两种图表的样式的使用-不过有种意犹未尽的感觉-利用周末的空闲时间再次看了看-有了新的收获-今天发出来-分享给大家-来稍加详细的再次走进Charts的世界-完全纯代码-说在前面的话：-这篇的篇幅确实是有些长-不过你可以会一些图表的tips-还能熟悉Swift语言的语法-感觉不错请点个赞-摸摸哒-冷漠脸-png-如果还想看更多关于Swift和iOS开发相关的知识-请关注我" class="headerlink" title="我是前言: 大约几个月前我在简书写了一篇文章, 文中简单地介绍了Charts两种图表的样式的使用, 不过有种意犹未尽的感觉, 利用周末的空闲时间再次看了看, 有了新的收获, 今天发出来,分享给大家, 来稍加详细的再次走进Charts的世界. 完全纯代码.说在前面的话： 这篇的篇幅确实是有些长, 不过你可以会一些图表的tips, 还能熟悉Swift语言的语法. #感觉不错请点个赞# 摸摸哒(冷漠脸.png), 如果还想看更多关于Swift和iOS开发相关的知识, 请关注我."></a>我是前言: 大约几个月前我在简书写了一篇文章, 文中简单地介绍了Charts两种图表的样式的使用, 不过有种意犹未尽的感觉, 利用周末的空闲时间再次看了看, 有了新的收获, 今天发出来,分享给大家, 来稍加详细的再次走进<code>Charts</code>的世界. 完全纯代码.说在前面的话： 这篇的篇幅确实是有些长, 不过你可以会一些图表的tips, 还能熟悉<code>Swift</code>语言的语法. #感觉不错请点个赞# 摸摸哒(冷漠脸.png), 如果还想看更多关于<code>Swift</code>和<code>iOS</code>开发相关的知识, 请关注我.</h5></blockquote>
+<h6 id="经过测试"><a href="#经过测试" class="headerlink" title="经过测试:"></a>经过测试:</h6><p>1.1使用<code>cocoapods</code>集成(只能在<code>iOS9.3</code>运行), 有知道原因的请在下方评论<br>1.2 这篇文章的例子我是使用手动加入的framework进行测试的（<code>iOS8.0</code>之后）. 如果你不清楚如何加入三方框架请点击看看这篇文章<a href="http://www.jianshu.com/p/fd91c10c9f55" target="_blank" rel="external">http://www.jianshu.com/p/fd91c10c9f55</a> (注: 如果模拟器能运行, 真机不能运行, 一定看这篇)</p>
+<hr>
+<p>这篇你可以看到下面这些</p>
+<ul>
+<li>LineChartView —– 折线</li>
+<li>BarChartView —– 柱状</li>
+<li>CandleStickChartView —– K线</li>
+<li>PieChartView —– 饼状</li>
+<li>RadarChartView —– 雷达</li>
+</ul>
+<hr>
+<h5 id="折线图-LineChartView"><a href="#折线图-LineChartView" class="headerlink" title="折线图 - LineChartView"></a>折线图 - <code>LineChartView</code></h5><figure class="highlight objectivec"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div></pre></td><td class="code"><pre><div class="line"><span class="comment">// 创建-</span></div><div class="line">func createLineChartView()</div><div class="line">&#123;</div><div class="line">chartView = LineChartView.init(frame: <span class="built_in">CGRectMake</span>(<span class="number">0</span>, <span class="number">64</span>, s_w, s_h - <span class="number">64</span>))</div><div class="line">chartView.lineData</div><div class="line"><span class="comment">// 签协议</span></div><div class="line">chartView.delegate = <span class="keyword">self</span></div><div class="line">chartView.backgroundColor = <span class="built_in">UIColor</span>.whiteColor()</div><div class="line"><span class="keyword">self</span>.view.addSubview(chartView)</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<figure class="highlight objectivec"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div></pre></td><td class="code"><pre><div class="line"><span class="comment">// 加上模拟数据</span></div><div class="line">func setChart(dataPoints: [String], values: [Double]) &#123;</div><div class="line">var dataEntries: [ChartDataEntry] = []</div><div class="line"><span class="keyword">for</span> i <span class="keyword">in</span> <span class="number">0.</span>.&lt;dataPoints.count &#123;</div><div class="line">let dataEntry = ChartDataEntry(value: values[i], xIndex: i)</div><div class="line">dataEntries.append(dataEntry)</div><div class="line">&#125;</div><div class="line">let chartDataSet = LineChartDataSet(yVals: dataEntries, label: <span class="string">"Units Sold"</span>)</div><div class="line">let chartData = LineChartData(xVals: months, dataSet: chartDataSet)</div><div class="line"><span class="comment">// 加上一个界限, 演示图中红色的线</span></div><div class="line">let jx = ChartLimitLine(limit: <span class="number">12.0</span>, label: <span class="string">"I am LimitLine"</span>)</div><div class="line">chartView.rightAxis.addLimitLine(jx)</div><div class="line">chartView.data = chartData</div><div class="line"><span class="comment">// 自定义颜色</span></div><div class="line"><span class="comment">// colors 是一个数组, 可以给相应的颜色</span></div><div class="line">chartDataSet.colors = [<span class="built_in">UIColor</span>.redColor()]</div><div class="line">chartDataSet.colors = ChartColorTemplates.colorful()</div><div class="line">chartView.animate(yAxisDuration: <span class="number">1.0</span>, easingOption: .EaseInBounce)</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<h5 id="柱状图-BarChartView"><a href="#柱状图-BarChartView" class="headerlink" title="柱状图- BarChartView"></a>柱状图- <code>BarChartView</code></h5><figure class="highlight objectivec"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line">func createLineChartView()</div><div class="line">&#123;</div><div class="line">chartView = BarChartView.init(frame: <span class="built_in">CGRectMake</span>(<span class="number">0</span>, <span class="number">64</span>, s_w, s_h - <span class="number">64</span>))</div><div class="line">chartView.barData</div><div class="line"><span class="comment">// 签协议</span></div><div class="line">chartView.delegate = <span class="keyword">self</span></div><div class="line">chartView.backgroundColor = <span class="built_in">UIColor</span>.whiteColor()</div><div class="line"><span class="keyword">self</span>.view.addSubview(chartView)</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<figure class="highlight objectivec"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div></pre></td><td class="code"><pre><div class="line">func setChart(dataPoints: [String], values: [Double]) &#123;</div><div class="line">var dataEntries: [BarChartDataEntry] = []</div><div class="line"><span class="keyword">for</span> i <span class="keyword">in</span> <span class="number">0.</span>.&lt;dataPoints.count &#123;</div><div class="line">let dataEntry = BarChartDataEntry(value: values[i], xIndex: i)</div><div class="line">dataEntries.append(dataEntry)</div><div class="line">&#125;</div><div class="line">let chartDataSet = BarChartDataSet(yVals: dataEntries, label: <span class="string">"Units Sold"</span>)</div><div class="line">let chartData = BarChartData(xVals: months, dataSet: chartDataSet)</div><div class="line"><span class="comment">// 加上一个界限, 演示图中红色的线</span></div><div class="line">let jx = ChartLimitLine(limit: <span class="number">12.0</span>, label: <span class="string">"I am LimitLine"</span>)</div><div class="line">chartView.rightAxis.addLimitLine(jx)</div><div class="line">chartView.data = chartData</div><div class="line"><span class="comment">// 自定义颜色</span></div><div class="line"><span class="comment">// 例子中有十二个柱状图</span></div><div class="line"><span class="comment">// colors 是一个数组, 可以给相应的颜色</span></div><div class="line">chartDataSet.colors = [<span class="built_in">UIColor</span>.blueColor(), <span class="built_in">UIColor</span>.redColor(), <span class="built_in">UIColor</span>.cyanColor(), <span class="built_in">UIColor</span>.greenColor(), <span class="built_in">UIColor</span>.brownColor(), <span class="built_in">UIColor</span>.purpleColor()]</div><div class="line"><span class="comment">// API 自带颜色模板</span></div><div class="line"><span class="comment">//        chartDataSet.colors = ChartColorTemplates.liberty()</span></div><div class="line">chartView.animate(yAxisDuration: <span class="number">1.0</span>, easingOption: .EaseInBounce)</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<h5 id="K线图-CandleStickChartView"><a href="#K线图-CandleStickChartView" class="headerlink" title="K线图- CandleStickChartView"></a>K线图- <code>CandleStickChartView</code></h5><figure class="highlight objectivec"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div></pre></td><td class="code"><pre><div class="line">chartView = CandleStickChartView.init(frame: <span class="built_in">CGRectMake</span>(<span class="number">0</span>, <span class="number">64</span>, s_w, s_h - <span class="number">64</span>))</div><div class="line"><span class="comment">// 签协议</span></div><div class="line">chartView.delegate = <span class="keyword">self</span></div><div class="line">chartView.backgroundColor = <span class="built_in">UIColor</span>.whiteColor()</div><div class="line"><span class="comment">// 画板颜色</span></div><div class="line">chartView.gridBackgroundColor = <span class="built_in">UIColor</span>.clearColor()</div><div class="line"><span class="comment">//</span></div><div class="line">chartView.borderColor = <span class="built_in">UIColor</span>.whiteColor()</div><div class="line"><span class="keyword">self</span>.view.addSubview(chartView)</div><div class="line"><span class="comment">// 横轴数据</span></div><div class="line">var xValues = [String]()</div><div class="line"><span class="keyword">for</span> i <span class="keyword">in</span> <span class="number">0.</span>.<span class="number">.25</span> &#123;</div><div class="line">xValues.append(<span class="built_in">NSString</span>(format: <span class="string">"%d"</span>, i + <span class="number">1993</span>) as String)</div><div class="line">&#125;</div><div class="line"><span class="comment">// 初始化CandleChartDataEntry数组</span></div><div class="line">var yValues = [CandleChartDataEntry]()</div><div class="line"><span class="comment">// 产生20个随机立柱数据</span></div><div class="line"><span class="keyword">for</span> j <span class="keyword">in</span> <span class="number">0.</span>.<span class="number">.24</span> &#123;</div><div class="line">let val = (Double)(arc4random_uniform(<span class="number">40</span>))</div><div class="line">let high = (Double)(arc4random_uniform(<span class="number">9</span>)) + <span class="number">8.0</span></div><div class="line">let low = (Double)(arc4random_uniform(<span class="number">9</span>)) + <span class="number">8.0</span></div><div class="line">let open = (Double)(arc4random_uniform(<span class="number">6</span>)) + <span class="number">1.0</span></div><div class="line">let close = (Double)(arc4random_uniform(<span class="number">6</span>)) + <span class="number">1.0</span></div><div class="line"></div><div class="line">let even = j % <span class="number">2</span> == <span class="number">0</span></div><div class="line"></div><div class="line">yValues.append(CandleChartDataEntry.init(xIndex: j, shadowH: val + high, shadowL: val - low, open: even ? val + open : val - open, close: even ? val - close : val + close))</div><div class="line">&#125;</div><div class="line">let set1 = CandleChartDataSet.init(yVals: yValues, label: <span class="string">"data set"</span>)</div><div class="line"><span class="comment">// defult left</span></div><div class="line"><span class="comment">// set1.axisDependency</span></div><div class="line"><span class="comment">// data set color</span></div><div class="line">set1.setColor(<span class="built_in">UIColor</span>.blueColor())</div><div class="line">set1.shadowColor = <span class="built_in">UIColor</span> ( red: <span class="number">0.5536</span>, green: <span class="number">0.5528</span>, blue: <span class="number">0.0016</span>, alpha: <span class="number">1.0</span> )</div><div class="line"><span class="comment">// 立线的宽度</span></div><div class="line">set1.shadowWidth = <span class="number">0.7</span></div><div class="line"><span class="comment">// close &gt;= open</span></div><div class="line">set1.decreasingColor = <span class="built_in">UIColor</span>.redColor()</div><div class="line"><span class="comment">// 内部是否充满颜色</span></div><div class="line">set1.decreasingFilled = <span class="literal">true</span></div><div class="line"><span class="comment">// open &gt; close</span></div><div class="line">set1.increasingColor = <span class="built_in">UIColor</span> ( red: <span class="number">0.0006</span>, green: <span class="number">0.2288</span>, blue: <span class="number">0.001</span>, alpha: <span class="number">1.0</span> )</div><div class="line"><span class="comment">// 内部是否充满颜色</span></div><div class="line">set1.increasingFilled = <span class="literal">true</span></div><div class="line"><span class="comment">// 赋值数据</span></div><div class="line">let data = CandleChartData(xVals: xValues, dataSet: set1)</div><div class="line">chartView.data = data</div></pre></td></tr></table></figure>
+<h5 id="饼状图-PieChartView"><a href="#饼状图-PieChartView" class="headerlink" title="饼状图- PieChartView"></a>饼状图- <code>PieChartView</code></h5><figure class="highlight objectivec"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div></pre></td><td class="code"><pre><div class="line">pieChartView = PieChartView.init(frame: <span class="built_in">CGRectMake</span>(<span class="number">0</span>, <span class="number">0</span>, s_w, s_h))</div><div class="line">pieChartView.delegate = <span class="keyword">self</span>;</div><div class="line"><span class="comment">// 可以调整大小, 位置</span></div><div class="line"><span class="comment">//        pieChartView.setExtraOffsets(left: 20.0, top: 0.0, right: 20.0, bottom: 0.0)</span></div><div class="line"><span class="keyword">self</span>.view.addSubview(pieChartView)</div><div class="line">var yValues = [BarChartDataEntry]()</div><div class="line"><span class="comment">// 最好从0 开始. 否则第一个将失去点击效果, 并出现bug...</span></div><div class="line"><span class="keyword">for</span> i <span class="keyword">in</span> <span class="number">0.</span>.<span class="number">.5</span> &#123;</div><div class="line"><span class="comment">// 占比数据</span></div><div class="line">yValues.append(BarChartDataEntry.init(value: (Double)(arc4random_uniform(<span class="number">5</span>)) + <span class="number">2.0</span>, xIndex: i))</div><div class="line"></div><div class="line">&#125;</div><div class="line">var xValues = [String]()</div><div class="line"><span class="keyword">for</span> j <span class="keyword">in</span> <span class="number">0.</span>.<span class="number">.5</span> &#123;</div><div class="line"><span class="comment">// 描述文字</span></div><div class="line">xValues.append(<span class="built_in">NSString</span>(format: <span class="string">"%d\\\\("</span>夏天然后<span class="string">")"</span>, j + <span class="number">5</span>) as String)</div><div class="line">&#125;</div><div class="line"><span class="comment">//</span></div><div class="line">let dataSet: PieChartDataSet = PieChartDataSet.init(yVals: yValues, label: <span class="string">"data Set"</span>);</div><div class="line"><span class="comment">// 空隙</span></div><div class="line">dataSet.sliceSpace = <span class="number">5.0</span></div><div class="line">var colors = [<span class="built_in">UIColor</span>]()</div><div class="line">colors.append(<span class="built_in">UIColor</span> ( red: <span class="number">0.8185</span>, green: <span class="number">0.8172</span>, blue: <span class="number">0.0023</span>, alpha: <span class="number">1.0</span> ))</div><div class="line">colors.append(<span class="built_in">UIColor</span> ( red: <span class="number">0.0</span>, green: <span class="number">0.81</span>, blue: <span class="number">0.81</span>, alpha: <span class="number">1.0</span> ))</div><div class="line">colors.append(<span class="built_in">UIColor</span>.greenColor())</div><div class="line">colors.append(<span class="built_in">UIColor</span>.grayColor())</div><div class="line">colors.append(<span class="built_in">UIColor</span>.purpleColor())</div><div class="line">colors.append(<span class="built_in">UIColor</span>.blueColor())</div><div class="line">dataSet.colors = colors</div><div class="line"><span class="comment">// 如果你需要指示文字在外部标注百分比, 你需要这样.</span></div><div class="line">dataSet.valueLinePart1OffsetPercentage = <span class="number">0.8</span>;</div><div class="line">dataSet.valueLinePart1Length = <span class="number">0.2</span>;</div><div class="line">dataSet.valueLinePart2Length = <span class="number">0.4</span>;</div><div class="line">dataSet.yValuePosition = .OutsideSlice</div><div class="line">let data = PieChartData(xVals: xValues, dataSet: dataSet)</div><div class="line">let formatter = <span class="built_in">NSNumberFormatter</span>.init()</div><div class="line">formatter.maximumFractionDigits = <span class="number">1</span></div><div class="line">formatter.numberStyle = <span class="built_in">NSNumberFormatterStyle</span>.PercentStyle</div><div class="line">formatter.multiplier = <span class="number">1.0</span></div><div class="line">formatter.percentSymbol = <span class="string">" %"</span></div><div class="line">data.setValueFormatter(formatter)</div><div class="line">data.setValueTextColor(<span class="built_in">UIColor</span>.blackColor())</div><div class="line">pieChartView.data = data</div></pre></td></tr></table></figure>
+<h5 id="雷达图-RadarChartView"><a href="#雷达图-RadarChartView" class="headerlink" title="雷达图- RadarChartView"></a>雷达图- <code>RadarChartView</code></h5><figure class="highlight objectivec"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div></pre></td><td class="code"><pre><div class="line">radarBarChartView = RadarChartView.init(frame: <span class="built_in">CGRectMake</span>(<span class="number">0</span>, <span class="number">0</span>, s_w, s_h))</div><div class="line"><span class="comment">// 描述文字</span></div><div class="line">radarBarChartView.descriptionText = <span class="string">"I am destext"</span></div><div class="line"><span class="comment">// 指向定点线的宽度</span></div><div class="line">radarBarChartView.webLineWidth = <span class="number">2.0</span></div><div class="line">radarBarChartView.innerWebColor = <span class="built_in">UIColor</span>.blackColor()</div><div class="line">radarBarChartView.innerWebLineWidth = <span class="number">0.75</span></div><div class="line">radarBarChartView.webAlpha = <span class="number">1.0</span></div><div class="line"><span class="keyword">self</span>.view.backgroundColor = <span class="built_in">UIColor</span>.whiteColor()</div><div class="line"><span class="keyword">self</span>.view.addSubview(radarBarChartView)</div><div class="line"></div><div class="line"></div><div class="line">var yValues1 = [ChartDataEntry]()</div><div class="line">var yValues2 = [ChartDataEntry]()</div><div class="line">var xValues = [String]()</div><div class="line"><span class="keyword">for</span> i <span class="keyword">in</span> <span class="number">0.</span>.<span class="number">.8</span> &#123;</div><div class="line"><span class="comment">//</span></div><div class="line">yValues1.append(ChartDataEntry(value: (Double)(arc4random_uniform(<span class="number">5</span>)), xIndex: i))</div><div class="line">yValues2.append(ChartDataEntry(value: (Double)(arc4random_uniform(<span class="number">5</span>)), xIndex: i))</div><div class="line"><span class="comment">//</span></div><div class="line">xValues.append(<span class="built_in">NSString</span>(format: <span class="string">"%d\\\\("</span>夏天然后<span class="string">")"</span>, i + <span class="number">5</span>) as String)</div><div class="line">&#125;</div><div class="line">let dataSet = RadarChartDataSet.init(yVals: yValues1, label: <span class="string">"data Set"</span>)</div><div class="line">dataSet.drawFilledEnabled = <span class="literal">true</span></div><div class="line">dataSet.setColor(<span class="built_in">UIColor</span> ( red: <span class="number">0.7913</span>, green: <span class="number">0.9949</span>, blue: <span class="number">0.4941</span>, alpha: <span class="number">1.0</span> ))</div><div class="line">dataSet.fillColor = <span class="built_in">UIColor</span> ( red: <span class="number">0.7913</span>, green: <span class="number">0.9949</span>, blue: <span class="number">0.4941</span>, alpha: <span class="number">1.0</span> )</div><div class="line">dataSet.lineWidth = <span class="number">1.0</span></div><div class="line"></div><div class="line">let dataSet1 = RadarChartDataSet.init(yVals: yValues2, label: <span class="string">"data Set2"</span>)</div><div class="line">dataSet1.drawFilledEnabled = <span class="literal">true</span></div><div class="line">dataSet1.setColor(<span class="built_in">UIColor</span> ( red: <span class="number">0.4702</span>, green: <span class="number">1.0</span>, blue: <span class="number">0.9962</span>, alpha: <span class="number">1.0</span> ))</div><div class="line">dataSet1.fillColor = <span class="built_in">UIColor</span> ( red: <span class="number">0.4702</span>, green: <span class="number">1.0</span>, blue: <span class="number">0.9962</span>, alpha: <span class="number">1.0</span> )</div><div class="line">dataSet1.lineWidth = <span class="number">1.5</span></div><div class="line"></div><div class="line">let data = RadarChartData.init(xVals: xValues, dataSets: [dataSet, dataSet1])</div><div class="line">radarBarChartView.data = data</div></pre></td></tr></table></figure>
+<h5 id="相对图表进行操作-例如点击-请使用ChartViewDelegate"><a href="#相对图表进行操作-例如点击-请使用ChartViewDelegate" class="headerlink" title="相对图表进行操作, 例如点击 请使用ChartViewDelegate"></a>相对图表进行操作, 例如点击 请使用<code>ChartViewDelegate</code></h5><figure class="highlight objectivec"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">optional public func chartValueSelected(chartView: Charts.ChartViewBase, entry: Charts.ChartDataEntry, dataSetIndex: Int, highlight: Charts.ChartHighlight)</div><div class="line">optional public func chartValueNothingSelected(chartView: Charts.ChartViewBase)</div><div class="line">optional public func chartScaled(chartView: Charts.ChartViewBase, scaleX: <span class="built_in">CGFloat</span>, scaleY: <span class="built_in">CGFloat</span>)</div><div class="line">optional public func chartTranslated(chartView: Charts.ChartViewBase, dX: <span class="built_in">CGFloat</span>, dY: <span class="built_in">CGFloat</span>)</div></pre></td></tr></table></figure>
+<hr>
+<p>毕竟是将近10000Star的库, 介绍的有限, 如果你还感兴趣, 请仔细阅读API吧.</p>
+<hr>
+<p><a href="http://www.jianshu.com/p/b8b0e085b074" target="_blank" rel="external">iOS 实现第三方登录(图文)</a><br><a href="http://www.jianshu.com/p/0bc2127692e5" target="_blank" rel="external">iOS 走进Facebook POP的世界 – 简书</a><br><a href="http://www.jianshu.com/p/23b0fa948bcf" target="_blank" rel="external">Swift版本仿网易云音乐播放音乐动画效果– 简书</a><br><a href="http://www.jianshu.com/p/1dab64e7c9ba" target="_blank" rel="external">三分钟教你把代码托管到Github – 简书</a><br><a href="http://www.jianshu.com/p/0e025931a49a" target="_blank" rel="external">Swift 很强大的图表库-Charts使用 – 简书</a><br><a href="http://www.jianshu.com/p/01a420681ca9" target="_blank" rel="external">Swift版仿简书App淘宝App很友好弹出view效果 – 简书</a><br><a href="http://www.jianshu.com/p/31d07bf32d62" target="_blank" rel="external">iOS UICollectionView高级用法“长按自由移动cell重排 – 简书</a><br><a href="http://www.jianshu.com/p/260ca284fda0" target="_blank" rel="external">iOS仿微信App添加带箭头的view – 简书</a><br><a href="http://www.jianshu.com/p/d0ae176bc40b" target="_blank" rel="external">iOS仿美团外卖饿了吗App点餐动画 – 简书</a><br><a href="http://www.jianshu.com/p/4a1978845eac" target="_blank" rel="external">你要的Swift资料 – 简书</a></p>
+<p>微博@夏天是个大人了欢迎你关注我你还可以加入我创建技术交流群: 498143780 与我交流. 欢迎你加入</p>
+<div align="center"><br>微信公众号 得到最快最新的推送<br></div>
+
+<div align="center"><br><img src="http://ww1.sinaimg.cn/large/0060lm7Tgw1f9656jhucpj307607674r.jpg" alt=""><br></div>
+
+      
+    </div>
+
+  </div>
+
+  <div class="article-footer">
+    <div class="article-meta pull-left">
+
+    
+
+    
+    
+
+    <span class="post-tags">
+      <i class="icon-tags"></i>
+        <a href="/tags/Charts/">Charts</a>
+    </span>
+    
+
+    </div>
+
+    
+  </div>
+</article>
+
+
+    </main>
+
+    <footer class="site-footer">
+  <p class="site-info">
+    Proudly powered by <a href="https://hexo.io/" target="_blank">Hexo</a> and
+    Theme by <a href="https://github.com/CodeDaraW/Hacker" target="_blank">Hacker</a>
+    </br>
+    
+    &copy; 2017 夏天然后
+    
+  </p>
+</footer>
+    
+  </div>
+</div>
+</body>
+</html>

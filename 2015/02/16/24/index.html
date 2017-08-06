@@ -1,0 +1,156 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  <title>Swift 学习点滴 二 | 夏天然后</title>
+
+  
+  <meta name="author" content="夏天然后">
+  
+
+  
+  <meta name="description" content="前言: 作为学习Swift的一个记录, 记录点滴成长.">
+  
+
+  
+  
+  <meta name="keywords" content="Swift">
+  
+
+  <meta id="viewport" name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, minimum-scale=1, user-scalable=no, minimal-ui">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black">
+
+  <meta property="og:title" content="Swift 学习点滴 二"/>
+
+  <meta property="og:site_name" content="夏天然后"/>
+
+  
+  <meta property="og:image" content="/favicon.ico"/>
+  
+
+  <link href="/favicon.ico" rel="icon">
+  <link rel="alternate" href="/atom.xml" title="夏天然后" type="application/atom+xml">
+  <link rel="stylesheet" href="/css/style.css" media="screen" type="text/css">
+</head>
+
+
+<body>
+<div class="blog">
+  <div class="content">
+
+    <header>
+  <div class="site-branding">
+    <h1 class="site-title">
+      <a href="/">夏天然后</a>
+    </h1>
+    <p class="site-description"></p>
+  </div>
+  <nav class="site-navigation">
+    <ul>
+      
+        <li><a href="/">Home</a></li>
+      
+        <li><a href="/archives">Archives</a></li>
+      
+        <li><a href="/tags">about</a></li>
+      
+    </ul>
+  </nav>
+</header>
+
+    <main class="site-main posts-loop">
+    <article>
+
+  
+    
+    <h3 class="article-title"><span>Swift 学习点滴 二</span></h3>
+    
+  
+
+  <div class="article-top-meta">
+    <span class="posted-on">
+      <a href="/2015/02/16/24/" rel="bookmark">
+        <time class="entry-date published" datetime="2015-02-16T05:30:47.000Z">
+          2015-02-16
+        </time>
+      </a>
+    </span>
+  </div>
+
+
+  
+
+  <div class="article-content">
+    <div class="entry">
+      
+        <p>前言: 作为学习Swift的一个记录, 记录点滴成长.<br><a id="more"></a></p>
+<h1 id="Swift-条件选择-if-Switch-循环结构"><a href="#Swift-条件选择-if-Switch-循环结构" class="headerlink" title="Swift 条件选择(if Switch),循环结构"></a>Swift 条件选择(if Switch),循环结构</h1><h2 id="switch"><a href="#switch" class="headerlink" title="switch"></a>switch</h2><figure class="highlight objectivec"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line">var i = <span class="number">0</span></div><div class="line"><span class="keyword">switch</span> i &#123;</div><div class="line"><span class="keyword">case</span> <span class="number">0</span>:</div><div class="line">print(<span class="string">"0"</span>)</div><div class="line"><span class="keyword">case</span> <span class="number">1</span>:</div><div class="line">print(<span class="string">"1"</span>)</div><div class="line"><span class="keyword">default</span>:</div><div class="line">print(<span class="string">"default"</span>)</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<h2 id="不用加上break-Swift的Switch语句会自动在case结尾处加上break-但是在某些情况下，我们可能会希望Switch能同时执行两条case如下"><a href="#不用加上break-Swift的Switch语句会自动在case结尾处加上break-但是在某些情况下，我们可能会希望Switch能同时执行两条case如下" class="headerlink" title="不用加上break, Swift的Switch语句会自动在case结尾处加上break, 但是在某些情况下，我们可能会希望Switch能同时执行两条case如下:"></a>不用加上break, Swift的Switch语句会自动在case结尾处加上break, 但是在某些情况下，我们可能会希望Switch能同时执行两条case如下:</h2><figure class="highlight objectivec"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div></pre></td><td class="code"><pre><div class="line">var j = <span class="number">3</span></div><div class="line"><span class="keyword">switch</span> j &#123;</div><div class="line"><span class="keyword">case</span> <span class="number">0</span>,<span class="number">3</span>: <span class="comment">// 在case后的多个条件中，用逗号隔开即可</span></div><div class="line">print(<span class="string">"0, 3"</span>)</div><div class="line">fallthrough <span class="comment">//使用新的关键字fallthrough能使Switch在执行完一个case之后，紧接着执行下一条case。</span></div><div class="line"><span class="keyword">case</span> <span class="number">1</span>:</div><div class="line">print(<span class="string">"1"</span>)</div><div class="line"><span class="keyword">default</span>:</div><div class="line">print(<span class="string">"default"</span>)</div><div class="line">&#125;</div><div class="line"><span class="comment">// 结果</span></div><div class="line"><span class="comment">// 0, 3</span></div><div class="line"><span class="comment">// 1</span></div><div class="line"><span class="comment">// 当你不想在default中执行任何操作的时候, 可以在default中手动加上break</span></div></pre></td></tr></table></figure>
+<h2 id="支持多种数据类型-浮点-布尔-字符串-支持区间运算符例子如下"><a href="#支持多种数据类型-浮点-布尔-字符串-支持区间运算符例子如下" class="headerlink" title="支持多种数据类型:浮点, 布尔, 字符串,支持区间运算符例子如下"></a>支持多种数据类型:浮点, 布尔, 字符串,支持区间运算符例子如下</h2><figure class="highlight objectivec"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line">var k = <span class="number">15</span></div><div class="line"><span class="keyword">switch</span> i &#123;</div><div class="line"><span class="keyword">case</span> <span class="number">0</span> ... <span class="number">10</span>:</div><div class="line"><span class="keyword">break</span></div><div class="line"><span class="keyword">case</span> <span class="number">11</span> ... <span class="number">20</span>:</div><div class="line"><span class="keyword">break</span></div><div class="line"><span class="keyword">default</span>:</div><div class="line"><span class="keyword">break</span></div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<h2 id="支持元组"><a href="#支持元组" class="headerlink" title="支持元组"></a>支持元组</h2><figure class="highlight objectivec"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div></pre></td><td class="code"><pre><div class="line">let request = (<span class="literal">true</span>,<span class="string">"success"</span>)</div><div class="line"><span class="keyword">switch</span> request &#123;</div><div class="line"><span class="keyword">case</span> (<span class="literal">true</span>, <span class="string">"success"</span>):</div><div class="line">print(<span class="string">"success"</span>)</div><div class="line"><span class="keyword">break</span></div><div class="line"><span class="comment">//</span></div><div class="line"><span class="keyword">case</span> (<span class="literal">false</span>, <span class="string">"failed"</span>):</div><div class="line">print(<span class="string">"failed"</span>)</div><div class="line"><span class="keyword">break</span></div><div class="line"><span class="comment">//</span></div><div class="line"><span class="keyword">default</span>: <span class="keyword">break</span></div><div class="line"><span class="comment">//</span></div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<h2 id="支持额外的逻辑判断"><a href="#支持额外的逻辑判断" class="headerlink" title="支持额外的逻辑判断"></a>支持额外的逻辑判断</h2><figure class="highlight objectivec"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div></pre></td><td class="code"><pre><div class="line">let request1 = (<span class="number">0</span>,<span class="string">"success"</span>)</div><div class="line"><span class="keyword">switch</span> request1 &#123;</div><div class="line"><span class="keyword">case</span> (<span class="number">0</span>, let state) where state != <span class="string">"success"</span>:</div><div class="line">state</div><div class="line"><span class="keyword">case</span> (let errorCode, _):</div><div class="line"><span class="string">"error code is \(errorCode)"</span><span class="comment">//被输出:"error code is 0"</span></div><div class="line">&#125;</div><div class="line"></div><div class="line">var string:String = <span class="string">"Hello"</span></div><div class="line"><span class="keyword">if</span> string == <span class="string">"Hello"</span>&#123;</div><div class="line">print(<span class="string">"YES"</span>)</div><div class="line">&#125;<span class="keyword">else</span>&#123;</div><div class="line">print(<span class="string">"NO"</span>)</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<h2 id="循环for"><a href="#循环for" class="headerlink" title="循环for"></a>循环for</h2><figure class="highlight objectivec"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line"><span class="comment">// for in</span></div><div class="line"><span class="keyword">for</span> var i <span class="keyword">in</span> <span class="number">1.</span>.<span class="number">.5</span>&#123;</div><div class="line">print(i)</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<figure class="highlight objectivec"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line"><span class="comment">// while</span></div><div class="line">var ii = <span class="number">0</span></div><div class="line"><span class="keyword">while</span> ii &lt; <span class="number">11</span></div><div class="line">&#123;</div><div class="line"><span class="comment">//  执行10次</span></div><div class="line">print(<span class="string">"while"</span>)</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<figure class="highlight objectivec"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line"><span class="comment">// repeat-while::do-while</span></div><div class="line">var jj = <span class="number">0</span></div><div class="line">repeat&#123;</div><div class="line"><span class="comment">//</span></div><div class="line">&#125;<span class="keyword">while</span> i &lt; <span class="number">11</span></div></pre></td></tr></table></figure>
+<h1 id="Swift-函数的基本写法与使用元组实现返回多个值"><a href="#Swift-函数的基本写法与使用元组实现返回多个值" class="headerlink" title="Swift 函数的基本写法与使用元组实现返回多个值"></a>Swift 函数的基本写法与使用元组实现返回多个值</h1><h2 id="无参数无返回值"><a href="#无参数无返回值" class="headerlink" title="无参数无返回值"></a>无参数无返回值</h2><figure class="highlight objectivec"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">let studentScores = [<span class="number">12</span>, <span class="number">55</span>, <span class="number">65</span>, <span class="number">38</span>, <span class="number">99</span>, <span class="number">88</span>, <span class="number">0</span>]</div></pre></td></tr></table></figure>
+<figure class="highlight objectivec"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">func studySwift() -&gt;Void</div><div class="line">&#123;</div><div class="line">print(<span class="string">"无参无返回值"</span>)</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<h2 id="无参数有返回值"><a href="#无参数有返回值" class="headerlink" title="无参数有返回值"></a>无参数有返回值</h2><figure class="highlight objectivec"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">func studySwift1() -&gt;String</div><div class="line">&#123;</div><div class="line">let name:String = <span class="string">"无参数有返回值"</span></div><div class="line"><span class="keyword">return</span> name</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<h2 id="有参数无返回值"><a href="#有参数无返回值" class="headerlink" title="有参数无返回值"></a>有参数无返回值</h2><figure class="highlight objectivec"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">func sayHi (name:String) -&gt;Void</div><div class="line">&#123;</div><div class="line">print(<span class="string">"Hi, \(name)"</span>)</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<h2 id="有参数有返回值"><a href="#有参数有返回值" class="headerlink" title="有参数有返回值"></a>有参数有返回值</h2><figure class="highlight objectivec"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">func sayHello (name:String)-&gt;String</div><div class="line">&#123;</div><div class="line">let result = <span class="string">"Hello,"</span> + name</div><div class="line"><span class="keyword">return</span> result</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<h2 id="使用元组返回多个值"><a href="#使用元组返回多个值" class="headerlink" title="使用元组返回多个值"></a>使用元组返回多个值</h2><figure class="highlight objectivec"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div></pre></td><td class="code"><pre><div class="line">func maxminScores ( scores:[Int] ) -&gt; (maxscore:Int, minscore:Int)</div><div class="line">&#123;</div><div class="line">var curmax = scores[<span class="number">0</span>], curmin = scores[<span class="number">0</span>]</div><div class="line"><span class="keyword">for</span> score <span class="keyword">in</span> scores[<span class="number">1.</span>.&lt;scores.count]</div><div class="line">&#123;</div><div class="line">curmax = max(curmax, score)</div><div class="line">curmin = min(curmin, score)</div><div class="line">&#125;</div><div class="line"><span class="keyword">return</span> (curmax, curmin)</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<h2 id="调用"><a href="#调用" class="headerlink" title="调用"></a>调用</h2><figure class="highlight objectivec"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div></pre></td><td class="code"><pre><div class="line">override func viewDidLoad() &#123;</div><div class="line"><span class="keyword">super</span>.viewDidLoad()</div><div class="line"><span class="comment">// Do any additional setup after loading the view, typically from a nib.</span></div><div class="line"></div><div class="line"><span class="comment">// "!"表示这个可选变量存在，可以使用，如果用"!"访问不存在的可选变量会导致一些错误</span></div><div class="line"></div><div class="line"><span class="comment">// "?"表示这个变量可能不存在，如果不存在，"?"所在语句后面的内容都不会执行</span></div><div class="line"></div><div class="line"><span class="comment">// !是一个强制拆包,告诉编译器我绝对肯定代码能够执行, 如: strValue!.hashValue ,如果不能执行则报错。</span></div><div class="line"><span class="comment">// ?是表示一个不确定,strValue?.hashValue 就等于OC的if(strValue)&#123;  [strValue hashValue]; &#125; 有就执行,有没后面代码就不执行。 不会报错。</span></div><div class="line">关于 ? ! 的解释转自:        [http:<span class="comment">//blog.csdn.net/wmqi10/article/details/37562071](http://blog.csdn.net/wmqi10/article/details/37562071)</span></div><div class="line"></div><div class="line"></div><div class="line">let name:String = <span class="string">"zjw"</span></div><div class="line">print(sayHello(name))</div><div class="line">sayHi(name)</div><div class="line">studySwift()</div><div class="line">print(studySwift1())</div><div class="line">let result = maxminScores(studentScores)</div><div class="line">print(<span class="string">"max:\(result.maxscore), min:\(result.minscore)"</span>)</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<h1 id="Swift-实例方法-amp-类型方法"><a href="#Swift-实例方法-amp-类型方法" class="headerlink" title="Swift 实例方法&amp;类型方法"></a>Swift 实例方法&amp;类型方法</h1><figure class="highlight objectivec"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div></pre></td><td class="code"><pre><div class="line">override func viewDidLoad() &#123;</div><div class="line"><span class="keyword">super</span>.viewDidLoad()</div><div class="line"><span class="comment">// Do any additional setup after loading the view, typically from a nib.</span></div><div class="line"></div><div class="line">let counter = Counter()</div><div class="line">counter.reset()</div><div class="line">print(counter.count) <span class="comment">// 0</span></div><div class="line">counter.incrementBy(<span class="number">5</span>)</div><div class="line">print(counter.count) <span class="comment">// 5</span></div><div class="line">counter.increment()</div><div class="line">print(counter.count) <span class="comment">//</span></div><div class="line"></div><div class="line">let counter1 = Counter1()</div><div class="line">counter1.incrementBy(<span class="number">5</span>, numberOfTimes: <span class="number">10</span>)</div><div class="line">print(counter1.count) <span class="comment">// 50</span></div><div class="line"></div><div class="line">let point = Point()</div><div class="line">print(point.isToRightOfX(<span class="number">1</span>)) <span class="comment">// </span></div><div class="line">print(point.x)</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<figure class="highlight objectivec"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div></pre></td><td class="code"><pre><div class="line"><span class="comment">// 'Counter'类定义了三个個实例方法</span></div><div class="line"><span class="keyword">class</span> Counter &#123;</div><div class="line">var count = <span class="number">0</span></div><div class="line">func incrementBy(amount: Int)&#123;</div><div class="line">count += amount <span class="comment">// count + amount</span></div><div class="line">&#125;</div><div class="line">func reset()&#123;</div><div class="line">count = <span class="number">0</span> <span class="comment">// 重置 count = 0</span></div><div class="line">&#125;</div><div class="line">func increment()&#123;</div><div class="line"><span class="keyword">self</span>.count++</div><div class="line">&#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<figure class="highlight objectivec"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line"><span class="comment">// 稍微复杂一点的</span></div><div class="line"><span class="keyword">class</span> Counter1 &#123;</div><div class="line">var count: Int = <span class="number">0</span></div><div class="line">func incrementBy(amount: Int, numberOfTimes: Int)&#123;</div><div class="line">count += amount * numberOfTimes</div><div class="line">&#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<figure class="highlight objectivec"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line"><span class="comment">// 下面的例子中，`self`消除方法参数`x`和实例属性`x`之间的歧义</span></div><div class="line"><span class="keyword">struct</span> Point &#123;</div><div class="line">var x = <span class="number">0.0</span>, y = <span class="number">0.0</span></div><div class="line">func isToRightOfX(x:  Double) -&gt; Bool&#123;</div><div class="line">print(x)           <span class="comment">// 1.0</span></div><div class="line"><span class="keyword">return</span> <span class="keyword">self</span>.x &gt;= x <span class="comment">// self.x = 0 x = 上边赋值1</span></div><div class="line">&#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>/// 第一：struct没有继承的功能，而class是可以继承的，这是面向对象语言的核心能力，class当然会有这个能力。</p>
+<p>/// 第二: 体现在内存使用上，struct是通过值传递，而class是通过引用传递的，举个简单的例子window对象一定会选择设计成class的实例，而不应该是struct的，通常我们一定不想在设备中拷贝出多个window对象来，对么？<br>解释来自:<br><a href="http://blog.objcc.com/swift-struct-class/" target="_blank" rel="external">http://blog.objcc.com/swift-struct-class/</a></p>
+<div align="center"><br>微信公众号 得到最快最新的推送<br></div>
+
+<div align="center"><br><img src="http://ww1.sinaimg.cn/large/0060lm7Tgw1f9656jhucpj307607674r.jpg" alt=""><br></div>
+
+      
+    </div>
+
+  </div>
+
+  <div class="article-footer">
+    <div class="article-meta pull-left">
+
+    
+
+    
+    
+
+    <span class="post-tags">
+      <i class="icon-tags"></i>
+        <a href="/tags/Swift/">Swift</a>
+    </span>
+    
+
+    </div>
+
+    
+  </div>
+</article>
+
+
+    </main>
+
+    <footer class="site-footer">
+  <p class="site-info">
+    Proudly powered by <a href="https://hexo.io/" target="_blank">Hexo</a> and
+    Theme by <a href="https://github.com/CodeDaraW/Hacker" target="_blank">Hacker</a>
+    </br>
+    
+    &copy; 2017 夏天然后
+    
+  </p>
+</footer>
+    
+  </div>
+</div>
+</body>
+</html>

@@ -1,0 +1,162 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  <title>Swift 学习点滴 一 | 夏天然后</title>
+
+  
+  <meta name="author" content="夏天然后">
+  
+
+  
+  <meta name="description" content="前言: 作为学习Swift的一个记录, 记录点滴成长.">
+  
+
+  
+  
+  <meta name="keywords" content="Swift">
+  
+
+  <meta id="viewport" name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, minimum-scale=1, user-scalable=no, minimal-ui">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black">
+
+  <meta property="og:title" content="Swift 学习点滴 一"/>
+
+  <meta property="og:site_name" content="夏天然后"/>
+
+  
+  <meta property="og:image" content="/favicon.ico"/>
+  
+
+  <link href="/favicon.ico" rel="icon">
+  <link rel="alternate" href="/atom.xml" title="夏天然后" type="application/atom+xml">
+  <link rel="stylesheet" href="/css/style.css" media="screen" type="text/css">
+</head>
+
+
+<body>
+<div class="blog">
+  <div class="content">
+
+    <header>
+  <div class="site-branding">
+    <h1 class="site-title">
+      <a href="/">夏天然后</a>
+    </h1>
+    <p class="site-description"></p>
+  </div>
+  <nav class="site-navigation">
+    <ul>
+      
+        <li><a href="/">Home</a></li>
+      
+        <li><a href="/archives">Archives</a></li>
+      
+        <li><a href="/tags">about</a></li>
+      
+    </ul>
+  </nav>
+</header>
+
+    <main class="site-main posts-loop">
+    <article>
+
+  
+    
+    <h3 class="article-title"><span>Swift 学习点滴 一</span></h3>
+    
+  
+
+  <div class="article-top-meta">
+    <span class="posted-on">
+      <a href="/2015/02/12/23/" rel="bookmark">
+        <time class="entry-date published" datetime="2015-02-12T05:19:02.000Z">
+          2015-02-12
+        </time>
+      </a>
+    </span>
+  </div>
+
+
+  
+
+  <div class="article-content">
+    <div class="entry">
+      
+        <p>前言: 作为学习Swift的一个记录, 记录点滴成长.<br><a id="more"></a></p>
+<h1 id="Swift-基本数据类型-常-变量声明"><a href="#Swift-基本数据类型-常-变量声明" class="headerlink" title="Swift 基本数据类型,常/变量声明"></a>Swift 基本数据类型,常/变量声明</h1><h2 id="变量-使用var声明"><a href="#变量-使用var声明" class="headerlink" title="变量 使用var声明"></a>变量 使用var声明</h2><figure class="highlight objectivec"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">var str:String = <span class="string">"dd"</span></div><div class="line">str = <span class="string">"GG"</span></div><div class="line">print(str)</div></pre></td></tr></table></figure>
+<h2 id="常量-使用let声明"><a href="#常量-使用let声明" class="headerlink" title="常量 使用let声明"></a>常量 使用let声明</h2><figure class="highlight objectivec"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">let count:Int = <span class="number">16</span></div><div class="line">print(count)</div></pre></td></tr></table></figure>
+<h2 id="整型"><a href="#整型" class="headerlink" title="整型"></a>整型</h2><figure class="highlight objectivec"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">Int, Int8, Int16, Int32, Int64</div><div class="line"><span class="built_in">UInt</span>, <span class="built_in">UInt8</span>, <span class="built_in">UInt16</span>, <span class="built_in">UInt32</span>, <span class="built_in">UInt64</span></div></pre></td></tr></table></figure>
+<h2 id="浮点型-布尔型"><a href="#浮点型-布尔型" class="headerlink" title="浮点型 ,布尔型"></a>浮点型 ,布尔型</h2><figure class="highlight objectivec"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">Float, Double, Bool</div></pre></td></tr></table></figure>
+<h2 id="获取字符串的数量-str-GG"><a href="#获取字符串的数量-str-GG" class="headerlink" title="获取字符串的数量 // str = GG"></a>获取字符串的数量 // str = GG</h2><figure class="highlight objectivec"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">print(str.characters.count) <span class="comment">// 2</span></div></pre></td></tr></table></figure>
+<h2 id="检查字符串是否有特定的前缀和后缀-pre-suf"><a href="#检查字符串是否有特定的前缀和后缀-pre-suf" class="headerlink" title="检查字符串是否有特定的前缀和后缀 pre/suf"></a>检查字符串是否有特定的前缀和后缀 pre/suf</h2><figure class="highlight objectivec"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">let sttPre = <span class="string">"hello.com"</span></div><div class="line"><span class="keyword">if</span> sttPre.hasSuffix(<span class="string">".com33"</span>)&#123;</div><div class="line">print(<span class="string">"YES"</span>)</div><div class="line">&#125;<span class="keyword">else</span>&#123;</div><div class="line">print(<span class="string">"NO"</span>)</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<h2 id="还可以”-”"><a href="#还可以”-”" class="headerlink" title="还可以”()”"></a>还可以”()”</h2><figure class="highlight objectivec"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">let name1 = <span class="string">"helloworld"</span></div><div class="line">let msg = <span class="string">"Welcome to \(name1)"</span></div><div class="line">print(msg) <span class="comment">// Welcome to helloworld</span></div></pre></td></tr></table></figure>
+<h2 id="大小写转换"><a href="#大小写转换" class="headerlink" title="大小写转换"></a>大小写转换</h2><figure class="highlight objectivec"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">通过字符串的uppercaseString、lowercaseString、capitalizedString</div><div class="line">属性来访问一个字符串的大写/小写/首字母大写</div></pre></td></tr></table></figure>
+<h2 id="字符"><a href="#字符" class="headerlink" title="字符"></a>字符</h2><figure class="highlight objectivec"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">var <span class="keyword">char</span>:Character = <span class="string">"$"</span></div><div class="line">print(<span class="keyword">char</span>)</div></pre></td></tr></table></figure>
+<h2 id="元组"><a href="#元组" class="headerlink" title="元组"></a>元组</h2><figure class="highlight objectivec"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">let myCode = (one:<span class="string">"ZJwang"</span>, two:<span class="number">123</span>)</div><div class="line">print(<span class="string">"\(myCode.one)"</span>)</div></pre></td></tr></table></figure>
+<p>Swift 数组,字典,集合-Array,Set,Dictionary</p>
+<p>Swift 语言提供<code>Arrays</code>、<code>Sets</code>和<code>Dictionaries</code>三种基本的集合类型用来存储集合数据。数组（Arrays）是有序数据的集。集合（Sets）是无序无重复数据的集。字典（Dictionaries）是无序的键值对的集<br><img src="http://img.blog.csdn.net/20160317152254506" alt="这里写图片描述"></p>
+<h2 id="可变数组"><a href="#可变数组" class="headerlink" title="可变数组"></a>可变数组</h2><figure class="highlight objectivec"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">var someInts = [Int]() <span class="comment">// 空数组</span></div><div class="line">var genders1:[String] = [<span class="string">"boy"</span>, <span class="string">"girl"</span>];<span class="comment">// 字符数组</span></div><div class="line">var numbers = [<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>, <span class="number">4</span>, <span class="number">5</span>] <span class="comment">// 整型数组</span></div></pre></td></tr></table></figure>
+<h2 id="不可变数组"><a href="#不可变数组" class="headerlink" title="不可变数组"></a>不可变数组</h2><figure class="highlight objectivec"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">let genders = [<span class="string">"male"</span>, <span class="string">"female"</span>]</div></pre></td></tr></table></figure>
+<h2 id="数组元素的个数和访问数组元素"><a href="#数组元素的个数和访问数组元素" class="headerlink" title="数组元素的个数和访问数组元素"></a>数组元素的个数和访问数组元素</h2><figure class="highlight objectivec"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">print(<span class="string">"numbers 数组的长度: \(numbers.count) 数组的第一个值:\(numbers[0])"</span>)</div></pre></td></tr></table></figure>
+<h2 id="追加数组元素"><a href="#追加数组元素" class="headerlink" title="追加数组元素"></a>追加数组元素</h2><figure class="highlight objectivec"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">numbers.append(<span class="number">6</span>)</div><div class="line">print(<span class="string">"numbers 数组的长度: \(numbers.count) 数组的第一个值:\(numbers[5])"</span>)<span class="comment">// 6 6</span></div><div class="line"><span class="comment">// 使用加法赋值运算符(+=) 也可以在数组后面添加数组</span></div><div class="line">genders1+=[<span class="string">"ios"</span>]</div><div class="line">print(<span class="string">"numbers 数组:\(genders1)"</span>) <span class="comment">// 运行结果 : numbers 数组:["boy", "girl", "ios"]</span></div></pre></td></tr></table></figure>
+<h2 id="在某个位置插入元素-Swift-点语法"><a href="#在某个位置插入元素-Swift-点语法" class="headerlink" title="在某个位置插入元素, Swift 点语法"></a>在某个位置插入元素, Swift 点语法</h2><figure class="highlight objectivec"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">genders1.insert(<span class="string">"Objective-C"</span>, atIndex: <span class="number">2</span>)</div><div class="line">print(<span class="string">"numbers 数组:\(genders1)"</span>) <span class="comment">// 运行结果 : numbers 数组:["boy", "girl", "Objective-C", "ios"]</span></div></pre></td></tr></table></figure>
+<h2 id="删除元素"><a href="#删除元素" class="headerlink" title="删除元素"></a>删除元素</h2><figure class="highlight objectivec"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">genders1.removeAtIndex(<span class="number">2</span>)</div><div class="line">print(<span class="string">"numbers 数组:\(genders1)"</span>) <span class="comment">// 运行结果 : numbers 数组:["boy", "girl", "ios"]</span></div></pre></td></tr></table></figure>
+<h2 id="判断数组是否为空"><a href="#判断数组是否为空" class="headerlink" title="判断数组是否为空"></a>判断数组是否为空</h2><figure class="highlight objectivec"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">if</span> genders1.isEmpty&#123;</div><div class="line">print(<span class="string">"null"</span>)</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<h2 id="遍历数组"><a href="#遍历数组" class="headerlink" title="遍历数组"></a>遍历数组</h2><figure class="highlight objectivec"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">for</span> begin <span class="keyword">in</span> genders1&#123;</div><div class="line">print(begin)</div><div class="line">&#125;</div><div class="line"><span class="comment">// 或者</span></div><div class="line"><span class="keyword">for</span> (index, value) <span class="keyword">in</span> genders1.enumerate()&#123;</div><div class="line">print(<span class="string">"Item \(String(index + 1)): \(value)"</span>)</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<h2 id="字典的定义"><a href="#字典的定义" class="headerlink" title="字典的定义"></a>字典的定义</h2><figure class="highlight objectivec"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">var dic = [<span class="string">"ios"</span>:<span class="string">"swfit"</span>, <span class="string">"coder"</span>:<span class="string">"I"</span>]</div></pre></td></tr></table></figure>
+<h2 id="字典访问-键对应的值"><a href="#字典访问-键对应的值" class="headerlink" title="字典访问 键对应的值"></a>字典访问 键对应的值</h2><figure class="highlight objectivec"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">let name = dic[<span class="string">"ios"</span>]</div><div class="line">print(name) <span class="comment">// Optional("swfit")</span></div></pre></td></tr></table></figure>
+<h2 id="添加"><a href="#添加" class="headerlink" title="添加"></a>添加</h2><figure class="highlight objectivec"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">dic [<span class="string">"boy"</span>] = <span class="string">"Zhang"</span></div><div class="line">print(dic)  <span class="comment">// ["boy": "Zhang", "coder": "I", "ios": "swfit"]</span></div></pre></td></tr></table></figure>
+<h2 id="删除"><a href="#删除" class="headerlink" title="删除"></a>删除</h2><figure class="highlight objectivec"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">dic.removeValueForKey(<span class="string">"boy"</span>)</div><div class="line">print(dic)  <span class="comment">// ["coder": "I", "ios": "swfit"]</span></div></pre></td></tr></table></figure>
+<h2 id="修改"><a href="#修改" class="headerlink" title="修改"></a>修改</h2><figure class="highlight objectivec"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">dic.updateValue(<span class="string">"Student"</span>, forKey: <span class="string">"coder"</span>)</div><div class="line">print(dic)  <span class="comment">// ["coder": "Student", "ios": "swfit"]</span></div></pre></td></tr></table></figure>
+<h2 id="遍历字典"><a href="#遍历字典" class="headerlink" title="遍历字典"></a>遍历字典</h2><figure class="highlight objectivec"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">for</span> (key, value) <span class="keyword">in</span> dic&#123;</div><div class="line">print(<span class="string">"key:\(key) value:\(value)"</span>)</div><div class="line">&#125;</div><div class="line"><span class="comment">//或者</span></div><div class="line"><span class="keyword">for</span> d <span class="keyword">in</span> dic&#123;</div><div class="line">print(<span class="string">"key1:\(d.0) value1:\(d.1)"</span>)</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<h2 id="单独遍历key-和-value"><a href="#单独遍历key-和-value" class="headerlink" title="单独遍历key 和 value"></a>单独遍历key 和 value</h2><figure class="highlight objectivec"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">for</span> key <span class="keyword">in</span> dic.keys&#123;</div><div class="line">print(<span class="string">"Key= \(key)"</span>)</div><div class="line">&#125;</div><div class="line"><span class="keyword">for</span> value <span class="keyword">in</span> dic.values&#123;</div><div class="line">print(<span class="string">"value= \(value)"</span>)</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<div align="center"><br>微信公众号 得到最快最新的推送<br></div>
+
+<div align="center"><br><img src="http://ww1.sinaimg.cn/large/0060lm7Tgw1f9656jhucpj307607674r.jpg" alt=""><br></div>
+
+      
+    </div>
+
+  </div>
+
+  <div class="article-footer">
+    <div class="article-meta pull-left">
+
+    
+
+    
+    
+
+    <span class="post-tags">
+      <i class="icon-tags"></i>
+        <a href="/tags/Swift/">Swift</a>
+    </span>
+    
+
+    </div>
+
+    
+  </div>
+</article>
+
+
+    </main>
+
+    <footer class="site-footer">
+  <p class="site-info">
+    Proudly powered by <a href="https://hexo.io/" target="_blank">Hexo</a> and
+    Theme by <a href="https://github.com/CodeDaraW/Hacker" target="_blank">Hacker</a>
+    </br>
+    
+    &copy; 2017 夏天然后
+    
+  </p>
+</footer>
+    
+  </div>
+</div>
+</body>
+</html>

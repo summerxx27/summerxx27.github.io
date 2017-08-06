@@ -1,0 +1,180 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  <title>CFString​Transform | 夏天然后</title>
+
+  
+  <meta name="author" content="夏天然后">
+  
+
+  
+  <meta name="description" content="前言: CFString​Transform是一个你不太常见的函数, 他可以把字符串变得标准化.比如
+
+去掉重音和变音符号
+为 Unicode 字符命名
+综合
+
+CFString​Transform 是 Core Foundation 中的一部分, 下面介绍一下如何简单的使用
+参数介绍
+
+string : 需要转换的字符串
+range: 作用范围
+transform需要进行的转化
+reverse: 是否返回反转过的变换">
+  
+
+  
+  
+  <meta name="keywords" content="CFString​Transform">
+  
+
+  <meta id="viewport" name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, minimum-scale=1, user-scalable=no, minimal-ui">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black">
+
+  <meta property="og:title" content="CFString​Transform"/>
+
+  <meta property="og:site_name" content="夏天然后"/>
+
+  
+  <meta property="og:image" content="/favicon.ico"/>
+  
+
+  <link href="/favicon.ico" rel="icon">
+  <link rel="alternate" href="/atom.xml" title="夏天然后" type="application/atom+xml">
+  <link rel="stylesheet" href="/css/style.css" media="screen" type="text/css">
+</head>
+
+
+<body>
+<div class="blog">
+  <div class="content">
+
+    <header>
+  <div class="site-branding">
+    <h1 class="site-title">
+      <a href="/">夏天然后</a>
+    </h1>
+    <p class="site-description"></p>
+  </div>
+  <nav class="site-navigation">
+    <ul>
+      
+        <li><a href="/">Home</a></li>
+      
+        <li><a href="/archives">Archives</a></li>
+      
+        <li><a href="/tags">about</a></li>
+      
+    </ul>
+  </nav>
+</header>
+
+    <main class="site-main posts-loop">
+    <article>
+
+  
+    
+    <h3 class="article-title"><span>CFString​Transform</span></h3>
+    
+  
+
+  <div class="article-top-meta">
+    <span class="posted-on">
+      <a href="/2016/12/06/42/" rel="bookmark">
+        <time class="entry-date published" datetime="2016-12-06T15:25:02.000Z">
+          2016-12-06
+        </time>
+      </a>
+    </span>
+  </div>
+
+
+  
+
+  <div class="article-content">
+    <div class="entry">
+      
+        <p><img src="http://ww1.sinaimg.cn/large/e6a4355cgy1fia25jswt2j21z418g4qq.jpg" alt=""><br>前言: <code>CFString​Transform</code>是一个你不太常见的函数, 他可以把字符串变得标准化.<br>比如</p>
+<ul>
+<li>去掉重音和变音符号</li>
+<li>为 Unicode 字符命名</li>
+<li>综合</li>
+</ul>
+<p>CFString​Transform 是 Core Foundation 中的一部分, 下面介绍一下如何简单的使用</p>
+<p>参数介绍</p>
+<ul>
+<li>string : 需要转换的字符串</li>
+<li>range: 作用范围</li>
+<li>transform需要进行的转化</li>
+<li>reverse: 是否返回反转过的变换<a id="more"></a>
+</li>
+</ul>
+<h2 id="去掉重音和变音符号"><a href="#去掉重音和变音符号" class="headerlink" title="去掉重音和变音符号"></a>去掉重音和变音符号</h2><p>比如Énġlišh långuãge有这样一串字符串 使用<code>kCFStringTransformStripCombiningMarks</code>这个把一些奇奇怪怪的符号去掉, 如何做呢, 请看示例代码:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">CFMutableStringRef string = CFStringCreateMutableCopy(NULL, 0, CFSTR(&quot;Énġlišh långuãge&quot;));</div><div class="line">CFStringTransform(string, NULL, kCFStringTransformStripCombiningMarks, false);</div><div class="line">NSLog(@&quot;%@&quot;, string);</div><div class="line">CFRelease(string);</div><div class="line">// 2016-12-06 22:31:08.504 BookCode[2895:146978] English language</div></pre></td></tr></table></figure>
+<h2 id="为-Unicode-字符命名"><a href="#为-Unicode-字符命名" class="headerlink" title="为 Unicode 字符命名"></a>为 Unicode 字符命名</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">CFMutableStringRef string1 = CFStringCreateMutableCopy(NULL, 0, CFSTR(&quot;🐷🍎&quot;));</div><div class="line">CFStringTransform(string1, NULL, kCFStringTransformToUnicodeName, false);</div><div class="line">NSLog(@&quot;%@&quot;, string1);</div><div class="line">CFRelease(string1);</div><div class="line">// 2016-12-06 22:37:15.054 BookCode[2972:153135] \N&#123;PIG FACE&#125;\N&#123;RED APPLE&#125;</div></pre></td></tr></table></figure>
+<p>除了上边两种以外 <code>transform</code> 还有更多的方式值得选择</p>
+<blockquote>
+<p>CF_EXPORT const CFStringRef kCFStringTransformStripCombiningMarks;<br>CF_EXPORT const CFStringRef kCFStringTransformToLatin;<br>CF_EXPORT const CFStringRef kCFStringTransformFullwidthHalfwidth;<br>CF_EXPORT const CFStringRef kCFStringTransformLatinKatakana;<br>CF_EXPORT const CFStringRef kCFStringTransformLatinHiragana;<br>CF_EXPORT const CFStringRef kCFStringTransformHiraganaKatakana;<br>CF_EXPORT const CFStringRef kCFStringTransformMandarinLatin;<br>CF_EXPORT const CFStringRef kCFStringTransformLatinHangul;<br>CF_EXPORT const CFStringRef kCFStringTransformLatinArabic;<br>CF_EXPORT const CFStringRef kCFStringTransformLatinHebrew;<br>CF_EXPORT const CFStringRef kCFStringTransformLatinThai;<br>CF_EXPORT const CFStringRef kCFStringTransformLatinCyrillic;<br>CF_EXPORT const CFStringRef kCFStringTransformLatinGreek;<br>CF_EXPORT const CFStringRef kCFStringTransformToXMLHex;<br>CF_EXPORT const CFStringRef kCFStringTransformToUnicodeName;<br>CF_EXPORT const CFStringRef kCFStringTransformStripDiacritics CF_AVAILABLE(10_5, 2_0);</p>
+</blockquote>
+<p><code>CFStringTransform</code> 可以在拉丁语和阿拉伯语、西里尔语、希腊语、韩语（韩国）、希伯来语、日语（平假名和片假名）、普通话、泰语之间来回转写。</p>
+<p>这里还有一种语言比较特殊就是日语, 日语中的文字有的跟汉字长得一样(具体什么渊源我也不知道). 😳 如果你感兴趣可以看这里<br><a href="https://github.com/00StevenG/NSString-Japanese" target="_blank" rel="external">https://github.com/00StevenG/NSString-Japanese</a> 是如何处理复杂额日文文本的他能够处理汉字, 罗马字, 还有日语的(平假名和片假名).</p>
+<h2 id="处理用户产生的内容"><a href="#处理用户产生的内容" class="headerlink" title="处理用户产生的内容"></a>处理用户产生的内容</h2><p><a href="https://developer.apple.com/reference/corefoundation/1666536-cfstringtokenizer" target="_blank" rel="external">https://developer.apple.com/reference/corefoundation/1666536-cfstringtokenizer</a><br>比如我在搜索引擎 键入 <code>SUMMER夏天是个iOS developmer nín hǎ</code><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div></pre></td><td class="code"><pre><div class="line">CFMutableStringRef string = CFStringCreateMutableCopy(NULL, 0, CFSTR(&quot;SUMMER夏天是个iOS developmer nín hǎo&quot;));</div><div class="line">// 非英文文本转换为拉丁字母</div><div class="line">CFStringTransform(string, NULL, kCFStringTransformToLatin, false);</div><div class="line">// 去重音</div><div class="line">CFStringTransform(string, NULL, kCFStringTransformStripCombiningMarks, false);</div><div class="line">// 变小写</div><div class="line">CFStringLowercase(string, NULL);</div><div class="line">NSLog(@&quot;%@&quot;, string);</div><div class="line">CFRelease(string);</div><div class="line">// 2016-12-06 23:20:37.833 BookCode[3248:183337] summer xia tian shi geios developmer nin hao 处理之后</div></pre></td></tr></table></figure></p>
+<p>通过对用户输入的文本使用同样的变换，你就可以实现一个通用的搜索，无论搜索文本或内容是什么语言！</p>
+<p>今天就到这~</p>
+<blockquote>
+<p>我是夏天 正在参加博客之星评选 如果可以在文章列表找到我的拉票文章, 给我头上一票</p>
+</blockquote>
+<div align="center"><br>微信公众号 得到最快最新的推送<br></div>
+
+<div align="center"><br><img src="http://ww1.sinaimg.cn/large/0060lm7Tgw1f9656jhucpj307607674r.jpg" alt=""><br></div>
+
+<blockquote>
+<p>我是夏天, 暖暖的夏天<br>End</p>
+</blockquote>
+
+      
+    </div>
+
+  </div>
+
+  <div class="article-footer">
+    <div class="article-meta pull-left">
+
+    
+
+    
+    
+
+    <span class="post-tags">
+      <i class="icon-tags"></i>
+        <a href="/tags/CFString​Transform/">CFString​Transform</a>
+    </span>
+    
+
+    </div>
+
+    
+  </div>
+</article>
+
+
+    </main>
+
+    <footer class="site-footer">
+  <p class="site-info">
+    Proudly powered by <a href="https://hexo.io/" target="_blank">Hexo</a> and
+    Theme by <a href="https://github.com/CodeDaraW/Hacker" target="_blank">Hacker</a>
+    </br>
+    
+    &copy; 2017 夏天然后
+    
+  </p>
+</footer>
+    
+  </div>
+</div>
+</body>
+</html>

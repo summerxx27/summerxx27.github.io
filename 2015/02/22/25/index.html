@@ -1,0 +1,164 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  <title>Swift 学习点滴 三 | 夏天然后</title>
+
+  
+  <meta name="author" content="夏天然后">
+  
+
+  
+  <meta name="description" content="前言: 作为学习Swift的一个记录, 记录点滴成长.">
+  
+
+  
+  
+  <meta name="keywords" content="Swift">
+  
+
+  <meta id="viewport" name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, minimum-scale=1, user-scalable=no, minimal-ui">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black">
+
+  <meta property="og:title" content="Swift 学习点滴 三"/>
+
+  <meta property="og:site_name" content="夏天然后"/>
+
+  
+  <meta property="og:image" content="/favicon.ico"/>
+  
+
+  <link href="/favicon.ico" rel="icon">
+  <link rel="alternate" href="/atom.xml" title="夏天然后" type="application/atom+xml">
+  <link rel="stylesheet" href="/css/style.css" media="screen" type="text/css">
+</head>
+
+
+<body>
+<div class="blog">
+  <div class="content">
+
+    <header>
+  <div class="site-branding">
+    <h1 class="site-title">
+      <a href="/">夏天然后</a>
+    </h1>
+    <p class="site-description"></p>
+  </div>
+  <nav class="site-navigation">
+    <ul>
+      
+        <li><a href="/">Home</a></li>
+      
+        <li><a href="/archives">Archives</a></li>
+      
+        <li><a href="/tags">about</a></li>
+      
+    </ul>
+  </nav>
+</header>
+
+    <main class="site-main posts-loop">
+    <article>
+
+  
+    
+    <h3 class="article-title"><span>Swift 学习点滴 三</span></h3>
+    
+  
+
+  <div class="article-top-meta">
+    <span class="posted-on">
+      <a href="/2015/02/22/25/" rel="bookmark">
+        <time class="entry-date published" datetime="2015-02-22T05:42:13.000Z">
+          2015-02-22
+        </time>
+      </a>
+    </span>
+  </div>
+
+
+  
+
+  <div class="article-content">
+    <div class="entry">
+      
+        <p>前言: 作为学习Swift的一个记录, 记录点滴成长.<br><a id="more"></a></p>
+<h3 id="Swift-类型转换is-as-Any-AnyObject-十二"><a href="#Swift-类型转换is-as-Any-AnyObject-十二" class="headerlink" title="Swift 类型转换is, as, Any, AnyObject(十二)"></a>Swift 类型转换is, as, Any, AnyObject(十二)</h3><p>/// 父类 <code>Person</code><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">class Person &#123;</div><div class="line">var name: String</div><div class="line">init(name: String)&#123;</div><div class="line">self.name = name</div><div class="line">&#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<p>/// 子类 <code>Woman</code><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line">class Woman: Person &#123;</div><div class="line">var female: String</div><div class="line">init(name: String, male: String) &#123;</div><div class="line">self.female = male</div><div class="line">super.init(name: name)</div><div class="line">&#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<p>/// 子类 <code>Man</code><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line">class Man: Person &#123;</div><div class="line">var weight: String</div><div class="line">init(name: String, weight: String) &#123;</div><div class="line">self.weight = weight</div><div class="line">super.init(name: name)</div><div class="line">&#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line">let arrays = [</div><div class="line">Woman(name: &quot;gzz&quot;, male: &quot;she&quot;),</div><div class="line">Woman(name: &quot;glz&quot;, male: &quot;she&quot;),</div><div class="line">Man(name: &quot;ty&quot;, weight: &quot;180&quot;),</div><div class="line">Man(name: &quot;az&quot;, weight: &quot;101&quot;),</div><div class="line">Man(name: &quot;az&quot;, weight: &quot;102&quot;)</div><div class="line">]  /// arrays 的类型被推断为Person</div></pre></td></tr></table></figure>
+<p>#####检查类型（Checking Type）<br>用类型检查操作符（<code>is</code>）来检查一个实例是否属于特定子类型。若实例属于那个子类型，类型检查操作符返回 <code>true</code>，否则返回 <code>false</code>。<br>下面的例子定义了两个变量，<code>womanCount</code> 和 <code>manCount</code>，用来计算数组 <code>arrays</code> 中 <code>Woman</code> 和 <code>Man</code> 类型的实例数量:<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div></pre></td><td class="code"><pre><div class="line">var womanCount = 0</div><div class="line">var manCount = 0</div><div class="line"></div><div class="line">for item in arrays&#123;</div><div class="line">if item is Woman&#123;</div><div class="line">++womanCount</div><div class="line">&#125;</div><div class="line">if item is Man&#123;</div><div class="line">++manCount</div><div class="line">&#125;</div><div class="line">&#125;</div><div class="line">print(&quot;womamCount: \(womanCount)&quot;) // 2</div><div class="line">print(&quot;manCount: \(manCount)&quot;)     // 3</div></pre></td></tr></table></figure></p>
+<p>数组中的每一个 <code>item</code> 可能是 <code>Woman</code> 或 <code>Man</code>。事前你不知道每个 <code>item</code> 的真实类型，所以使用类型转换（<code>as?</code>）去检查<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div></pre></td><td class="code"><pre><div class="line">for item in arrays&#123;</div><div class="line">if let _ = item as? Woman&#123;</div><div class="line">print(&quot;woman&quot;)</div><div class="line">//</div><div class="line">&#125;</div><div class="line">if let _ = item as? Man&#123;</div><div class="line">print(&quot;man&quot;)</div><div class="line">//</div><div class="line">&#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<p>#####Any 和 AnyObject 的类型转换<br><code>Swift</code> 为不确定类型提供了两种特殊的类型别名：<br><code>AnyObject</code> 可以表示任何类类型的实例。<br><code>Any</code> 可以表示任何类型，包括函数类型。<br><code>AnyObject</code><br>下面的示例定义了一个 [AnyObject] 类型的数组并填入三个 <code>Man</code> 类型的实例：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">let objects: [AnyObject] = [</div><div class="line">Man(name: &quot;Xt&quot;, weight: &quot;180&quot;),</div><div class="line">Man(name: &quot;Xt1&quot;, weight: &quot;180&quot;),</div><div class="line">Man(name: &quot;Xt2&quot;, weight: &quot;180&quot;),</div><div class="line">]</div></pre></td></tr></table></figure></p>
+<p>因为知道这个数组只包含 <code>Man</code> 实例，你可以直接用（<code>as!</code>）下转并解包到非可选的 <code>Man</code> 类型<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">for object in objects&#123;</div><div class="line">let man = object as! Man</div><div class="line">print(&quot;man :&apos;\(man.name)&apos;&quot;)</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<p><code>Any</code><br>使用 <code>Any</code> 类型来和混合的不同类型一起工作，包括函数类型和非类类型。它创建了一个可以存储<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line">var things = [Any]()</div><div class="line">// 添加</div><div class="line">things.append(0)</div><div class="line">things.append(3.14159)</div><div class="line">things.append(&quot;hello&quot;)</div><div class="line">things.append((3.0, 5.0))</div><div class="line">things.append(Man(name: &quot;Xt&quot;, weight: &quot;171&quot;))</div><div class="line">things.append(Woman(name: &quot;Xt1&quot;, male: &quot;ll&quot;))</div></pre></td></tr></table></figure></p>
+<p>你可以在 <code>switch</code> 表达式的 <code>case</code> 中使用 <code>is</code> 和 <code>as</code> 操作符来找出只知道是 <code>Any</code> 或 <code>AnyObject</code> 类型的常量或变量的具体类型。下面的示例迭代 <code>things</code> 数组中的每一项，并用 <code>switch</code> 语句查找每一项的类型。有几个 <code>switch</code> 语句的 <code>case</code> 绑定它们匹配到的值到一个指定类型的常量，从而可以打印这些值<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div></pre></td><td class="code"><pre><div class="line">for thing in things &#123;</div><div class="line">switch thing &#123;</div><div class="line">case 0 as Int:</div><div class="line">print(&quot;zero as an Int&quot;)</div><div class="line">case let someDouble as Double where someDouble &gt; 0:</div><div class="line">print(&quot;a positive double value of \(someDouble)&quot;)</div><div class="line">case let someString as String:</div><div class="line">print(&quot;a string value of \&quot;\(someString)\&quot;&quot;)</div><div class="line">case let (x, y) as (Double, Double):</div><div class="line">print(&quot;an (x, y) point at \(x), \(y)&quot;)</div><div class="line">case let man as Man:</div><div class="line">print(&quot;Man: \(man.name)&quot;)</div><div class="line">case let woman as Woman:</div><div class="line">print(&quot;woman: \(woman.name)&quot;)</div><div class="line">default:</div><div class="line">print(&quot;something else&quot;)</div><div class="line">&#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<h3 id="非泛型函数"><a href="#非泛型函数" class="headerlink" title="非泛型函数"></a>非泛型函数</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line">/// 交换两个整形的值</div><div class="line">func swapTwoNumbersInt(inout a: Int, inout _ b:Int)</div><div class="line">&#123;</div><div class="line">let temp = a</div><div class="line">a = b</div><div class="line">b = temp</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line">/// 交换两个字符串的值</div><div class="line">func swapTwoString(inout string1: String, inout _ string2: String)</div><div class="line">&#123;</div><div class="line">let temp = string1</div><div class="line">string1 = string2</div><div class="line">string2 = temp</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>如果想实现不确定类型值的交换上面的方法是不是显得太过死板,所以泛型的出现很好的解决这个</p>
+<p>####泛型<br>泛型函数–泛型函数可以适用于任何类型</p>
+<ol>
+<li>这个函数的泛型版本使用了占位类型名（在这里用字母 T 来表示）来代替实际类型名（例如 <code>Int</code>、<code>String</code>, 占位类型名没有指明 T 必须是什么类型，但是它指明了 <code>a</code> 和 <code>b</code> 必须是同一类型 T，无论 T 代表什么类型</li>
+<li>这个泛型函数名（swapTwoValues(<em>:</em>:)）后面跟着占位类型名（T），并用尖括号括起来（<t>）。这个尖括号告诉 <code>Swift</code> 那个 T 是 swapTwoValues(<em>:</em>:) 函数定义内的一个占位类型名，因此 <code>Swift</code> 不会去查找名为 T 的实际类型<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line">/// 实现不确定类型值交换</div><div class="line">func swapTwoValues&lt;T&gt;(inout a: T, inout _ b: T)</div><div class="line">&#123;</div><div class="line">let temp = a</div><div class="line">a = b</div><div class="line">b = temp</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+</t></li>
+</ol>
+<h3 id="类型约束"><a href="#类型约束" class="headerlink" title="类型约束"></a>类型约束</h3><ol>
+<li><code>Swift</code> 的<code>Dictionary</code> 类型对字典的键的类型做了些限制。在字典的描述中，字典的键的类型必须是可哈希（<code>hashable</code>）的。也就是说，必须有一种方法能够唯一地表示它。<code>Dictionary</code> 的键之所以要是可哈希的，是为了便于检查字典是否已经包含某个特定键的值。若没有这个要求，<code>Dictionary</code> 将无法判断是否可以插入或者替换某个指定键的值，也不能查找到已经存储在字典中的指定键的值。</li>
+<li>为了实现这个要求，一个类型约束被强制加到 <code>Dictionary</code> 的键类型上，要求其键类型必须符合 <code>Hashable</code> 协议，这是 <code>Swift</code> 标准库中定义的一个特定协议。所有的 <code>Swift</code> 基本类型（例如 <code>String</code>、<code>Int</code>、<code>Double</code> 和 <code>Bool</code>）默认都是可哈希的。</li>
+<li>当你创建自定义泛型类型时，你可以定义你自己的类型约束，这些约束将提供更为强大的泛型编程能力。抽象概念，例如可哈希的，描述的是类型在概念上的特征，而不是它们的显式类型<br>#####for example 类型约束<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line">/// 非泛型</div><div class="line">func findStringIndex(array: [String], _ valueToFind: String) -&gt; Int? &#123;</div><div class="line">for (index, value) in array.enumerate() &#123;</div><div class="line">if value == valueToFind &#123;</div><div class="line">return index</div><div class="line">&#125;</div><div class="line">&#125;</div><div class="line">return nil</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+</li>
+</ol>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div></pre></td><td class="code"><pre><div class="line">/// 泛型</div><div class="line">/// T 遵循 Equatable</div><div class="line">func findIndex&lt;T: Equatable&gt;(array: [T], _ valueToFind: T) -&gt; Int? &#123;</div><div class="line">for (index, value) in array.enumerate() &#123;</div><div class="line">/// 不是所有的 Swift 类型都可以用等式符（==）进行比较</div><div class="line">/// Swift 标准库中定义了一个 Equatable 协议，该协议要求任何遵循该协议的类型必须实现等式符（==）及不等符(!=)，从而能对该类型的任意两个值进行比较。所有的 Swift 标准类型自动支持 Equatable 协议。</div><div class="line">if value == valueToFind &#123;</div><div class="line">return index</div><div class="line">&#125;</div><div class="line">&#125;</div><div class="line">return nil</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>####下面是我在viewDidLoad中的调用<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div></pre></td><td class="code"><pre><div class="line">var a = 10</div><div class="line">var b = 20</div><div class="line">//        self.swapTwoNumbersInt(&amp;a, &amp;b)</div><div class="line">print(&quot;b: \(b)&quot;)</div><div class="line"></div><div class="line">var string1 = &quot;Big&quot;</div><div class="line">var string2 = &quot;Small&quot;</div><div class="line">//        self.swapTwoString(&amp;string1, &amp;string2)</div><div class="line">print(&quot;string2: \(string2)&quot;)</div><div class="line">///</div><div class="line">self.swapTwoValues(&amp;a, &amp;b)</div><div class="line">print(&quot;b: \(b)&quot;)</div><div class="line">///</div><div class="line">self.swapTwoValues(&amp;string1, &amp;string2)</div><div class="line">print(&quot;string2: \(string2)&quot;)</div><div class="line">///</div><div class="line">let strings = [&quot;button&quot;, &quot;label&quot;, &quot;view&quot;, &quot;model&quot;, &quot;Controller&quot;]</div><div class="line">if let foundIndex = findStringIndex(strings, &quot;label&quot;) &#123;</div><div class="line">print(&quot;\(foundIndex)&quot;)</div><div class="line">&#125;</div><div class="line">///</div><div class="line">if let foundIndex = findIndex(strings, &quot;view&quot;) &#123;</div><div class="line">print(&quot;view: \(foundIndex)&quot;)</div><div class="line">&#125;</div><div class="line">///</div><div class="line">let ints = [1,2,3,4,55,6]</div><div class="line">if let foundIndex = findIndex(ints, 55) &#123;</div><div class="line">print(&quot;55: \(foundIndex)&quot;)</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<p>类型格式转化<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">1. labelTitle.text = NSString(format: &quot;%d&quot;, indexPath.row) as String</div><div class="line">String &lt;-&gt; int</div><div class="line">2. a = Int(scrollView.contentOffset.x)</div><div class="line">int   &lt;-&gt;  cgfloat</div><div class="line">3. dic[&quot;title&quot;] as? String</div><div class="line">NSString &lt;-&gt; String</div></pre></td></tr></table></figure></p>
+<p>总结: 使用泛型写出的代码是不是功能很强大? 学起来吧.</p>
+<div align="center"><br>微信公众号 得到最快最新的推送<br></div>
+
+<div align="center"><br><img src="http://ww1.sinaimg.cn/large/0060lm7Tgw1f9656jhucpj307607674r.jpg" alt=""><br></div>
+
+      
+    </div>
+
+  </div>
+
+  <div class="article-footer">
+    <div class="article-meta pull-left">
+
+    
+
+    
+    
+
+    <span class="post-tags">
+      <i class="icon-tags"></i>
+        <a href="/tags/Swift/">Swift</a>
+    </span>
+    
+
+    </div>
+
+    
+  </div>
+</article>
+
+
+    </main>
+
+    <footer class="site-footer">
+  <p class="site-info">
+    Proudly powered by <a href="https://hexo.io/" target="_blank">Hexo</a> and
+    Theme by <a href="https://github.com/CodeDaraW/Hacker" target="_blank">Hacker</a>
+    </br>
+    
+    &copy; 2017 夏天然后
+    
+  </p>
+</footer>
+    
+  </div>
+</div>
+</body>
+</html>
