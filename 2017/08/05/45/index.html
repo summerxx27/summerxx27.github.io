@@ -1,0 +1,155 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  <title>iOS UDP 2 | 夏天然后 | 平淡对待得失, 冷眼看尽繁华!</title>
+
+  
+  <meta name="author" content="夏天然后">
+  
+
+  
+  <meta name="description" content="">
+  
+
+  
+  
+  <meta name="keywords" content="UDP">
+  
+
+  <meta id="viewport" name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, minimum-scale=1, user-scalable=no, minimal-ui">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black">
+
+  <meta property="og:title" content="iOS UDP 2"/>
+
+  <meta property="og:site_name" content="夏天然后"/>
+
+  
+  <meta property="og:image" content="/favicon.ico"/>
+  
+
+  <link href="/favicon.ico" rel="icon">
+  <link rel="alternate" href="/atom.xml" title="夏天然后" type="application/atom+xml">
+  <link rel="stylesheet" href="/css/style.css" media="screen" type="text/css">
+</head>
+
+
+<body>
+<div class="blog">
+  <div class="content">
+
+    <header>
+  <div class="site-branding">
+    <h1 class="site-title">
+      <a href="/">夏天然后</a>
+    </h1>
+    <p class="site-description">平淡对待得失, 冷眼看尽繁华!</p>
+  </div>
+  <nav class="site-navigation">
+    <ul>
+      
+        <li><a href="/">Home</a></li>
+      
+        <li><a href="/archives">Archives</a></li>
+      
+        <li><a href="/tags">about</a></li>
+      
+    </ul>
+  </nav>
+</header>
+
+    <main class="site-main posts-loop">
+    <article>
+
+  
+    
+    <h3 class="article-title"><span>iOS UDP 2</span></h3>
+    
+  
+
+  <div class="article-top-meta">
+    <span class="posted-on">
+      <a href="/2017/08/05/45/" rel="bookmark">
+        <time class="entry-date published" datetime="2017-08-04T16:48:02.000Z">
+          2017-08-05
+        </time>
+      </a>
+    </span>
+  </div>
+
+
+  
+
+  <div class="article-content">
+    <div class="entry">
+      
+        <p><img src="http://ww1.sinaimg.cn/large/e6a4355cgy1fia22t0dbfj21z418gasy.jpg" alt=""></p>
+<a id="more"></a>
+<blockquote>
+<ul>
+<li>首先需要安装一个TCP&amp;UDP测试工具</li>
+<li>连接类型选择UDP</li>
+<li>目标IP 设置手机的IP， 端口8888 （这个端口在App端用来绑定）</li>
+<li>指定端口， 是App向回发信息所需要的端口， 具体设置如下图所示</li>
+</ul>
+</blockquote>
+<p><img src="http://upload-images.jianshu.io/upload_images/1506501-2d517c55b077d34c.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="创建连接"></p>
+<blockquote>
+<p>接下来为减少代码的键入， 我直接使用<a href="https://github.com/robbiehanson/CocoaAsyncSocket" target="_blank" rel="external">CocoaAsyncSocket</a>这个三方库，作为中间媒介完成整个过程</p>
+</blockquote>
+<figure class="highlight objectivec"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">&#123;</div><div class="line">GCDAsyncUdpSocket *udpSocket; <span class="comment">// 定义一个socket的对象 签订代理 GCDAsyncUdpSocketDelegate</span></div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div></pre></td><td class="code"><pre><div class="line"></div><div class="line">麦 2017/7/20 17:05:40</div><div class="line">/*************** UDP ***********************/</div><div class="line">udpSocket = [[GCDAsyncUdpSocket alloc] initWithDelegate:self delegateQueue:dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0)];</div><div class="line">NSError *error = nil;</div><div class="line">// 绑定端口</div><div class="line">[udpSocket bindToPort:8888 error:&amp;error];</div><div class="line">// 启用广播</div><div class="line">[udpSocket enableBroadcast:YES error:&amp;error];</div><div class="line"></div><div class="line">if (error) &#123;</div><div class="line">[SVProgressHUD showErrorWithStatus:@&quot;启用失败&quot;];</div><div class="line">&#125;else &#123;</div><div class="line">NSLog(@&quot;%@&quot;, [udpSocket localHost]);</div><div class="line">// 开始接收消息</div><div class="line">[udpSocket beginReceiving:&amp;error];</div><div class="line"></div><div class="line">&#125;</div><div class="line">/*************** UDP ***********************/</div></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div></pre></td><td class="code"><pre><div class="line">#pragma mark - GCDAsyncUdpSocketDelegate</div><div class="line">- (void)udpSocket:(GCDAsyncUdpSocket *)sock didReceiveData:(NSData *)data fromAddress:(NSData *)address withFilterContext:(nullable id)filterContext &#123;</div><div class="line"></div><div class="line">NSLog(@&quot;success&quot;);</div><div class="line">NSString *ip = [GCDAsyncUdpSocket hostFromAddress:address];</div><div class="line">NSString *s = [[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding];</div><div class="line">NSLog(@&quot;收到响应 %@ %@&quot;, ip, s);</div><div class="line">[sock receiveOnce:nil];</div><div class="line">dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(2.0 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^&#123;</div><div class="line">uint16_t port = 9999;</div><div class="line">[self sendBackToHost:ip port:port withMessage:s];</div><div class="line">&#125;);</div><div class="line">&#125;</div><div class="line">- (void)sendBackToHost:(NSString *)ip port:(uint16_t)port withMessage:(NSString *)s&#123;</div><div class="line">// 回一个 hello summerxx too</div><div class="line">char *str = &quot;hello summerxx too&quot; ;</div><div class="line">NSData *data = [NSData dataWithBytes:str length:strlen(str)];</div><div class="line">[udpSocket sendData:data toHost:ip port:port withTimeout:0.1 tag:200];</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p><img src="http://upload-images.jianshu.io/upload_images/1506501-3c164e23393e1a94.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="收到信息"></p>
+<p><img src="http://upload-images.jianshu.io/upload_images/1506501-56fe7f073ce42f97.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="发回一条信息"></p>
+<blockquote>
+<p>注 如果是多个Socket对象 在回调中可以用目标端口进行区分获取数据即可<br>用 <code>sock.localPort</code> 来取得目标端口.</p>
+<p>一起学习 共同进步 走过一段有意义的时光<br>我是夏天 这是我维护的群 498143780 你可以来找我交流. </p>
+<p>我是夏天, 暖暖的夏天<br>End</p>
+</blockquote>
+
+      
+    </div>
+
+  </div>
+
+  <div class="article-footer">
+    <div class="article-meta pull-left">
+
+    
+
+    
+    
+
+    <span class="post-tags">
+      <i class="icon-tags"></i>
+        <a href="/tags/UDP/">UDP</a>
+    </span>
+    
+
+    </div>
+
+    
+  </div>
+</article>
+
+
+    </main>
+
+    <footer class="site-footer">
+  <p class="site-info">
+    Proudly powered by <a href="https://hexo.io/" target="_blank">Hexo</a> and
+    Theme by <a href="https://github.com/CodeDaraW/Hacker" target="_blank">Hacker</a>
+    </br>
+    
+    &copy; 2017 夏天然后
+    
+  </p>
+</footer>
+    
+  </div>
+</div>
+</body>
+</html>
