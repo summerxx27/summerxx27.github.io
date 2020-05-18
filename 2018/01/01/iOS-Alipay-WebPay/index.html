@@ -1,0 +1,146 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  <title>iOS-AlipaySDK集成支付的一种方式 | 夏天然后 | 自信温暖, 容易相处!</title>
+
+  
+  <meta name="author" content="夏天然后">
+  
+
+  
+  <meta name="description" content="后台提供的是一个可以使用webView加载的URL, URL的返回值为一个带有订单信息的from表单, 只有是这种类型,才能沿用以下代码
+
+如果你请求的网络接口, 返回值中直接包含订单信息串, 那么可用直接传orderInfo的方法直接来做.">
+  
+
+  
+  
+  <meta name="keywords" content="Alipay">
+  
+
+  <meta id="viewport" name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, minimum-scale=1, user-scalable=no, minimal-ui">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black">
+
+  <meta property="og:title" content="iOS-AlipaySDK集成支付的一种方式"/>
+
+  <meta property="og:site_name" content="夏天然后"/>
+
+  
+  <meta property="og:image" content="/favicon.ico"/>
+  
+
+  <link href="/favicon.ico" rel="icon">
+  <link rel="alternate" href="/atom.xml" title="夏天然后" type="application/atom+xml">
+  <link rel="stylesheet" href="/css/style.css" media="screen" type="text/css">
+</head>
+
+
+<body>
+<div class="blog">
+  <div class="content">
+
+    <header>
+  <div class="site-branding">
+    <h1 class="site-title">
+      <a href="/">夏天然后</a>
+    </h1>
+    <p class="site-description">自信温暖, 容易相处!</p>
+  </div>
+  <nav class="site-navigation">
+    <ul>
+      
+        <li><a href="/">主页</a></li>
+      
+        <li><a href="/archives">归档</a></li>
+      
+        <li><a href="/tags">about</a></li>
+      
+    </ul>
+  </nav>
+</header>
+
+    <main class="site-main posts-loop">
+    <article>
+
+  
+    
+    <h3 class="article-title"><span>iOS-AlipaySDK集成支付的一种方式</span></h3>
+    
+  
+
+  <div class="article-top-meta">
+    <span class="posted-on">
+      <a href="/2018/01/01/iOS-Alipay-WebPay/" rel="bookmark">
+        <time class="entry-date published" datetime="2017-12-31T17:18:02.000Z">
+          2018-01-01
+        </time>
+      </a>
+    </span>
+  </div>
+
+
+  
+
+  <div class="article-content">
+    <div class="entry">
+      
+        <ol>
+<li><p>后台提供的是一个可以使用webView加载的URL, URL的返回值为一个带有订单信息的from表单, 只有是这种类型,才能沿用以下代码</p>
+</li>
+<li><p>如果你请求的网络接口, 返回值中直接包含订单信息串, 那么可用直接传orderInfo的方法直接来做.</p>
+</li>
+</ol>
+<a id="more"></a>
+<p>步骤1 集成支付宝SDK</p>
+<p>步骤2 在加载webView的界面这样写</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div><div class="line">50</div><div class="line">51</div><div class="line">52</div><div class="line">53</div><div class="line">54</div><div class="line">55</div></pre></td><td class="code"><pre><div class="line"></div><div class="line">- (void)viewDidLoad &#123;</div><div class="line">    [super viewDidLoad];</div><div class="line">    self.view.backgroundColor = [UIColor whiteColor];</div><div class="line">    /// 初始化webView</div><div class="line">    _webView = [[UIWebView alloc]initWithFrame:self.view.bounds];</div><div class="line">    /// 设置代理</div><div class="line">    _webView.delegate = self;</div><div class="line">    [self.view addSubview:_webView];</div><div class="line">    /// load</div><div class="line">    NSURLRequest *request = [[NSURLRequest alloc]initWithURL:[NSURL URLWithString:self.strUrl]];</div><div class="line">    [_webView loadRequest:request];</div><div class="line">    </div><div class="line">    [[NSNotificationCenter defaultCenter]addObserver:self selector:@selector(payCancel:) name:RP_NOTIFITION_PAYCANCEL object:nil];</div><div class="line">&#125;</div><div class="line">- (void)payCancel:(NSNotification*)notifi&#123;</div><div class="line">    [self.navigationController popViewControllerAnimated:YES];</div><div class="line">&#125;</div><div class="line">#pragma mark -</div><div class="line">- (BOOL)webView:(UIWebView *)webView shouldStartLoadWithRequest:(NSURLRequest *)request navigationType:(UIWebViewNavigationType)navigationType</div><div class="line">&#123;</div><div class="line">    NSString* orderInfo = [[AlipaySDK defaultService]fetchOrderInfoFromH5PayUrl:[request.URL absoluteString]];</div><div class="line">    if (orderInfo.length &gt; 0) &#123;</div><div class="line">        // 调用支付接口进行支付</div><div class="line">        /*</div><div class="line">         &#123;</div><div class="line">         isProcessUrlPay = 1;</div><div class="line">         resultCode = 6001;</div><div class="line">         returnUrl = &quot;&quot;;</div><div class="line">         &#125;</div><div class="line">         */</div><div class="line">        [[AlipaySDK defaultService]payUrlOrder:orderInfo fromScheme:@&quot;zhandaotingche&quot; callback:^(NSDictionary* result) &#123;</div><div class="line">            /*</div><div class="line">             9000    订单支付成功</div><div class="line">             8000    正在处理中，支付结果未知（有可能已经支付成功），请查询商户订单列表中订单的支付状态</div><div class="line">             4000    订单支付失败</div><div class="line">             5000    重复请求</div><div class="line">             6001    用户中途取消</div><div class="line">             6002    网络连接出错</div><div class="line">             6004    支付结果未知（有可能已经支付成功），请查询商户订单列表中订单的支付状态</div><div class="line">             其它    其它支付错误</div><div class="line">             */</div><div class="line">            if ([[result objectForKey:@&quot;resultCode&quot;] isEqualToString:@&quot;6001&quot;]) &#123;</div><div class="line">                [[NSNotificationCenter defaultCenter]postNotificationName:RP_NOTIFITION_PAYCANCEL object:nil];</div><div class="line"></div><div class="line">            &#125;else if ([[result objectForKey:@&quot;resultCode&quot;] isEqualToString:@&quot;9000&quot;])&#123;</div><div class="line">                [[NSNotificationCenter defaultCenter]postNotificationName:RP_NOTIFITION_PAYSUSSCESS object:nil];</div><div class="line">                </div><div class="line">            &#125;else if ([[result objectForKey:@&quot;resultCode&quot;] isEqualToString:@&quot;4000&quot;])&#123;</div><div class="line">                [[NSNotificationCenter defaultCenter]postNotificationName:RP_NOTIFITION_PAYFAIL object:nil];</div><div class="line">            &#125;</div><div class="line">        &#125;];</div><div class="line">    &#125;</div><div class="line">    return YES;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>在AppDelegate中 中补充<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div></pre></td><td class="code"><pre><div class="line">- (BOOL)application:(UIApplication *)application openURL:(NSURL *)url sourceApplication:(NSString *)sourceApplication annotation:(id)annotation</div><div class="line">&#123;</div><div class="line">    if ([url.host isEqualToString:@&quot;safepay&quot;]) &#123;</div><div class="line">        // 支付跳转支付宝钱包进行支付，处理支付结果</div><div class="line">        [[AlipaySDK defaultService] processOrderWithPaymentResult:url standbyCallback:^(NSDictionary *resultDic) &#123;</div><div class="line">            NSLog(@&quot;result = %@&quot;,resultDic);</div><div class="line">            </div><div class="line">            if ([[resultDic objectForKey:@&quot;resultCode&quot;] isEqualToString:@&quot;6001&quot;]) &#123;</div><div class="line">                [[NSNotificationCenter defaultCenter]postNotificationName:RP_NOTIFITION_PAYCANCEL object:nil];</div><div class="line">                </div><div class="line">            &#125;else if ([[resultDic objectForKey:@&quot;resultCode&quot;] isEqualToString:@&quot;9000&quot;])&#123;</div><div class="line">                [[NSNotificationCenter defaultCenter]postNotificationName:RP_NOTIFITION_PAYSUSSCESS object:nil];</div><div class="line">                </div><div class="line">            &#125;else if ([[resultDic objectForKey:@&quot;resultCode&quot;] isEqualToString:@&quot;4000&quot;])&#123;</div><div class="line">                [[NSNotificationCenter defaultCenter]postNotificationName:RP_NOTIFITION_PAYFAIL object:nil];</div><div class="line">            &#125;</div><div class="line">        &#125;];</div><div class="line">        </div><div class="line">    &#125;</div><div class="line">    return YES;</div><div class="line">&#125;</div><div class="line">-(BOOL)application:(UIApplication *)app openURL:(NSURL *)url options:(NSDictionary&lt;UIApplicationOpenURLOptionsKey,id&gt; *)options&#123;</div><div class="line">    [WXApi handleOpenURL:url delegate:self];</div><div class="line">    if ([url.host isEqualToString:@&quot;safepay&quot;]) &#123;</div><div class="line">        // 支付跳转支付宝钱包进行支付，处理支付结果</div><div class="line">        [[AlipaySDK defaultService] processOrderWithPaymentResult:url standbyCallback:^(NSDictionary *resultDic) &#123;</div><div class="line">            NSLog(@&quot;result = %@&quot;,resultDic);</div><div class="line">            if ([[resultDic objectForKey:@&quot;resultCode&quot;] isEqualToString:@&quot;6001&quot;]) &#123;</div><div class="line">                [[NSNotificationCenter defaultCenter]postNotificationName:RP_NOTIFITION_PAYCANCEL object:nil];</div><div class="line">                </div><div class="line">            &#125;else if ([[resultDic objectForKey:@&quot;resultCode&quot;] isEqualToString:@&quot;9000&quot;])&#123;</div><div class="line">                [[NSNotificationCenter defaultCenter]postNotificationName:RP_NOTIFITION_PAYSUSSCESS object:nil];</div><div class="line">                </div><div class="line">            &#125;else if ([[resultDic objectForKey:@&quot;resultCode&quot;] isEqualToString:@&quot;4000&quot;])&#123;</div><div class="line">                [[NSNotificationCenter defaultCenter]postNotificationName:RP_NOTIFITION_PAYFAIL object:nil];</div><div class="line">            &#125;</div><div class="line">        &#125;];</div><div class="line">    &#125;</div><div class="line">    return YES;</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<p>good!</p>
+<p>待补充~</p>
+
+      
+    </div>
+
+  </div>
+
+  <div class="article-footer">
+    <div class="article-meta pull-left">
+
+    
+
+    
+    
+
+    <span class="post-tags">
+      <i class="icon-tags"></i>
+        <a href="/tags/Alipay/">Alipay</a>
+    </span>
+    
+
+    </div>
+
+    
+  </div>
+</article>
+
+
+    </main>
+
+    <footer class="site-footer">
+  <p class="site-info">
+    Proudly powered by <a href="https://hexo.io/" target="_blank">Hexo</a> and
+    Theme by <a href="https://github.com/CodeDaraW/Hacker" target="_blank">Hacker</a>
+    </br>
+    
+    &copy; 2020 夏天然后
+    
+  </p>
+</footer>
+    
+  </div>
+</div>
+</body>
+</html>
