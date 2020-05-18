@@ -45,9 +45,9 @@
   <nav class="site-navigation">
     <ul>
       
-        <li><a href="/">主页</a></li>
+        <li><a href="/">Home</a></li>
       
-        <li><a href="/archives">归档</a></li>
+        <li><a href="/archives">Archives</a></li>
       
         <li><a href="/tags">about</a></li>
       
@@ -217,6 +217,61 @@
     <span class="post-tags">
       <i class="icon-tags"></i>
         <a href="/tags/CocoaPods/">CocoaPods</a>
+    </span>
+    
+
+    </div>
+
+    
+  </div>
+</article>
+
+
+
+  <article>
+
+  
+    
+    <h3 class="article-title"><a href="/2019/05/17/iOS-RunLoop/"><span>iOS-RunLoop探究</span></a></h3>
+    
+  
+
+  <div class="article-top-meta">
+    <span class="posted-on">
+      <a href="/2019/05/17/iOS-RunLoop/" rel="bookmark">
+        <time class="entry-date published" datetime="2019-05-16T16:10:02.000Z">
+          2019-05-17
+        </time>
+      </a>
+    </span>
+  </div>
+
+
+  
+
+  <div class="article-content">
+    <div class="entry">
+      
+        <p>RunLoop是iOS和OSX开发中一个经常被使用或者说是经常<code>被动</code>使用的一个很基础的概念, 今天围绕RunLoop进行一次深入的探究</p>
+<h3 id="1-什么是RunLoop"><a href="#1-什么是RunLoop" class="headerlink" title="1. 什么是RunLoop"></a>1. 什么是RunLoop</h3><p>一般来讲一个线程执行完一次任务之后, 线程就会退出, 而RrunLoop恰恰可以提供一种机制, 可以线程保持活跃(或者叫做持续等待), 这种通常被叫做 EventLoop.</p>
+<p>RunLoop实际上是一个对象, 这个对象负责处理或者说管理其要处理的事件和消息, 并提供了相关的函数实现了事件循环逻辑, 并提供了相关的函数来执行这个逻辑, 执行这个函数之后, 这个函数内部就处于一种 “接收消息-&gt;等待(休眠)-&gt;处理”的循环中, 直到函数结束.</p>
+<p>在iOS/OSX系统中, Apple为我们提供了两个这种的对象 NSRunLoop 和 CFRunLoopRef, CFRunLoopRef 是在 CoreFoundation 框架内的, 是纯C函数API, 是线程安全的, NSRunLoop 是基于 CFRunLoopRef 的封装，提供了面向对象的 API，但是这些 API 不是线程安全的.</p>
+      
+    </div>
+
+  </div>
+
+  <div class="article-footer">
+    <div class="article-meta pull-left">
+
+    
+
+    
+    
+
+    <span class="post-tags">
+      <i class="icon-tags"></i>
+        <a href="/tags/RunLoop/">RunLoop</a>
     </span>
     
 
@@ -573,73 +628,11 @@
 
 
 
-  <article>
-
-  
-    
-    <h3 class="article-title"><a href="/2016/11/09/39/"><span>iOS核心动画,基础动画, 关键帧动画, Spring动画, 转场动画, 组动画</span></a></h3>
-    
-  
-
-  <div class="article-top-meta">
-    <span class="posted-on">
-      <a href="/2016/11/09/39/" rel="bookmark">
-        <time class="entry-date published" datetime="2016-11-08T16:32:02.000Z">
-          2016-11-09
-        </time>
-      </a>
-    </span>
-  </div>
-
-
-  
-
-  <div class="article-content">
-    <div class="entry">
-      
-        <p><img src="http://ww1.sinaimg.cn/large/e6a4355cgy1fia2uox8xoj21z418g4qp.jpg" alt=""></p>
-<blockquote>
-<p>介绍: 核心动画, 提供丰富易用的API, 可以写出复杂交互性强的动画, 应用于Mac OS 和 iOS平台, 动画执行过程是在后台操作的, 不会影响主线程. 今天就来介绍一些API的示例使用. 下面的图很清楚了介绍了几个类之间的关系, 实际使用的过程中多使用以下几个</p>
-</blockquote>
-<ul>
-<li>CABasicAnimation</li>
-<li>CAKeyframeAnimation</li>
-<li>CATransition</li>
-<li>CAAnimationGroup</li>
-<li>CASpringAnimation</li>
-</ul>
-      
-    </div>
-
-  </div>
-
-  <div class="article-footer">
-    <div class="article-meta pull-left">
-
-    
-
-    
-    
-
-    <span class="post-tags">
-      <i class="icon-tags"></i>
-        <a href="/tags/iOS10-Xcode8/">iOS10 Xcode8</a>
-    </span>
-    
-
-    </div>
-
-    
-  </div>
-</article>
-
-
-
 
 <nav class="pagination">
   
   
-  <a href="/page/2/" class="pagination-next">下一页</a>
+  <a href="/page/2/" class="pagination-next">Next</a>
   
 </nav>
     </main>
