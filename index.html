@@ -61,6 +61,63 @@
 
   
     
+    <h3 class="article-title"><a href="/2020/07/13/ObjC-Grammar/"><span>iOS Objective-C语法的一些理解(一)</span></a></h3>
+    
+  
+
+  <div class="article-top-meta">
+    <span class="posted-on">
+      <a href="/2020/07/13/ObjC-Grammar/" rel="bookmark">
+        <time class="entry-date published" datetime="2020-07-12T16:38:02.000Z">
+          2020-07-13
+        </time>
+      </a>
+    </span>
+  </div>
+
+
+  
+
+  <div class="article-content">
+    <div class="entry">
+      
+        <p>[TOC]</p>
+<h3 id="1-对象的isa指针指向哪里？"><a href="#1-对象的isa指针指向哪里？" class="headerlink" title="1. 对象的isa指针指向哪里？"></a>1. 对象的isa指针指向哪里？</h3><ul>
+<li><code>instance</code>对象的<code>isa``指向class</code>对象</li>
+<li><code>class</code>对象的<code>isa</code>指向<code>meta-class</code>(元类)对象</li>
+<li><code>meta-class</code>对象的isa指向基类的<code>meta-class</code>对象</li>
+</ul>
+      
+    </div>
+
+  </div>
+
+  <div class="article-footer">
+    <div class="article-meta pull-left">
+
+    
+
+    
+    
+
+    <span class="post-tags">
+      <i class="icon-tags"></i>
+        <a href="/tags/OC-Grammar/">OC-Grammar</a>
+    </span>
+    
+
+    </div>
+
+    
+  </div>
+</article>
+
+
+
+  <article>
+
+  
+    
     <h3 class="article-title"><a href="/2020/06/02/logic/"><span>逻辑考验</span></a></h3>
     
   
@@ -546,70 +603,6 @@
     <span class="post-tags">
       <i class="icon-tags"></i>
         <a href="/tags/autorelease/">autorelease</a>
-    </span>
-    
-
-    </div>
-
-    
-  </div>
-</article>
-
-
-
-  <article>
-
-  
-    
-    <h3 class="article-title"><a href="/2016/12/06/42/"><span>CFString​Transform</span></a></h3>
-    
-  
-
-  <div class="article-top-meta">
-    <span class="posted-on">
-      <a href="/2016/12/06/42/" rel="bookmark">
-        <time class="entry-date published" datetime="2016-12-06T15:25:02.000Z">
-          2016-12-06
-        </time>
-      </a>
-    </span>
-  </div>
-
-
-  
-
-  <div class="article-content">
-    <div class="entry">
-      
-        <p><img src="http://ww1.sinaimg.cn/large/e6a4355cgy1fia25jswt2j21z418g4qq.jpg" alt=""><br>前言: <code>CFString​Transform</code>是一个你不太常见的函数, 他可以把字符串变得标准化.<br>比如</p>
-<ul>
-<li>去掉重音和变音符号</li>
-<li>为 Unicode 字符命名</li>
-<li>综合</li>
-</ul>
-<p>CFString​Transform 是 Core Foundation 中的一部分, 下面介绍一下如何简单的使用</p>
-<p>参数介绍</p>
-<ul>
-<li>string : 需要转换的字符串</li>
-<li>range: 作用范围</li>
-<li>transform需要进行的转化</li>
-<li>reverse: 是否返回反转过的变换
-      
-    </div>
-
-  </div>
-
-  <div class="article-footer">
-    <div class="article-meta pull-left">
-
-    
-
-    
-    
-
-    <span class="post-tags">
-      <i class="icon-tags"></i>
-        <a href="/tags/CFString​Transform/">CFString​Transform</a>
     </span>
     
 

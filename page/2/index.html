@@ -61,6 +61,70 @@
 
   
     
+    <h3 class="article-title"><a href="/2016/12/06/42/"><span>CFString​Transform</span></a></h3>
+    
+  
+
+  <div class="article-top-meta">
+    <span class="posted-on">
+      <a href="/2016/12/06/42/" rel="bookmark">
+        <time class="entry-date published" datetime="2016-12-06T15:25:02.000Z">
+          2016-12-06
+        </time>
+      </a>
+    </span>
+  </div>
+
+
+  
+
+  <div class="article-content">
+    <div class="entry">
+      
+        <p><img src="http://ww1.sinaimg.cn/large/e6a4355cgy1fia25jswt2j21z418g4qq.jpg" alt=""><br>前言: <code>CFString​Transform</code>是一个你不太常见的函数, 他可以把字符串变得标准化.<br>比如</p>
+<ul>
+<li>去掉重音和变音符号</li>
+<li>为 Unicode 字符命名</li>
+<li>综合</li>
+</ul>
+<p>CFString​Transform 是 Core Foundation 中的一部分, 下面介绍一下如何简单的使用</p>
+<p>参数介绍</p>
+<ul>
+<li>string : 需要转换的字符串</li>
+<li>range: 作用范围</li>
+<li>transform需要进行的转化</li>
+<li>reverse: 是否返回反转过的变换
+      
+    </div>
+
+  </div>
+
+  <div class="article-footer">
+    <div class="article-meta pull-left">
+
+    
+
+    
+    
+
+    <span class="post-tags">
+      <i class="icon-tags"></i>
+        <a href="/tags/CFString​Transform/">CFString​Transform</a>
+    </span>
+    
+
+    </div>
+
+    
+  </div>
+</article>
+
+
+
+  <article>
+
+  
+    
     <h3 class="article-title"><a href="/2016/11/24/41/"><span>厚积薄发之从Masonry 源码看Objective-C 开篇</span></a></h3>
     
   
@@ -548,66 +612,6 @@
     <span class="post-tags">
       <i class="icon-tags"></i>
         <a href="/tags/Swift/">Swift</a>
-    </span>
-    
-
-    </div>
-
-    
-  </div>
-</article>
-
-
-
-  <article>
-
-  
-    
-    <h3 class="article-title"><a href="/2016/10/10/32/"><span>浏览博客偶然碰到的一篇关于面试的文</span></a></h3>
-    
-  
-
-  <div class="article-top-meta">
-    <span class="posted-on">
-      <a href="/2016/10/10/32/" rel="bookmark">
-        <time class="entry-date published" datetime="2016-10-09T17:04:32.000Z">
-          2016-10-10
-        </time>
-      </a>
-    </span>
-  </div>
-
-
-  
-
-  <div class="article-content">
-    <div class="entry">
-      
-        <p>本来打算发在简书的, 但是写的还不全暂时也没有实践好好整理, 暂时放在博客中, 待后续完善, 面试笔者说是适合1-3年工作者的, 很中肯.</p>
-<p>1 <strong>什么是ARC?</strong></p>
-<blockquote>
-<p>ARC解决了MRC下(手动管理引用计数的问题), 也就是说在MRC下 alloc | retain 之后可以把新创建的对象引用计数产生 0 -&gt; 1的效果, 达到对对象持有的作用, 所以出现相应的release对对象进行释放, ARC为解决这一问题在iOS5之后应运而生.<br>ARC的规则: 只要还有一个变量指向对象, 对象就不会被释放, 就会保存在内存中.<br>ARC实际上:</p>
-<ul>
-<li>在对象被创建时 引用计数 +1，在对象被release时 引用计数 -1.当引用计数为0 时，销毁对象。</li>
-<li>程序中加入自动释放池的对象会由系统自动加上autorelease方法，如果该对象引用计数为0，则销毁.</li>
-</ul>
-</blockquote>
-      
-    </div>
-
-  </div>
-
-  <div class="article-footer">
-    <div class="article-meta pull-left">
-
-    
-
-    
-    
-
-    <span class="post-tags">
-      <i class="icon-tags"></i>
-        <a href="/tags/iOS面试/">iOS面试</a>
     </span>
     
 
