@@ -45,9 +45,9 @@
   <nav class="site-navigation">
     <ul>
       
-        <li><a href="/">主页</a></li>
+        <li><a href="/">Home</a></li>
       
-        <li><a href="/archives">归档</a></li>
+        <li><a href="/archives">Archives</a></li>
       
         <li><a href="/tags">about</a></li>
       
@@ -61,14 +61,14 @@
 
   
     
-    <h3 class="article-title"><a href="/2020/07/14/page-fluency/"><span></span></a></h3>
+    <h3 class="article-title"><a href="/2020/07/14/page-fluency/"><span>iOS-界面流畅度探究(超干货)</span></a></h3>
     
   
 
   <div class="article-top-meta">
     <span class="posted-on">
       <a href="/2020/07/14/page-fluency/" rel="bookmark">
-        <time class="entry-date published" datetime="2020-07-14T12:57:59.553Z">
+        <time class="entry-date published" datetime="2020-07-14T06:18:02.000Z">
           2020-07-14
         </time>
       </a>
@@ -83,92 +83,6 @@
       
         <p>[TOC]</p>
 <h3 id="1-屏幕显示图像的原理"><a href="#1-屏幕显示图像的原理" class="headerlink" title="1. 屏幕显示图像的原理"></a>1. 屏幕显示图像的原理</h3><p><code>CRT</code> 的电子枪按照从上到下一行行扫描，扫描完成后显示器就呈现一帧画面，随后电子枪回到初始位置继续下一次扫描。为了把显示器的显示过程和系统的视频控制器进行同步，显示器/屏幕设备（或者其他硬件）会用硬件时钟产生一系列的定时信号。当电子枪换到新的一行，准备进行扫描时，显示器会发出一个水平同步信号（<code>horizonal synchronization</code>），简称 <code>HSync</code>；而当一帧画面绘制完成后，电子枪回复到原位，准备画下一帧前，显示器会发出一个垂直同步信号（<code>vertical synchronization</code>），简称 <code>VSync</code>。显示器通常以固定频率进行刷新，这个刷新率就是 VSync 信号产生的频率。大致如下图所示</p>
-<p><img src="https://tva1.sinaimg.cn/large/007S8ZIlly1ggqbr8yda8j30h20c6dgs.jpg" alt="图片"></p>
-<p>一般来说, <code>CPU</code> 计算好显示内容提交到 <code>GPU</code>，<code>GPU</code> 渲染完成后将渲染结果放入帧缓冲区，随后视频控制器会按照 <code>VSync</code> 信号逐行读取帧缓冲区的数据，经过可能的数模转换传递给显示器显示。工作原理大致如下图</p>
-<p><img src="https://tva1.sinaimg.cn/large/007S8ZIlly1ggqc9bs6c8j30uu0eq75k.jpg" style="zoom:50%;"></p>
-<p>在最简单的情况下, 帧缓冲区只有一个，这时帧缓冲区的读取和刷新都都会有比较大的效率问题, 单一不能多线程处理。为了解决效率问题，显示系统通常会引入两个缓冲区，即双缓冲机制。在这种情况下，<code>GPU</code> 会预先渲染好一帧放入一个缓冲区内，让视频控制器读取，当下一帧渲染好后，<code>GPU</code> 会直接把视频控制器的指针指向第二个缓冲器。如此一来效率会有很大的提升。</p>
-<p>双缓冲虽然能解决效率问题，但会引入一个新的问题。当视频控制器还未读取完成时，即屏幕内容刚显示一半时，GPU 将新的一帧内容提交到帧缓冲区并把两个缓冲区进行交换后，视频控制器就会把新的一帧数据的下半段显示到屏幕上，造成画面撕裂现象。如下图</p>
-<p><img src="https://tva1.sinaimg.cn/large/007S8ZIlly1ggqceytporj319o0mwqv5.jpg" alt=""></p>
-<p>为了解决这个问题，<code>GPU</code> 通常有一个机制叫做垂直同步（简写也是 V-Sync），当开启垂直同步后，<code>GPU</code> 会等待显示器的 VSync 信号发出后，才进行新的一帧渲染和缓冲区更新。这样能解决画面撕裂现象，也增加了画面流畅度，但需要消费更多的计算资源，也会带来部分延迟。</p>
-<p>现在市场的状况, iOS 设备目前为止始终使用双缓存，并开启垂直同步。而安卓设备直到 4.1 版本，Google 才开始引入这种机制，目前安卓系统是三缓存+垂直同步。</p>
-<h3 id="2-CPU在iOS中是如何工作的"><a href="#2-CPU在iOS中是如何工作的" class="headerlink" title="2. CPU在iOS中是如何工作的"></a>2. CPU在iOS中是如何工作的</h3><p>CPU: 中央处理器（central processing unit）作为智能设备系统的运算和控制核心，是信息处理、程序运行的最终执行单元.</p>
-<p>在iOS中CPU做了哪些事情, 包括不仅限于对象的创建, 对象的调整, 对象的销毁, 布局计算, AutoLayou, 文本计算, 文本渲染, 图片解码, 图像绘制, 也就是说, 跟计算有关, 相关的CPU都有参与, 类似于人类的大脑, 至关重要, 虽然是多线程处理, 但是处理的事情多/事情复杂 就都会影响CPU的工作效率</p>
-<h3 id="3-GPU在iOS中负责什么"><a href="#3-GPU在iOS中负责什么" class="headerlink" title="3. GPU在iOS中负责什么"></a>3. GPU在iOS中负责什么</h3><p>GPU: 图形处理器（英语：Graphics Processing Unit，缩写：GPU），又称显示核心、视觉处理器、显示芯片，是一种专门在个人电脑、<a href="https://baike.baidu.com/item/工作站/217955" target="_blank" rel="external">工作站</a>、游戏机和一些<a href="https://baike.baidu.com/item/移动设备/9157757" target="_blank" rel="external">移动设备</a>（如<a href="https://baike.baidu.com/item/平板电脑/1348389" target="_blank" rel="external">平板电脑</a>、<a href="https://baike.baidu.com/item/智能手机/94396" target="_blank" rel="external">智能手机</a>等）上做图像和图形相关运算工作的<a href="https://baike.baidu.com/item/微处理器/104320" target="_blank" rel="external">微处理器</a>。</p>
-<p>在iOS中GPU做了哪些事情, 纹理渲染, 视图混合, 图形的生成.</p>
-<h3 id="4-iOS中CPU和GPU的协同"><a href="#4-iOS中CPU和GPU的协同" class="headerlink" title="4. iOS中CPU和GPU的协同"></a>4. iOS中CPU和GPU的协同</h3><p>首先请看图</p>
-<p><img src="https://tva1.sinaimg.cn/large/007S8ZIlly1ggqcl3t3oyj312s0ay0u2.jpg" style="zoom:50%;"></p>
-<p>众所周知<code>iPhone</code>显示器是 <code>60帧/s</code> 也就是 <code>16.6666ms/帧</code> 约等于 <code>17ms</code></p>
-<p>也就是说 <code>T(cpu) + T(gpu) = 17ms</code> 是最理想的状态 超过<code>17ms</code>就会产生卡顿, 也就是我们常说的掉帧.</p>
-<p>所以优化的方向也是从这两方面入手, 减少<code>CPU</code>计算, 减少<code>CPU</code>的工作</p>
-<h3 id="5-在iOS中CPU的优化方向"><a href="#5-在iOS中CPU的优化方向" class="headerlink" title="5. 在iOS中CPU的优化方向"></a>5. 在iOS中CPU的优化方向</h3><p>上面也提到了CPU都负责哪些工作, 优化也是从这些方面入手</p>
-<ol>
-<li>对象创建, 用轻量的对象代替重量的对象, 比如<code>CALayer</code> 比 <code>UIView</code> 要轻量许多</li>
-<li>对象调整, UIView 的关于显示相关的属性（比如 frame/bounds/transform）等实际上都是 CALayer 属性映射来的，所以对 UIView 的这些属性进行调整时，消耗的资源要远大于一般的属性。对此你在应用中，应该尽量减少不必要的属性修改。当视图层次调整时，UIView、CALayer 之间会出现很多方法调用与通知，所以在优化性能时，应该尽量避免调整视图层次、添加和移除视图。(活用 hidden属性)</li>
-<li>布局计算, 提前布局计算, 并进行缓存</li>
-<li>文本计算, 用<code>[NSAttributedString boundingRectWithSize:options:context:]</code> 来计算文本宽高，用 -<code>[NSAttributedString drawWithRect:options:context:]</code>来绘制文本</li>
-<li>图片的解码, 当你用 <code>UIImage</code> 或 <code>CGImageSource</code> 的那几个方法创建图片时，图片数据并不会立刻解码。图片设置到 <code>UIImageView</code> 或者 <code>CALayer.contents</code> 中去，并且<code>CALayer</code> 被提交到 <code>GPU</code> 前，<code>CGImage</code>中的数据才会得到解码。这一步是发生在主线程的，并且不可避免。如果想要绕开这个机制，常见的做法是在后台线程先把图片绘制到 <code>CGBitmapContext</code> 中，然后从 <code>Bitmap</code> 直接创建图片。目前常见的网络图片库都自带这个功能。</li>
-<li>图像的绘制, 图像的绘制通常是指用那些以 CG 开头的方法把图像绘制到画布中，然后从画布创建图片并显示这样一个过程。这个最常见的地方就是 <code>[UIView drawRect:]</code>里面了。由于 <code>CoreGraphic</code>方法通常都是线程安全的，所以图像的绘制可以很容易的放到后台线程进行。</li>
-</ol>
-<h3 id="6-在iOS中GPU的优化方向"><a href="#6-在iOS中GPU的优化方向" class="headerlink" title="6. 在iOS中GPU的优化方向"></a>6. 在iOS中GPU的优化方向</h3><ol>
-<li><p>视图的混合, 当多个视图（或者说 <code>CALayer</code>）重叠在一起显示时，<code>GPU</code>会首先把他们混合到一起。如果视图结构过于复杂，混合的过程也会消耗很多 <code>GPU</code>资源。为了减轻这种情况的<code>GPU</code>消耗，应用应当尽量减少视图数量和层次，并在不透明的视图里标明 <code>opaque</code>属性以避免无用的 <code>Alpha</code> 通道合成。当然，这也可以用上面的方法，把多个视图预先渲染为一张图片来显示。</p>
-</li>
-<li><p>图形的生成, <code>CALayer</code> 的<code>border</code>、圆角、阴影、遮罩（mask），<code>CASharpLayer</code> 的矢量图形显示，通常会触发离屏渲染（offscreen rendering），而离屏渲染通常发生在 <code>GPU</code> 中。当一个列表视图中出现大量圆角的 <code>CALayer</code>，并且快速滑动时，可以观察到 <code>GPU</code> 资源已经占满，而 <code>CPU</code> 资源消耗很少。这时界面仍然能正常滑动，但平均帧数会降到很低。为了避免这种情况，可以尝试开启 <code>CALayer.shouldRasterize</code> 属性，但这会把原本离屏渲染的操作转嫁到 <code>CPU</code>上去。对于只需要圆角的某些场合，也可以用一张已经绘制好的圆角图片覆盖到原本视图上面来模拟相同的视觉效果。最彻底的解决办法，就是把需要显示的图形在后台线程绘制为图片，避免使用圆角、阴影、遮罩等属性。</p>
-</li>
-</ol>
-<h3 id="7-iOS中的离屏渲染"><a href="#7-iOS中的离屏渲染" class="headerlink" title="7. iOS中的离屏渲染"></a>7. iOS中的离屏渲染</h3><h4 id="7-1-离屏渲染是什么"><a href="#7-1-离屏渲染是什么" class="headerlink" title="7.1. 离屏渲染是什么"></a>7.1. 离屏渲染是什么</h4><p>概念 : iOS App在渲染屏幕内容的时候 有一块与屏幕像素数据量一样大的frame buffer, 但是受当前屏幕渲染的局限因素限制, 而不得不在开辟一个空间(Offscreen Buffer)在做这件事, 这个过程叫做离屏渲染. 过程大致如下图</p>
-<p><img src="https://tva1.sinaimg.cn/large/007S8ZIlly1ggqgjmu8dnj312e07e756.jpg" alt=""></p>
-<h4 id="7-2-CPU是否有离屏渲染概念"><a href="#7-2-CPU是否有离屏渲染概念" class="headerlink" title="7.2. CPU是否有离屏渲染概念?"></a>7.2. CPU是否有离屏渲染概念?</h4><p><a href="https://lobste.rs/s/ckm4uw/performance_minded_take_on_ios_design#c_itdkfh" target="_blank" rel="external">根据苹果工程师的说法</a>，CPU渲染并非真正意义上的离屏渲染。还有如果你的view实现了drawRect，此时打开Xcode调试的“Color offscreen rendered yellow”开关，你会发现这片区域不会被标记为黄色，说明Xcode并不认为这属于离屏渲染。</p>
-<h4 id="7-3-GPU离屏渲染"><a href="#7-3-GPU离屏渲染" class="headerlink" title="7.3. GPU离屏渲染"></a>7.3. GPU离屏渲染</h4><p>GPU的渲染: 主要的渲染操作都是由<code>CoreAnimation</code>的<code>Render Server</code>模块，通过调用显卡驱动所提供的<code>OpenGL/Metal</code>接口来执行的。通常对于每一层<code>layer</code>，<code>Render Server</code>会按次序输出到<code>frame buffer</code>，后一层覆盖前一层，就能得到最终的显示结果, 但有些场景比较繁杂, 作为“画家”的GPU虽然可以一层一层往画布上进行输出，但是无法在某一层渲染完成之后，再回过头来擦除/改变其中的某个部分——因为在这一层之前的若干层layer像素数据，已经在渲染中被永久覆盖了。这就意味着，<strong>对于每一层layer，要么能找到一种通过单次遍历就能完成渲染的算法，要么就不得不另开一块内存，借助这个临时中转区域来完成一些更复杂的、多次的修改/剪裁操作</strong>。</p>
-<h4 id="7-4-iOS中离屏渲染场景"><a href="#7-4-iOS中离屏渲染场景" class="headerlink" title="7.4. iOS中离屏渲染场景"></a>7.4. iOS中离屏渲染场景</h4><ul>
-<li><p><code>cornerRadius+clipsToBounds</code></p>
-</li>
-<li><p><code>shadow</code></p>
-</li>
-<li><p><code>group opacity</code>: 将一对蓝色和红色layer叠在一起，然后在父layer上设置opacity=0.5，并复制一份在旁边作对比。左边关闭group opacity，右边保持默认（从iOS7开始，如果没有显式指定，group opacity会默认打开），然后打开offscreen rendering的调试，我们会发现右边的那一组确实是离屏渲染了</p>
-<p><img src="https://tva1.sinaimg.cn/large/007S8ZIlly1ggqh0sw7k9j30y60jswfz.jpg" alt="同样的两个view，右边打开group opacity（默认行为）的被标记为Offscreen rendering"></p>
-</li>
-<li><p><code>mask</code></p>
-</li>
-<li><code>UIBlurEffect</code></li>
-</ul>
-<h4 id="7-5-离屏渲染的性能影响"><a href="#7-5-离屏渲染的性能影响" class="headerlink" title="7.5. 离屏渲染的性能影响"></a>7.5. 离屏渲染的性能影响</h4><p><code>GPU</code>的操作是高度流水线化的。本来所有计算工作都在有条不紊地正在向<code>frame buffer</code>输出，此时突然收到指令，需要输出到另一块内存，那么流水线中正在进行的一切都不得不被丢弃，切换到只能服务于我们当前的“切圆角”操作。等到完成以后再次清空，再回到向<code>frame buffer</code>输出的正常流程。</p>
-<p>在<code>tableView</code>或者<code>collectionView</code>中，滚动的每一帧变化都会触发每个<code>cell</code>的重新绘制，因此一旦存在离屏渲染，上面提到的上下文切换就会每秒发生60次，并且很可能每一帧有几十张的图片要求这么做，对于GPU的性能冲击可想而知（<code>GPU</code>非常擅长大规模并行计算，但是我想频繁的上下文切换显然不在其设计考量之中）</p>
-<h4 id="7-6-优化"><a href="#7-6-优化" class="headerlink" title="7.6. 优化"></a>7.6. 优化</h4><p>以上可以看出, 有很多情况是无法避免的, 避免不了, 就尽量优化, 好在CALayer为这个方案提供了对应的解法：shouldRasterize。一旦被设置为true，Render Server就会强制把layer的渲染结果（包括其子layer，以及圆角、阴影、group opacity等等）保存在一块内存中，这样一来在下一帧仍然可以被复用，而不会再次触发离屏渲染。</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">layer.shouldRasterize = true;</div></pre></td></tr></table></figure>
-<h5 id="7-6-1-还有一些需要注意的点"><a href="#7-6-1-还有一些需要注意的点" class="headerlink" title="7.6.1 还有一些需要注意的点"></a>7.6.1 还有一些需要注意的点</h5><ul>
-<li><code>shouldRasterize</code>的主旨在于<strong>降低性能损失，但总是至少会触发一次离屏渲染</strong>。如果你的layer本来并不复杂，也没有圆角阴影等等，打开这个开关反而会增加一次不必要的离屏渲染</li>
-<li>离屏渲染缓存有空间上限，最多不超过屏幕总像素的2.5倍大小</li>
-<li>一旦缓存超过100ms没有被使用，会自动被丢弃</li>
-<li><code>layer</code>的内容（包括子<code>layer</code>）必须是静态的，因为一旦发生变化（如<code>resize</code>，动画），之前辛苦处理得到的缓存就失效了。如果这件事频繁发生，我们就又回到了“每一帧都需要离屏渲染”的情景，而这正是开发者需要极力避免的。针对这种情况，<code>Xcode提供了“Color Hits Green and Misses Red”</code>的选项，帮助我们查看缓存的使用是否符合预期</li>
-<li>其实除了解决多次离屏渲染的开销，<code>shouldRasterize</code>在另一个场景中也可以使用：如果<code>layer</code>的子结构非常复杂，渲染一次所需时间较长，同样可以打开这个开关，把layer绘制到一块缓存，然后在接下来复用这个结果，这样就不需要每次都重新绘制整个layer树了</li>
-</ul>
-<h4 id="7-7-什么时候需要CPU渲染"><a href="#7-7-什么时候需要CPU渲染" class="headerlink" title="7.7. 什么时候需要CPU渲染"></a>7.7. 什么时候需要CPU渲染</h4><p>其实渲染性能的调优, 就是在平衡CPU和GPU让他们尽量做各自最擅长的工作。</p>
-<p>所以对于一些情况，如文字（CoreText使用CoreGraphics渲染）和图片（ImageIO）渲染，由于GPU并不擅长做这些工作，不得不先由CPU来处理好以后，再把结果作为texture传给GPU。除此以外，有时候也会遇到GPU实在忙不过来的情况，而CPU相对空闲（GPU瓶颈），这时可以让CPU分担一部分工作，提高整体效率。</p>
-<h5 id="7-7-1-需要注意的点"><a href="#7-7-1-需要注意的点" class="headerlink" title="7.7.1. 需要注意的点"></a>7.7.1. 需要注意的点</h5><ul>
-<li>渲染不是CPU的强项，调用CoreGraphics会消耗其相当一部分计算时间，并且我们也不愿意因此阻塞用户操作，因此一般来说CPU渲染都在后台线程完成（这也是AsyncDisplayKit的主要思想），然后再回到主线程上，把渲染结果传回CoreAnimation。这样一来，多线程间数据同步会增加一定的复杂度</li>
-<li>同样因为CPU渲染速度不够快，因此只适合渲染静态的元素，如文字、图片（想象一下没有硬件加速的视频解码，性能惨不忍睹）</li>
-<li>作为渲染结果的bitmap(位图)数据量较大（形式上一般为解码后的UIImage），消耗内存较多，所以应该在使用完及时释放，并在需要的时候重新生成，否则很容易导致OOM(Out Of Memory)</li>
-<li>如果你选择使用CPU来做渲染，那么就没有理由再触发GPU的离屏渲染了，否则会同时存在两块内容相同的内存，而且CPU和GPU都会比较辛苦</li>
-<li>一定要使用Instruments的不同工具来测试性能，而不是仅凭猜测来做决定</li>
-</ul>
-<h4 id="7-8-可以在项目进行的优化"><a href="#7-8-可以在项目进行的优化" class="headerlink" title="7.8. 可以在项目进行的优化"></a>7.8. 可以在项目进行的优化</h4><ul>
-<li>可以应用AsyncDisplayKit(Texture)作为主要渲染框架，对于文字和图片的异步渲染操作交由框架来处理。</li>
-<li>对于图片的圆角，预先使用CoreGraphics为图片裁剪圆角</li>
-<li>对于视频的圆角，由于实时剪切非常消耗性能，可以创建四个白色弧形的layer盖住四个角，从视觉上制造圆角的效果</li>
-<li>对于view的圆形边框，如果没有backgroundColor，可以放心使用cornerRadius来做</li>
-<li>对于所有的阴影，使用shadowPath来规避离屏渲染</li>
-<li>对于特殊形状的view，使用layer mask并打开shouldRasterize来对渲染结果进行缓存</li>
-<li>对于模糊效果，不采用系统提供的UIVisualEffect，而是另外实现模糊效果（CIGaussianBlur），并手动管理渲染结果</li>
-</ul>
-<p>总结:  通过以上的阐述, 基本从CPU和GPU的角度做了一次, 深入的分析, 希望从这篇文章可以了解 影响界面流畅度的因素, 以及如何规避, 以及优化的方向, 归根结底其实就是, 平衡CPU和GPU, 以及减少两者的工作, 使其充分发挥其作用.</p>
-<p>扩展阅读</p>
-<p><a href="https://github.com/seedante/iOS-Note/wiki/Mastering-Offscreen-Render" target="_blank" rel="external">Mastering Offscreen Render</a></p>
-<p><a href="https://blog.ibireme.com/2015/11/12/smooth_user_interfaces_for_ios/" target="_blank" rel="external">iOS 保持界面流畅的技巧</a></p>
-<p><a href="https://zhuanlan.zhihu.com/p/72653360" target="_blank" rel="external">关于iOS离屏渲染的深入研究</a></p>
-<p><a href="https://www.objc.io/issues/3-views/moving-pixels-onto-the-screen/" target="_blank" rel="external">Getting Pixels onto the Screen</a></p>
-<p><a href="https://developer.apple.com/news/?id=gclaxoae" target="_blank" rel="external">https://developer.apple.com/news/?id=gclaxoae</a></p>
-<p><a href="summerxx.com">summerxx.com</a>或者<a href="https://summerxx.blog.csdn.net/article/details/107338042" target="_blank" rel="external">原文</a></p>
-
       
     </div>
 
@@ -179,6 +93,13 @@
 
     
 
+    
+    
+
+    <span class="post-tags">
+      <i class="icon-tags"></i>
+        <a href="/tags/优化/">优化</a>
+    </span>
     
 
     </div>
@@ -698,7 +619,7 @@
 <nav class="pagination">
   
   
-  <a href="/page/2/" class="pagination-next">下一页</a>
+  <a href="/page/2/" class="pagination-next">Next</a>
   
 </nav>
     </main>
