@@ -61,6 +61,65 @@
 
   
     
+    <h3 class="article-title"><a href="/2016/10/13/34/"><span>数据持久化方式Sqlite 之 fmdb tips-1</span></a></h3>
+    
+  
+
+  <div class="article-top-meta">
+    <span class="posted-on">
+      <a href="/2016/10/13/34/" rel="bookmark">
+        <time class="entry-date published" datetime="2016-10-12T16:05:32.000Z">
+          2016-10-13
+        </time>
+      </a>
+    </span>
+  </div>
+
+
+  
+
+  <div class="article-content">
+    <div class="entry">
+      
+        <p>去年在CSDN上写了一篇关于<code>fmdb</code>的文章, 那时候排版烂, 写的也不够仔细, 最近项目会用到这类的知识, 打算做一个好好的总结, 今天这篇是第一篇 介绍一下简单的使用.</p>
+<blockquote>
+<ul>
+<li><code>FMDatabase</code> 代表一个SQLite数据库。用于执行SQL语句</li>
+<li><code>FMResultSet</code> 代表执行一个查询的结果 存储在一个“FMResultSet”对象中</li>
+<li><code>FMDatabaseQueue</code> 如果你想在多个线程执行查询和更新,你可以使用这个类(用于在多线程中执行多个查询或更新，它是线程安全的)</li>
+<li><code>FMDatabaseAdditions</code> 对 <code>FMDatabase</code>进行的扩展 (暂时还没仔细看)</li>
+<li><code>FMDatabasePool</code> 用来统一管理 <code>FMDatabase</code>的对象的一个池子, 在使用这个之前先看看 <code>FMDatabaseQueue</code>是否能解决你的需求, 如不能, 在看<code>FMDatabasePool</code> 容易造成死锁, 小心使用, 不是必须使用, 尽量不用喽
+      
+    </div>
+
+  </div>
+
+  <div class="article-footer">
+    <div class="article-meta pull-left">
+
+    
+
+    
+    
+
+    <span class="post-tags">
+      <i class="icon-tags"></i>
+        <a href="/tags/FMDB/">FMDB</a>
+    </span>
+    
+
+    </div>
+
+    
+  </div>
+</article>
+
+
+
+  <article>
+
+  
+    
     <h3 class="article-title"><a href="/2016/10/11/33/"><span>Swift语法之结构体</span></a></h3>
     
   
@@ -619,59 +678,6 @@
 
     
 
-    
-
-    </div>
-
-    
-  </div>
-</article>
-
-
-
-  <article>
-
-  
-    
-    <h3 class="article-title"><a href="/2016/08/15/06/"><span>JSPatch 一些思考</span></a></h3>
-    
-  
-
-  <div class="article-top-meta">
-    <span class="posted-on">
-      <a href="/2016/08/15/06/" rel="bookmark">
-        <time class="entry-date published" datetime="2016-08-15T03:42:31.000Z">
-          2016-08-15
-        </time>
-      </a>
-    </span>
-  </div>
-
-
-  
-
-  <div class="article-content">
-    <div class="entry">
-      
-        <p>前言: 因为iOS审核周期长且存在某一个版本被拒风险, 更新起来是相当的困难, 特别是遇到不可预测的bug, 难免对整个项目产生影响, 造成不必要的损失.</p>
-<p>基于上述简单描述, JSPatch应运而生.<br>由于本人公司的项目并没有用到JSPatch, 具体的使用我只是查阅的一些相关的博客, 加上我自己的一些理解, 作为记录希望有机会可以用到这个很强大的库. 文中如果出现一些理解上的错误, 欢迎与我联系, 并告知我在这里表示感谢.<br>
-      
-    </div>
-
-  </div>
-
-  <div class="article-footer">
-    <div class="article-meta pull-left">
-
-    
-
-    
-    
-
-    <span class="post-tags">
-      <i class="icon-tags"></i>
-        <a href="/tags/JSPatch/">JSPatch</a>
-    </span>
     
 
     </div>

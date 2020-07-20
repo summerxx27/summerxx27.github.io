@@ -1,0 +1,165 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  <title>SwiftUI-Creating and Combining Views | 夏天然后 | 自信温暖, 容易相处!</title>
+
+  
+  <meta name="author" content="夏天然后">
+  
+
+  
+  <meta name="description" content="1. Create a New Project and Explore the Canvas
+创建一个新的Xcode 项目 (File &amp;gt; New &amp;gt; Project.)
+Select the Single View App
+select SwiftUI for the user interface">
+  
+
+  
+  
+  <meta name="keywords" content="SwiftUI">
+  
+
+  <meta id="viewport" name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, minimum-scale=1, user-scalable=no, minimal-ui">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black">
+
+  <meta property="og:title" content="SwiftUI-Creating and Combining Views"/>
+
+  <meta property="og:site_name" content="夏天然后"/>
+
+  
+  <meta property="og:image" content="/favicon.ico"/>
+  
+
+  <link href="/favicon.ico" rel="icon">
+  <link rel="alternate" href="/atom.xml" title="夏天然后" type="application/atom+xml">
+  <link rel="stylesheet" href="/css/style.css" media="screen" type="text/css">
+</head>
+
+
+<body>
+<div class="blog">
+  <div class="content">
+
+    <header>
+  <div class="site-branding">
+    <h1 class="site-title">
+      <a href="/">夏天然后</a>
+    </h1>
+    <p class="site-description">自信温暖, 容易相处!</p>
+  </div>
+  <nav class="site-navigation">
+    <ul>
+      
+        <li><a href="/">Home</a></li>
+      
+        <li><a href="/archives">Archives</a></li>
+      
+        <li><a href="/tags">about</a></li>
+      
+    </ul>
+  </nav>
+</header>
+
+    <main class="site-main posts-loop">
+    <article>
+
+  
+    
+    <h3 class="article-title"><span>SwiftUI-Creating and Combining Views</span></h3>
+    
+  
+
+  <div class="article-top-meta">
+    <span class="posted-on">
+      <a href="/2020/07/20/SwiftUI-Creating-and-CombiningViews/" rel="bookmark">
+        <time class="entry-date published" datetime="2020-07-20T06:18:02.000Z">
+          2020-07-20
+        </time>
+      </a>
+    </span>
+  </div>
+
+
+  
+
+  <div class="article-content">
+    <div class="entry">
+      
+        <h3 id="1-Create-a-New-Project-and-Explore-the-Canvas"><a href="#1-Create-a-New-Project-and-Explore-the-Canvas" class="headerlink" title="1. Create a New Project and Explore the Canvas"></a>1. Create a New Project and Explore the Canvas</h3><ul>
+<li>创建一个新的Xcode 项目 (<strong>File &gt; New &gt; Project</strong>.)</li>
+<li>Select the <strong>Single View App</strong></li>
+<li>select <strong>SwiftUI</strong> for the user interface</li>
+</ul>
+<a id="more"></a>
+<p>Example Code</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">import</span> SwiftUI</div><div class="line"></div><div class="line"><span class="class"><span class="keyword">struct</span> <span class="title">ContentView</span>: <span class="title">View</span> </span>&#123;</div><div class="line">    <span class="keyword">var</span> body: some <span class="type">View</span> &#123;</div><div class="line">        <span class="type">Text</span>(<span class="string">"Hello, World!"</span>)</div><div class="line">    &#125;</div><div class="line">&#125;</div><div class="line"></div><div class="line"><span class="class"><span class="keyword">struct</span> <span class="title">ContentView_Previews</span>: <span class="title">PreviewProvider</span> </span>&#123;</div><div class="line">    <span class="keyword">static</span> <span class="keyword">var</span> previews: some <span class="type">View</span> &#123;</div><div class="line">        <span class="type">ContentView</span>()</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<blockquote>
+<p>默认情况下, <code>SwiftUI</code>视图文件声明了两个结构体 , 第一个结构体, 描述视图的内容和布局。第二个结构声明了该视图的预览。</p>
+</blockquote>
+<h3 id="2-新版Xcode有了更加便捷了预览"><a href="#2-新版Xcode有了更加便捷了预览" class="headerlink" title="2. 新版Xcode有了更加便捷了预览"></a>2. 新版Xcode有了更加便捷了预览</h3><p><img src="https://tva1.sinaimg.cn/large/007S8ZIlly1ggx9m5faekj30p60e8751.jpg" alt="截屏2020-07-20 上午10.22.39" style="zoom:50%;"></p>
+<blockquote>
+<p>在Xcode的右侧, 新增了视图预览窗口, 点击Resume可以进行静态预览</p>
+<p>显示/关闭预览 <strong>Editor &gt; Editor and Canvas</strong></p>
+</blockquote>
+<h3 id="3-Customize-the-Text-View"><a href="#3-Customize-the-Text-View" class="headerlink" title="3. Customize the Text View"></a>3. Customize the Text View</h3><h4 id="3-1-以下是通过代码对Text进行简单的设置-更加详细的使用请看Text-相关API"><a href="#3-1-以下是通过代码对Text进行简单的设置-更加详细的使用请看Text-相关API" class="headerlink" title="3.1 以下是通过代码对Text进行简单的设置, 更加详细的使用请看Text 相关API"></a>3.1 以下是通过代码对Text进行简单的设置, 更加详细的使用请看Text 相关API</h4><figure class="highlight swift"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line"><span class="class"><span class="keyword">struct</span> <span class="title">ContentView</span>: <span class="title">View</span> </span>&#123;</div><div class="line">    <span class="keyword">var</span> body: some <span class="type">View</span> &#123;</div><div class="line">        <span class="type">Text</span>(<span class="string">"Hello, summerxx"</span>)</div><div class="line">            .foregroundColor(.blue)</div><div class="line">            .font(<span class="type">Font</span>.system(<span class="type">Font</span>.<span class="type">TextStyle</span>.largeTitle))</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<h4 id="3-2-还可以点击command键-然后点击要修改的Text-command-点击文字"><a href="#3-2-还可以点击command键-然后点击要修改的Text-command-点击文字" class="headerlink" title="3.2 还可以点击command键 +然后点击要修改的Text/ command+点击文字"></a>3.2 还可以点击command键 +然后点击要修改的Text/ command+点击文字</h4><p><img src="https://tva1.sinaimg.cn/large/007S8ZIlly1ggx9mt2ojqj30l00l813c.jpg" alt="截屏2020-07-20 上午10.46.47" style="zoom:50%;"><img src="https://tva1.sinaimg.cn/large/007S8ZIlly1ggx9n2kt9ij30h20r2tlr.jpg" alt="截屏2020-07-20 上午10.50.54" style="zoom:50%;"></p>
+<h4 id="3-3-Combine-Views-Using-Stacks"><a href="#3-3-Combine-Views-Using-Stacks" class="headerlink" title="3.3 Combine Views Using Stacks"></a>3.3 Combine Views Using Stacks</h4><figure class="highlight swift"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div></pre></td><td class="code"><pre><div class="line"><span class="class"><span class="keyword">struct</span> <span class="title">ContentView</span>: <span class="title">View</span> </span>&#123;</div><div class="line">    <span class="keyword">var</span> body: some <span class="type">View</span> &#123;</div><div class="line">        <span class="type">VStack</span> &#123;</div><div class="line">            <span class="type">Text</span>(<span class="string">"summerxx0"</span>)</div><div class="line">                .font(.title)</div><div class="line">                .foregroundColor(.blue)</div><div class="line">                .font(<span class="type">Font</span>.system(<span class="type">Font</span>.<span class="type">TextStyle</span>.largeTitle))</div><div class="line">                .frame(width: <span class="number">150</span>, height: <span class="number">150</span>, alignment: <span class="type">Alignment</span>.leading)</div><div class="line">                </div><div class="line">            <span class="type">HStack</span> &#123;</div><div class="line">                <span class="type">Text</span>(<span class="string">"summerxx1"</span>)</div><div class="line">                .font(.title)</div><div class="line">                .foregroundColor(.blue)</div><div class="line">                    .font(<span class="type">Font</span>.system(<span class="type">Font</span>.<span class="type">TextStyle</span>.largeTitle))</div><div class="line">                <span class="type">Text</span>(<span class="string">"summerxx2"</span>)</div><div class="line">                .font(.title)</div><div class="line">                .foregroundColor(.blue)</div><div class="line">                    .font(<span class="type">Font</span>.system(<span class="type">Font</span>.<span class="type">TextStyle</span>.largeTitle))</div><div class="line">            &#125;</div><div class="line">        &#125;</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p><img src="https://tva1.sinaimg.cn/large/007S8ZIlly1ggx9lt0ngqj30hu0kqh00.jpg" alt="截屏2020-07-20 上午11.11.36" style="zoom:50%;"></p>
+<p>上面是简单组合的演示, 同时 你可能需要多种不同的控件添加 - 可以通过Xcode右上角的加号进行, 控件的添加 (常用的有 scrollView, button, list, Form 等等) </p>
+<h3 id="4-Create-a-Custom-Image-View"><a href="#4-Create-a-Custom-Image-View" class="headerlink" title="4. Create a Custom Image View"></a>4. Create a Custom Image View</h3><figure class="highlight swift"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="type">Image</span>(<span class="string">"summerxx"</span>).frame(width: <span class="number">400.0</span>, height: <span class="number">400.0</span>).clipShape(<span class="type">Circle</span>())</div></pre></td></tr></table></figure>
+<h3 id="5-Use-UIKit-and-SwiftUI-Views-Together"><a href="#5-Use-UIKit-and-SwiftUI-Views-Together" class="headerlink" title="5. Use UIKit and SwiftUI Views Together"></a>5. Use UIKit and SwiftUI Views Together</h3><ul>
+<li>创建XTCustomMapView继承于 <code>UIViewRepresentable</code> 然后重写父类方法<code>makeUIView</code>,  <code>updateUIView</code></li>
+<li>显示 latitude: 34.011286, longitude: -116.166868 跨度两个经纬度的地理位置</li>
+</ul>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div></pre></td><td class="code"><pre><div class="line"><span class="class"><span class="keyword">struct</span> <span class="title">XTCustomMapView</span>: <span class="title">UIViewRepresentable</span> </span>&#123;</div><div class="line">    <span class="function"><span class="keyword">func</span> <span class="title">makeUIView</span><span class="params">(context: Context)</span></span> -&gt; <span class="type">MKMapView</span> &#123;</div><div class="line">        <span class="type">MKMapView</span>(frame: .zero)</div><div class="line">    &#125;</div><div class="line">    </div><div class="line">    <span class="function"><span class="keyword">func</span> <span class="title">updateUIView</span><span class="params">(<span class="number">_</span> uiView: MKMapView, context: Context)</span></span> &#123;</div><div class="line">        <span class="comment">// 1. 经纬度</span></div><div class="line">        <span class="keyword">let</span> coordinate = <span class="type">CLLocationCoordinate2D</span>(</div><div class="line">            <span class="built_in">c</span>)</div><div class="line">        <span class="comment">// 2. 跨度</span></div><div class="line">        <span class="keyword">let</span> span = <span class="type">MKCoordinateSpan</span>(latitudeDelta: <span class="number">2.0</span>, longitudeDelta: <span class="number">2.0</span>)</div><div class="line">        <span class="comment">// 3. 地区</span></div><div class="line">        <span class="keyword">let</span> region = <span class="type">MKCoordinateRegion</span>(center: coordinate, span: span)</div><div class="line">        <span class="comment">// 4. 设置</span></div><div class="line">        uiView.setRegion(region, animated: <span class="literal">true</span>)</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<h3 id="6-Compose-the-Detail-View"><a href="#6-Compose-the-Detail-View" class="headerlink" title="6. Compose the Detail View"></a>6. Compose the Detail View</h3><figure class="highlight swift"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div></pre></td><td class="code"><pre><div class="line"><span class="class"><span class="keyword">struct</span> <span class="title">ContentView</span>: <span class="title">View</span> </span>&#123;</div><div class="line">    <span class="keyword">var</span> body: some <span class="type">View</span> &#123;</div><div class="line">        <span class="type">VStack</span> &#123;</div><div class="line">            <span class="type">XTCustomMapView</span>().edgesIgnoringSafeArea(.top)</div><div class="line">            .frame(height: <span class="number">300</span>)</div><div class="line">            </div><div class="line">            <span class="type">Image</span>(<span class="string">"summerxx1"</span>).frame(width: <span class="number">200.0</span>, height: <span class="number">200.0</span>).clipShape(<span class="type">Circle</span>())</div><div class="line">            <span class="type">Text</span>(<span class="string">"夏天然后"</span>)</div><div class="line">                .font(.title)</div><div class="line">                .foregroundColor(.blue)</div><div class="line">                .font(<span class="type">Font</span>.system(<span class="type">Font</span>.<span class="type">TextStyle</span>.largeTitle))</div><div class="line">                .frame(width: <span class="number">150</span>, height: <span class="number">50</span>, alignment: <span class="type">Alignment</span>.center)</div><div class="line">                </div><div class="line">            <span class="type">HStack</span> &#123;</div><div class="line">                <span class="type">Text</span>(<span class="string">"个人博客"</span>)</div><div class="line">                .font(.title)</div><div class="line">                .foregroundColor(.blue)</div><div class="line">                    .font(<span class="type">Font</span>.system(<span class="type">Font</span>.<span class="type">TextStyle</span>.largeTitle))</div><div class="line">                <span class="type">Text</span>(<span class="string">"summerxx.com"</span>)</div><div class="line">                .font(.title)</div><div class="line">                .foregroundColor(.blue)</div><div class="line">                    .font(<span class="type">Font</span>.system(<span class="type">Font</span>.<span class="type">TextStyle</span>.largeTitle))</div><div class="line">            &#125;</div><div class="line">            <span class="type">Button</span>(action: <span class="comment">/*@START_MENU_TOKEN@*/</span>&#123;&#125;<span class="comment">/*@END_MENU_TOKEN@*/</span>) &#123;</div><div class="line">                <span class="type">Text</span>(<span class="string">"编辑资料"</span>)</div><div class="line">            &#125;.frame(width: <span class="number">100</span>, height: <span class="number">40</span>, alignment: <span class="type">Alignment</span>.center)</div><div class="line">                .font(<span class="type">Font</span>.system(size: <span class="number">18</span>))</div><div class="line">        &#125;</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p><img src="https://tva1.sinaimg.cn/large/007S8ZIlly1ggxefvp3qfj30n01ds12g.jpg" alt="Simulator Screen Shot - iPhone 11 - 2020-07-20 at 14.00.44" style="zoom:50%;"></p>
+<p>总结: 以上就是包含了SwiftUI的一些简单语法, 以及UI控件的构建, 编译器的一些简单使用</p>
+<p><strong>Demo地址</strong> 将会持续更新SwiftUI相关代码<br><a href="https://github.com/summerxx27/SwiftUITutorials" target="_blank" rel="external">https://github.com/summerxx27/SwiftUITutorials</a></p>
+
+      
+    </div>
+
+  </div>
+
+  <div class="article-footer">
+    <div class="article-meta pull-left">
+
+    
+
+    
+    
+
+    <span class="post-tags">
+      <i class="icon-tags"></i>
+        <a href="/tags/SwiftUI/">SwiftUI</a>
+    </span>
+    
+
+    </div>
+
+    
+  </div>
+</article>
+
+
+    </main>
+
+    <footer class="site-footer">
+  <p class="site-info">
+    Proudly powered by <a href="https://hexo.io/" target="_blank">Hexo</a> and
+    Theme by <a href="https://github.com/CodeDaraW/Hacker" target="_blank">Hacker</a>
+    </br>
+    
+    &copy; 2020 夏天然后
+    
+  </p>
+</footer>
+    
+  </div>
+</div>
+</body>
+</html>

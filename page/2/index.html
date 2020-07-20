@@ -61,6 +61,65 @@
 
   
     
+    <h3 class="article-title"><a href="/2017/08/05/44/"><span>iOS UDP</span></a></h3>
+    
+  
+
+  <div class="article-top-meta">
+    <span class="posted-on">
+      <a href="/2017/08/05/44/" rel="bookmark">
+        <time class="entry-date published" datetime="2017-08-04T16:48:02.000Z">
+          2017-08-05
+        </time>
+      </a>
+    </span>
+  </div>
+
+
+  
+
+  <div class="article-content">
+    <div class="entry">
+      
+        <blockquote>
+<ul>
+<li>首先需要安装一个TCP&amp;UDP测试工具</li>
+<li>连接类型选择UDP</li>
+<li>目标IP 设置手机的IP， 端口8888 （这个端口在App端用来绑定）</li>
+<li>指定端口， 是App向回发信息所需要的端口， 具体设置如下图所示</li>
+</ul>
+</blockquote>
+      
+    </div>
+
+  </div>
+
+  <div class="article-footer">
+    <div class="article-meta pull-left">
+
+    
+
+    
+    
+
+    <span class="post-tags">
+      <i class="icon-tags"></i>
+        <a href="/tags/UDP/">UDP</a>
+    </span>
+    
+
+    </div>
+
+    
+  </div>
+</article>
+
+
+
+  <article>
+
+  
+    
     <h3 class="article-title"><a href="/2017/02/22/43/"><span>autorelease</span></a></h3>
     
   
@@ -553,65 +612,6 @@
     <span class="post-tags">
       <i class="icon-tags"></i>
         <a href="/tags/AVPlayer/">AVPlayer</a>
-    </span>
-    
-
-    </div>
-
-    
-  </div>
-</article>
-
-
-
-  <article>
-
-  
-    
-    <h3 class="article-title"><a href="/2016/10/13/34/"><span>数据持久化方式Sqlite 之 fmdb tips-1</span></a></h3>
-    
-  
-
-  <div class="article-top-meta">
-    <span class="posted-on">
-      <a href="/2016/10/13/34/" rel="bookmark">
-        <time class="entry-date published" datetime="2016-10-12T16:05:32.000Z">
-          2016-10-13
-        </time>
-      </a>
-    </span>
-  </div>
-
-
-  
-
-  <div class="article-content">
-    <div class="entry">
-      
-        <p>去年在CSDN上写了一篇关于<code>fmdb</code>的文章, 那时候排版烂, 写的也不够仔细, 最近项目会用到这类的知识, 打算做一个好好的总结, 今天这篇是第一篇 介绍一下简单的使用.</p>
-<blockquote>
-<ul>
-<li><code>FMDatabase</code> 代表一个SQLite数据库。用于执行SQL语句</li>
-<li><code>FMResultSet</code> 代表执行一个查询的结果 存储在一个“FMResultSet”对象中</li>
-<li><code>FMDatabaseQueue</code> 如果你想在多个线程执行查询和更新,你可以使用这个类(用于在多线程中执行多个查询或更新，它是线程安全的)</li>
-<li><code>FMDatabaseAdditions</code> 对 <code>FMDatabase</code>进行的扩展 (暂时还没仔细看)</li>
-<li><code>FMDatabasePool</code> 用来统一管理 <code>FMDatabase</code>的对象的一个池子, 在使用这个之前先看看 <code>FMDatabaseQueue</code>是否能解决你的需求, 如不能, 在看<code>FMDatabasePool</code> 容易造成死锁, 小心使用, 不是必须使用, 尽量不用喽
-      
-    </div>
-
-  </div>
-
-  <div class="article-footer">
-    <div class="article-meta pull-left">
-
-    
-
-    
-    
-
-    <span class="post-tags">
-      <i class="icon-tags"></i>
-        <a href="/tags/FMDB/">FMDB</a>
     </span>
     
 
