@@ -1,0 +1,149 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  <title>SwiftUI-Text,TextField,Image,Button,List,SrcollView使用 | 夏天然后 | 自信温暖, 容易相处!</title>
+
+  
+  <meta name="author" content="夏天然后">
+  
+
+  
+  <meta name="description" content="[TOC]
+前言: 上一篇进行了SwiftUI的初步尝试, 以及对整体运行环境的探索, 介绍了一些基础的概念, 横向堆栈(HStack), 守竖直堆栈(VStack) 以及编辑器的快捷使用, 实时预览的初体验等等, 这篇简单写一下我们常用的一些SwiftUI控件, 代码Demo放在文末.">
+  
+
+  
+  
+  <meta name="keywords" content="SwiftUI">
+  
+
+  <meta id="viewport" name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, minimum-scale=1, user-scalable=no, minimal-ui">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black">
+
+  <meta property="og:title" content="SwiftUI-Text,TextField,Image,Button,List,SrcollView使用"/>
+
+  <meta property="og:site_name" content="夏天然后"/>
+
+  
+  <meta property="og:image" content="/favicon.ico"/>
+  
+
+  <link href="/favicon.ico" rel="icon">
+  <link rel="alternate" href="/atom.xml" title="夏天然后" type="application/atom+xml">
+  <link rel="stylesheet" href="/css/style.css" media="screen" type="text/css">
+</head>
+
+
+<body>
+<div class="blog">
+  <div class="content">
+
+    <header>
+  <div class="site-branding">
+    <h1 class="site-title">
+      <a href="/">夏天然后</a>
+    </h1>
+    <p class="site-description">自信温暖, 容易相处!</p>
+  </div>
+  <nav class="site-navigation">
+    <ul>
+      
+        <li><a href="/">Home</a></li>
+      
+        <li><a href="/archives">Archives</a></li>
+      
+        <li><a href="/tags">about</a></li>
+      
+    </ul>
+  </nav>
+</header>
+
+    <main class="site-main posts-loop">
+    <article>
+
+  
+    
+    <h3 class="article-title"><span>SwiftUI-Text,TextField,Image,Button,List,SrcollView使用</span></h3>
+    
+  
+
+  <div class="article-top-meta">
+    <span class="posted-on">
+      <a href="/2020/07/21/iOS-SwiftUI-basic-use/" rel="bookmark">
+        <time class="entry-date published" datetime="2020-07-21T10:18:02.000Z">
+          2020-07-21
+        </time>
+      </a>
+    </span>
+  </div>
+
+
+  
+
+  <div class="article-content">
+    <div class="entry">
+      
+        <p>[TOC]</p>
+<p>前言: 上一篇进行了SwiftUI的初步尝试, 以及对整体运行环境的探索, 介绍了一些基础的概念, 横向堆栈(HStack), 守竖直堆栈(VStack) 以及编辑器的快捷使用, 实时预览的初体验等等, 这篇简单写一下我们常用的一些SwiftUI控件, 代码Demo放在文末.</p>
+<a id="more"></a>
+<h3 id="1-Text-的简单使用"><a href="#1-Text-的简单使用" class="headerlink" title="1. Text 的简单使用"></a>1. Text 的简单使用</h3><figure class="highlight swift"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">private</span> <span class="keyword">let</span> summerxx = <span class="string">"summerxx.com"</span></div><div class="line"></div><div class="line"><span class="class"><span class="keyword">struct</span> <span class="title">TextTest</span>: <span class="title">View</span> </span>&#123;</div><div class="line">    <span class="keyword">var</span> body: some <span class="type">View</span> &#123;</div><div class="line">        <span class="type">VStack</span>(spacing: <span class="number">15</span>) &#123;</div><div class="line">            <span class="type">Text</span>(<span class="string">"SwiftUI"</span>)</div><div class="line">            <span class="type">Text</span>(<span class="string">"SwiftUI"</span>)</div><div class="line">                .foregroundColor(.orange)</div><div class="line">                .bold()</div><div class="line">                .font(.system(.largeTitle))</div><div class="line">                .fontWeight(.medium)</div><div class="line">                .italic()</div><div class="line">                .shadow(color: .black, radius: <span class="number">1</span>, x: <span class="number">0</span>, y: <span class="number">2</span>)</div><div class="line">            </div><div class="line">            <span class="type">Text</span>(summerxx)</div><div class="line">                .underline(<span class="literal">true</span>, color: <span class="type">Color</span>.gray)</div><div class="line">                .font(.system(size: <span class="number">16</span>, design: .serif)).onTapGesture &#123;</div><div class="line">                    <span class="built_in">print</span>(summerxx)</div><div class="line">            &#125;</div><div class="line">            </div><div class="line">            <span class="type">HStack</span> &#123;</div><div class="line">                <span class="type">Text</span>(<span class="string">"Text"</span>)</div><div class="line">                <span class="type">Text</span>(<span class="string">"Text.bold"</span>).bold()</div><div class="line">                <span class="type">Text</span>(<span class="string">"SecureField"</span>).foregroundColor(.orange)</div><div class="line">            &#125;</div><div class="line">            </div><div class="line">            <span class="type">Text</span>(<span class="string">"Views and controls are the visual building blocks of your app’s user interface."</span> +</div><div class="line">                <span class="string">" Use them to present your app’s content onscreen."</span>)</div><div class="line">                .lineLimit(<span class="literal">nil</span>)</div><div class="line">        &#125;</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p><img src="https://tva1.sinaimg.cn/large/007S8ZIlly1ggyq42c4ymj30n01dsac8.jpg" alt="Simulator Screen Shot - iPhone 11 - 2020-07-21 at 17.28.54" style="zoom: 33%;"></p>
+<h3 id="2-TextField-的简单使用"><a href="#2-TextField-的简单使用" class="headerlink" title="2. TextField 的简单使用"></a>2. TextField 的简单使用</h3><figure class="highlight swift"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div></pre></td><td class="code"><pre><div class="line"><span class="class"><span class="keyword">struct</span> <span class="title">TextFieldTest</span>: <span class="title">View</span> </span>&#123;</div><div class="line">    </div><div class="line">    @<span class="type">State</span> <span class="keyword">var</span> username : <span class="type">String</span> = <span class="string">""</span></div><div class="line">    @<span class="type">State</span> <span class="keyword">var</span> password : <span class="type">String</span> = <span class="string">""</span></div><div class="line">    </div><div class="line">    <span class="keyword">var</span> body: some <span class="type">View</span> &#123;</div><div class="line">        </div><div class="line">        <span class="type">VStack</span>(spacing: <span class="number">15</span>)&#123;</div><div class="line">            </div><div class="line">            <span class="type">Text</span>(<span class="string">"Your username is \(username)!"</span>)</div><div class="line">            <span class="type">Text</span>(<span class="string">"Your password is \(password)!"</span>)</div><div class="line">            </div><div class="line">            <span class="type">HStack</span> &#123;</div><div class="line">                <span class="type">Text</span>(<span class="string">"名字:"</span>)</div><div class="line">                <span class="type">TextField</span>(<span class="string">"User Name"</span>, text: $username, onEditingChanged: &#123; (value) <span class="keyword">in</span></div><div class="line">                    </div><div class="line">                    <span class="built_in">print</span>(<span class="string">"onEditingChanged:\(self.username)"</span>)</div><div class="line">                    </div><div class="line">                &#125;) &#123;</div><div class="line">                    </div><div class="line">                    <span class="built_in">print</span>(<span class="string">"onCommit:\(self.username)"</span>)</div><div class="line">                    </div><div class="line">                    &#125;.textFieldStyle(<span class="type">RoundedBorderTextFieldStyle</span>()).padding(<span class="number">10</span>).padding(<span class="type">EdgeInsets</span>(top: <span class="number">0</span>, leading: <span class="number">20</span>, bottom: <span class="number">0</span>, trailing: <span class="number">20</span>))</div><div class="line">            &#125;</div><div class="line">            </div><div class="line">            <span class="type">HStack</span> &#123;</div><div class="line">                <span class="type">Text</span>(<span class="string">"密码:"</span>)</div><div class="line">                <span class="type">TextField</span>(<span class="string">"Nick Name"</span>, text: $password, onEditingChanged: &#123;</div><div class="line">                    (value) <span class="keyword">in</span></div><div class="line">                    <span class="built_in">print</span>(<span class="string">"onEditingChanged:\(self.password)"</span>)</div><div class="line">                    </div><div class="line">                &#125;) &#123;</div><div class="line">                    <span class="built_in">print</span>(<span class="string">"onCommit:\(self.password)"</span>)</div><div class="line">                &#125;.textFieldStyle(<span class="type">RoundedBorderTextFieldStyle</span>()).padding(<span class="number">10</span>).padding(<span class="type">EdgeInsets</span>(top: <span class="number">0</span>, leading: <span class="number">20</span>, bottom: <span class="number">0</span>, trailing: <span class="number">20</span>))</div><div class="line">            &#125;</div><div class="line">        &#125;</div><div class="line">        .padding()</div><div class="line">        .offset(y: -<span class="number">150</span>)</div><div class="line">        .navigationBarTitle(<span class="type">Text</span>(<span class="string">"TextField"</span>))</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p><img src="https://tva1.sinaimg.cn/large/007S8ZIlly1ggyq6etyeij30n01dsmyw.jpg" alt="Simulator Screen Shot - iPhone 11 - 2020-07-21 at 17.29.26" style="zoom:33%;"></p>
+<h3 id="3-Image-的简单使用"><a href="#3-Image-的简单使用" class="headerlink" title="3. Image 的简单使用"></a>3. Image 的简单使用</h3><figure class="highlight swift"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div></pre></td><td class="code"><pre><div class="line"><span class="class"><span class="keyword">struct</span> <span class="title">ImageTest</span>: <span class="title">View</span> </span>&#123;</div><div class="line">    <span class="keyword">let</span> range = <span class="number">0</span>..&lt;<span class="number">5</span></div><div class="line">    </div><div class="line">    <span class="keyword">var</span> body: some <span class="type">View</span> &#123;</div><div class="line">        <span class="type">VStack</span> &#123;</div><div class="line">            <span class="type">ForEach</span>(range) &#123; index <span class="keyword">in</span></div><div class="line">                <span class="type">Image</span>(<span class="string">"summerxx1"</span>)</div><div class="line">                    .resizable()</div><div class="line">                    .frame(width: <span class="type">CGFloat</span>(<span class="number">30</span> * index),</div><div class="line">                           height: <span class="type">CGFloat</span>(<span class="number">30</span> * index),</div><div class="line">                           alignment: .center)</div><div class="line">                    .padding(<span class="number">15</span>)</div><div class="line">                    .clipShape(<span class="type">Circle</span>().inset(by: <span class="number">15.0</span>))</div><div class="line">                    .onTapGesture &#123;</div><div class="line">                    <span class="built_in">print</span>(<span class="string">"Tap \(index)"</span>)</div><div class="line">                &#125;</div><div class="line">            &#125;</div><div class="line">        &#125;.navigationBarTitle(<span class="type">Text</span>(<span class="string">"Image"</span>))</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p><img src="https://tva1.sinaimg.cn/large/007S8ZIlly1ggyq8oe6nwj30n01dstfd.jpg" alt="Simulator Screen Shot - iPhone 11 - 2020-07-21 at 17.29.31" style="zoom:33%;"></p>
+<h3 id="4-如何给Image赋值网络图片"><a href="#4-如何给Image赋值网络图片" class="headerlink" title="4. 如何给Image赋值网络图片"></a>4. 如何给Image赋值网络图片</h3><figure class="highlight swift"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div></pre></td><td class="code"><pre><div class="line"><span class="class"><span class="keyword">struct</span> <span class="title">WebImageTest</span>: <span class="title">View</span> </span>&#123;</div><div class="line">    </div><div class="line">    @<span class="type">State</span> <span class="keyword">private</span> <span class="keyword">var</span> uiImage: <span class="type">UIImage</span>? = <span class="literal">nil</span></div><div class="line">    <span class="comment">// 站位图是夏目图片, 下载后变成一张表情包?!</span></div><div class="line">    <span class="keyword">let</span> placeholderImage = <span class="type">UIImage</span>(named: <span class="string">"summerxx1"</span>)!</div><div class="line">    </div><div class="line">    <span class="keyword">var</span> body: some <span class="type">View</span> &#123;</div><div class="line">        <span class="type">Image</span>(uiImage: <span class="keyword">self</span>.uiImage ?? placeholderImage)</div><div class="line">            .resizable()</div><div class="line">            .onAppear(perform: downloadWebImage)</div><div class="line">            .frame(width: <span class="number">80</span>,</div><div class="line">                   height: <span class="number">80</span>,</div><div class="line">                   alignment: .center)</div><div class="line">            .onTapGesture &#123;</div><div class="line">                <span class="built_in">print</span>(<span class="string">"Tap "</span>)</div><div class="line">        &#125;.navigationBarTitle(<span class="type">Text</span>(<span class="string">"WebImage"</span>))</div><div class="line">    &#125;</div><div class="line">    </div><div class="line">    <span class="function"><span class="keyword">func</span> <span class="title">downloadWebImage</span><span class="params">()</span></span> &#123;</div><div class="line">        </div><div class="line">        <span class="keyword">guard</span> <span class="keyword">let</span> url = <span class="type">URL</span>(string: <span class="string">"https://tva1.sinaimg.cn/large/007S8ZIlly1ggyn061g4jj305e05gwfo.jpg"</span>) <span class="keyword">else</span> &#123;</div><div class="line">            <span class="built_in">print</span>(<span class="string">"Invalid URL."</span>)</div><div class="line">            <span class="keyword">return</span></div><div class="line">        &#125;</div><div class="line">        <span class="type">URLSession</span>.shared.dataTask(with: url) &#123; (data, response, error) <span class="keyword">in</span></div><div class="line">            <span class="keyword">if</span> <span class="keyword">let</span> data = data, <span class="keyword">let</span> image = <span class="type">UIImage</span>(data: data) &#123;</div><div class="line">                <span class="keyword">self</span>.uiImage = image</div><div class="line">            &#125;<span class="keyword">else</span> &#123;</div><div class="line">                <span class="built_in">print</span>(<span class="string">"error: \(String(describing: error))"</span>)</div><div class="line">            &#125;</div><div class="line">        &#125;.resume()</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<h3 id="5-Button的简单使用"><a href="#5-Button的简单使用" class="headerlink" title="5. Button的简单使用"></a>5. Button的简单使用</h3><figure class="highlight swift"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div></pre></td><td class="code"><pre><div class="line"><span class="class"><span class="keyword">struct</span> <span class="title">ButtonTest</span>: <span class="title">View</span> </span>&#123;</div><div class="line">    <span class="keyword">var</span> body: some <span class="type">View</span> &#123;</div><div class="line">        <span class="type">VStack</span>(spacing: <span class="number">0</span>) &#123;</div><div class="line">            </div><div class="line">            <span class="type">Button</span>(action: &#123;</div><div class="line">                <span class="built_in">print</span>(<span class="string">"点了我1"</span>)</div><div class="line">            &#125;) &#123;</div><div class="line">                <span class="type">Text</span>(<span class="string">"I'm a Button1"</span>).bold()</div><div class="line">                    .font(.system(size: <span class="number">40</span>,design: .rounded))</div><div class="line">                    .shadow(radius: <span class="number">1</span>)</div><div class="line">            &#125;</div><div class="line">            </div><div class="line">            <span class="type">Button</span>(action: &#123;</div><div class="line">                <span class="built_in">print</span>(<span class="string">"点了我2"</span>)</div><div class="line">            &#125;) &#123;</div><div class="line">                <span class="type">Text</span>(<span class="string">"I'm a Button2"</span>).bold()</div><div class="line">                    .font(.system(size: <span class="number">40</span>,design: .rounded))</div><div class="line">                    .shadow(radius: <span class="number">1</span>)</div><div class="line">            &#125;</div><div class="line">            </div><div class="line">            <span class="type">Button</span>(action: &#123;</div><div class="line">                <span class="built_in">print</span>(<span class="string">"点了我3"</span>)</div><div class="line">            &#125;) &#123;</div><div class="line">                <span class="comment">// 包裹一层 VStack，变为上下</span></div><div class="line">                <span class="type">VStack</span> &#123;</div><div class="line">                    <span class="type">Text</span>(<span class="string">"I'm a Button3"</span>)</div><div class="line">                    <span class="type">Image</span>(<span class="string">"summerxx1"</span>).resizable().renderingMode(.original)</div><div class="line">                &#125;</div><div class="line">            &#125;</div><div class="line">                <span class="comment">// 字体颜色, 和默认图片渲染色</span></div><div class="line">                .foregroundColor(<span class="type">Color</span>.blue)</div><div class="line">                .padding()</div><div class="line">                .background(<span class="type">Color</span>.orange)</div><div class="line">                .cornerRadius(<span class="number">20</span>)</div><div class="line">                .shadow(radius: <span class="number">10</span>)</div><div class="line">                .frame(width: <span class="number">160</span>, height: <span class="number">160</span>)</div><div class="line">            </div><div class="line">        &#125;.navigationBarTitle(<span class="type">Text</span>(<span class="string">"Button"</span>))</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p><img src="https://tva1.sinaimg.cn/large/007S8ZIlly1ggyqck6xo8j30n01dsmze.jpg" alt="Simulator Screen Shot - iPhone 11 - 2020-07-21 at 17.29.46" style="zoom:33%;"></p>
+<h3 id="6-List的简单使用"><a href="#6-List的简单使用" class="headerlink" title="6. List的简单使用"></a>6. List的简单使用</h3><figure class="highlight swift"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line"><span class="class"><span class="keyword">struct</span> <span class="title">ListTest</span>: <span class="title">View</span> </span>&#123;</div><div class="line">    <span class="comment">// 更多可以看 : https://www.jianshu.com/p/867e4a9a13fc</span></div><div class="line">    <span class="keyword">var</span> body: some <span class="type">View</span> &#123;</div><div class="line">        <span class="type">List</span>(<span class="number">0</span>..&lt;<span class="number">15</span>) &#123; item <span class="keyword">in</span></div><div class="line">            <span class="type">Text</span>(<span class="string">"Hello World !"</span>).frame(width: <span class="type">UIScreen</span>.main.bounds.size.width, height: <span class="number">60</span>, alignment: <span class="type">Alignment</span>.center)</div><div class="line">        &#125;.navigationBarTitle(<span class="type">Text</span>(<span class="string">"List"</span>), displayMode: .large)</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p><img src="https://tva1.sinaimg.cn/large/007S8ZIlly1ggyqe836h7j30n01dswg3.jpg" alt="Simulator Screen Shot - iPhone 11 - 2020-07-21 at 17.29.54" style="zoom:33%;"></p>
+<h3 id="7-ScrollView的示例代码"><a href="#7-ScrollView的示例代码" class="headerlink" title="7. ScrollView的示例代码"></a>7. ScrollView的示例代码</h3><figure class="highlight swift"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div></pre></td><td class="code"><pre><div class="line"><span class="class"><span class="keyword">struct</span> <span class="title">ScrollViewTest</span>: <span class="title">View</span> </span>&#123;</div><div class="line">    <span class="keyword">var</span> body: some <span class="type">View</span> &#123;</div><div class="line">        <span class="type">ScrollView</span> &#123;</div><div class="line">            <span class="type">Text</span>(<span class="string">"SwiftUI-ScrollView"</span>).padding(<span class="number">20</span>)</div><div class="line">            <span class="type">Divider</span>()</div><div class="line">            <span class="type">Image</span>(<span class="string">"icon"</span>)</div><div class="line">                .resizable()</div><div class="line">                .frame(width: <span class="number">300</span>, height: <span class="number">300</span>, alignment: .center)</div><div class="line">            <span class="type">Divider</span>()</div><div class="line">            <span class="type">Text</span>(<span class="string">"Views and controls are the visual building blocks of your app’s user interface."</span>)</div><div class="line">        &#125;</div><div class="line">        .border(<span class="type">Color</span>.gray, width: <span class="number">1</span>)</div><div class="line">        .cornerRadius(<span class="number">10</span>)</div><div class="line">        .padding(<span class="number">10</span>)</div><div class="line">        .navigationBarTitle(<span class="type">Text</span>(<span class="string">"ScrollView演示"</span>))</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p><img src="https://tva1.sinaimg.cn/large/007S8ZIlly1ggyqfxluqfj30n01ds0u9.jpg" alt="Simulator Screen Shot - iPhone 11 - 2020-07-21 at 17.30.01" style="zoom: 33%;"></p>
+<p><strong>Demo地址</strong> 将会持续更新SwiftUI相关代码<br><a href="https://github.com/summerxx27/SwiftUITutorials" target="_blank" rel="external">https://github.com/summerxx27/SwiftUITutorials</a></p>
+
+      
+    </div>
+
+  </div>
+
+  <div class="article-footer">
+    <div class="article-meta pull-left">
+
+    
+
+    
+    
+
+    <span class="post-tags">
+      <i class="icon-tags"></i>
+        <a href="/tags/SwiftUI/">SwiftUI</a>
+    </span>
+    
+
+    </div>
+
+    
+  </div>
+</article>
+
+
+    </main>
+
+    <footer class="site-footer">
+  <p class="site-info">
+    Proudly powered by <a href="https://hexo.io/" target="_blank">Hexo</a> and
+    Theme by <a href="https://github.com/CodeDaraW/Hacker" target="_blank">Hacker</a>
+    </br>
+    
+    &copy; 2020 夏天然后
+    
+  </p>
+</footer>
+    
+  </div>
+</div>
+</body>
+</html>
