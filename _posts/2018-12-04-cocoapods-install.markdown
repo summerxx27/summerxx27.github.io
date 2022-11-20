@@ -5,7 +5,7 @@ date:       2018-12-04 16:50:00
 author:     "summerxx"
 header-img: "img/post-bg-alitrip.jpg"
 tags:
-    - CocoaPods
+    - iOS
 ---
 
 ### 查看当前Ruby版本

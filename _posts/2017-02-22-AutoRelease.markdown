@@ -5,7 +5,7 @@ date:       2017-02-22 12:00:00
 author:     "summerxx"
 header-img: "img/post-bg-miui6.jpg"
 tags:
-    - autorelease
+    - iOS
 ---
 
 前言: 自动变量,在[计算机编程中](https://en.wikipedia.org/wiki/Computer_programming), 是一个局部[变量](https://en.wikipedia.org/wiki/Variable_(programming))，当程序流进入并离开变量的范围时，该变量自动分配和释放.[点击查看详细解释](https://en.wikipedia.org/wiki/Automatic_variable) , 由此引出这篇文章的主角 autorelease.

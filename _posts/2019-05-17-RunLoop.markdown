@@ -5,7 +5,7 @@ date:       2019-05-17 12:00:00
 author:     "summerxx"
 header-img: "img/post-bg-miui6.jpg"
 tags:
-    - RunLoop
+    - iOS
 ---
 
 RunLoop是iOS和OSX开发中一个经常被使用或者说是经常`被动`使用的一个很基础的概念, 今天围绕RunLoop进行一次深入的探究

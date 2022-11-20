@@ -5,7 +5,7 @@ date:       2016-08-15 12:00:00
 author:     "summerxx"
 header-img: "img/post-bg-miui6.jpg"
 tags:
-    - JSPatch
+    - iOS
 ---
 
 前言: 因为iOS审核周期长且存在某一个版本被拒风险, 更新起来是相当的困难, 特别是遇到不可预测的bug, 难免对整个项目产生影响, 造成不必要的损失, 基于上述简单描述, JSPatch应运而生.

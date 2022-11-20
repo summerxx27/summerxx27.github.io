@@ -5,7 +5,7 @@ date:       2019-08-15 12:00:00
 author:     "summerxx"
 header-img: "img/post-bg-miui6.jpg"
 tags:
-    - CocoaPods
+    - iOS
 ---
 
 前言 : 这篇文章将从以下几个方面去解析下Pods 这是一个技术分享的文字整理

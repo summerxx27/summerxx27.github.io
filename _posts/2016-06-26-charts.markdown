@@ -5,7 +5,7 @@ date:       2016-06-24 12:00:00
 author:     "summerxx"
 header-img: "img/post-bg-miui6.jpg"
 tags:
-    - Charts
+    - iOS
 ---
 
 Charts是个很有意思的框架, 采用`Swift`语言进行编写, 由于本人对线, 图标等等比较感兴趣, 或者说对跟证券密切相关的图比较感兴趣, 这样说更加的贴切. 这篇博客介绍了集成, 以及简单的使用.
