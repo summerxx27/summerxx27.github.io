@@ -1,0 +1,137 @@
+# Site settings
+title: Summerxx Blog
+SEOTitle: Summerxx的博客 | Summerxx Blog
+header-img: img/home-bg.jpg
+email: summerxx27@163.com
+description: "这里是 @Summerxx 夏天的个人博客，与你一起发现更大的世界。"
+keyword: "Sumx, 夏天, Sumx, 鬼栈, sumxpro, @huxpro, 夏天的博客, Sumx Blog, 博客, 个人网站, 互联网, iOS, 移动端, iPhone, 设计"
+url: "https://bytedance.pub"              # your host, for absolute URL
+baseurl: ""                             # for example, '/blog' if your blog hosted on 'host/blog'
+
+# Publish posts or collection documents with a future date.
+future: true
+
+# SNS settings
+RSS: false
+weibo_username:     Zjwang01
+zhihu_username:     summerxxpro
+github_username:    summerxx27
+#twitter_username:   summerxx
+#facebook_username:  huxpro
+#linkedin_username:  firstname-lastname-idxxxx
+
+
+
+# Build settings
+# from 2016, 'pygments' is unsupported on GitHub Pages. Use 'rouge' for highlighting instead.
+highlighter: rouge
+permalink: pretty
+paginate: 10
+exclude: ["less","node_modules","Gruntfile.js","package.json","README.md","README.zh.md"]
+anchorjs: true                          # if you want to customize anchor. check out line:181 of `post.html`
+# If you have timezone issue (e.g. #68) in China, uncomment to use this:
+#timezone: CN  
+
+
+
+# Gems
+# from PR#40, to support local preview for Jekyll 3.0
+# make sure you have this gem installed
+# `$ gem install jekyll-paginate`
+plugins: [jekyll-paginate]
+
+
+
+# Markdown settings
+# replace redcarpet to kramdown,
+# although redcarpet can auto highlight code, the lack of header-id make the catalog impossible, so I switch to kramdown
+# document: http://jekyllrb.com/docs/configuration/#kramdown
+markdown: kramdown
+kramdown:
+  input: GFM                            # use Github Flavored Markdown !important
+  syntax_highlighter_opts:
+    span:
+      line_numbers: false
+    block:
+      line_numbers: true
+      start_line: 1
+
+
+
+# Disqus settings
+disqus_username: summerxx
+
+# Netease settings
+netease_comment: false
+
+
+
+# Analytics settings
+# Baidu Analytics 
+# ba_track_id: [your track id]
+
+# Google Analytics
+ga_track_id: 'UA-49627206-1'            # Format: UA-xxxxxx-xx
+ga_domain: bytedance.pub
+
+
+
+# Sidebar settings
+sidebar: true                           # whether or not using Sidebar.
+sidebar-about-description: "For the next quantum leap<br>离开世界之前，一切都是过程"
+sidebar-avatar: /img/avator_h.jpeg      # use absolute URL, seeing it's used in both `/` and `/about/`
+
+
+
+# Featured Tags
+featured-tags: true                     # whether or not using Feature-Tags
+featured-condition-size: 0              # A tag will be featured if the size of it is more than this condition value
+
+
+
+# Progressive Web Apps
+chrome-tab-theme-color: "#000000"
+service-worker: true
+
+
+
+# MathJax rendering for layout:page (e.g. post preview)
+page-mathjax: false
+
+
+
+# Friends
+friends: [
+    {
+    #     title: "Su",
+    #     href: "http://su.gallery/"
+    # },{
+        title: "onevcat",
+        href: "https://onevcat.com"
+    },{
+        title: "sunnyxx",
+        href: "http://blog.sunnyxx.com"
+    },{
+        title: "ibireme",
+        href: "http://blog.ibireme.com"
+    },{
+        title: "bang's Blog",
+        href: "http://blog.cnbang.net"
+    },{
+        title: "戴ming的博客",
+        href: "https://ming1016.github.io/"
+    }
+#    },{
+#        title: "JiyinYiyong",
+#        href: "http://tiye.me/"
+#    },{
+#        title: "David's Game",
+#        href: "https://www.ruoyaowu.com/"
+#    },{
+#        title: "DHong Say",
+#        href: "http://dhong.co"
+#    },{
+#        title: "尹峰以为",
+#        href: "http://ingf.github.io/"
+#    }
+]
