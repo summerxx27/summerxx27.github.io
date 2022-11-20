@@ -5,7 +5,7 @@ header-img: img/home-bg.jpg
 email: summerxx27@163.com
 description: "这里是 @Summerxx 夏天的个人博客，与你一起发现更大的世界。"
 keyword: "Sumx, 夏天, Sumx, 鬼栈, sumxpro, @huxpro, 夏天的博客, Sumx Blog, 博客, 个人网站, 互联网, iOS, 移动端, iPhone, 设计"
-url: "https://bytedance.pub"              # your host, for absolute URL
+url: "https://summerxx.com"              # your host, for absolute URL
 baseurl: ""                             # for example, '/blog' if your blog hosted on 'host/blog'
 
 # Publish posts or collection documents with a future date.
