@@ -1,0 +1,85 @@
+---
+layout:     post
+title:      "canvas"
+date:       2022-04-23 23:03:00
+author:     "summerxx"
+header-img: "img/post-bg-alitrip.jpg"
+tags:
+    - web
+---
+
+
+
+前言 : 一般情况下，网站或者广告联盟都会非常想要一种技术方式可以在网络上精确定位到每一个个体，这样可以通过收集这些个体的数据，通过分析后更加精准的去推送广告（精准化营销）或其他有针对性的一些活动。
+Cookie技术是非常受欢迎的一种。当用户访问一个网站时，网站可以在用户当前的浏览器Cookie中永久植入一个含有唯一标示符（UUID）的信息，并通过这个信息将用户所有行为（浏览了哪些页面？搜索了哪些关键字？对什么感兴趣？点了哪些按钮？用了哪些功能？看了哪些商品？把哪些放入了购物车等等）关联起来。
+但是Cookie可以伪装，在浏览器隐私窗口，不同用户，甚至是爬虫时无法区分。
+
+而"帆布指纹识别”技术可以`一定程度`避免以上的缺点。
+
+<!-- more -->
+
+### 帆布指纹介绍
+
+#### 1. 什么是帆布指纹
+
+canvas指纹`理论上`可以唯一标识一个浏览器，即使用户删除了浏览器的任何隐私记录（例如cookie，localStorage，indexedDB等等），这个值在每次生成的时候都依然是相同的。
+
+
+
+#### 2. 帆布指纹作用
+
+搜索引擎可以根据这个值跟踪某个人的行为与习惯。即使你每次以隐身模式访问baidu，百度依然可以确定每次访问是不是你，然后给你定向地推送广告。
+
+
+
+#### 3. 工作原理是什么
+
+用JS创建一个canvas画布，然后在画布上面画几个图形，正方形，圆形等，然后写几个字。然后把这个canvas base64编码，最后生成base64编码的hash值，这个hash值就是canvas指纹。（hash算法可以使用非常主流的md5算法）
+
+以上说的是一种方案而已, 具体实现还可以有更多的角度, 来产生唯一"指纹"
+
+
+
+ #### 4. 为什么这个hash值能够唯一标识一个浏览器呢？
+
+那是因为这个hash值本质上是浏览器+操作系统+GPU+图形驱动器的唯一性，任何俩个不相同的浏览器，或者不同电脑上面的相同浏览器 都会存在细丝末毫的不同，而这个不同会导致浏览器绘制的图像肉眼看起来相同，但是某几个像素点可能存在几个像素的偏移或者灰度偏移，然后生成的hash值就完全不一样了。
+
+[这里给出wikipedia的链接](https://en.wikipedia.org/wiki/Canvas_fingerprinting)
+
+#### 5. 是百分百准确吗?
+
+这个指纹在最新的Chrome浏览器上（version74）显示都是相同的了，或者说相同几率很高。很可能Google Chrome团队已经解决底层操作系统与硬件差异带来的这个问题了。
+
+**但是**这项技术依然被广泛采用，因为根据这项技术衍生的技术还有 audio指纹，webgl指纹，fonts字体指纹。这些技术的组合叫做**浏览器指纹。**
+
+注: 所以还是有一定的缺陷, 不能完全的避免重复标识的问题
+
+#### 6. 实现
+
+找到了一段代码, 可以测试
+
+链接 : https://jsbin.com/qisodaz/edit?html,js,output
+
+> 关于audio，webgl，canvas 等指纹的更多信息
+>
+> 可以看看这个 https://github.com/AJLoveChina/fingerprintDemo
+
+#### 7. 总结
+
+1. 是一种很早的技术, 多年前就出现了, 且有些应用
+2. 能一定程度产生相同的唯一标识符, 但是还存在可能出现相同 id的情况
+3. 且依赖的指标项过多，浏览器的升级会导致变化, 或者你的算法内部有一项参数变化都会导致变化
+
+#### 8. 测试报告
+
+https://blog.csdn.net/huangm_fat/article/details/38522939 年代比较早
+
+在线测试 [http://valve.github.io/fingerprintjs2/](https://link.jianshu.com/?t=http://valve.github.io/fingerprintjs2/)
+
+
+
+**参考链接**
+
+1. [https://en.wikipedia.org/wiki/Canvas_fingerprinting](https://link.zhihu.com/?target=https%3A//en.wikipedia.org/wiki/Canvas_fingerprinting)
+2. [https://amiunique.org/](https://link.zhihu.com/?target=https%3A//amiunique.org/) 检测自己是否全球唯一的网站
+3. https://www.cnblogs.com/xiezhengcai/p/4252008.html

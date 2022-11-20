@@ -1,0 +1,40 @@
+---
+layout:     post
+title:      "JSPatch 的一些思考"
+date:       2016-08-15 12:00:00
+author:     "summerxx"
+header-img: "img/post-bg-miui6.jpg"
+tags:
+    - JSPatch
+---
+
+前言: 因为iOS审核周期长且存在某一个版本被拒风险, 更新起来是相当的困难, 特别是遇到不可预测的bug, 难免对整个项目产生影响, 造成不必要的损失, 基于上述简单描述, JSPatch应运而生.
+由于本人公司的项目并没有用到JSPatch, 具体的使用我只是查阅的一些相关的博客, 加上我自己的一些理解, 作为记录希望有机会可以用到这个很强大的库. 文中如果出现一些理解上的错误, 欢迎与我联系, 并告知我在这里表示感谢.
+<!--more-->
+[董铂然](http://www.cnblogs.com/dsxniubility/p/5080875.html)的博客中提到
+
+>仓库设置这一概念他是这样说的:
+>js文件肯定不能随便往后台某个文件夹一放就让前端去下载了，虽然使用方便但是在App或者版本较多时容易混乱。建议专门搭建一个远端仓库，仓库里主要就是文件夹和js文件，当需要提交js文件时，从主干迁出一个分支，在合适的地方新建文件夹并添加js文件，然后给主干提Pull Request， 这应该是一个麻烦但是规范的流程.
+
+我的理解: 是不是提供一条接口, 之后App端发送请求进行js的下载, 之后进行的方法替换, 而JSPatch这个库提前就已经"放入"工程中, 你已经进行了相应的配置, 你可以设定一条策略, 在没有Bug的时候, 关闭这条接口或者怎样.
+
+JSPatch 是基于`Objective-C`的动态语言设计的, 采用Rumtime进行实现, 权限相当的大, 所以需要考虑安全方面的一些考虑, 需要进行一些加密的处理, 不能允许被恶意截取之后替换我们的一写方法.
+
+而使用需要考虑的是在哪些方法中进行使用呢 作者的Demo中是在`didFinishLaunchingWithOptions` 中调用demo.js文件使用示大致如下
+
+```objectivec
+    [JPEngine startEngine];
+    NSString *sourcePath = [[NSBundle mainBundle] pathForResource:@"demo" ofType:@"js"];
+    NSString *script = [NSString stringWithContentsOfFile:sourcePath encoding:NSUTF8StringEncoding error:nil];
+    [JPEngine evaluateScript:script];
+```
+
+前面提到的一个博客提到下载js文件 最好`applicationDidBecomeActive`在这个方法中, 由于本人并没有使用过JSPatch, 暂且无从考证.
+
+> 还提到更新频率的概念
+> 我之前看到很多人把使用js和下载js的代码都放在了didFinishLaunchingWithOptions：这个方法。我觉得有所不妥，因为如果这个app用户一直放在手机的后台（比如微信），并且也没出现内存警告的话，这个方法应该一直不会调用。我建议的是：使用js文件的代码放在didFinishLaunchingWithOptions： 而下载js文件的代码放在applicationDidBecomeActive: 因为这个方法在程序启动和后台回到前台时都会调用。并且我建议设置一个间隔时间，根据一些数据和权衡之后我们采用的是间隔时间设为1小时。 也就是说每次来到这个方法时，先要检测是距离上次发请求的时间间隔是否超过1小时，超过则发请求，否则跳过。
+
+[JSPatch的文档](https://github.com/bang590/JSPatch/wiki/JSPatch-%E5%9F%BA%E7%A1%80%E7%94%A8%E6%B3%95#1-require)
+
+[JSPatch作者bang的博客](http://blog.cnbang.net/about/)
+

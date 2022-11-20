@@ -1,0 +1,174 @@
+---
+layout:     post
+title:      "iOS KVO"
+date:       2020-12-22 23:03:00
+author:     "summerxx"
+header-img: "img/post-bg-alitrip.jpg"
+tags:
+    - iOS
+---
+
+
+
+### 前言
+
+KVO 是日常 iOS 开发中经常使用的技术，通过它可以很方便的对属性进行监听，本文不涉及底层原理，主要介绍以上方式在业务层的应用，并总结各自的特点，重点可以关注下 Swift KeyPath 的使用以及 ReactiveCocoa 封装的接口, 而在我们项目中一般会用到的以下四种
+
+1. Foundation KVO
+2. ReactiveObjC KVO
+3. Swift KeyPath
+4. ReactiveCocoa KVO
+
+<!-- more -->
+
+### 1. Foundation KVO
+
+由 Foundation 提供的 KVO 机制是绝大多数 KVO 接口的底层基础，它的大致实现方式可以参考 [深入理解 ObjC](https://www.jianshu.com/p/1024097c2e51) 中的第 2 点
+
+Example Code:
+
+```
+deinit {
+    // 对象释放时必须手动移除监听
+    removeObserver(self, forKeyPath: #keyPath(model.currentValue))
+}
+ 
+override func setupObserver() {
+    super.setupObserver()
+    // 监听 model 的 currentValue 属性
+    addObserver(self, forKeyPath: #keyPath(model.currentValue), options: .new, context: nil)
+}
+ 
+override func observeValue(forKeyPath keyPath: String?,
+                            of object: Any?,
+                            change: [NSKeyValueChangeKey : Any]?,
+                            context: UnsafeMutableRawPointer?) {
+    // 监听到变动，可以从 change 中获取初始值/旧值/新值
+}
+```
+
+优点:
+
+- 通用性强，不依赖其他框架
+
+缺点:
+
+- key path 只能使用字符串硬编码，无法感知被监听的属性名变动
+- 需要手动移除，否则对象释放时可能导致 crash
+- 对于一对一的监听及回调，会使逻辑分散，使用起来不如 block based 的接口方便
+
+### 2. ReactiveObjC KVO
+
+这个方法是我们项目中应用最多的一种，底层基于 `Foundation KVO`，提供了一个 `RACObserve` 宏，将一次监听抽象为一个信号
+
+Example Code:
+
+```
+@weakify(self);
+[RACObserve(self.model, currentValue) subscribeNext:^(id  _Nullable x) {
+    @strongify(self);
+    // 监听到属性变动，x 为最新值
+}];
+```
+
+优点：
+
+- 解决了 key path 的硬编码问题
+- 自动绑定当前对象的生命周期，无需手动移除
+- 使用 block base 接口，对于单一属性监听及处理非常友好
+
+缺点：
+
+- 需要依赖 ReactiveObjC
+- 回调中的类型被抹除
+- 需要小心循环引用的问题
+
+### 3. Swift KeyPath
+
+KeyPath 是 Swift 4 推出的一套用于 Swift 的 KVO 接口，它可以支持 key path 名的校验，以及回调中的数据类型推导
+
+  *注意：这个 K 是大写，另外一个叫 #keyPath 的东西本质上是获取对应 key path 的字符串（参见 Foundation KVO 中的例子），与之类似作用的有 ReactiveObjC 中的 @keypath 宏*
+
+Example Code:
+
+```
+// 监听 model 的 currentValue 属性
+observation = model.observe(\.currentValue, options: .new, changeHandler: { [weak self] _, change in
+    // 访问 change.newValue 即可获取新的值，虽然类型可以推导出来，但是 Optional 的
+})
+```
+
+上面的 observe 方法还可以省略 options 参数，这样回调中的 change 将不包含属性值，需要访问对象的属性来获取新值
+
+文档原文：`newValue and oldValue will only be non-nil if .new/.old is passed to "observe()". In general, get the most up to date value by accessing it directly on the observed object instead.`
+
+Example Code 2:
+
+```
+observation = model.observe(\.currentValue) { [weak self] _, _ in
+    // 访问 model.currentValue 获取新值
+}
+```
+
+可以发现这个 observe 方法返回来一个 NSKeyValueObservation 对象，那么这个返回对象可以像 RACDisposable 一样不理会吗？
+
+答案是否定的，根据文档显示：
+
+```
+when the returned NSKeyValueObservation is deinited or invalidated, it will stop observing
+```
+
+很明显，如果这个返回的 NSKeyValueObservation 对象被释放，那监听也就结束了，所以 observe 方法也没有标记 @discardableResult，如果你不接收返回值，将得到警告
+
+优点：
+
+- 针对 Swift 调用优化，支持类型推导
+
+缺点：
+
+- 只支持 Swift
+- 需要再维护一个 observation
+- 被监听的类需要是 objc 的，且属性需要标记为 dynamic
+
+### 4. ReactiveCocoa KVO
+
+`ReactiveCocoa` 的使用逻辑与 `ReactiveObjC` 类似，都将一次监听抽象为一个信号。内部封装了 `Foundation KVO` 和`Swift KeyPath` 两种实现
+
+基于 Foundation KVO 的接口调用示例:
+
+```
+// 监听 model 的 currentValue 属性
+model.reactive.signal(forKeyPath: "currentValue").observeValues { [weak self] in
+    // 类型无法推断，需要进行解包操作
+}
+```
+
+基于 Swift KeyPath 的接口调用示例:
+
+```
+model.reactive.signal(for: \.currentValue).observeValues { [weak self] in
+    // 类型可被自动推断，无需解包
+}
+```
+
+可以发现它的完成度是相当高了，监听的对象、属性名、属性类型，都支持编译器校验，还帮我们做好了解包，最关键的是无需维护 observation 了
+
+优点：
+
+- Swift 调用友好
+- 类型推导最完善
+
+缺点：
+
+- 需要依赖 ReactiveCocoa & ReactiveSwift
+
+  
+
+### 5. Summary
+
+| KVO 方式          | 外部依赖      | 生命周期管理          | key path                     | 回调中属性类型推导        | ObjC | Swift |
+| :---------------- | :------------ | :-------------------- | :--------------------------- | :------------------------ | :--- | :---- |
+| Foundation KVO    | 无            | 手动停止监听          | 字符串硬编码(Swift #keyPath) | NO                        | YES  | YES   |
+| Swift KVO         | 无            | 绑定 observation 对象 | 使用 \ 操作符                | YES (但被退化为 Optional) | NO   | YES   |
+| ReactiveObjC KVO  | ReactiveObjC  | 自动管理              | RACObserve 自带 @keypath     | NO                        | YES  | NO    |
+| ReactiveCocoa KVO | ReactiveCocoa | 自动管理              | 支持字符串或 \ 操作符        | YES(基于 KeyPath 的接口)  | NO   | YES   |

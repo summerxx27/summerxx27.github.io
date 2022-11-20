@@ -1,0 +1,116 @@
+---
+layout:     post
+title:      "Hexo + GitHub 建设网站详细教程"
+date:       2016-05-24 12:00:00
+author:     "summerxx"
+header-img: "img/post-bg-alitrip.jpg"
+tags:
+    - Hexo
+---
+
+这个完整版是作者的博客站 http://litten.github.io
+
+吐槽: 下载软件耽误时间, 还可能遇到各种问题, 不想折腾就算了吧.
+
+1. 搭建环境：
+
+1.1 Node.js 
+https://nodejs.org/en/
+说明： 下载之后安装，安装过程一直下一步就好了，可能出现不明身份开发者字样，选择仍要安装即可。
+
+1.2 安装Git
+https://git-scm.com 这个下载会比较慢 想要的我直接给你我下载好的可以. 安装就一步一步的.
+1.3 安装Hexo
+https://hexo.io/zh-cn/docs/
+
+<!-- more -->
+
+    // npm安装命令 Node.js里已经包含
+    sudo npm install -g hexo-cli
+    // 查看版本, 有版本号代表成功
+    hexo －v
+
+2. 初始化hexo环境
+
+2.1 切换到你想要安装的目录, 然后进行初始化
+
+    hexo init summerxx
+
+2.2  把主题放到themes文件中
+2.3  切换到安装目录 , 编辑
+
+    vim _config.yml  
+    // 改变主题字段：**hexo-theme-yilia**（主题 名）保存退出
+    theme: hexo-theme-yilia
+
+2.4 生成静态网页
+
+    // 因为你初始化hexo 之后source目录下自带一篇hello world文章, 所以直接执行下方命令
+    hexo generate
+    // 启动本地服务器
+    hexo server
+    // 在浏览器输入 http://localhost:4000/就可以看见网页和模板了
+
+3. 使用Github Page + Hexo
+
+3.1 修改_config.yml文件
+
+    // 文件最下修改如下
+    deploy: 
+      type: git
+      repo: https://github.com/summerxx27/summerxx27.github.io.git
+      branch: master
+    // 然后执行 hexo generate
+
+3.2 把新生成的public文件中的全部文件上传到你创建好的仓库(在这之前先创建一个名字为 summerxx27.github.io (summer27是我的用户名[必须与用户名一致]))
+
+4. 购买域名 - 解析 - 绑定 - 成功
+
+4.1 创建名为CNAME的文件 必须为这个名字
+里边填写你要买的域名比如 summerxx.com
+4.2 把这个文件推送到仓库
+4.3 买域名(这个去阿里云就可以)
+4.4 域名解析: http://summerxx27.github.io(说白了就是域名和ip绑定的一个过程), 所以你要知道你的仓库所对应的ip
+在终端 ping一下
+
+    ping http://summerxx27.github.io(ping你自己的 O.0) // ip在阿里云控制台就可以进行解析了
+
+之后通过 summerxx.com 就可以访问了
+
+总结: 到这里基本就结束了, 今天已经很晚了, 有空再补充一些细节. 好梦~
+文章参考
+
+1. http://theme-next.iissnan.com/getting-started.html#download-next-theme
+2. https://github.com/litten/hexo-theme-yilia
+
+细节补充---------------------
+
+1. yilia主题头像无法显示的问题, 首先设置主题目录的URL(使用微博图床就可以生成一个图片你的url)
+
+2. 修改主题文件下 layout/_partial/left-col.ejs的第6行和第8行为：
+```html
+<img src="<%=theme.avatar%>" class="js-avatar show">
+<img src="<%=theme.avatar%>" class="js-avatar show" style="width: 100%;height: 100%;opacity: 1;">
+```
+3. 小房子点击不好用等等修改可以看这篇
+  解决办法: http://xingbofeng.com/2016/09/05/hexo+github搭建个人博客
+
+4. 写文章发布
+  https://hexo.io/zh-cn/docs/commands.html#new
+
+5. 显示点击阅读更多 more
+  在需要的位置
+
+    // 写上这句
+    <!-- more -->
+
+---
+
+文章到这里基本就结束了 over.
+
+文 / 夏天然后
+End
+
+
+
+
