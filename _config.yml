@@ -14,7 +14,7 @@ future: true
 # SNS settings
 RSS: false
 weibo_username:     Zjwang01
-zhihu_username:     summerxxpro
+#zhihu_username:     summerxxpro
 github_username:    summerxx27
 #twitter_username:   summerxx
 #facebook_username:  huxpro
