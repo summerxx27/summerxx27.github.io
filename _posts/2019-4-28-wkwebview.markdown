@@ -20,7 +20,7 @@ tags:
 WKWebView 初始化时，有一个参数叫configuration，它是WKWebViewConfiguration类型的参数，而WKWebViewConfiguration有一个属性叫userContentController，它又是WKUserContentController类型的参数。WKUserContentController对象有一个方法- addScriptMessageHandler:name:，我把这个功能简称为MessageHandler。- addScriptMessageHandler:name:有两个参数，第一个参数是userContentController的代理对象，第二个参数是JS里发送postMessage的对象。
 所以要使用MessageHandler功能，就必须要实现WKScriptMessageHandler协议。
 
-###二. 在JS中使用方法
+### 二. 在JS中使用方法
 
 ![](https://tva1.sinaimg.cn/large/007S8ZIlly1gexwn3vmaej31820qqqjj.jpg)
 
@@ -130,7 +130,7 @@ function locationClick() {
 }
 ```
 
-2.3 销毁
+2.4销毁
 
 ```
 - (void)dealloc {
@@ -158,5 +158,8 @@ Demo: 演示步骤, 点击获取定位 Objective-C获取到JS消息
 
 demo: [https://github.com/summerxx27/JS_ObjectiveC_MessageHandler](https://github.com/summerxx27/JS_ObjectiveC_MessageHandler.git)
 
-完~ 
+
+
+#END
+
 文/夏天然后
