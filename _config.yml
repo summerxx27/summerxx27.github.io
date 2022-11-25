@@ -1,10 +1,10 @@
 # Site settings
-title: 夏天然后 Blog
-SEOTitle: 夏天然后的博客 | 夏天然后 Blog
+title: Sumx Blog
+SEOTitle: Sumx的博客 | Sumx Blog
 header-img: img/home-bg.jpg
 email: summerxx27@163.com
 description: "这里是 @Summerxx 夏天的个人博客，与你一起发现更大的世界。"
-keyword: "Sumx, 夏天, Sumx, 鬼栈, sumxpro, 夏天的博客, Sumx Blog, 博客, 个人网站, 互联网, iOS, 移动端, iPhone, 设计"
+keyword: "Sumx, 夏天, Sumx, sumxpro, 夏天的博客, Sumx Blog, 博客, 个人网站, 互联网, iOS, 移动端, iPhone, 设计"
 url: "https://summerxx.com"              # your host, for absolute URL
 baseurl: ""                             # for example, '/blog' if your blog hosted on 'host/blog'
 
@@ -103,9 +103,6 @@ page-mathjax: false
 # Friends
 friends: [
     {
-    #     title: "Su",
-    #     href: "http://su.gallery/"
-    # },{
         title: "onevcat",
         href: "https://onevcat.com"
     },{
@@ -121,17 +118,4 @@ friends: [
         title: "戴ming的博客",
         href: "https://ming1016.github.io/"
     }
-#    },{
-#        title: "JiyinYiyong",
-#        href: "http://tiye.me/"
-#    },{
-#        title: "David's Game",
-#        href: "https://www.ruoyaowu.com/"
-#    },{
-#        title: "DHong Say",
-#        href: "http://dhong.co"
-#    },{
-#        title: "尹峰以为",
-#        href: "http://ingf.github.io/"
-#    }
 ]
