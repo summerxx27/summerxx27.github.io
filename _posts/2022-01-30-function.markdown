@@ -1,7 +1,7 @@
 ---
 layout:     post
 title:      "Swift高阶函数-Map、Filter、Reduce"
-Subtitle:   "Swift function of higher order (Map、Filter、Reduce) "
+subtitle:   "Swift function of higher order (Map、Filter、Reduce) "
 date:       2022-01-30 18:50:00
 author:     "summerxx"
 header-img: "img/post-bg-os-metro.jpg"
