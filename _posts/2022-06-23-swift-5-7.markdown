@@ -1,0 +1,192 @@
+---
+layout:     post
+title:      "swift5.7 new tips "
+subtitle:   "swift5.7 new tips "
+date:       2022-06-23 22:50:00
+author:     "summerxx"
+header-img: "img/post-bg-os-metro.jpg"
+tags:
+    - swift
+---
+
+这种简化的泛型语法确实意味着我们不再有能力为我们的类型添加更复杂的约束，因为合成的泛型参数没有特定的名称。
+
+**重要提示：** 你可以在显式泛型参数和这种新的更简单语法之间切换，而不会破坏 API。Swift5.7 新特性
+
+### 解包可选
+
+[swift-evolution-3405](https://github.com/apple/swift-evolution/blob/main/proposals/0345-if-let-shorthand.md) 可以将可选型展开为**同名**的阴影变量。以后我们可以像下面这样解包了
+
+```swift
+var name: String? = "summerxx"
+
+if let name {
+    print("Hello, \(name)!"
+}
+```
+
+对比之前的写法：
+
+```swift
+if let name = name {
+    print("Hello, \(name)!"
+}
+
+if let unwrappedName = name {
+    print("Hello, \(unwrappedName)!"
+}        
+```
+
+但是 这个变化并不适用于对象内的属性，所以像下面这样的代码无法通过编译：
+
+```swift
+struct User {
+    var name: String
+}
+
+let user: User? = User(name: "summerxx")
+
+if let user.name {
+    print("Welcome, \(user.name)!")
+}
+```
+
+[swift-evolution-0326](https://github.com/apple/swift-evolution/blob/main/proposals/0326-extending-multi-statement-closure-inference.md) 极大地提高了 Swift 对闭包使用参数和类型推断的能力，这意味着我们现在可以删除许多必须明确指定输入和输出类型的写法。
+
+之前 Swift 处理闭包的书写难免琐碎，但从 Swift 5.7 开始，我们可以编写如下简化的代码：
+
+```swift
+let scores = [100, 80, 85]
+
+let results = scores.map { score in
+    if score >= 85 {
+        return "\(score)%: Pass"
+    } else {
+        return "\(score)%: Fail"
+    }
+}
+```
+
+在 Swift 5.7 之前则必须像下面这样书写：
+
+```swift
+let oldResults = scores.map { score -> String in
+    if score >= 85 {
+        return "\(score)%: Pass"
+    } else {
+        return "\(score)%: Fail"
+    }
+}
+```
+
+### Clock, Instant, Durtions
+
+[swift-evolution-0329](https://github.com/apple/swift-evolution/blob/main/proposals/0329-clock-instant-duration.md) 为 Swift 引入了一种新的标准化方式来引用时间和持续时间。它可以拆解为三个主要部分：
+
+- `Clock` 代表了一种测量时间流逝的方式。有两个内置时钟：连续时钟在系统处于睡眠状态时也会保持时间递增，而挂起时钟则不会。
+- `Instant` 代表一个精确的瞬间。
+- Durations 表示两个 `Instant` 之间经过了多少时间。
+
+这个新特性对许多人来说来联想到的最直接的应用就是新升级的 `Task` API：它现在可以用比纳秒更合理的术语来指定休眠时长：
+
+```swift
+try await Task.sleep(until: .now +  .seconds(1), clock: .continuous)
+```
+
+这个新 API 还有一个好处是能够指定容差，使得系统在睡眠截止日期之后能够稍等片刻，以便最大限度地提高电源效率。所以，假如我们想 sleep 至少 1 秒，并且能接受它总共持续 1.5 秒，我们可以这样写：
+
+```swift
+try await Task.sleep(until: .now + .seconds(1), tolerance: .seconds(0.5), clock: .continuous)
+```
+
+时钟对于测量某些特定的工作也很有用。比如，我们想向用户展示文件导出过程花费了多长时间，可以使用时钟的
+
+```
+let clock = ContinuousClock()
+
+let time = clock.measure {
+    // complex work here
+}
+
+print("Took \(time.components.seconds) seconds")
+```
+
+#### 正则
+
+如果感兴趣正则相关的可以看这几个
+
+[swift-evolution-0350](https://github.com/apple/swift-evolution/blob/main/proposals/0350-regex-type-overview.md) 引入了新的 `Regex` 类型
+
+[swift-evolution-0351](https://github.com/apple/swift-evolution/blob/main/proposals/0351-regex-builder.md) 引入了一个用于创建正则表达式的 result builder 驱动的 DSL。
+
+[swift-evolution-0354](https://github.com/apple/swift-evolution/blob/main/proposals/0354-regex-literals.md) 引入了使用 `/.../` 而不单是 `Regex` 来共同创建正则表达式的方式。
+
+[swift-evolution-0357](https://github.com/apple/swift-evolution/blob/main/proposals/0357-regex-string-processing-algorithms.md) 添加了许多新的基于正则表达式的字符串处理算法。
+
+### 不透明参数声明
+
+[swift-evolution-0341](https://github.com/apple/swift-evolution/blob/main/proposals/0341-opaque-parameters.md) 可以在使用更简单泛型的地方对参数声明使用 `some` 的能力。
+
+举个例子，如果我们想编写一个检查数组是否排序的函数，Swift 5.7 及更高版本允许我们这样写：
+
+```
+func isSorted(array: [some Comparable]) -> Bool {
+    array == array.sorted()
+}
+```
+
+`[some Comparable]` 参数类型意味着此函数适用于包含某种类型的元素的数组，该类型遵循 `Comparable` 协议，这是等效通用代码的语法糖：
+
+```
+func isSortedOld<T: Comparable>(array: [T]) -> Bool {
+    array == array.sorted()
+}
+```
+
+当然，我们也可以写更长的约束扩展：
+
+```
+extension Array where Element: Comparable {
+    func isSorted() -> Bool {
+        self == self.sorted()
+    }
+}
+```
+
+这种简化的泛型语法确实意味着我们不再有能力为我们的类型添加更复杂的约束，因为合成的泛型参数没有特定的名称。
+
+**提示：** 你可以在显式泛型参数和这种新的更简单语法之间切换，而不会破坏 API。
+
+### 结构化的不透明结果类型
+
+[swift-evolution-0328](https://github.com/apple/swift-evolution/blob/main/proposals/0328-structural-opaque-result-types.md)  拓宽了不透明结果类型可以使用的范围。
+
+例如，我们现在可以一次返回多个不透明类型：
+
+```
+func showUserDetails() -> (some Equatable, some Equatable) {
+    (Text("Username"), Text("@twostraws"))
+}
+```
+
+我们还可以返回不透明类型数组：
+
+```
+func createUser() -> [some View] {
+    let usernames = ["@frankefoster", "@mikaela__caron", "@museumshuffle"]
+    return usernames.map(Text.init)
+}
+```
+
+甚至返回一个在调用时本身返回不透明类型的函数：
+
+```
+func createDiceRoll() -> () -> some View {
+    return {
+        let diceRoll = Int.random(in: 1...6)
+        return Text(String(diceRoll))
+    }
+}
+```
+
+以上.
