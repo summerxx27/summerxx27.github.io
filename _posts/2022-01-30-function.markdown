@@ -1,0 +1,216 @@
+---
+layout:     post
+title:      "Swift高阶函数-Map、Filter、Reduce"
+Subtitle:   "Swift function of higher order (Map、Filter、Reduce) "
+date:       2022-01-30 18:50:00
+author:     "summerxx"
+header-img: "img/post-bg-os-metro.jpg"
+tags:
+    - swift
+---
+
+map：对给定数组每个元素，执行闭包中的映射，将映射结果放置在数组中返回。
+
+flatMap：对给定数组的每个元素，执行闭包中的映射，对映射结果进行`合并操作，`然后将合并操作后的结果放置在数组中返回。
+
+compactMap：对给定数组的每个元素，执行闭包中的映射，将`非空的`映射结果放置在数组中返回。
+
+compactMap对给定数组的每个元素，执行闭包中的映射，将`非空的`映射结果-键值对放置在字典中返回。
+
+filter：对给定数组的每个元素，执行闭包中的操作，将`符合条件的元素`放在数组中返回。
+
+reduce：对给定数组的每个元素，执行闭包中的操作对元素进行`合并`，并将合并结果返回。
+
+
+
+下面通过使用示例来了解下.
+
+#### map
+
+对于 map 函数，使用场景就是将数组的类型映射为别的类型。比如，我们有一个模型数组，模型的 id 字段我们从服务器拿的是 String 类型，在某种场景下我们需要转为 Int 类型，这时候我们就可以通过 map 函数来实现该需求。
+
+```
+struct Student {
+    let id: String
+    let name: String
+    let age: Int
+}
+
+let stu1 = Student(id: "1001", name: "stu1", age: 12)
+let stu2 = Student(id: "1002", name: "stu2", age: 14)
+let stu3 = Student(id: "1003", name: "stu3", age: 16)
+let stu4 = Student(id: "1004", name: "stu4", age: 20)
+let stus = [stu1, stu2, stu3, stu4]
+
+let intIds = stus.map { (stu) in
+    Int(stu.id)
+}
+
+print(intIds) //[Optional(1001), Optional(1002), Optional(1003), Optional(1004)]
+```
+
+通过上述代码，我们将 id 字段从 String 映射为了 Int? 类型，这并不是我们想要的 Int 类型。如果我们需要访问元素的话还得需要解包，那么我们如何既能将元素映射又能自动筛选 nil 的值呢？这时，我们可以使用 compactmap 。
+
+
+
+注 : `optional 也可以使用map函数`
+
+
+
+```
+var num: Int? = 2
+let result = num.map {
+    $0 * 2
+}
+
+print(result) // Optional(4)
+
+// ----而不是使用下面的代码
+var result: Int?
+
+if let n = num {
+    result = n * 2
+} else {
+    result = nil
+}
+
+```
+
+
+
+#### compactMap
+
+我们将上面的代码替换为: 
+
+```
+let intIds = stus.compactMap { (stu) in
+    Int(stu.id)
+}
+```
+
+
+
+这时，我们再打印 intIds 就会发现它已经为 Int 类型了。
+
+
+
+#### compactMapValues
+
+对于 Set 和 Array ，你可以使用 compactMap 来获得非空的集合，但是对于 Dictionary 来说，这个函数是不起作用的。
+
+```
+let dict = ["key1": 10, "key2": nil]
+let result = dict.compactMap { $0 }
+print(result) //[(key: "key1", value: Optional(10)), (key: "key2", value: nil)]
+```
+
+
+
+这时候，我们需要使用 compactMapValues 函数来获得非空的字典。
+
+```
+let dict = ["key1": 10, "key2": nil]
+let result = dict.compactMapValues { $0 }
+print(result) //["key1": 10]
+```
+
+
+
+#### flatMap
+
+对于 flatMap，主要的应用场景就是你想获得一个单层集合的数组。通过下面的代码来看一下 map 和 flapMap 的区别。
+
+```
+let scoresByName = ["Henk": [0, 5, 8], "John": [2, 5, 8]]
+
+let mapped = scoresByName.map { $0.value }
+// [[2, 5, 8], [0, 5, 8]]
+print(mapped)
+
+let flatMapped = scoresByName.flatMap { $0.value }
+// [2, 5, 8, 0, 5, 8]
+
+```
+
+
+
+map 会直接将元素放在数组中，而 flatMap 会将元素平铺在一个数组中。实际上，`s.flatMap(transform)` 等同于`s.map(transform).joined()`。
+
+
+
+#### filter
+
+这个函数就如同单词的意思：查找。将符合条件的元素查找出来放置在数组中返回。比如我们想查找年龄大于18岁的所有学生。
+
+```
+let adults = stus.filter { (stu) -> Bool in
+    stu.age >= 18
+}
+
+print(adults) // 数组中只包含stu4 学生
+```
+
+
+
+#### reduce
+
+对于 reduce，我们的使用场景就是对数组中的元素进行组合运算，比如我们想计算所有学生的年龄加载一起是多少。
+
+```
+let totalAges = stus.reduce(0) { (result, stu) in
+    return result + stu.age
+}
+
+print(totalAges) // 62
+
+```
+
+该函数的第一个参数为初始值，后面元组中的第一个参数为每次计算的结果，第二个参数为每次遍历的元素。最后将计算的结果返回。
+
+
+
+#### 组合使用
+
+对于使用高阶函数最大的好处就是可以进行函数式编程了。下面我们通过几个小栗子来对这几个高阶函数进行组合使用。
+
+
+
+#### 将 String 类型映射为 Int 类型，并查找id大于1002的所有学生
+
+```
+let adults = stus.compactMap { (stu) in
+    Int(stu.id)
+    }.filter { (id) -> Bool in
+        id > 1002
+}
+
+print(adults) //[1003, 1004]
+
+```
+
+#### 计算年龄大于12的所有学生年龄总和
+
+```
+let totalAge = stus.filter { (stu) -> Bool in
+    stu.age > 12
+    }.reduce(0) { (result, stu) in
+        return result + stu.age
+}
+
+print(totalAge) // 50
+```
+
+
+
+#### 总结
+
+1. 使用函数式编程不仅能减少代码的行数，还可使用链式结构构建复杂的逻辑。
+
+2. 当你需要映射一个数组，并且不需要改变返回数组的层级结构的时候，使用 map ，反之，则使用 flatMap 。
+
+3. 当返回数组中的值必须非空的时候，使用 compactMap ；当返回字典中的键值对中的value 必须为非空的时候，使用 compactMapValues 。
+
+4. 当你需要查询的时候，使用 filter 。
+
+5. 当你需要将数组进行某种计算并返回一个值得时候，使用 reduce 。
+
