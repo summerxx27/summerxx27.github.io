@@ -161,7 +161,7 @@ Network.request(url) { | data |
 }
 ```
 
-
+Ruby 环境配置 请看这篇 [https://www.jianshu.com/p/0f5a7a8293f5](https://www.jianshu.com/p/0f5a7a8293f5)
 
 Demo
 
