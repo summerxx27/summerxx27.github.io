@@ -44,13 +44,11 @@ tags: [iOS]
 
 步骤:  File -> new -> Target
 
-![截屏2023-01-06 17.39.39](https://upload-images.jianshu.io/upload_images/1506501-2663cc0a4d46baa3.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240)
+![截屏2023-01-18 15.20.04](https://p.ipic.vip/oqyjt8.png)
 
 创建好之后生成 一个扩展 App, 自动生成如图的一个 sampleHandr类, sampleHandr用来持续采集视频,音频帧数据
 
-![截屏2023-01-06 17.41.55](https://upload-images.jianshu.io/upload_images/1506501-d349a0580ca27de3.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240)
-
-
+![截屏2023-01-18 15.20.38](https://p.ipic.vip/1an9fj.png)
 
 - broadcastStartedWithSetupInfo  宿主 app开始直播屏幕的时候这里会走一次
 
@@ -106,14 +104,10 @@ tags: [iOS]
 
 ### 3.  FIAgoraSampleHandlerSocketManager 关于数据传输的类 都放到一个framework 当中所以首先创建一个 framwork
 
-- 步骤:  File -> new -> Target 创建 framework, 如图 1
+- 步骤:  File -> new -> Target 创建 framework
 - 创建好之后在宿主 app 和 extension 分别引用, 如图 2
 
-
-
-![截屏2023-01-06 17.46.46](https://upload-images.jianshu.io/upload_images/1506501-d314a5443e4c0c6d.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240)
-
-![1672998592654](https://upload-images.jianshu.io/upload_images/1506501-800aed242f5fd0d5.jpg?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240)
+![截屏2023-01-18 15.21.09](https://p.ipic.vip/ws6bnl.png)
 
 ### 4. 宿主 App 
 
@@ -153,7 +147,7 @@ tags: [iOS]
 
 #### 4.2 永久保活, 这里采用的是持续播放音频
 
-![截屏2023-01-06 17.57.10](https://upload-images.jianshu.io/upload_images/1506501-be8b3f5c96694f39.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240)
+![截屏2023-01-18 15.19.03](https://p.ipic.vip/nv1gbl.png)
 
 ```objective-c
 // 监听
