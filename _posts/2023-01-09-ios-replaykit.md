@@ -16,9 +16,9 @@ tags: [iOS]
 
 1. 从扩展 app 向宿主 app 传输视频帧数据有两种方式
 
-采用 socket进行进程间Broadcast Unload Extension 向 宿主 app 传输数据
-
-采用 App Group 
+> 采用 socket进行进程间Broadcast Unload Extension 向 宿主 app 传输数据
+>
+> 采用 App Group 
 
 2. 需要后台保活持续采集屏幕数据
 3. 在宿主 App 进行视频数据编码
@@ -52,7 +52,7 @@ tags: [iOS]
 
 - broadcastStartedWithSetupInfo  宿主 app开始直播屏幕的时候这里会走一次
 
-- processSampleBuffer 这个方法会实时回到
+- processSampleBuffer 这个方法会实时回调
 
   
 
@@ -102,7 +102,9 @@ tags: [iOS]
 
 ```
 
-### 3.  FIAgoraSampleHandlerSocketManager 关于数据传输的类 都放到一个framework 当中所以首先创建一个 framwork
+### 3.  创建一个 framwork
+
+> FIAgoraSampleHandlerSocketManager 关于数据传输的类 都放到一个framework 当中, 然后引进项目内
 
 - 步骤:  File -> new -> Target 创建 framework
 - 创建好之后在宿主 app 和 extension 分别引用, 如图 2
@@ -111,10 +113,10 @@ tags: [iOS]
 
 ### 4. 宿主 App 
 
-- 手动启动直播, UI 是固定样式的所以需要一些操作改变系统 UI 样式
-- 需要永久保活, 这里之前我的理解是开启直播, 系统会自动完成app保活, 但是我的直播总是莫名的中断, 所以这个暂时我这边来看是必须得
+- 手动启动直播, UI 是固定样式的所以需要一些方法改变系统 UI 样式
+- 需要永久保活, 这里之前我的理解是开启直播, 系统会自动完成app保活, 但是我的直播总是莫名的中断, 所以这个暂时我这边来看是必须的
 - socket block 监测数据回调
-- 编码, 由于视频数据其实简单来说是有很多多余数据在的, 需要进行压缩, 裁剪等, 使视频再不丢帧的情况下传输, 就叫做编码, 一般编码的为 H264 数据
+- 编码, 由于视频数据其实简单来说是有很多多余数据在的, 需要进行压缩, 裁剪等, 使视频在不丢帧的情况下以最小的单位进行传输, 就叫做编码, 一般编码的为 H264 数据
 - 编码后的数据进行推流
 
 #### 4.1 初始化开启直播的按钮
@@ -289,7 +291,6 @@ tags: [iOS]
             return;
         }
 
-#warning 不需要解码, 屏幕共享的数据, 编码的同时解码, 内存会暴涨, 这个只用来测试画面
         __weak typeof(self) weakSelf = self;
         [self.h264code encodeSampleBuffer:sampleBuffer H264DataBlock:^(NSData * data) {
             NSLog(@"%@", data);
@@ -309,7 +310,7 @@ tags: [iOS]
 
 总结: 
 
-以上就是 App Group 数据传输的方式了, 这两种方式我写了 2 个 Demo, Demo 还包含的解码, 摄像头采集, 渲染等进行了编解码的测试
+以上就是 App Group 数据传输的方式了, 这两种方式我写了 2 个 Demo, Demo 还包含的解码, 摄像头采集, openGl ES渲染等
 
 其中查了很多资料, 相关链接会放到最后供大家查看
 
