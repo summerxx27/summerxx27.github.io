@@ -165,4 +165,4 @@ Ruby 环境配置 请看这篇 [https://www.jianshu.com/p/0f5a7a8293f5](https://
 
 Demo
 
-[https://github.com/summerxx27/deriveGithubDataToExcel](https://github.com/summerxx27/deriveGithubDataToExcel)
+[https://github.com/summerxx27/XTDeriveGithubDataToExcel](https://github.com/summerxx27/XTDeriveGithubDataToExcel)
