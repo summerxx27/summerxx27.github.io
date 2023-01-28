@@ -24,11 +24,11 @@ tags: [flutter]
 
 
 
-1. 在项目内创建一个 flutter 模块
+#### 1. 在项目内创建一个 flutter 模块
 
 > flutter create --template module flutter_module
 
-2. 新建一个 Podfile, 然后进行编写
+#### 2. 新建一个 Podfile, 然后进行编写
 
 ```
 platform :ios, '11.0'
@@ -49,21 +49,21 @@ post_install do |installer|
 end
 ```
 
-3. 执行
+安装
 
 ```
 pod install  
 ```
 
-4. 之后安装会产生一个 error
+#### 3. 安装会产生一个 error
 
 ![截屏2023-01-28 17.21.38](https://p.ipic.vip/lcevet.png)
 
-5. 修改 Xcode 配置, 右侧, 修改 Project Format 为 Xcode13.0
+#### 4. 修改 Xcode 配置, 右侧, 修改 Project Format 为 Xcode13.0
 
 ![截屏2023-01-28 17.05.32](https://p.ipic.vip/6xy9vx.png)
 
-6 之后重新安装 pod, 就会在项目里面成功引用了 flutter 相关的包, 如下图所示
+#### 5. 之后重新安装 pod, 就会在项目里面成功引用了 flutter 相关的包, 如下图所示
 
 
 
@@ -71,61 +71,61 @@ pod install
 
 
 
-7. 写一个测试代码进行简单测试
+#### 6. 写一个测试代码进行简单测试
 
-   ```objective-c
-   //
-   //  ViewController.m
-   //  ios_flutter_demo
-   //
-   //  Created by summerxx on 2023/1/28.
-   //
-   
-   #import "ViewController.h"
-   #import <Masonry/Masonry.h>
-   #import <ReactiveObjC/ReactiveObjC.h>
-   #import <Flutter/Flutter.h>
-   
-   @interface ViewController ()
-   
-   @end
-   
-   @implementation ViewController
-   
-   - (void)viewDidLoad
-   {
-       [super viewDidLoad];
-       // Do any additional setup after loading the view.
-       [self setupViews];
-   }
-   
-   - (void)setupViews
-   {
-       UIButton *test = [UIButton buttonWithType:UIButtonTypeCustom];
-       test.backgroundColor = UIColor.blueColor;
-       [test setTitle:@"Test Flutter" forState:UIControlStateNormal];
-       [self.view addSubview:test];
-   
-       [test mas_makeConstraints:^(MASConstraintMaker *make) {
-           make.left.right.mas_equalTo(0);
-           make.top.mas_equalTo(100);
-           make.height.mas_equalTo(50);
-       }];
-   
-       [[test rac_signalForControlEvents:UIControlEventTouchUpInside] subscribeNext:^(__kindof UIControl * _Nullable x) {
-           NSLog(@"按钮被点击了");
-   
-           FlutterViewController *vc = [[FlutterViewController alloc] init];
-           [self presentViewController:vc animated:YES completion:nil];
-       }];
-   }
-   @end
-    
-   ```
+```objective-c
+//
+//  ViewController.m
+//  ios_flutter_demo
+//
+//  Created by summerxx on 2023/1/28.
+//
 
-8. 成功推出一个新的 flutter 页面
+#import "ViewController.h"
+#import <Masonry/Masonry.h>
+#import <ReactiveObjC/ReactiveObjC.h>
+#import <Flutter/Flutter.h>
 
-   <img src="https://p.ipic.vip/myq7c3.png" alt="Simulator Screen Shot - iPhone 14 Pro - 2023-01-28 at 17.41.28" style="zoom:25%;" />
+@interface ViewController ()
+
+@end
+
+@implementation ViewController
+
+- (void)viewDidLoad
+{
+    [super viewDidLoad];
+    // Do any additional setup after loading the view.
+    [self setupViews];
+}
+
+- (void)setupViews
+{
+    UIButton *test = [UIButton buttonWithType:UIButtonTypeCustom];
+    test.backgroundColor = UIColor.blueColor;
+    [test setTitle:@"Test Flutter" forState:UIControlStateNormal];
+    [self.view addSubview:test];
+
+    [test mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.left.right.mas_equalTo(0);
+        make.top.mas_equalTo(100);
+        make.height.mas_equalTo(50);
+    }];
+
+    [[test rac_signalForControlEvents:UIControlEventTouchUpInside] subscribeNext:^(__kindof UIControl * _Nullable x) {
+        NSLog(@"按钮被点击了");
+
+        FlutterViewController *vc = [[FlutterViewController alloc] init];
+        [self presentViewController:vc animated:YES completion:nil];
+    }];
+}
+@end
+ 
+```
+
+#### 7. 成功推出一个新的 flutter 页面
+
+<img src="https://p.ipic.vip/myq7c3.png" alt="Simulator Screen Shot - iPhone 14 Pro - 2023-01-28 at 17.41.28" style="zoom:25%;" />
 
 
 
