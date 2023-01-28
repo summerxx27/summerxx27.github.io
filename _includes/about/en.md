@@ -10,5 +10,3 @@ This blog is new, many articles have not been moved, more technical articles are
 
 [CSDN](https://blog.csdn.net/sinat_30162391)
 
-Now I live in Hangzhou, but I haven't done anything yet [laughs].
-
