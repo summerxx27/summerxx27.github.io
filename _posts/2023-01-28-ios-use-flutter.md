@@ -8,7 +8,7 @@ header-img: "img/post-bg-2015.jpg"
 tags: [flutter]
 ---
 
-前言: 上篇我讲了下 flutter 环境在 MacOs 下搭建, 今天写下如何在一个成熟的 iOS 项目内引用 flutter
+前言: 上篇我讲了下 flutter 环境在 MacOs 下搭建, 今天写下如何在一个成熟的 iOS 项目内引用 flutter, Demo 会放到文章最后哈
 
 上篇 : [MacOS 下配置flutter 环境](https://www.jianshu.com/p/7e459cfd1545)
 
@@ -139,3 +139,6 @@ pod install
 
 https://blog.csdn.net/jdd92/article/details/121938342
 
+Demo:
+
+[https://github.com/summerxx27/flutter_ios_demo](https://github.com/summerxx27/flutter_ios_demo)
