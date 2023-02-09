@@ -1,6 +1,6 @@
 ---
 layout: post
-title: "Swift 直播中状态动画"
+title: "iOS 动画 Swift实现直播中状态动画"
 subtitle: "living animation for swift"
 date: 2023-02-08
 author: "summerxx"
