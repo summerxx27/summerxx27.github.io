@@ -20,7 +20,7 @@ tags: [flutter]
 - wrap/flow 布局的简单演示
 - 数据请求以及简单解析
 
-| -                                                            | -                                                            |
+| - UI                                                         | - 数据演示                                                   |
 | ------------------------------------------------------------ | ------------------------------------------------------------ |
 | <img src="https://p.ipic.vip/w2q3oz.png" alt="Simulator Screen Shot - iPhone 14 Pro - 2023-02-14 at 15.25.56" style="zoom: 25%;" /> | <img src="https://p.ipic.vip/h0t7e7.png" alt="Simulator Screen Shot - iPhone 14 Pro - 2023-02-14 at 15.25.46" style="zoom:33%;" /> |
 
