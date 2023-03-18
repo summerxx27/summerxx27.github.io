@@ -90,8 +90,6 @@ xib本地化之后，会生成它对应语言的strings文件，如下图所示
 
 主要是基于tableName的分模块
 
-![img](https://beeto.feishu.cn/space/api/box/stream/download/asynccode/?code=MWUxNzE3YmU0ZjY3ZjE1ZmZmZmZlMzcyN2FkNDk0NjVfTW5YU2c0eUJ2bHdrUFczUVBVdktHYUZBdEE1QW13VlVfVG9rZW46Ym94Y25aeEZOYUVFVXpCZ21LZklyNGFoT0ZlXzE2Nzg5NzMwMTE6MTY3ODk3NjYxMV9WNA)
-
 在开始创建一个Strings File类型的文件 Localizable时，我们可以另命名为自定义的模块名字，设置多语言时key不变，通过table表来区分
 
 ### xib和sb多人协作，多语言的更新的问题
